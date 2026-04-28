@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+---
+<BaseLayout
+  title="Apartment Resident Detailing Program"
+  description="Mobile detailing subscription for apartment residents in Pasco County and North Hillsborough. $30/month per resident. Property managers: add value to your amenity package."
+>
+  <section class="noise-overlay bg-bay-navy py-24 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Property Programs</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        Resident Detailing Program.
+      </h1>
+      <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-xl">
+        A $30/month subscription per enrolled resident. Mobile service runs on-property
+        on a set schedule. Residents get consistent, professional detailing — property
+        managers get a differentiated amenity without operational overhead.
+      </p>
+      <Button href="/fleet#inquiry" variant="primary" class="text-base px-8 py-3.5">
+        Inquire About Property Program
+      </Button>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">For property managers</h2>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              'Add a premium amenity at no cost to the property',
+              'Residents enroll and pay directly — no billing overhead',
+              'Scheduled visits run on-property without coordination',
+              'Certificate of insurance on file',
+              'Builds lease retention through tangible resident value',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">For residents</h2>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              '$30/month — one vehicle, recurring maintenance wash',
+              'No drop-off: done in your parking spot',
+              'Same technician each cycle',
+              'Cancel anytime — no contract',
+              'Upgrade to full detail at resident rate when needed',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

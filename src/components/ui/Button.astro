@@ -1,0 +1,52 @@
+---
+// Primary: gold background, specular sweep on hover.
+// Secondary: transparent with gold border.
+// Text: no border, gold text only.
+interface Props {
+  variant?: 'primary' | 'secondary' | 'text';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  disabled?: boolean;
+  'aria-label'?: string;
+}
+
+const {
+  variant = 'primary',
+  href,
+  type = 'button',
+  class: className = '',
+  disabled,
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-display font-semibold text-sm tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy';
+
+const variants: Record<string, string> = {
+  primary:
+    'btn-sweep gloss-cap bg-bay-gold text-bay-navy px-6 py-3 rounded-sm hover:bg-[#d9bc79]',
+  secondary:
+    'border border-bay-gold/60 text-bay-gold px-6 py-3 rounded-sm hover:border-bay-gold hover:bg-bay-gold/5',
+  text:
+    'text-bay-gold underline-offset-4 hover:underline p-0',
+};
+---
+{href ? (
+  <a
+    href={href}
+    class={`${base} ${variants[variant]} ${className}`}
+    aria-label={ariaLabel}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={`${base} ${variants[variant]} ${className}`}
+    disabled={disabled}
+    aria-label={ariaLabel}
+  >
+    <slot />
+  </button>
+)}

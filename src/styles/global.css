@@ -1,0 +1,463 @@
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/inter-tight/wght.css';
+@import '@fontsource-variable/source-serif-4/wght.css';
+@import '@fontsource-variable/source-serif-4/wght-italic.css';
+
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — locked. */
+  --color-bay-navy: #0F1B2D;
+  --color-bay-deep: #0A1220;
+  --color-bay-gold: #C9A961;
+  --color-bay-bone: #F5F2EC;
+  --color-bay-slate: #7A8294;
+  --color-bay-white: #FFFFFF;
+
+  /* Extended tokens for blog / field guide */
+  --color-bay-paper: #F8F4ED;
+  --color-bay-ink: #1A1410;
+
+  /* Typography */
+  --font-family-sans: 'Inter Variable', 'Inter', ui-sans-serif, sans-serif;
+  --font-family-display: 'Inter Tight Variable', 'Inter Tight', ui-sans-serif, sans-serif;
+  --font-family-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
+}
+
+/* ─── Base ─────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bay-navy);
+  color: var(--color-bay-bone);
+  font-family: var(--font-family-sans);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+/* Ambient warm glow — drifts slowly across dark pages */
+body::before {
+  content: '';
+  position: fixed;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 169, 97, 0.07) 0%, transparent 68%);
+  top: -320px;
+  right: -280px;
+  animation: ambient-drift 40s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Global film grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/noise.svg');
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+@keyframes ambient-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(-5%, 4%) scale(1.05); }
+  50%  { transform: translate(3%, -6%) scale(0.96); }
+  75%  { transform: translate(-4%, -3%) scale(1.03); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Suppress ambient glow on light-background pages */
+.blog-body::before,
+.paper-body::before {
+  display: none;
+}
+
+/* Remove default margin on headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--color-bay-white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ─── Focus rings ───────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-bay-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Scroll reveal ─────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Section bevel (ridge/gloss system) ────────────────────── */
+
+.section-bevel {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.04),
+    0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Stacked divider (not a flat line) ─────────────────────── */
+
+.divider {
+  border: none;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+
+/* ─── Noise overlay for dark sections ───────────────────────── */
+
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/noise.svg');
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noise-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Primary CTA specular sweep ────────────────────────────── */
+
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 75%
+  );
+  transform: translateX(-150%);
+  transition: none;
+}
+
+.btn-sweep:hover::after {
+  transform: translateX(150%);
+  transition: transform 600ms ease-out;
+}
+
+/* ─── Card/CTA gloss cap ────────────────────────────────────── */
+
+.gloss-cap {
+  position: relative;
+}
+
+.gloss-cap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* ─── Photo placeholder ─────────────────────────────────────── */
+
+.photo-placeholder {
+  background: rgba(122, 130, 148, 0.08);
+  border: 1px dashed rgba(122, 130, 148, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ─── Section-fade transition (200px gradient between sections) ─ */
+
+.section-fade-top {
+  position: relative;
+}
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, var(--color-bay-deep), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Blog / zine zone ──────────────────────────────────────── */
+
+.blog-body {
+  background-color: var(--color-bay-paper);
+  color: var(--color-bay-ink);
+}
+
+.blog-body h1,
+.blog-body h2,
+.blog-body h3,
+.blog-body h4 {
+  color: var(--color-bay-navy);
+  font-family: var(--font-family-display);
+}
+
+/* Paper vignette */
+.blog-body::after {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(26, 20, 16, 0.06) 100%);
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* ─── Blog prose typography (applied to .blog-prose container) ── */
+
+.blog-prose {
+  font-family: var(--font-family-serif);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-bay-ink);
+  font-feature-settings: 'kern' 1, 'liga' 1, 'onum' 1;
+}
+
+.blog-prose > p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.2rem;
+  line-height: 0.78;
+  margin-right: 0.08em;
+  margin-top: 0.06em;
+  font-family: var(--font-family-serif);
+  font-weight: 700;
+  color: var(--color-bay-navy);
+}
+
+.blog-prose h2 {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  color: var(--color-bay-navy);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.blog-prose h3 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--color-bay-navy);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-prose p {
+  margin-bottom: 1.2em;
+  color: var(--color-bay-ink);
+}
+
+.blog-prose strong {
+  font-weight: 700;
+  color: var(--color-bay-navy);
+}
+
+.blog-prose em {
+  font-style: italic;
+}
+
+.blog-prose a {
+  color: var(--color-bay-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(201, 169, 97, 0.6);
+  transition: text-decoration-color 200ms;
+}
+.blog-prose a:hover {
+  text-decoration-color: var(--color-bay-gold);
+}
+
+.blog-prose ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.2em;
+}
+.blog-prose ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.4em;
+  color: var(--color-bay-ink);
+}
+.blog-prose ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--color-bay-gold);
+  font-weight: 700;
+}
+
+.blog-prose blockquote {
+  border-left: 2px solid var(--color-bay-gold);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: rgba(26, 20, 16, 0.7);
+}
+
+.blog-prose code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  background: rgba(15, 27, 45, 0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+}
+
+.blog-prose pre {
+  background: var(--color-bay-navy);
+  color: var(--color-bay-bone);
+  padding: 1.5rem;
+  border-radius: 2px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.blog-prose pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.8rem;
+}
+
+/* ─── Field Note callout (MDX component) ───────────────────── */
+
+.field-note {
+  background: rgba(201, 169, 97, 0.07);
+  border-left: 2px solid var(--color-bay-gold);
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
+  border-radius: 0 2px 2px 0;
+}
+.field-note-label {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-bay-gold);
+  margin-bottom: 0.4rem;
+}
+.field-note p {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-size: 0.9rem;
+  color: var(--color-bay-ink);
+  line-height: 1.6;
+}
+
+/* ─── Blog ledger card (index page list items) ──────────────── */
+
+.ledger-card {
+  border-top: 1px solid rgba(26, 20, 16, 0.1);
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+.ledger-card:last-child {
+  border-bottom: 1px solid rgba(26, 20, 16, 0.1);
+}
+
+/* ─── 3D book container (FieldGuideBook island) ─────────────── */
+
+.book-perspective {
+  perspective: 1200px;
+}
+
+.book-page {
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 650ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  position: relative;
+}
+
+.book-page.page-open {
+  transform: rotateY(-180deg);
+}
+
+.book-page-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.book-page-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ─── Scroll-driven reveal init (JS attached) ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  body::before {
+    animation: none;
+  }
+  .book-page {
+    transition: none;
+  }
+}

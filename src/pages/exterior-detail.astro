@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
+---
+<BaseLayout
+  title="Exterior Detail"
+  description="Exterior-only detailing with full decontamination, synthetic clay bar, and polymer sealant. Mobile service in Pasco County and North Hillsborough."
+>
+  <section class="noise-overlay bg-bay-navy py-24 px-4">
+    <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Exterior</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+          Exterior Detail.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8">
+          Full decontamination, synthetic clay, and polymer sealant. The exterior-only
+          service for vehicles that don't need interior work. Protection that holds for months.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Exterior Detail
+        </Button>
+      </div>
+      <div class="reveal">
+        <PhotoPlaceholder
+          description="Exterior detail — paint surface close-up showing depth and sealant shine"
+          aspectRatio="4/3"
+          class="rounded-sm"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-8 reveal">What's included</h2>
+      <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {[
+          'Iron decontamination',
+          'Synthetic clay bar — full surface',
+          'Two-stage hand wash',
+          'Wheel faces, wells, calipers',
+          'Exterior glass',
+          'Tar and adhesive removal',
+          'Polymer paint sealant',
+          'Tire dressing (satin finish)',
+          'Door jambs and fuel door',
+        ].map(item => (
+          <div class="flex gap-3 text-bay-slate text-sm">
+            <span class="text-bay-gold flex-shrink-0" aria-hidden="true">—</span>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="reveal mt-12 border-l-2 border-bay-gold pl-6">
+        <p class="text-bay-bone text-sm leading-relaxed">
+          The exterior service uses the same decontamination sequence as the full detail.
+          This isn't a glorified car wash — it's a chemically and mechanically correct
+          cleaning process that ends with lasting protection.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-xl text-center">
+      <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">Book Now</Button>
+      <p class="text-bay-slate text-sm mt-4">Mobile. No drop-off needed.</p>
+    </div>
+  </section>
+</BaseLayout>

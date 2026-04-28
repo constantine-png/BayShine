@@ -1,0 +1,120 @@
+---
+export const prerender = false;
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+
+const isPreview = Astro.cookies.get('bayshine-preview')?.value === '1';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter(p => isPreview || !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categories = ['Car Care', 'Boat & Marine', 'Fleet Tips', 'Local'] as const;
+
+function formatDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+<BaseLayout
+  title="Field Notes"
+  description="Practical detailing technique, product notes, and field observations from Bay Shine. Written for technicians and owners who want to understand what's actually happening to their vehicle."
+  bodyClass="blog-body"
+>
+  <!-- Header -->
+  <section class="bg-bay-paper py-20 px-4 border-b border-bay-ink/10">
+    <div class="container mx-auto max-w-4xl">
+      <p class="font-display text-xs font-bold uppercase tracking-widest text-bay-gold mb-4">Bay Shine Detailing</p>
+      <h1 class="font-display font-bold text-5xl sm:text-6xl text-bay-navy mb-4 leading-[1.05] tracking-tight">
+        Field Notes.
+      </h1>
+      <p class="font-serif text-bay-ink/70 text-lg max-w-lg leading-relaxed">
+        Technique, chemistry, and field observations. Written for technicians and
+        owners who want to understand what's actually happening to their vehicle.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category nav — sticky -->
+  <nav
+    class="bg-bay-paper/95 backdrop-blur-sm px-4 py-3 border-b border-bay-ink/10 sticky top-16 z-30"
+    aria-label="Blog categories"
+  >
+    <div class="container mx-auto max-w-4xl flex flex-wrap gap-x-6 gap-y-1 text-sm">
+      <span class="font-semibold text-bay-navy border-b-2 border-bay-gold pb-0.5">All</span>
+      {categories.map(cat => (
+        <a
+          href={`/blog?category=${encodeURIComponent(cat)}`}
+          class="text-bay-ink/50 hover:text-bay-navy transition-colors font-display"
+        >
+          {cat}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  {isPreview && (
+    <div class="bg-bay-gold/20 border-b border-bay-gold/40 px-4 py-2">
+      <p class="container mx-auto max-w-4xl text-xs text-bay-navy font-semibold">
+        Preview mode active — draft posts visible.
+        <a href="/api/preview?clear=1" class="underline ml-2">Exit preview</a>
+      </p>
+    </div>
+  )}
+
+  <!-- Posts -->
+  <section class="bg-bay-paper py-16 px-4 min-h-screen">
+    <div class="container mx-auto max-w-4xl">
+      {posts.length === 0 ? (
+        <p class="font-serif text-bay-ink/60 text-lg">Posts coming soon.</p>
+      ) : (
+        <div>
+          {posts.map((post, i) => (
+            <article class={`ledger-card group ${i === 0 ? 'border-t-0 pt-0' : ''}`}>
+              <a
+                href={`/blog/${post.slug}`}
+                class="flex flex-col sm:flex-row sm:items-baseline sm:gap-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+              >
+                <!-- Date column -->
+                <div class="sm:w-36 shrink-0 mb-1 sm:mb-0">
+                  <time
+                    datetime={post.data.pubDate.toISOString()}
+                    class="font-display text-xs text-bay-ink/40 uppercase tracking-wider"
+                  >
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-3 mb-1">
+                    <span class="font-display text-[10px] font-bold uppercase tracking-widest text-bay-gold">
+                      {post.data.category}
+                    </span>
+                    {post.data.draft && (
+                      <span class="font-display text-[10px] font-bold uppercase tracking-widest text-orange-500 bg-orange-100 px-1.5 py-0.5 rounded-sm">
+                        Draft
+                      </span>
+                    )}
+                  </div>
+                  <h2 class="font-display font-bold text-xl text-bay-navy leading-snug group-hover:text-bay-gold transition-colors mb-1">
+                    {post.data.title}
+                  </h2>
+                  <p class="font-serif text-bay-ink/60 text-sm leading-relaxed line-clamp-2">
+                    {post.data.description}
+                  </p>
+                </div>
+
+                <!-- Read time -->
+                <div class="sm:w-20 shrink-0 text-right mt-2 sm:mt-0">
+                  <span class="font-display text-xs text-bay-ink/35">{post.data.readTime} min</span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

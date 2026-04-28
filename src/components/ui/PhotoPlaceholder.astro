@@ -1,0 +1,36 @@
+---
+// Placeholder for real photography. Replace with <Image> when shots are ready.
+// data-photo-needed attribute helps grep for all pending slots.
+interface Props {
+  description: string;
+  aspectRatio?: string;
+  class?: string;
+}
+
+const { description, aspectRatio = '16/9', class: className = '' } = Astro.props;
+---
+<div
+  class={`photo-placeholder ${className}`}
+  style={`aspect-ratio: ${aspectRatio}`}
+  data-photo-needed={description}
+  role="img"
+  aria-label={`Photo needed: ${description}`}
+>
+  <div class="flex flex-col items-center justify-center gap-2 text-bay-slate text-center px-4">
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+      <circle cx="12" cy="13" r="4"/>
+    </svg>
+    <span class="text-xs font-mono leading-tight max-w-48 opacity-70">{description}</span>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+---
+<BaseLayout
+  title="Lot Maintenance Wash Program"
+  description="Mobile lot wash for car dealerships in Pasco County and North Hillsborough. Per-unit pricing starting at $1.10/vehicle. 30-unit minimum. Standing schedule."
+>
+  <section class="noise-overlay bg-bay-navy py-24 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet Program</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        Lot Maintenance Wash.
+      </h1>
+      <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-xl">
+        Standing wash schedule for dealerships and lot managers. Per-unit pricing, no
+        per-visit coordination calls, monthly invoice. Volume minimum: 30 units.
+      </p>
+      <Button href="/fleet#inquiry" variant="primary" class="text-base px-8 py-3.5">
+        Start a Lot Account
+      </Button>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            title: 'Per-unit pricing',
+            desc: 'Rate locked at onboarding. Scales with your actual unit count per cycle — you only pay for what runs.',
+          },
+          {
+            title: 'Standing schedule',
+            desc: 'Set the frequency, set it once. Weekly, bi-weekly, or monthly. No rescheduling calls.',
+          },
+          {
+            title: 'Monthly invoice',
+            desc: 'One invoice. Unit count, rate, cycle date. Net 15 terms for accounts in good standing.',
+          },
+        ].map(item => (
+          <div class="border-l-2 border-bay-gold pl-6">
+            <h2 class="font-display font-semibold text-bay-white text-lg mb-2">{item.title}</h2>
+            <p class="text-bay-slate text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="reveal mt-12 text-center">
+        <p class="text-bay-slate text-sm">
+          Full fleet rate card on the <a href="/fleet" class="text-bay-gold underline-offset-4 hover:underline">fleet page</a>.
+          Sales prep, recon, and van wash also available.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

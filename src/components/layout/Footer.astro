@@ -1,0 +1,102 @@
+---
+// Footer fades from bay-navy to bay-deep (polished hood under shop lighting).
+// Zip list is crawlable text, not an image.
+import { SERVICE_AREA } from '@/data/serviceArea';
+
+const pascoZips = SERVICE_AREA.filter(z => z.county === 'Pasco');
+const hillsZips = SERVICE_AREA.filter(z => z.county === 'Hillsborough');
+---
+<footer class="noise-overlay bg-gradient-to-b from-bay-navy to-bay-deep pt-16 pb-24 md:pb-8 mt-16 border-t border-bay-slate/15">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+
+      <!-- Brand column -->
+      <div>
+        <a href="/" class="font-display font-bold text-bay-white text-lg mb-3 inline-block">
+          Bay Shine Detailing
+        </a>
+        <p class="text-bay-slate text-sm leading-relaxed max-w-56">
+          Mobile auto and marine detailing.<br />
+          Pasco County and North Hillsborough, FL.
+        </p>
+        <a
+          href="tel:8133245522"
+          class="mt-4 inline-block text-bay-gold font-semibold text-sm hover:text-[#d9bc79] transition-colors"
+        >
+          (813) 324-5522
+        </a>
+      </div>
+
+      <!-- Services column -->
+      <div>
+        <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Services</h3>
+        <ul class="space-y-2 text-sm text-bay-slate">
+          {[
+            ['Full Detail', '/full-detail'],
+            ['Exterior Detail', '/exterior-detail'],
+            ['Ceramic Coating', '/ceramic-coating'],
+            ['Heavy Recon', '/recon'],
+            ['Boat Detailing', '/boat-detailing'],
+            ['Fleet Programs', '/fleet'],
+            ['Lot Maintenance', '/lot-maintenance'],
+            ['Apartment Program', '/apartments'],
+          ].map(([label, href]) => (
+            <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Info column -->
+      <div>
+        <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Info</h3>
+        <ul class="space-y-2 text-sm text-bay-slate">
+          {[
+            ['About', '/about'],
+            ['Blog', '/blog'],
+            ['Field Guide', '/field-guide'],
+            ['Tools', '/tools'],
+            ['Service Area', '/service-area'],
+            ['Get a Quote', '/quote'],
+            ['Contact', '/contact'],
+          ].map(([label, href]) => (
+            <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider mb-8" />
+
+    <!-- Crawlable zip list for SEO -->
+    <div class="mb-8">
+      <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Service Area</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <p class="text-bay-slate text-xs font-medium uppercase tracking-wider mb-2">Pasco County</p>
+          <p class="text-bay-slate text-xs leading-relaxed">
+            {pascoZips.map(z => `${z.city} (${z.code})`).join(' · ')}
+          </p>
+        </div>
+        <div>
+          <p class="text-bay-slate text-xs font-medium uppercase tracking-wider mb-2">North Hillsborough County</p>
+          <p class="text-bay-slate text-xs leading-relaxed">
+            {hillsZips.map(z => `${z.city} (${z.code})`).join(' · ')}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider mb-6" />
+
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-bay-slate text-xs">
+      <p>© {new Date().getFullYear()} Bay Shine Auto &amp; Marine Detailing. All rights reserved.</p>
+      <p class="flex items-center gap-1.5">
+        <!-- FOLLOWUP: Replace with actual insurance certificate link when issued -->
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Fully insured · Certificate available on request
+      </p>
+    </div>
+  </div>
+</footer>

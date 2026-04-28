@@ -1,0 +1,128 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Button from '@/components/ui/Button.astro';
+---
+<BaseLayout
+  title="About Bay Shine Detailing"
+  description="Bay Shine is a solo mobile detailing operation in Pasco County and North Hillsborough, FL. The methodology, the standing-detail philosophy, and the standards behind the work."
+>
+  <article class="py-24 px-4">
+    <div class="container mx-auto max-w-2xl">
+
+      <header class="mb-16">
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-6 leading-tight">
+          About this operation.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed">
+          One technician. One market. No franchises, no employees, no corner-cutting.
+        </p>
+      </header>
+
+      <Divider class="mb-16" />
+
+      <section class="mb-16 reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-5">Who runs it and why</h2>
+        <div class="space-y-4 text-bay-slate leading-relaxed">
+          <p>
+            Constantine started Bay Shine as a direct response to a market full of operators
+            who treat vehicle detailing as a commodity — high volume, low attention, identical
+            results regardless of what the vehicle actually needs.
+          </p>
+          <p>
+            The work here runs opposite. Every appointment is a single vehicle. The process
+            follows a fixed chemical and mechanical sequence. Nothing is rushed because the
+            sequence is the product. A detail done in 90 minutes to hit a volume target is
+            not a detail — it's a wash with some spray wax.
+          </p>
+          <p>
+            Mobile was the obvious format. Fewer overheads means the rate stays competitive.
+            Working at the client's location means the vehicle doesn't sit in a lot between
+            stages. The only thing that matters is the work.
+          </p>
+        </div>
+      </section>
+
+      <Divider class="mb-16" />
+
+      <section class="mb-16 reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-5">The methodology</h2>
+        <div class="space-y-4 text-bay-slate leading-relaxed">
+          <p>
+            Every exterior service starts with iron decontamination — a chemical step that
+            removes embedded brake dust and ferrous particles from the paint surface before
+            any mechanical work touches it. This is non-negotiable. Skipping it and moving
+            to clay or polishing grinds contamination into the paint rather than removing it.
+          </p>
+          <p>
+            Synthetic clay comes second. The clay bar step mechanically pulls surface bonded
+            contamination that chemistry alone won't remove. It runs panel by panel, in
+            sequence, in direct sunlight avoidance — heat causes the lubricant to evaporate
+            faster and increases marring risk.
+          </p>
+          <p>
+            Polymer sealant or ceramic coating goes on last, after the surface is clean,
+            decontaminated, and — where applicable — paint-corrected. Sealing contaminated
+            paint protects the contamination, not the paint. That sequence does not move.
+          </p>
+          <p>
+            Interior work follows a similar logic: compressed air and vacuum before any
+            surface contact, which prevents grinding debris into fabric or scratching trim.
+            Extraction runs after agitation, not during. Odor treatment is enzymatic —
+            bacteria and organic compounds neutralized, not masked.
+          </p>
+        </div>
+      </section>
+
+      <Divider class="mb-16" />
+
+      <section class="mb-16 reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-5">The Standing Detail philosophy</h2>
+        <div class="space-y-4 text-bay-slate leading-relaxed">
+          <p>
+            The recurring program exists because vehicle maintenance is not a one-time event.
+            A vehicle detailed once and never maintained degrades back to baseline within
+            months. A vehicle detailed on a 6-week cycle stays in a state that's faster to
+            restore each visit because contamination doesn't compound between appointments.
+          </p>
+          <p>
+            The economics are straightforward: the first visit is a full reset — full-detail
+            time and rate. Every visit after that runs shorter because the baseline is higher.
+            The client gets a permanently maintained vehicle. The rate is locked from day one.
+            Priority scheduling means the slot is held without competing for availability.
+          </p>
+          <p>
+            Cancel anytime. No contracts. The program earns retention through results, not
+            lock-in.
+          </p>
+        </div>
+      </section>
+
+      <Divider class="mb-16" />
+
+      <section class="mb-16 reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-5">For other detailers</h2>
+        <div class="space-y-4 text-bay-slate leading-relaxed">
+          <p>
+            The blog and the Field Guide are written for the industry — technicians and
+            operators who want to improve their process, understand the chemistry behind
+            what they're using, or get a second opinion on how a specific job should be
+            approached.
+          </p>
+          <p>
+            There's no ego in sharing this. Better operators improve the market standard,
+            which raises what clients expect, which makes the work more interesting.
+            The Field Guide will ship when it's complete — not before.
+          </p>
+        </div>
+      </section>
+
+      <div class="reveal">
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book an Appointment
+        </Button>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

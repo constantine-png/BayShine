@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import QuoteEstimator from '@/components/islands/QuoteEstimator';
+import Divider from '@/components/ui/Divider.astro';
+---
+<BaseLayout
+  title="Get a Quote"
+  description="Estimate pricing for auto or marine detailing in Pasco County and North Hillsborough. No form submission required to see your number."
+>
+  <section class="noise-overlay min-h-[50vh] flex items-center bg-bay-navy px-4 py-20">
+    <div class="container mx-auto max-w-2xl">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-4 leading-tight">
+        Get an estimate.
+      </h1>
+      <p class="text-bay-slate text-lg mb-10">
+        Select your vehicle, service, and condition. No submission required — your number appears immediately.
+      </p>
+
+      <QuoteEstimator client:load />
+
+      <p class="text-bay-slate text-xs mt-8 text-center max-w-sm mx-auto">
+        Estimate is not a confirmed quote. Final price is set at the initial walkthrough, based on actual vehicle condition.
+      </p>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <p class="text-bay-slate mb-4">Prefer to talk it through first?</p>
+      <a
+        href="tel:8133245522"
+        class="text-bay-gold font-display font-semibold text-xl hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+      >
+        (813) 324-5522
+      </a>
+    </div>
+  </section>
+</BaseLayout>

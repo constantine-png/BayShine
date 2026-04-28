@@ -1,0 +1,246 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import TrustBar from '@/components/ui/TrustBar.astro';
+import BeforeAfterSlider from '@/components/islands/BeforeAfterSlider';
+import GalleryFilter from '@/components/islands/GalleryFilter';
+import FAQAccordion from '@/components/islands/FAQAccordion';
+import ServiceShowcase from '@/components/sections/ServiceShowcase.astro';
+import { FAQS } from '@/data/faq';
+import { SERVICE_AREA } from '@/data/serviceArea';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      '@id': 'https://bayshine.net/#business',
+      name: 'Bay Shine Auto & Marine Detailing',
+      description:
+        'Mobile auto and marine detailing. Fully insured. Serving 19 zip codes across Pasco County and North Hillsborough County, FL.',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      priceRange: '$$',
+      areaServed: SERVICE_AREA.map(z => ({
+        '@type': 'PostalAddress',
+        postalCode: z.code,
+        addressRegion: 'FL',
+        addressCountry: 'US',
+      })),
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map(f => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Mobile Auto & Marine Detailing"
+  description="Mobile auto and marine detailing serving Pasco County and North Hillsborough, FL. Full detail, exterior, ceramic coating, boat detailing, and fleet programs."
+  schema={faqSchema}
+>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="noise-overlay min-h-[92vh] flex flex-col justify-center bg-bay-navy px-4 py-20">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-5">
+        Mobile auto and marine detailing.<br />
+        <span class="text-bay-gold">Pasco County</span> and North Hillsborough.
+      </h1>
+
+      <p class="text-bay-slate text-lg sm:text-xl max-w-xl mb-8">
+        Six-week recurring service. Priority scheduling, locked rate. Or book a single appointment.
+      </p>
+
+      <div class="flex flex-wrap gap-4 mb-12">
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+        <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
+          Get a Quote
+        </Button>
+      </div>
+
+      <!-- Before/After hero slider -->
+      <div class="reveal max-w-3xl">
+        <BeforeAfterSlider
+          label="Before / After — real results"
+          client:load
+        />
+        <p class="text-bay-slate text-xs mt-2 text-center">
+          Real photos required before launch · See <a href="/blog" class="text-bay-gold hover:underline underline-offset-4">gallery</a> for completed work
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST BAR ──────────────────────────────────────────── -->
+  <TrustBar />
+
+  <Divider class="my-0" />
+
+  <!-- ── SPLIT SECTION: Private / Fleet ────────────────────── -->
+  <section class="section-bevel py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-px bg-bay-slate/20 rounded-sm overflow-hidden">
+
+        <!-- Private owner side -->
+        <div class="reveal bg-bay-navy p-10 md:p-12">
+          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Private Owners</p>
+          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
+            Your daily driver.<br />Done right.
+          </h2>
+          <p class="text-bay-slate leading-relaxed mb-6">
+            Panel-by-panel, in correct sequence, on your schedule. The Standing Detail
+            program keeps your vehicle in maintained condition year-round — not just clean
+            enough, but genuinely detailed on every visit.
+          </p>
+          <Button href="/full-detail" variant="secondary">
+            Full Detail Program →
+          </Button>
+        </div>
+
+        <!-- Fleet/B2B side -->
+        <div class="reveal bg-bay-deep p-10 md:p-12">
+          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet &amp; B2B</p>
+          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
+            $1.10 per unit.<br />Standing schedule.
+          </h2>
+          <p class="text-bay-slate leading-relaxed mb-6">
+            Lot maintenance for 30 to 300+ vehicles. Walk the lot, set the schedule,
+            receive a monthly invoice. Throughput is the metric. Downtime is not acceptable.
+          </p>
+          <Button href="/fleet" variant="secondary">
+            Fleet Programs →
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── SERVICES SHOWCASE ────────────────────────────────── -->
+  <ServiceShowcase />
+
+  <Divider />
+
+  <!-- ── STANDING DETAIL PROGRAM ────────────────────────────── -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">The Headline Service</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Bay Shine Standing Detail.
+        </h2>
+
+        <p class="text-bay-bone text-lg leading-relaxed mb-8 max-w-2xl">
+          A 6-week recurring program. The first visit establishes the baseline — full detail
+          at the standard rate. Every visit after that is a maintenance detail: shorter
+          because the vehicle stays clean between appointments.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            {
+              label: 'Priority Slot',
+              desc: 'Your recurring time is held. No competing for availability.',
+            },
+            {
+              label: 'Locked Rate',
+              desc: 'The price you start at is the price you keep.',
+            },
+            {
+              label: 'Cancel Anytime',
+              desc: 'No contracts. No cancellation fee. No pressure.',
+            },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Start the Standing Detail
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── BEFORE / AFTER GALLERY ─────────────────────────────── -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-8">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Results</h2>
+        <p class="text-bay-slate">Photography required before this section launches. Minimum 12 before/after pairs.</p>
+      </div>
+
+      <GalleryFilter client:visible />
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── REVIEWS ─────────────────────────────────────────────── -->
+  <!-- FOLLOWUP: src/pages/index.astro — Integrate Featurable API (featurable.com) for
+       real Google reviews carousel. Requires Google Business Profile with live reviews.
+       Replace this placeholder section entirely. Do not display invented or static star ratings. -->
+  <section class="section-bevel py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-8">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Reviews</h2>
+        <p class="text-bay-slate text-sm">Google reviews appear here when live. Featurable embed — no screenshots, no invented ratings.</p>
+      </div>
+      <div class="border border-dashed border-bay-slate/30 rounded-sm p-12 text-center text-bay-slate text-sm">
+        Google reviews carousel placeholder · Requires Featurable integration
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── FAQ ───────────────────────────────────────────────── -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-2xl">
+      <div class="reveal mb-8">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Questions</h2>
+      </div>
+      <FAQAccordion faqs={FAQS} client:visible />
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── FINAL CTA ──────────────────────────────────────────── -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Ready to schedule?
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Text or book online. Constantine responds within 2 hours.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Book Now
+          </Button>
+          <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
+            Get a Quote
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

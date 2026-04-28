@@ -1,0 +1,111 @@
+---
+export const prerender = false;
+
+import { getEntry } from 'astro:content';
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import EmailCapture from '@/components/ui/EmailCapture.astro';
+
+const { slug } = Astro.params;
+const post = slug ? await getEntry('blog', slug) : undefined;
+
+if (!post) {
+  return Astro.redirect('/blog', 302);
+}
+
+const isPreview = Astro.cookies.get('bayshine-preview')?.value === '1';
+
+if (post.data.draft && !isPreview) {
+  return Astro.redirect('/blog', 302);
+}
+
+const { Content } = await post.render();
+
+function formatDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+const blogPostSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: 'Bay Shine Detailing',
+    url: 'https://bayshine.net',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Bay Shine Detailing',
+    url: 'https://bayshine.net',
+  },
+  url: `https://bayshine.net/blog/${post.slug}`,
+};
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  schema={blogPostSchema}
+  bodyClass="blog-body"
+>
+  {post.data.draft && isPreview && (
+    <div class="bg-orange-100 border-b border-orange-200 px-4 py-2">
+      <p class="container mx-auto max-w-2xl text-xs text-orange-800 font-semibold font-display">
+        Draft — not publicly visible.
+        <a href="/api/preview?clear=1" class="underline ml-2">Exit preview</a>
+      </p>
+    </div>
+  )}
+
+  <article class="bg-bay-paper">
+    <!-- Post header -->
+    <header class="py-16 px-4 border-b border-bay-ink/10">
+      <div class="container mx-auto max-w-2xl">
+        <div class="flex items-center gap-4 text-xs mb-6">
+          <a href="/blog" class="font-display text-bay-ink/50 hover:text-bay-navy transition-colors uppercase tracking-wider text-[10px] font-bold">← Field Notes</a>
+          <span class="text-bay-ink/30">·</span>
+          <span class="font-display text-bay-gold text-[10px] font-bold uppercase tracking-widest">{post.data.category}</span>
+        </div>
+        <h1 class="font-display font-bold text-3xl sm:text-4xl text-bay-navy mb-5 leading-tight tracking-tight">
+          {post.data.title}
+        </h1>
+        <p class="font-serif text-bay-ink/60 text-lg leading-relaxed mb-6">
+          {post.data.description}
+        </p>
+        <div class="flex items-center gap-4 text-xs text-bay-ink/40 font-display uppercase tracking-wider">
+          <span>Bay Shine Detailing</span>
+          <span>·</span>
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          <span>·</span>
+          <span>{post.data.readTime} min read</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post content -->
+    <div class="py-12 px-4">
+      <div class="container mx-auto max-w-2xl">
+        <div class="blog-prose">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4">
+      <div class="container mx-auto max-w-2xl">
+        <hr class="border-none h-px bg-bay-ink/10 my-0" />
+      </div>
+    </div>
+
+    <!-- Inline email capture -->
+    <div class="py-12 px-4 bg-bay-paper">
+      <div class="container mx-auto max-w-2xl">
+        <EmailCapture
+          label="Get the next one."
+          source={`blog-${post.slug}`}
+        />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

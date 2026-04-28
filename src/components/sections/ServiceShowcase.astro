@@ -1,0 +1,182 @@
+---
+const PANELS = [
+  {
+    id: 'exterior',
+    number: '01',
+    title: 'Exterior Detail',
+    tagline: 'Paint and glass, correct sequence.',
+    body: 'Two-bucket wash, clay decontamination, iron fallout removal, and a finishing spray sealant. Every panel inspected under lighting. Not a rinse—a full exterior service.',
+    stat: '$185+',
+    statLabel: 'starting',
+    videoLabel: 'exterior-wash-loop',
+  },
+  {
+    id: 'full',
+    number: '02',
+    title: 'Full Detail',
+    tagline: 'Interior and exterior in one visit.',
+    body: 'Complete interior extraction, steam cleaning of contact surfaces, odor elimination, and the full exterior protocol. Single-visit baseline for the Standing Detail program.',
+    stat: '$255+',
+    statLabel: 'starting',
+    videoLabel: 'interior-extraction-loop',
+  },
+  {
+    id: 'ceramic',
+    number: '03',
+    title: 'Ceramic Coating',
+    tagline: 'Semi-permanent protection.',
+    body: '9H-hardness SiO₂ coating applied after paint correction. Hydrophobic, scratch-resistant, and slick under UV. Requires proper prep—no shortcuts.',
+    stat: '2–5 yr',
+    statLabel: 'protection',
+    videoLabel: 'ceramic-application-loop',
+  },
+  {
+    id: 'marine',
+    number: '04',
+    title: 'Boat & Marine',
+    tagline: 'Salt, oxidation, gel coat.',
+    body: 'Topsides, hull, and cockpit. Oxidation removal and polish on gel coat, teak conditioning, stainless brightening. Trailer or slip—mobile gear loads it all.',
+    stat: 'Boat-specific',
+    statLabel: 'pricing',
+    videoLabel: 'marine-hull-loop',
+  },
+  {
+    id: 'fleet',
+    number: '05',
+    title: 'Fleet Programs',
+    tagline: 'Throughput is the metric.',
+    body: 'Standing schedule for 30–300+ vehicles. Walk the lot, set the cadence, receive a monthly invoice. Exterior washes start at $1.10/unit at volume.',
+    stat: '$1.10/unit',
+    statLabel: 'at volume',
+    videoLabel: 'fleet-lot-loop',
+  },
+] as const;
+---
+
+<section class="py-20 px-4 overflow-hidden">
+  <div class="container mx-auto max-w-5xl">
+    <div class="reveal mb-10">
+      <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Services</h2>
+      <p class="text-bay-slate text-sm">Every service is mobile. No drop-off, no waiting rooms.</p>
+    </div>
+  </div>
+
+  <!-- Scroll container -->
+  <div
+    class="showcase-scroll relative"
+    role="list"
+    aria-label="Service panels"
+  >
+    <div
+      id="showcase-track"
+      class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-4
+             md:px-[max(1rem,calc(50vw-40rem))]
+             scrollbar-none
+             [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {PANELS.map((panel, i) => (
+        <article
+          role="listitem"
+          id={`panel-${panel.id}`}
+          class="reveal snap-start shrink-0 w-[min(80vw,340px)] md:w-80
+                 bg-bay-deep border border-bay-slate/10 rounded-sm
+                 flex flex-col overflow-hidden section-bevel"
+          style={`transition-delay: ${i * 60}ms`}
+        >
+          <!-- Video / photo placeholder -->
+          <div
+            class="photo-placeholder aspect-video w-full"
+            data-video-needed={panel.videoLabel}
+            data-aspect="16:9"
+            aria-hidden="true"
+          >
+            <div class="flex flex-col items-center gap-1 text-bay-slate/40">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2" y="6" width="20" height="14" rx="2"/>
+                <path d="M15 12.5L9 9v7l6-3.5z"/>
+              </svg>
+              <span class="text-[10px] font-display uppercase tracking-wider">{panel.videoLabel}</span>
+            </div>
+          </div>
+
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-start justify-between mb-3">
+              <span class="font-display text-[10px] font-bold text-bay-gold/50 uppercase tracking-widest">
+                {panel.number}
+              </span>
+              <div class="text-right">
+                <div class="font-display font-bold text-bay-white text-sm">{panel.stat}</div>
+                <div class="font-display text-[9px] text-bay-slate uppercase tracking-wider">{panel.statLabel}</div>
+              </div>
+            </div>
+
+            <h3 class="font-display font-bold text-lg text-bay-white mb-1 leading-snug">
+              {panel.title}
+            </h3>
+            <p class="font-display text-xs text-bay-gold mb-3 leading-snug">{panel.tagline}</p>
+            <p class="text-bay-slate text-xs leading-relaxed flex-1">{panel.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Pagination dots -->
+    <div
+      id="showcase-dots"
+      class="flex justify-center gap-2 mt-5"
+      role="tablist"
+      aria-label="Service panel navigation"
+    >
+      {PANELS.map((panel, i) => (
+        <button
+          role="tab"
+          data-index={i}
+          aria-label={panel.title}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          class={`showcase-dot w-5 h-1 rounded-full transition-all duration-300
+                  ${i === 0 ? 'bg-bay-gold' : 'bg-bay-slate/30'}`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('showcase-track') as HTMLElement;
+  const dots = document.querySelectorAll<HTMLButtonElement>('.showcase-dot');
+
+  function getActiveIndex(): number {
+    const panels = track.querySelectorAll<HTMLElement>('article');
+
+    const trackRect = track.getBoundingClientRect();
+    let closest = 0;
+    let minDist = Infinity;
+    panels.forEach((panel, i) => {
+      const rect = panel.getBoundingClientRect();
+      const dist = Math.abs(rect.left - trackRect.left);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function updateDots(active: number) {
+    dots.forEach((dot, i) => {
+      const isActive = i === active;
+      dot.setAttribute('aria-selected', String(isActive));
+      dot.className = dot.className
+        .replace(/bg-bay-gold|bg-bay-slate\/30/g, '')
+        .trim() + ` ${isActive ? 'bg-bay-gold' : 'bg-bay-slate/30'}`;
+    });
+  }
+
+  track?.addEventListener('scroll', () => {
+    updateDots(getActiveIndex());
+  }, { passive: true });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const panels = track.querySelectorAll<HTMLElement>('article');
+      panels[i]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+</script>

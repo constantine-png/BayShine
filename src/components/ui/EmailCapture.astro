@@ -1,0 +1,88 @@
+---
+// Inline email capture. Not a popup. One field.
+interface Props {
+  label?: string;
+  source: string; // identifies where the capture happened for routing
+  class?: string;
+}
+
+const {
+  label = 'Get the next one.',
+  source,
+  class: className = '',
+} = Astro.props;
+
+const formId = `email-capture-${source}`;
+---
+<div class={`email-capture ${className}`} data-source={source}>
+  <p class="text-sm text-bay-slate mb-3 font-medium">{label}</p>
+
+  <form
+    id={formId}
+    class="flex gap-2 max-w-sm"
+    novalidate
+    data-email-form
+  >
+    <input
+      type="email"
+      name="email"
+      placeholder="your@email.com"
+      required
+      autocomplete="email"
+      class="flex-1 bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+      aria-label="Email address"
+    />
+    <button
+      type="submit"
+      class="btn-sweep gloss-cap bg-bay-gold text-bay-navy font-semibold text-sm px-4 py-2 rounded-sm hover:bg-[#d9bc79] transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy"
+    >
+      Subscribe
+    </button>
+  </form>
+
+  <p class="email-success hidden text-sm text-bay-gold mt-2" aria-live="polite">
+    You're on the list.
+  </p>
+  <p class="email-error hidden text-sm text-red-400 mt-2" aria-live="polite">
+    Something went wrong. Try again.
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll('[data-email-form]').forEach((form) => {
+    const wrapper = form.closest('[data-source]') as HTMLElement;
+    const source = wrapper?.dataset.source ?? 'unknown';
+    const successEl = wrapper?.querySelector('.email-success') as HTMLElement;
+    const errorEl = wrapper?.querySelector('.email-error') as HTMLElement;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      try {
+        const res = await fetch('/api/email-capture', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source }),
+        });
+
+        if (res.ok) {
+          form.classList.add('hidden');
+          successEl?.classList.remove('hidden');
+        } else {
+          throw new Error('Non-OK response');
+        }
+      } catch {
+        errorEl?.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    });
+  });
+</script>

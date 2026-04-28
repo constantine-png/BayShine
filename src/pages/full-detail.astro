@@ -1,0 +1,114 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
+---
+<BaseLayout
+  title="Full Detail — Interior & Exterior"
+  description="Complete interior and exterior detailing. Decontamination, clay bar, sealant, and full interior clean. Mobile service in Pasco County and North Hillsborough."
+>
+  <!-- Hero -->
+  <section class="noise-overlay bg-bay-navy py-24 px-4">
+    <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Private Owners</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+          Full Detail.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8">
+          Interior and exterior, in sequence. Not a quick wash with a wipe-down inside.
+          Every panel addressed, every surface treated — left cleaner than it came from the factory.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Full Detail
+        </Button>
+      </div>
+      <div class="reveal">
+        <PhotoPlaceholder
+          description="Full detail hero — sedan or SUV after service, wide shot showing paint and interior"
+          aspectRatio="4/3"
+          class="rounded-sm"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- What's included -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-16">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Exterior</h2>
+        <ul class="space-y-3 text-bay-slate text-sm">
+          {[
+            'Iron decontamination — removes embedded brake dust and ferrous deposits',
+            'Synthetic clay bar — mechanical surface decontamination',
+            'Two-stage hand wash',
+            'Wheels, wheel wells, and brake calipers',
+            'Glass clean inside and out',
+            'Tar and adhesive removal where present',
+            'Polymer paint sealant — 4–6 month protection',
+            'Tire dressing — satin finish, not gloss',
+            'Door jambs, trunk jamb, fuel door',
+          ].map(item => (
+            <li class="flex gap-3">
+              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Interior</h2>
+        <ul class="space-y-3 text-bay-slate text-sm">
+          {[
+            'Full vacuum — seats, carpet, floor mats, trunk, crevices',
+            'Compressed air blow-out of all vents, gaps, and seams',
+            'All hard surfaces cleaned and conditioned',
+            'Leather cleaning and conditioning (if applicable)',
+            'Fabric seats spot-treated and steam-cleaned',
+            'Dashboard, center console, door panels',
+            'Interior glass — streak-free',
+            'Headliner — hand-cleaned, no saturation',
+            'Odor neutralization — not masking spray',
+          ].map(item => (
+            <li class="flex gap-3">
+              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Standing Detail upsell -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-4">Consider the Standing Detail.</h2>
+        <p class="text-bay-slate leading-relaxed mb-6">
+          The first visit is this service. After that: a 6-week maintenance detail, shorter
+          because the vehicle stays clean. Priority scheduling, locked rate, cancel anytime.
+        </p>
+        <Button href="/contact" variant="primary">Start the Standing Detail →</Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-xl text-center">
+      <p class="text-bay-slate mb-4">Questions before booking?</p>
+      <a href="tel:8133245522" class="text-bay-gold font-display font-semibold text-xl hover:text-[#d9bc79] transition-colors">
+        (813) 324-5522
+      </a>
+    </div>
+  </section>
+</BaseLayout>

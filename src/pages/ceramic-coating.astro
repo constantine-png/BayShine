@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
+---
+<BaseLayout
+  title="Ceramic Coating"
+  description="Professional ceramic coating for cars and SUVs in Pasco County and North Hillsborough. Durable paint protection that lasts years, not weeks."
+>
+  <section class="noise-overlay bg-bay-navy py-24 px-4">
+    <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Paint Protection</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+          Ceramic Coating.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8">
+          One application. Years of protection. A nano-ceramic layer bonded to the paint
+          surface that repels water, UV, contamination, and minor scratches. Correct the
+          paint first, coat it second. That sequence is not negotiable.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Inquire About Coating
+        </Button>
+      </div>
+      <div class="reveal">
+        <PhotoPlaceholder
+          description="Ceramic coating — water beading on coated panel, side profile"
+          aspectRatio="4/3"
+          class="rounded-sm"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What ceramic does</h2>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              'Hydrophobic surface — water sheets off rather than sitting',
+              'UV protection — paint color stays richer, longer',
+              'Chemical resistance — tree sap, bird acid, road fallout',
+              'Micro-scratch resistance — hard ceramic layer absorbs light abrasion',
+              'Easier maintenance washes — contamination doesn\'t bond as readily',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What it requires</h2>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              'Full exterior decontamination and clay bar before application',
+              'Paint correction if swirl marks or light scratches are present',
+              'Cure time: 24–48 hours minimum before water contact',
+              'Vehicle must not get wet during cure window',
+              'Periodic maintenance detail — not immune to neglect',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="reveal mt-12 border border-bay-gold/30 rounded-sm p-6 bg-bay-gold/5">
+        <p class="text-bay-bone text-sm font-semibold mb-2">Coat or don't coat?</p>
+        <p class="text-bay-slate text-sm leading-relaxed">
+          Ceramic is worth it on vehicles you intend to maintain. If the vehicle is rarely
+          washed and sits outside year-round, start with a full detail and sealant first.
+          Coating on a poorly maintained car just locks contamination in under the ceramic layer.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-xl text-center">
+      <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">Book Ceramic Coating</Button>
+      <p class="text-bay-slate text-sm mt-4">Site visit required before scheduling. Paint condition determines prep time.</p>
+    </div>
+  </section>
+</BaseLayout>

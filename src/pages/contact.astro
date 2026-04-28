@@ -1,0 +1,180 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+---
+<BaseLayout
+  title="Book Now"
+  description="Schedule mobile auto or marine detailing in Pasco County and North Hillsborough. Constantine responds within 2 hours."
+>
+  <section class="noise-overlay py-20 px-4 min-h-screen">
+    <div class="container mx-auto max-w-xl">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-3 leading-tight">
+        Book an appointment.
+      </h1>
+      <p class="text-bay-slate text-lg mb-10">
+        Fill out the form below. Constantine will text you within 2 hours to confirm.
+      </p>
+
+      <!-- Contact form -->
+      <form
+        id="contact-form"
+        class="space-y-5"
+        novalidate
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label for="name" class="block text-bay-bone text-sm font-medium mb-1.5">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label for="phone" class="block text-bay-bone text-sm font-medium mb-1.5">Phone</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              required
+              autocomplete="tel"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="(813) 000-0000"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="vehicle" class="block text-bay-bone text-sm font-medium mb-1.5">Vehicle</label>
+          <input
+            id="vehicle"
+            name="vehicle"
+            type="text"
+            required
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+            placeholder="Year, make, model (e.g. 2022 Toyota Highlander)"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label for="zip" class="block text-bay-bone text-sm font-medium mb-1.5">Zip Code <span class="text-bay-gold">*</span></label>
+            <input
+              id="zip"
+              name="zip"
+              type="text"
+              required
+              inputmode="numeric"
+              maxlength="5"
+              pattern="[0-9]{5}"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="34638"
+            />
+          </div>
+
+          <div>
+            <label for="address" class="block text-bay-bone text-sm font-medium mb-1.5">Street Address <span class="text-bay-slate text-xs">(optional)</span></label>
+            <input
+              id="address"
+              name="address"
+              type="text"
+              autocomplete="street-address"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="123 Main St"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="timing" class="block text-bay-bone text-sm font-medium mb-1.5">Preferred day / time window</label>
+          <input
+            id="timing"
+            name="timing"
+            type="text"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+            placeholder="e.g. Weekday mornings, any Saturday"
+          />
+        </div>
+
+        <div>
+          <label for="notes" class="block text-bay-bone text-sm font-medium mb-1.5">Anything else</label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="3"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors resize-none"
+            placeholder="Specific concerns, service questions, pet hair situation, etc."
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="btn-sweep gloss-cap w-full bg-bay-gold text-bay-navy font-display font-semibold text-sm py-3.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy"
+        >
+          Send Booking Request
+        </button>
+
+        <p class="text-bay-slate text-xs text-center">
+          No payment due now. Constantine confirms by text within 2 hours.
+        </p>
+      </form>
+
+      <!-- Success state -->
+      <div id="form-success" class="hidden text-center py-8">
+        <div class="text-bay-gold mb-4">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-2">You're on the list.</h2>
+        <p class="text-bay-slate">Constantine will text you within 2 hours to confirm your appointment.</p>
+      </div>
+
+      <!-- Error state -->
+      <p id="form-error" class="hidden text-red-400 text-sm text-center mt-4" aria-live="polite">
+        Something went wrong. Try again or call (813) 324-5522 directly.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('form-success')!;
+  const errorEl = document.getElementById('form-error')!;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorEl.classList.add('hidden');
+
+    try {
+      const res = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+      } else {
+        throw new Error('Non-OK response');
+      }
+    } catch {
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Send Booking Request';
+    }
+  });
+</script>

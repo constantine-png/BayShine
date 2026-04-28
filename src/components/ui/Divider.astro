@@ -1,0 +1,8 @@
+---
+// Stacked divider: 1px highlight over 1px shadow. Not a flat line.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<hr class={`divider ${className}`} aria-hidden="true" />

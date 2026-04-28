@@ -1,0 +1,132 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Button from '@/components/ui/Button.astro';
+import { SERVICE_AREA } from '@/data/serviceArea';
+
+const pascoZips = SERVICE_AREA.filter(z => z.county === 'Pasco');
+const hillsZips = SERVICE_AREA.filter(z => z.county === 'Hillsborough');
+
+function getPremiumCopy(city: string, code: string): string {
+  return `Mobile detailing in ${city} (${code}). One of the most active zip codes in the Standing Detail program — the 6-week recurring service runs well in this area because the average household maintains multiple vehicles and already outsources other property services. First visit resets the baseline at the standard full-detail rate. Every visit after that is a maintenance detail on a locked rate with priority scheduling.`;
+}
+
+function getStandardCopy(city: string, code: string): string {
+  return `Mobile detailing in ${city} (${code}). One-time exterior and full detail service available. Fully mobile — service runs at your location, no drop-off or pickup required. Exterior detail, full detail, ceramic coating, and heavy recon are all available in this zip.`;
+}
+---
+<BaseLayout
+  title="Service Area — Pasco County & North Hillsborough"
+  description="Mobile auto and marine detailing serving 19 zip codes across Pasco County and North Hillsborough, FL. Wesley Chapel, Lutz, Odessa, Land O Lakes, New Tampa, and more."
+>
+  <!-- Hero -->
+  <section class="noise-overlay bg-bay-navy py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        Service Area.
+      </h1>
+      <p class="text-bay-slate text-lg max-w-xl mb-8">
+        19 zip codes across Pasco County and North Hillsborough County. Fully mobile —
+        service runs at your location.
+      </p>
+      <Button href="/contact" variant="primary">Book Now</Button>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Map placeholder -->
+  <!-- FOLLOWUP: src/pages/service-area.astro — Replace with Google Maps Embed API or
+       Leaflet map showing service radius centered on Wesley Chapel area.
+       Key: show both counties shaded, with marker on each served city. -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div
+        class="bg-[rgba(122,130,148,0.08)] border border-dashed border-[rgba(122,130,148,0.3)] rounded-sm flex items-center justify-center"
+        style="height: 300px;"
+        data-map-needed
+        aria-label="Interactive map placeholder — 19 zip coverage area"
+      >
+        <div class="text-center text-bay-slate">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto mb-3 opacity-50" aria-hidden="true">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/>
+            <line x1="9" y1="3" x2="9" y2="18"/>
+            <line x1="15" y1="6" x2="15" y2="21"/>
+          </svg>
+          <p class="text-sm font-medium">Interactive map</p>
+          <p class="text-xs mt-1 opacity-60">Pasco + N. Hillsborough coverage · 19 zip codes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Pasco County zip sections (crawlable) -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-3xl text-bay-white mb-12 reveal">Pasco County</h2>
+
+      <div class="space-y-10">
+        {pascoZips.map(zip => (
+          <div class="reveal border-l-2 border-bay-slate/20 pl-6 hover:border-bay-gold/40 transition-colors">
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">
+              Mobile detailing in {zip.city} ({zip.code})
+            </h3>
+            <p class="text-bay-slate text-sm leading-relaxed">
+              {zip.tier === 'premium' ? getPremiumCopy(zip.city, zip.code) : getStandardCopy(zip.city, zip.code)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- North Hillsborough County zip sections -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-3xl text-bay-white mb-12 reveal">North Hillsborough County</h2>
+
+      <div class="space-y-10">
+        {hillsZips.map(zip => (
+          <div class="reveal border-l-2 border-bay-slate/20 pl-6 hover:border-bay-gold/40 transition-colors">
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">
+              Mobile detailing in {zip.city} ({zip.code})
+            </h3>
+            <p class="text-bay-slate text-sm leading-relaxed">
+              {zip.tier === 'premium' ? getPremiumCopy(zip.city, zip.code) : getStandardCopy(zip.city, zip.code)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Full zip list (crawlable text summary) -->
+  <section class="section-bevel bg-bay-deep py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-xl text-bay-white mb-6">Full service area zip list</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-bay-slate text-sm">
+        <div>
+          <p class="font-semibold text-bay-bone text-xs uppercase tracking-wider mb-3">Pasco County</p>
+          <p class="leading-relaxed">
+            {pascoZips.map(z => `${z.city} ${z.code}`).join(' · ')}
+          </p>
+        </div>
+        <div>
+          <p class="font-semibold text-bay-bone text-xs uppercase tracking-wider mb-3">North Hillsborough County</p>
+          <p class="leading-relaxed">
+            {hillsZips.map(z => `${z.city} ${z.code}`).join(' · ')}
+          </p>
+        </div>
+      </div>
+      <p class="text-bay-slate text-xs mt-6">
+        Not sure if you're in the service area? Call or text (813) 324-5522.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

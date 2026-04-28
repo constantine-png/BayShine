@@ -1,0 +1,154 @@
+---
+// Sticky header. Phone + Book Now visible at all times on desktop.
+// Mobile: logo + hamburger. Nav slides in below on toggle.
+---
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
+>
+  <div class="bg-bay-navy/95 backdrop-blur-sm border-b border-bay-slate/15 section-bevel">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between gap-6">
+
+      <!-- Logo -->
+      <a
+        href="/"
+        class="flex items-center gap-2 font-display font-bold text-bay-white text-lg tracking-tight flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy rounded-sm"
+        aria-label="Bay Shine Detailing — home"
+      >
+        <span class="text-bay-gold" aria-hidden="true">
+          <!-- S with 1px highlight at top-left curve via filter -->
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect width="20" height="20" rx="3" fill="var(--color-bay-gold)"/>
+            <path d="M13 6.5C13 5.12 11.88 4 10.5 4H7.5C6.12 4 5 5.12 5 6.5S6.12 9 7.5 9H12.5C13.88 9 15 10.12 15 11.5S13.88 14 12.5 14H9.5C8.12 14 7 12.88 7 11.5" stroke="var(--color-bay-navy)" stroke-width="2" stroke-linecap="round"/>
+            <!-- 1px specular pixel at S top-left curve -->
+            <circle cx="5.5" cy="5.5" r="0.75" fill="rgba(255,255,255,0.5)"/>
+          </svg>
+        </span>
+        <span>Bay Shine</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav
+        class="hidden lg:flex items-center gap-6 text-sm font-medium text-bay-slate"
+        aria-label="Main navigation"
+      >
+        <a href="/full-detail" class="hover:text-bay-bone transition-colors">Full Detail</a>
+        <a href="/exterior-detail" class="hover:text-bay-bone transition-colors">Exterior</a>
+        <a href="/ceramic-coating" class="hover:text-bay-bone transition-colors">Ceramic</a>
+        <a href="/fleet" class="hover:text-bay-bone transition-colors">Fleet</a>
+        <a href="/boat-detailing" class="hover:text-bay-bone transition-colors">Marine</a>
+        <a href="/about" class="hover:text-bay-bone transition-colors">About</a>
+        <a href="/blog" class="hover:text-bay-bone transition-colors">Blog</a>
+      </nav>
+
+      <!-- Right: phone + CTA + hamburger -->
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <a
+          href="tel:8133245522"
+          class="hidden md:inline-flex items-center gap-1.5 text-bay-gold text-sm font-semibold hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.07 4.9 2 2 0 0 1 3.05 2.74h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/>
+          </svg>
+          (813) 324-5522
+        </a>
+
+        <a
+          href="/contact"
+          class="btn-sweep gloss-cap bg-bay-gold text-bay-navy font-display font-semibold text-sm px-4 py-2 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy"
+        >
+          Book Now
+        </a>
+
+        <!-- Hamburger — mobile only -->
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          aria-label="Open navigation menu"
+          class="lg:hidden p-2 text-bay-slate hover:text-bay-bone transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+        >
+          <svg id="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg id="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav drawer -->
+    <nav
+      id="mobile-nav"
+      class="hidden lg:!hidden border-t border-bay-slate/15"
+      aria-label="Mobile navigation"
+    >
+      <ul class="flex flex-col py-2">
+        {[
+          ['Full Detail', '/full-detail'],
+          ['Exterior Detail', '/exterior-detail'],
+          ['Ceramic Coating', '/ceramic-coating'],
+          ['Heavy Recon', '/recon'],
+          ['Boat Detailing', '/boat-detailing'],
+          ['Fleet Programs', '/fleet'],
+          ['About', '/about'],
+          ['Blog', '/blog'],
+          ['Get a Quote', '/quote'],
+        ].map(([label, href]) => (
+          <li>
+            <a
+              href={href}
+              class="block px-4 py-3 text-sm text-bay-slate hover:text-bay-bone hover:bg-bay-deep/40 transition-colors"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+        <li class="px-4 py-3 border-t border-bay-slate/15 mt-1">
+          <a
+            href="tel:8133245522"
+            class="text-bay-gold font-semibold text-sm"
+          >
+            (813) 324-5522
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Header height offset so content isn't hidden behind fixed header -->
+<div class="h-16" aria-hidden="true"></div>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle')!;
+  const nav = document.getElementById('mobile-nav')!;
+  const iconMenu = document.getElementById('icon-menu')!;
+  const iconClose = document.getElementById('icon-close')!;
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    const nextState = !isOpen;
+
+    toggle.setAttribute('aria-expanded', String(nextState));
+    nav.classList.toggle('hidden', !nextState);
+    iconMenu.classList.toggle('hidden', nextState);
+    iconClose.classList.toggle('hidden', !nextState);
+  });
+
+  // Close mobile nav on resize to desktop
+  const mq = window.matchMedia('(min-width: 1024px)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) {
+      nav.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+      iconMenu.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+  });
+</script>

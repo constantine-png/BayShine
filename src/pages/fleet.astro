@@ -1,0 +1,241 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import { FLEET_RATES } from '@/data/pricing';
+---
+<BaseLayout
+  title="Fleet & Lot Maintenance Programs"
+  description="Mobile fleet detailing in Pasco County and North Hillsborough. Lot maintenance from $1.10/vehicle. Sales prep, recon, and van wash programs. 30-unit minimum."
+>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="noise-overlay bg-bay-navy py-24 px-4 section-bevel">
+    <div class="container mx-auto max-w-4xl">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet &amp; B2B</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white mb-6 leading-[1.08]">
+        80 vehicles.<br />4 hours.<br />$1.10 per unit.
+      </h1>
+      <p class="text-bay-slate text-lg max-w-xl mb-8">
+        Lot maintenance, sales prep, recon, and fleet van washing. Standing schedule,
+        monthly invoice, no surprises.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <Button href="#inquiry" variant="primary" class="text-base px-8 py-3.5">
+          Start a Fleet Account
+        </Button>
+        <a
+          href="tel:8133245522"
+          class="inline-flex items-center gap-2 text-bay-gold font-semibold text-base hover:text-[#d9bc79] transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.07 4.9 2 2 0 0 1 3.05 2.74h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/>
+          </svg>
+          (813) 324-5522
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── PRICING TABLE ──────────────────────────────────────── -->
+  <!-- Fleet is the one place full pricing appears on the public site. -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-10">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Fleet Rates</h2>
+        <p class="text-bay-slate">Per-unit pricing. Volume minimum: 30 vehicles for lot maintenance.</p>
+      </div>
+
+      <div class="reveal border border-bay-slate/20 rounded-sm overflow-hidden">
+        <table class="w-full text-sm" aria-label="Fleet pricing table">
+          <thead>
+            <tr class="bg-bay-deep border-b border-bay-slate/20">
+              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Service</th>
+              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Rate</th>
+              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Note</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-bay-slate/10">
+            {[
+              { label: 'Lot Maintenance Wash', rate: `$${FLEET_RATES.lotWash.min.toFixed(2)}–$${FLEET_RATES.lotWash.max.toFixed(2)}${FLEET_RATES.lotWash.unit}`, note: FLEET_RATES.lotWash.note },
+              { label: 'Sales-Prep Detail',    rate: `$${FLEET_RATES.salesPrep.min}–$${FLEET_RATES.salesPrep.max}${FLEET_RATES.salesPrep.unit}`, note: '' },
+              { label: 'Recon / Heavy Detail', rate: `$${FLEET_RATES.reconDetail.min}–$${FLEET_RATES.reconDetail.max}${FLEET_RATES.reconDetail.unit}`, note: '' },
+              { label: 'Fleet Van Wash',       rate: `$${FLEET_RATES.vanWash.min}–$${FLEET_RATES.vanWash.max}${FLEET_RATES.vanWash.unit}`, note: '' },
+              { label: 'Apartment Resident',   rate: `$${FLEET_RATES.apartmentResident.min}${FLEET_RATES.apartmentResident.unit}`, note: 'Subscription per resident' },
+            ].map(row => (
+              <tr class="hover:bg-bay-deep/30 transition-colors">
+                <td class="px-6 py-4 text-bay-bone font-medium">{row.label}</td>
+                <td class="px-6 py-4 text-bay-gold font-semibold">{row.rate}</td>
+                <td class="px-6 py-4 text-bay-slate">{row.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+  <section class="section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">How it works</h2>
+      </div>
+
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            step: '01',
+            title: 'Walk the lot',
+            desc: 'Initial consultation. Walk the inventory, assess condition, confirm volume and frequency. Rates locked before any work starts.',
+          },
+          {
+            step: '02',
+            title: 'Set the schedule',
+            desc: 'Standing appointment on your rotation — weekly, bi-weekly, or monthly. We show up. No coordination calls every cycle.',
+          },
+          {
+            step: '03',
+            title: 'Invoice monthly',
+            desc: 'One invoice per billing cycle. Per-unit count, rate, and itemized breakdown. Net 15.',
+          },
+        ].map(item => (
+          <div class="border-l-2 border-bay-gold pl-6">
+            <p class="text-bay-gold text-xs font-bold uppercase tracking-widest mb-2">{item.step}</p>
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{item.title}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── INSURANCE ──────────────────────────────────────────── -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <!-- FOLLOWUP: src/pages/fleet.astro — Replace placeholder with actual COI PDF link
+           when certificate is issued. -->
+      <div class="flex items-center gap-4 text-bay-slate text-sm border border-bay-slate/20 rounded-sm px-6 py-4">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="text-bay-gold flex-shrink-0" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>
+          Fully insured. Certificate of insurance available on request.
+          <!-- <a href="/coi.pdf" class="text-bay-gold underline underline-offset-4 hover:text-[#d9bc79]">Download COI (PDF)</a> -->
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── FLEET INQUIRY FORM ─────────────────────────────────── -->
+  <section id="inquiry" class="noise-overlay py-20 px-4">
+    <div class="container mx-auto max-w-xl">
+      <div class="reveal mb-10">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Start a fleet account</h2>
+        <p class="text-bay-slate">Not a generic contact form. Fill this out and I'll have the right numbers ready when I call back.</p>
+      </div>
+
+      <form id="fleet-form" class="reveal space-y-5" novalidate>
+        <div>
+          <label for="company" class="block text-bay-bone text-sm font-medium mb-1.5">Company name</label>
+          <input id="company" name="company" type="text" required class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors" placeholder="Acme Auto Group" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label for="fleet-size" class="block text-bay-bone text-sm font-medium mb-1.5">Fleet size</label>
+            <input id="fleet-size" name="fleetSize" type="number" min="30" required class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors" placeholder="30+" />
+          </div>
+
+          <div>
+            <label for="frequency" class="block text-bay-bone text-sm font-medium mb-1.5">Frequency needed</label>
+            <select id="frequency" name="frequency" required class="w-full bg-bay-navy border border-bay-slate/30 text-bay-bone px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors">
+              <option value="">Select…</option>
+              <option>Weekly</option>
+              <option>Bi-weekly</option>
+              <option>Monthly</option>
+              <option>As needed</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="fleet-service" class="block text-bay-bone text-sm font-medium mb-1.5">Service needed</label>
+          <select id="fleet-service" name="service" required class="w-full bg-bay-navy border border-bay-slate/30 text-bay-bone px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors">
+            <option value="">Select…</option>
+            <option>Lot Maintenance Wash</option>
+            <option>Sales-Prep Detail</option>
+            <option>Recon / Heavy Detail</option>
+            <option>Fleet Van Wash</option>
+            <option>Multiple / Combination</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label for="dm-name" class="block text-bay-bone text-sm font-medium mb-1.5">Your name</label>
+            <input id="dm-name" name="dmName" type="text" required autocomplete="name" class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors" placeholder="Decision-maker" />
+          </div>
+
+          <div>
+            <label for="dm-phone" class="block text-bay-bone text-sm font-medium mb-1.5">Direct phone</label>
+            <input id="dm-phone" name="dmPhone" type="tel" required autocomplete="tel" class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors" placeholder="(813) 000-0000" />
+          </div>
+        </div>
+
+        <button type="submit" id="fleet-submit-btn"
+          class="btn-sweep gloss-cap w-full bg-bay-gold text-bay-navy font-display font-semibold text-sm py-3.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy">
+          Submit Fleet Inquiry
+        </button>
+      </form>
+
+      <div id="fleet-success" class="hidden text-center py-8">
+        <h3 class="font-display font-bold text-2xl text-bay-white mb-2">Inquiry received.</h3>
+        <p class="text-bay-slate">Expect a call within 4 business hours to discuss volume and scheduling.</p>
+      </div>
+      <p id="fleet-error" class="hidden text-red-400 text-sm text-center mt-4" aria-live="polite">
+        Something went wrong. Call (813) 324-5522 or try again.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('fleet-form') as HTMLFormElement;
+  const btn = document.getElementById('fleet-submit-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('fleet-success')!;
+  const errorEl = document.getElementById('fleet-error')!;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorEl.classList.add('hidden');
+    try {
+      const res = await fetch('/api/fleet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+      } else {
+        throw new Error();
+      }
+    } catch {
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Submit Fleet Inquiry';
+    }
+  });
+</script>
