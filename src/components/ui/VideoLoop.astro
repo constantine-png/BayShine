@@ -12,7 +12,6 @@ const { src, ariaLabel, poster, class: className = '', style = '' } = Astro.prop
 <video
   class={className}
   style={style}
-  src={src}
   autoplay
   muted
   loop
@@ -21,7 +20,9 @@ const { src, ariaLabel, poster, class: className = '', style = '' } = Astro.prop
   aria-label={ariaLabel}
   aria-hidden="true"
   {...(poster ? { poster } : {})}
-></video>
+>
+  <source src={src} type="video/mp4" />
+</video>
 
 <style>
   @media (prefers-reduced-motion: reduce) {
