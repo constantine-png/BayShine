@@ -286,11 +286,14 @@ const PANELS = [
     function onWheel(e: WheelEvent) {
       e.preventDefault();
       e.stopPropagation();
-      // Accept horizontal trackpad swipe (deltaX) OR vertical scroll wheel (deltaY)
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      wheelAcc += delta;
-      if (wheelAcc > 60) { wheelAcc = 0; advance(); }
-      else if (wheelAcc < -60) { wheelAcc = 0; retreat(); }
+      // Drain momentum events during card transition — no bleed-through
+      if (isTransitioning) { wheelAcc = 0; return; }
+      // Normalize deltaMode: 0=pixels, 1=lines(~20px each), 2=pages(~300px)
+      const raw = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const norm = e.deltaMode === 1 ? raw * 20 : e.deltaMode === 2 ? raw * 300 : raw;
+      wheelAcc += norm;
+      if (wheelAcc > 50) { wheelAcc = 0; advance(); }
+      else if (wheelAcc < -50) { wheelAcc = 0; retreat(); }
     }
 
     function onTouchStart(e: TouchEvent) {
@@ -300,9 +303,9 @@ const PANELS = [
 
     function onTouchMove(e: TouchEvent) {
       e.preventDefault();
+      if (isTransitioning) return;
       const dx = touchStartX - e.touches[0].clientX;
       const dy = touchStartY - e.touches[0].clientY;
-      // Use whichever axis has more movement
       const delta = Math.abs(dx) >= Math.abs(dy) ? dx : dy;
       if (Math.abs(delta) > 40) {
         touchStartX = e.touches[0].clientX;
@@ -315,41 +318,40 @@ const PANELS = [
     function unlock() {
       if (!isLocked) return;
       isLocked = false;
+      // Restore scroll — body overflow is the reliable cross-platform lock
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
     }
 
-    // ── Two-phase lock: snap first, then capture card navigation ────
+    // ── Two-phase lock: freeze body scroll, snap, then hand off ────
     let isSnapping = false;
 
-    // Phase 1: block scroll immediately + instant-snap arena to viewport top
-    // Phase 2 (100ms later): enable card navigation
     function lock(enteringFromBelow: boolean) {
       if (isLocked || isSnapping) return;
       isSnapping = true;
 
+      // Compensate for scrollbar disappearance on Windows/Linux
+      const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarW > 0) document.body.style.paddingRight = `${scrollbarW}px`;
+
+      // Freeze body scroll — works on desktop and iOS Safari (unlike window listeners)
+      document.body.style.overflow = 'hidden';
+
+      // Instant snap to arena top
       const rect = arena!.getBoundingClientRect();
       const targetScrollY = Math.round(window.scrollY + rect.top);
-
-      // Block all scroll immediately so momentum can't carry user past
-      function blockScroll(e: Event) { e.preventDefault(); }
-      window.addEventListener('wheel', blockScroll, { passive: false });
-      window.addEventListener('touchmove', blockScroll, { passive: false });
-
-      // Instant snap — no smooth delay for momentum to overcome
       window.scrollTo({ top: targetScrollY, behavior: 'instant' as ScrollBehavior });
       wheelAcc = 0;
 
       // Brief settle, then hand off to card navigation
       setTimeout(() => {
-        window.removeEventListener('wheel', blockScroll);
-        window.removeEventListener('touchmove', blockScroll);
         isSnapping = false;
         isLocked = true;
         wheelAcc = 0;
 
-        // Set correct start card based on entry direction
         const startIndex = enteringFromBelow ? 0 : N - 1;
         if (startIndex !== activeIndex) {
           cards.forEach(c => { c.style.transition = 'none'; });
@@ -359,9 +361,9 @@ const PANELS = [
         }
 
         window.addEventListener('wheel', onWheel, { passive: false });
-        window.addEventListener('touchstart', onTouchStart, { passive: false });
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
         window.addEventListener('touchmove', onTouchMove, { passive: false });
-      }, 100);
+      }, 80);
     }
 
     // ── IntersectionObserver: fire at 20% so we catch users before momentum builds ───
