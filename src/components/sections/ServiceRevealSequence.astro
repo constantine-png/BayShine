@@ -172,11 +172,8 @@ const PANELS = [
 
 <script>
   function initServiceCards() {
-    const section = document.getElementById('services') as HTMLElement | null;
     const arena = document.getElementById('srs-arena') as HTMLElement | null;
-    if (!section || !arena) return;
-
-    // Skip if reduced-motion preference
+    if (!arena) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const cards = Array.from(arena.querySelectorAll<HTMLElement>('[data-srs-card]'));
@@ -184,40 +181,32 @@ const PANELS = [
     let activeIndex = 0;
     let isLocked = false;
     let isTransitioning = false;
-    let wheelAccumulator = 0;
+    let wheelAcc = 0;
+    let touchStartX = 0;
     let touchStartY = 0;
 
-    // ---------- Card positioning ----------
-
-    function positionAll(index: number) {
+    // ── Positioning ──────────────────────────────────────────────────
+    function positionAll(idx: number) {
       const vw = window.innerWidth;
-      const cardW = cards[0]?.offsetWidth ?? 320;
-      const centerX = vw / 2 - cardW / 2;
+      const cardW = (cards[0] as HTMLElement).offsetWidth || 320;
+      const centerX = Math.round(vw / 2 - cardW / 2);
 
       cards.forEach((card, i) => {
-        const offset = i - index;
+        const offset = i - idx;
         let x: number, scale: number, opacity: number, zIndex: number;
 
         if (offset === 0) {
-          x = centerX;
-          scale = 1.07;
-          opacity = 1;
-          zIndex = 10;
+          x = centerX; scale = 1.07; opacity = 1; zIndex = 10;
           card.classList.add('is-active');
         } else if (offset < 0) {
-          const depth = -offset;
-          // Stack to the left: each past card moves further left and shrinks
-          x = centerX - depth * Math.min(cardW * 0.55 + 16, 200);
-          scale = Math.max(0.72, 0.9 - depth * 0.07);
-          opacity = Math.max(0.1, 0.55 - depth * 0.18);
-          zIndex = 10 - depth;
+          const d = -offset;
+          x = centerX - d * Math.min(cardW * 0.5 + 20, 200);
+          scale = Math.max(0.72, 0.9 - d * 0.07);
+          opacity = Math.max(0.1, 0.5 - d * 0.15);
+          zIndex = 10 - d;
           card.classList.remove('is-active');
         } else {
-          // Future cards: off-screen right
-          x = vw + cardW + 40;
-          scale = 0.9;
-          opacity = 0;
-          zIndex = 0;
+          x = vw + cardW + 40; scale = 0.9; opacity = 0; zIndex = 0;
           card.classList.remove('is-active');
         }
 
@@ -227,8 +216,12 @@ const PANELS = [
       });
     }
 
-    // ---------- Advance / retreat ----------
+    // Show card 0 immediately — no waiting for lock, never invisible
+    cards.forEach(c => { c.style.transition = 'none'; });
+    positionAll(0);
+    requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
 
+    // ── Advance / retreat ────────────────────────────────────────────
     function advance() {
       if (isTransitioning) return;
       if (activeIndex < N - 1) {
@@ -237,10 +230,11 @@ const PANELS = [
         positionAll(activeIndex);
         setTimeout(() => { isTransitioning = false; }, 600);
       } else {
-        // Last card — release and scroll to Standing Detail
+        // Past last card: release and land on Standing Detail
         unlock();
         requestAnimationFrame(() => {
-          document.getElementById('standing-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('standing-detail')
+            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       }
     }
@@ -253,42 +247,45 @@ const PANELS = [
         positionAll(activeIndex);
         setTimeout(() => { isTransitioning = false; }, 600);
       } else {
-        // First card — release and allow upward scroll
+        // Before first card: release upward
         unlock();
       }
     }
 
-    // ---------- Event handlers ----------
-
+    // ── Input handlers ───────────────────────────────────────────────
     function onWheel(e: WheelEvent) {
       e.preventDefault();
       e.stopPropagation();
-      wheelAccumulator += e.deltaY;
-      if (wheelAccumulator > 60) { wheelAccumulator = 0; advance(); }
-      else if (wheelAccumulator < -60) { wheelAccumulator = 0; retreat(); }
+      // Accept horizontal trackpad swipe (deltaX) OR vertical scroll wheel (deltaY)
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      wheelAcc += delta;
+      if (wheelAcc > 60) { wheelAcc = 0; advance(); }
+      else if (wheelAcc < -60) { wheelAcc = 0; retreat(); }
     }
 
     function onTouchStart(e: TouchEvent) {
+      touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
     }
 
     function onTouchMove(e: TouchEvent) {
       e.preventDefault();
+      const dx = touchStartX - e.touches[0].clientX;
       const dy = touchStartY - e.touches[0].clientY;
-      if (Math.abs(dy) > 40) {
+      // Use whichever axis has more movement
+      const delta = Math.abs(dx) >= Math.abs(dy) ? dx : dy;
+      if (Math.abs(delta) > 40) {
+        touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
-        if (dy > 0) advance(); else retreat();
+        if (delta > 0) advance(); else retreat();
       }
     }
 
-    // ---------- Lock / unlock ----------
-
-    function lock(fromBottom: boolean = false) {
+    // ── Lock / unlock ────────────────────────────────────────────────
+    function lock() {
       if (isLocked) return;
       isLocked = true;
-      wheelAccumulator = 0;
-      activeIndex = fromBottom ? N - 1 : 0;
-      positionAll(activeIndex);
+      wheelAcc = 0;
       window.addEventListener('wheel', onWheel, { passive: false });
       window.addEventListener('touchstart', onTouchStart, { passive: false });
       window.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -302,57 +299,41 @@ const PANELS = [
       window.removeEventListener('touchmove', onTouchMove);
     }
 
-    // ---------- Scroll listener: detect when arena fills viewport ----------
+    // ── Entry detection via IntersectionObserver ─────────────────────
+    // Replaces the fragile rect.top <= 2 scroll-polling approach.
+    // Fires reliably at any scroll speed.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.85) {
+          if (!isLocked) {
+            // Determine entry direction: arena.top > 0 means entering from below (scroll down)
+            const enteringFromBelow = entry.boundingClientRect.top >= 0;
+            const startIndex = enteringFromBelow ? 0 : N - 1;
 
-    let lastScrollY = window.scrollY;
-    let scrollRafId = 0;
-
-    function checkEntry() {
-      const rect = arena!.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const scrollingDown = window.scrollY >= lastScrollY;
-      lastScrollY = window.scrollY;
-
-      if (!isLocked) {
-        // Lock when the arena sits flush at the viewport top
-        if (rect.top <= 2 && rect.top >= -vh * 0.05 && rect.bottom >= vh - 2) {
-          lock(!scrollingDown);
+            // Snap to correct start card without animation
+            if (startIndex !== activeIndex) {
+              cards.forEach(c => { c.style.transition = 'none'; });
+              activeIndex = startIndex;
+              positionAll(activeIndex);
+              requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
+            }
+            lock();
+          }
+        } else if (!entry.isIntersecting && isLocked) {
+          unlock();
         }
-      }
-      scrollRafId = 0;
-    }
-
-    function onPageScroll() {
-      lastScrollY = window.scrollY;
-      if (scrollRafId) return;
-      scrollRafId = requestAnimationFrame(checkEntry);
-    }
-
-    window.addEventListener('scroll', onPageScroll, { passive: true });
-    window.addEventListener('resize', () => { if (isLocked) positionAll(activeIndex); }, { passive: true });
-
-    // Initialize all cards off-screen right
-    function initPositions() {
-      const vw = window.innerWidth;
-      cards.forEach(card => {
-        const cardW = card.offsetWidth || 320;
-        card.style.transform = `translateX(${vw + cardW + 40}px) translateY(-50%) scale(0.9)`;
-        card.style.opacity = '0';
-        card.style.zIndex = '0';
-        card.style.transition = 'none'; // no animation on init
       });
-      // Re-enable transitions after one frame
-      requestAnimationFrame(() => {
-        cards.forEach(card => { card.style.transition = ''; });
-      });
-    }
+    }, { threshold: [0, 0.85] });
 
-    initPositions();
-    checkEntry();
+    observer.observe(arena);
+
+    window.addEventListener('resize', () => {
+      if (isLocked) positionAll(activeIndex);
+    }, { passive: true });
 
     document.addEventListener('astro:before-swap', () => {
       unlock();
-      window.removeEventListener('scroll', onPageScroll);
+      observer.disconnect();
     }, { once: true });
   }
 
