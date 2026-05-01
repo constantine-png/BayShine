@@ -260,8 +260,8 @@ const PANELS = [
         positionAll(activeIndex);
         setTimeout(() => { isTransitioning = false; }, 600);
       } else {
-        // Past last card: release and land on Standing Detail
-        unlock();
+        // Past last card: suppress re-lock while page scrolls away, then release
+        unlock(true);
         requestAnimationFrame(() => {
           document.getElementById('standing-detail')
             ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -278,7 +278,7 @@ const PANELS = [
         setTimeout(() => { isTransitioning = false; }, 600);
       } else {
         // Before first card: release upward
-        unlock();
+        unlock(true);
       }
     }
 
@@ -315,15 +315,22 @@ const PANELS = [
     }
 
     // ── Lock / unlock ────────────────────────────────────────────────
-    function unlock() {
+    // exitSuppressed: blocks re-lock for 900ms after intentional exit so the
+    // IntersectionObserver can't fire lock() before scrollIntoView moves the page away
+    let exitSuppressed = false;
+
+    function unlock(suppressReentry = false) {
       if (!isLocked) return;
       isLocked = false;
-      // Restore scroll — body overflow is the reliable cross-platform lock
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
+      if (suppressReentry) {
+        exitSuppressed = true;
+        setTimeout(() => { exitSuppressed = false; }, 900);
+      }
     }
 
     // ── Two-phase lock: freeze body scroll, snap, then hand off ────
@@ -370,7 +377,7 @@ const PANELS = [
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-          if (!isLocked && !isSnapping) {
+          if (!isLocked && !isSnapping && !exitSuppressed) {
             const enteringFromBelow = entry.boundingClientRect.top >= 0;
             lock(enteringFromBelow);
           }
