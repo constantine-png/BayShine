@@ -1,6 +1,8 @@
 ---
-// ServiceRevealSequence — per-card scroll-lock carousel. One card centered at a time.
-// Scroll down advances cards; scroll up retreats. Last card releases to #standing-detail.
+// ServiceRevealSequence — sticky scroll-driven carousel.
+// A tall scroll tunnel makes the arena position:sticky so it pins to the
+// viewport top. As the user scrolls through the tunnel, scroll progress maps
+// to which card is active. No scroll locking, no body manipulation.
 import VideoLoop from '@/components/ui/VideoLoop.astro';
 import { ASSET_REGISTRY } from '@/lib/assetRegistry';
 
@@ -10,67 +12,88 @@ const PANELS = [
   { id: 'decon',    number: '03', title: 'Decontamination',    tagline: 'Iron fallout and bonded contaminants. Removed.',   body: 'Chemical decon spray, iron fallout remover, synthetic clay bar. The prep step that makes everything else last longer.',                  videoKey: 'showcaseDecon'   as const, videoFile: 'showcase-decontamination.mp4', href: '/exterior-detail' },
   { id: 'polish',   number: '04', title: 'Paint Correction',   tagline: 'Swirls and scratches. Not concealed – corrected.', body: 'Machine polishing with compound and finishing polish. Removes defects rather than filling them. Required before ceramic coating.', videoKey: 'showcasePolish'  as const, videoFile: 'showcase-polish.mp4',          href: '/recon' },
   { id: 'coating',  number: '05', title: 'Ceramic Coating',    tagline: 'Semi-permanent protection.',                       body: '9H-hardness SiO₂ coating applied after paint correction. Hydrophobic, scratch-resistant, and slick under UV.',                       videoKey: 'comparisonBayshine' as const, videoFile: 'comparison-bayshine-detail.mp4', href: '/ceramic-coating' },
-  { id: 'fleet',      number: '06', title: 'Fleet Programs',        tagline: 'Throughput is the metric.',              body: 'Lot maintenance for 30 to 300+ vehicles. Standing schedule, per-unit pricing, monthly invoice.',           videoKey: 'ambientFleet' as const, videoFile: 'ambient-fleet.mp4',       href: '/fleet' },
-  { id: 'apartments', number: '07', title: 'Property Programs',    tagline: 'A premium amenity. Zero cost to the property.', body: 'On-property detailing for resident communities. Residents enroll directly. The property adds the amenity — we handle everything else.', videoKey: 'ambientApts'  as const, videoFile: 'ambient-apartments.mp4', href: '/apartments' },
+  { id: 'fleet',    number: '06', title: 'Fleet Programs',     tagline: 'Throughput is the metric.',                        body: 'Lot maintenance for 30 to 300+ vehicles. Standing schedule, per-unit pricing, monthly invoice.',                                        videoKey: 'ambientFleet' as const, videoFile: 'ambient-fleet.mp4',               href: '/fleet' },
+  { id: 'apartments', number: '07', title: 'Property Programs', tagline: 'A premium amenity. Zero cost to the property.',  body: 'On-property detailing for resident communities. Residents enroll directly. The property adds the amenity — we handle everything else.', videoKey: 'ambientApts'  as const, videoFile: 'ambient-apartments.mp4',          href: '/apartments' },
 ] as const;
+
+const N = PANELS.length;
 ---
 
 <section class="srs-section" id="services" aria-label="Services">
-  <!-- Card arena: 100vh, clips card overflow; header and tint live inside -->
-  <div class="srs-arena" id="srs-arena">
+  <!--
+    Scroll tunnel: tall enough to give each card its own dwell zone.
+    The arena is position:sticky inside — it pins to the top of the
+    viewport while the user scrolls through the tunnel.
+  -->
+  <div class="srs-tunnel" id="srs-tunnel">
+    <div class="srs-arena" id="srs-arena">
 
-    <!-- Section label: absolute, overlaid at top of arena -->
-    <div class="srs-header" aria-hidden="false">
-      <h2 class="font-display font-bold text-2xl text-bay-white mb-1">Services</h2>
-      <p class="text-bay-slate text-xs tracking-wide">Every service is mobile. No drop-off, no waiting rooms.</p>
-    </div>
+      <!-- Section label overlaid at top of arena -->
+      <div class="srs-header" aria-hidden="false">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-1">Services</h2>
+        <p class="text-bay-slate text-xs tracking-wide">Every service is mobile. No drop-off, no waiting rooms.</p>
+      </div>
 
-    <!-- Amber glass tint overlay -->
-    <div class="srs-tint" aria-hidden="true"></div>
+      <!-- Amber glass tint overlay -->
+      <div class="srs-tint" aria-hidden="true"></div>
 
-    {PANELS.map((panel) => (
-      <a
-        href={panel.href}
-        class="srs-card section-bevel"
-        data-srs-card
-        aria-label={panel.title}
-      >
-        {ASSET_REGISTRY[panel.videoKey] && (
-          <div class="srs-card-video img-gloss" aria-hidden="true">
-            <VideoLoop
-              src={`/assets/video/${panel.videoFile}`}
-              ariaLabel={panel.title}
-              class="w-full h-full object-cover"
-            />
+      {PANELS.map((panel) => (
+        <a
+          href={panel.href}
+          class="srs-card section-bevel"
+          data-srs-card
+          aria-label={panel.title}
+        >
+          {ASSET_REGISTRY[panel.videoKey] && (
+            <div class="srs-card-video img-gloss" aria-hidden="true">
+              <VideoLoop
+                src={`/assets/video/${panel.videoFile}`}
+                ariaLabel={panel.title}
+                class="w-full h-full object-cover"
+              />
+            </div>
+          )}
+          <div class="srs-card-body">
+            <span class="srs-card-number" aria-hidden="true">{panel.number}</span>
+            <h3 class="srs-card-title">{panel.title}</h3>
+            <p class="srs-card-tagline">{panel.tagline}</p>
+            <p class="srs-card-desc">{panel.body}</p>
           </div>
-        )}
-        <div class="srs-card-body">
-          <span class="srs-card-number" aria-hidden="true">{panel.number}</span>
-          <h3 class="srs-card-title">{panel.title}</h3>
-          <p class="srs-card-tagline">{panel.tagline}</p>
-          <p class="srs-card-desc">{panel.body}</p>
-        </div>
-      </a>
-    ))}
+        </a>
+      ))}
+
+    </div>
   </div>
 </section>
 
-<style>
-  /* Section = arena exactly — no extra label above it */
+<style define:vars={{ N }}>
   .srs-section {
     position: relative;
-    /* No overflow, no height here — arena defines the height */
   }
 
-  /* Arena is the full section: 100vh, clips card overflow */
-  .srs-arena {
+  /*
+    Scroll tunnel: sets total dwell time for the carousel.
+    Each card gets one viewport-height of scroll travel, plus one extra
+    viewport at the end so the last card clears cleanly.
+  */
+  .srs-tunnel {
+    height: calc((var(--N) + 1) * 100vh);
     position: relative;
+  }
+
+  /*
+    Arena: sticky, pins to top of viewport as tunnel scrolls past.
+    Cards inside are absolute at top:50% translateY(-50%) so they're
+    always centered within the 100vh arena = centered in the viewport.
+  */
+  .srs-arena {
+    position: sticky;
+    top: 0;
     height: 100vh;
     overflow: hidden;
-    /* Amber glass tint is rendered by .srs-tint below */
   }
 
-  /* Header overlaid at top-center of the arena */
+  /* Section label: absolute, overlaid at top of arena */
   .srs-header {
     position: absolute;
     top: 2rem;
@@ -82,7 +105,7 @@ const PANELS = [
     pointer-events: none;
   }
 
-  /* Amber/sepia tint overlay — gives the section a warm glass feel */
+  /* Amber glass tint overlay */
   .srs-tint {
     position: absolute;
     inset: 0;
@@ -181,9 +204,13 @@ const PANELS = [
     flex: 1;
   }
 
-  /* Reduced motion: static flex row, no lock, no animations */
+  /* Reduced motion: static grid, no sticky, no animations */
   @media (prefers-reduced-motion: reduce) {
+    .srs-tunnel {
+      height: auto;
+    }
     .srs-arena {
+      position: static;
       height: auto;
       overflow: visible;
       display: flex;
@@ -203,22 +230,18 @@ const PANELS = [
 
 <script>
   function initServiceCards() {
-    const arena = document.getElementById('srs-arena') as HTMLElement | null;
-    if (!arena) return;
+    const tunnel = document.getElementById('srs-tunnel') as HTMLElement | null;
+    const arena  = document.getElementById('srs-arena') as HTMLElement | null;
+    if (!tunnel || !arena) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const cards = Array.from(arena.querySelectorAll<HTMLElement>('[data-srs-card]'));
     const N = cards.length;
-    let activeIndex = 0;
-    let isLocked = false;
-    let isTransitioning = false;
-    let wheelAcc = 0;
-    let touchStartX = 0;
-    let touchStartY = 0;
+    let activeIndex = -1;
 
-    // ── Positioning ──────────────────────────────────────────────────
+    // ── Card positioning ─────────────────────────────────────────────
     function positionAll(idx: number) {
-      const vw = window.innerWidth;
+      const vw    = window.innerWidth;
       const cardW = (cards[0] as HTMLElement).offsetWidth || 320;
       const centerX = Math.round(vw / 2 - cardW / 2);
 
@@ -242,233 +265,43 @@ const PANELS = [
         }
 
         card.style.transform = `translateX(${x}px) translateY(-50%) scale(${scale})`;
-        card.style.opacity = String(opacity);
-        card.style.zIndex = String(zIndex);
+        card.style.opacity   = String(opacity);
+        card.style.zIndex    = String(zIndex);
       });
     }
 
-    // Show card 0 immediately — no waiting for lock, never invisible
+    // ── Scroll-progress → card index ─────────────────────────────────
+    // Maps how far the user has scrolled through the tunnel (0–1) to a
+    // card index (0 to N-1). Each card gets an equal slice of the tunnel.
+    function getScrollIndex(): number {
+      const rect        = tunnel!.getBoundingClientRect();
+      const scrolled    = Math.max(0, -rect.top);                       // px into tunnel
+      const totalTravel = Math.max(1, rect.height - window.innerHeight); // scrollable range
+      const progress    = Math.min(1, scrolled / totalTravel);
+      return Math.min(N - 1, Math.floor(progress * N));
+    }
+
+    // Initial render without transition flash
+    const initIdx = getScrollIndex();
     cards.forEach(c => { c.style.transition = 'none'; });
-    positionAll(0);
+    positionAll(initIdx);
+    activeIndex = initIdx;
     requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
 
-    // ── Helpers ──────────────────────────────────────────────────────
-    function getCardCenterX(): number {
-      const vw = window.innerWidth;
-      const cardW = (cards[0] as HTMLElement).offsetWidth || 320;
-      return Math.round(vw / 2 - cardW / 2);
-    }
-
-    // Nudge the active card in `dir` then spring it back, then call onComplete.
-    // dir: -1 = nudge left (exit-down feel), +1 = nudge right (exit-up feel).
-    function bounceExit(dir: 1 | -1, onComplete: () => void) {
-      isTransitioning = true;
-      const card = cards[activeIndex] as HTMLElement;
-      const cx = getCardCenterX();
-      const nudge = dir * 52;
-
-      // Phase 1 — quick nudge away from center
-      card.style.transition = 'transform 170ms ease-out, opacity 170ms ease-out';
-      card.style.transform = `translateX(${cx + nudge}px) translateY(-50%) scale(1.04)`;
-
-      setTimeout(() => {
-        // Phase 2 — spring back to active position (slight overshoot)
-        card.style.transition = 'transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 250ms ease-out';
-        card.style.transform = `translateX(${cx}px) translateY(-50%) scale(1.07)`;
-        card.style.opacity = '1';
-
-        setTimeout(() => {
-          // Reset to the normal glide transition before releasing
-          card.style.transition = '';
-          isTransitioning = false;
-          onComplete();
-        }, 450);
-      }, 180);
-    }
-
-    // ── Advance / retreat ────────────────────────────────────────────
-    function advance() {
-      if (isTransitioning) return;
-      if (activeIndex < N - 1) {
-        isTransitioning = true;
-        activeIndex++;
+    // ── Scroll listener ──────────────────────────────────────────────
+    function onScroll() {
+      const newIndex = getScrollIndex();
+      if (newIndex !== activeIndex) {
+        activeIndex = newIndex;
         positionAll(activeIndex);
-        setTimeout(() => { isTransitioning = false; }, 1000);
-      } else {
-        // Past last card: bounce back to center, then release downward
-        bounceExit(-1, () => {
-          unlock(true);
-          requestAnimationFrame(() => {
-            document.getElementById('standing-detail')
-              ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
-        });
       }
     }
 
-    function retreat() {
-      if (isTransitioning) return;
-      if (activeIndex > 0) {
-        isTransitioning = true;
-        activeIndex--;
-        positionAll(activeIndex);
-        setTimeout(() => { isTransitioning = false; }, 1000);
-      } else {
-        // Before first card: bounce back to center, then release upward
-        bounceExit(1, () => {
-          unlock(true);
-        });
-      }
-    }
-
-    // ── Input handlers ───────────────────────────────────────────────
-    function onWheel(e: WheelEvent) {
-      e.preventDefault();
-      e.stopPropagation();
-      // Drain momentum events during card transition — no bleed-through
-      if (isTransitioning) { wheelAcc = 0; return; }
-      // Normalize deltaMode: 0=pixels, 1=lines(~20px each), 2=pages(~300px)
-      const raw = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      const norm = e.deltaMode === 1 ? raw * 20 : e.deltaMode === 2 ? raw * 300 : raw;
-      wheelAcc += norm;
-      if (wheelAcc > 50) { wheelAcc = 0; advance(); }
-      else if (wheelAcc < -50) { wheelAcc = 0; retreat(); }
-    }
-
-    function onTouchStart(e: TouchEvent) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }
-
-    function onTouchMove(e: TouchEvent) {
-      e.preventDefault();
-      if (isTransitioning) return;
-      const dx = touchStartX - e.touches[0].clientX;
-      const dy = touchStartY - e.touches[0].clientY;
-      const delta = Math.abs(dx) >= Math.abs(dy) ? dx : dy;
-      if (Math.abs(delta) > 40) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        if (delta > 0) advance(); else retreat();
-      }
-    }
-
-    // ── Lock / unlock ────────────────────────────────────────────────
-    // exitSuppressed: blocks re-lock for 900ms after intentional exit so the
-    // IntersectionObserver can't fire lock() before scrollIntoView moves the page away
-    let exitSuppressed = false;
-
-    function unlock(suppressReentry = false) {
-      if (!isLocked) return;
-      isLocked = false;
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      if (suppressReentry) {
-        exitSuppressed = true;
-        setTimeout(() => { exitSuppressed = false; }, 900);
-      }
-    }
-
-    // ── Smooth center-scroll animation ──────────────────────────────
-    // Animates window scroll to targetY with ease-out-cubic, then calls onDone.
-    // Running this BEFORE setting overflow:hidden is the key fix — some browsers
-    // silently ignore window.scrollTo after overflow:hidden is applied to body.
-    function scrollToCenter(targetY: number, duration: number, onDone: () => void) {
-      const startY = window.scrollY;
-      const dist   = targetY - startY;
-      if (Math.abs(dist) < 2) { onDone(); return; }
-
-      const t0 = performance.now();
-      function tick(now: number) {
-        const t = Math.min((now - t0) / duration, 1);
-        const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
-        window.scrollTo(0, Math.round(startY + dist * ease));
-        if (t < 1) requestAnimationFrame(tick);
-        else onDone();
-      }
-      requestAnimationFrame(tick);
-    }
-
-    // ── Lock: slide arena to center, then hand off to card nav ──────
-    let isSnapping = false;
-
-    function lock(enteringFromBelow: boolean) {
-      if (isLocked || isSnapping) return;
-      isSnapping = true;
-      wheelAcc = 0;
-
-      // Compensate for scrollbar disappearance on Windows/Linux
-      const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
-      if (scrollbarW > 0) document.body.style.paddingRight = `${scrollbarW}px`;
-
-      // Block user scroll input during the slide animation so the programmatic
-      // scroll is never interrupted. capture:true intercepts before page handlers.
-      function blockInput(e: Event) { e.preventDefault(); e.stopPropagation(); }
-      window.addEventListener('wheel',     blockInput, { passive: false, capture: true });
-      window.addEventListener('touchmove', blockInput, { passive: false, capture: true });
-
-      // Target: arena top aligned with viewport top. Since arena is 100vh this
-      // fills the viewport and vertically centers the cards (top:50% translateY(-50%)).
-      const rect    = arena!.getBoundingClientRect();
-      const targetY = Math.round(window.scrollY + rect.top);
-
-      // Smooth deceleration slide into position (550ms ease-out-cubic)
-      scrollToCenter(targetY, 550, () => {
-        window.removeEventListener('wheel',     blockInput, { capture: true });
-        window.removeEventListener('touchmove', blockInput, { capture: true });
-
-        // Freeze AFTER the scroll has landed — this is why it centers correctly now
-        document.body.style.overflow = 'hidden';
-        wheelAcc = 0;
-
-        setTimeout(() => {
-          isSnapping = false;
-          isLocked   = true;
-          wheelAcc   = 0;
-
-          const startIndex = enteringFromBelow ? 0 : N - 1;
-          if (startIndex !== activeIndex) {
-            cards.forEach(c => { c.style.transition = 'none'; });
-            activeIndex = startIndex;
-            positionAll(activeIndex);
-            requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
-          }
-
-          window.addEventListener('wheel',      onWheel,      { passive: false });
-          window.addEventListener('touchstart', onTouchStart, { passive: true });
-          window.addEventListener('touchmove',  onTouchMove,  { passive: false });
-        }, 50);
-      });
-    }
-
-    // ── IntersectionObserver: fire at 20% so we catch users before momentum builds ───
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-          if (!isLocked && !isSnapping && !exitSuppressed) {
-            const enteringFromBelow = entry.boundingClientRect.top >= 0;
-            lock(enteringFromBelow);
-          }
-        } else if (!entry.isIntersecting) {
-          if (isLocked) unlock();
-          isSnapping = false;
-        }
-      });
-    }, { threshold: [0, 0.2, 0.5] });
-
-    observer.observe(arena!);
-
-    window.addEventListener('resize', () => {
-      if (isLocked) positionAll(activeIndex);
-    }, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { positionAll(activeIndex); }, { passive: true });
 
     document.addEventListener('astro:before-swap', () => {
-      unlock();
-      isSnapping = false;
-      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
     }, { once: true });
   }
 
