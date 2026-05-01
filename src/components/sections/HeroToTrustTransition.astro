@@ -1,154 +1,43 @@
 ---
-// HeroToTrustTransition — 30vh scroll-driven navy-drain effect bridging the hero and trust bar.
-// The ambient video plays behind a navy mask that drains upward as the user scrolls.
-// A gold meniscus line rides the drain edge. No label — pure visual transition.
-import VideoLoop from '@/components/ui/VideoLoop.astro';
+// Static gold-line divider with centered droplet. No scroll animation.
 ---
 
-<section class="hero-to-trust-transition" aria-hidden="true">
-
-  <!-- Layer 0: Dedicated ambient video — scoped to this section so the drain effect is always visible -->
-  <VideoLoop
-    src="/assets/video/ambient-beads-on-hood.mp4"
-    ariaLabel=""
-    class="shoreline-bg-video"
-  />
-
-  <!-- Layer A: Navy overlay mask — drains upward on scroll -->
-  <div class="shoreline-mask-overlay" aria-hidden="true"></div>
-
-  <!-- Layer A+: Radial gold glow to amplify the video around the drain edge -->
-  <div class="shoreline-video-boost" aria-hidden="true"></div>
-
-  <!-- Layer B: Gold meniscus line — rides the drain edge -->
-  <div class="shoreline-meniscus" aria-hidden="true"></div>
-
-  <!-- Layer C: Droplet anchor -->
-  <div class="shoreline-droplet" aria-label="A single bead of water">
+<div class="shoreline-divider" aria-hidden="true">
+  <div class="shoreline-line"></div>
+  <div class="shoreline-droplet">
     <svg viewBox="0 0 14 18" width="14" height="18" fill="none">
       <path d="M7 0 C 11 6, 14 11, 14 14 A 7 4 0 0 1 0 14 C 0 11, 3 6, 7 0 Z"
             fill="var(--color-bay-gold)" opacity="0.9"/>
       <ellipse cx="5" cy="11" rx="1.5" ry="2.5" fill="rgba(255,255,255,0.4)"/>
     </svg>
-    <div class="shoreline-droplet-reflection" aria-hidden="true"></div>
+    <div class="shoreline-droplet-reflection"></div>
   </div>
-
-</section>
+</div>
 
 <style>
-  /* ── Container ──────────────────────────────────────────────── */
-  .hero-to-trust-transition {
+  .shoreline-divider {
     position: relative;
     width: 100%;
-    height: 30vh;
-    min-height: 240px;
-    overflow: hidden;
-    background-color: transparent;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* ── Layer 0: Scoped background video ───────────────────────── */
-  .shoreline-bg-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    filter: brightness(0.55) saturate(0.8);
-    pointer-events: none;
-  }
-
-  .shoreline-bg-video video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* ── Layer A: Receding mask overlay ─────────────────────────── */
-  /* --shoreline-progress runs 0→100 (set via JS on the section element).
-     At 0 the overlay is fully opaque (video hidden).
-     At 100 the overlay is fully transparent (video exposed). */
-  .shoreline-mask-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background-color: var(--color-bay-navy);
-    -webkit-mask-image: linear-gradient(
-      to top,
-      transparent 0%,
-      transparent calc(var(--shoreline-progress, 0) * 1%),
-      black calc(var(--shoreline-progress, 0) * 1% + 4%),
-      black 100%
-    );
-    mask-image: linear-gradient(
-      to top,
-      transparent 0%,
-      transparent calc(var(--shoreline-progress, 0) * 1%),
-      black calc(var(--shoreline-progress, 0) * 1% + 4%),
-      black 100%
-    );
-  }
-
-  /* ── Layer A+: Video boost glow ─────────────────────────────── */
-  .shoreline-video-boost {
+  .shoreline-line {
     position: absolute;
     left: 0;
     right: 0;
-    height: 40%;
-    bottom: calc(var(--shoreline-progress, 0) * 1% - 20%);
-    background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(201, 169, 97, 0.12) 0%, transparent 70%);
-    mix-blend-mode: screen;
-    z-index: 2;
-    pointer-events: none;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(201,169,97,0.7) 30%, rgba(201,169,97,0.95) 50%, rgba(201,169,97,0.7) 70%, transparent 100%);
+    box-shadow: 0 0 12px rgba(201,169,97,0.4), 0 0 32px rgba(201,169,97,0.15);
   }
 
-  /* ── Layer B: Gold meniscus line ────────────────────────────── */
-  /* Rides the mask edge — bottom is calc'd from --shoreline-progress. */
-  .shoreline-meniscus {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    pointer-events: none;
-    background: linear-gradient(90deg, transparent 0%, rgba(201, 169, 97, 0.95) 50%, transparent 100%);
-    box-shadow:
-      0 0 calc(16px + var(--shoreline-progress, 0) * 0.32px) rgba(201, 169, 97, 0.7),
-      0 0 calc(32px + var(--shoreline-progress, 0) * 0.64px) rgba(201, 169, 97, 0.4),
-      0 0 96px rgba(201, 169, 97, 0.15);
-    bottom: calc(var(--shoreline-progress, 0) * 1%);
-    transform: translateY(50%);
-    z-index: 3;
-  }
-
-  /* ── Layer C: Droplet ───────────────────────────────────────── */
   .shoreline-droplet {
-    position: absolute;
-    left: 50%;
-    bottom: 45%;
-    transform: translateX(-50%);
-    z-index: 4;
-    cursor: default;
-    animation: dropletAmbientPulse 4s ease-in-out infinite;
-  }
-
-  .shoreline-droplet:hover {
-    animation: dropletRipple 1200ms ease-out forwards;
-  }
-
-  @keyframes dropletAmbientPulse {
-    0%, 100% {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 6px rgba(201,169,97,0.35));
-      transform: translateX(-50%) scale(1);
-    }
-    50% {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 18px rgba(201,169,97,0.65));
-      transform: translateX(-50%) scale(1.08);
-    }
-  }
-
-  @keyframes dropletRipple {
-    0%   { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 0px rgba(201,169,97,0.5)); }
-    100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 40px rgba(201,169,97,0)); }
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
   }
 
   .shoreline-droplet-reflection {
@@ -159,89 +48,8 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
     width: 20px;
     height: 6px;
     margin-top: 3px;
-    background: radial-gradient(ellipse at center, rgba(201, 169, 97, 0.35) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(201,169,97,0.35) 0%, transparent 70%);
     filter: blur(2px);
     pointer-events: none;
   }
-
-  /* ── Responsive ─────────────────────────────────────────────── */
-  @media (max-width: 768px) {
-    .hero-to-trust-transition {
-      height: 25vh;
-      min-height: 240px;
-    }
-  }
-
-  /* ── Reduced motion ─────────────────────────────────────────── */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-to-trust-transition {
-      height: 160px;
-    }
-
-    .shoreline-mask-overlay {
-      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 50%, black 100%);
-      mask-image: linear-gradient(to top, transparent 0%, black 50%, black 100%);
-    }
-
-    .shoreline-meniscus {
-      bottom: 50%;
-    }
-
-    .shoreline-droplet {
-      animation: none;
-    }
-  }
 </style>
-
-<script>
-  // Scroll-driven progress driver for HeroToTrustTransition.
-  // Sets --shoreline-progress (0–100) on the section element based on scroll position.
-  // Uses smoothstep easing (Hermite) for a natural deceleration curve.
-  // Cleans up listeners on Astro view transitions.
-  function initShorelineTransition() {
-    const section = document.querySelector('.hero-to-trust-transition') as HTMLElement | null;
-    if (!section) return;
-
-    let rafId = 0;
-    let lastProgress = -1;
-
-    function updateProgress() {
-      const rect = section!.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const sh = rect.height;
-      const totalDistance = vh + sh;
-      const distanceScrolled = vh - rect.top;
-      const raw = Math.max(0, Math.min(1, distanceScrolled / totalDistance));
-      // Smoothstep (Hermite): eased = raw² × (3 − 2×raw)
-      const eased = raw * raw * (3 - 2 * raw);
-      const pct = Math.round(eased * 10000) / 100;
-
-      if (Math.abs(pct - lastProgress) > 0.1) {
-        section!.style.setProperty('--shoreline-progress', String(pct));
-        lastProgress = pct;
-      }
-
-      rafId = 0;
-    }
-
-    function onScroll() {
-      if (rafId) return;
-      rafId = requestAnimationFrame(updateProgress);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    updateProgress();
-
-    document.addEventListener('astro:before-swap', () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    }, { once: true });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initShorelineTransition);
-  } else {
-    initShorelineTransition();
-  }
-</script>

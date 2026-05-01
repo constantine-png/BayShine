@@ -1,325 +1,264 @@
 ---
-// ServiceRevealSequence — sticky 600vh scroll runway presenting one service panel at a time,
-// ending with an all-services row. No dots, no carousel. Pure scroll-driven reveal.
+// ServiceRevealSequence — scroll-driven horizontal pan of service cards.
+// All cards visible simultaneously on desktop. Vertical scroll drives left-to-right pan.
 import VideoLoop from '@/components/ui/VideoLoop.astro';
 import { ASSET_REGISTRY } from '@/lib/assetRegistry';
 
-const SERVICES = [
-  {
-    id: 'interior',
-    title: 'Full Detail',
-    tagline: 'Interior and exterior. Left cleaner than factory.',
-    videoKey: 'showcaseInterior' as const,
-    videoFile: 'showcase-interior.mp4',
-  },
+const PANELS = [
   {
     id: 'exterior',
+    number: '01',
     title: 'Exterior Detail',
     tagline: 'Paint and glass, correct sequence.',
+    body: 'Two-bucket wash, clay decontamination, iron fallout removal, and a finishing spray sealant. Every panel inspected under lighting.',
     videoKey: 'showcaseExterior' as const,
     videoFile: 'showcase-exterior.mp4',
   },
   {
+    id: 'full',
+    number: '02',
+    title: 'Full Detail',
+    tagline: 'Interior and exterior in one visit.',
+    body: 'Complete interior extraction, steam cleaning of contact surfaces, odor elimination, and the full exterior protocol.',
+    videoKey: 'showcaseInterior' as const,
+    videoFile: 'showcase-interior.mp4',
+  },
+  {
     id: 'decon',
+    number: '03',
     title: 'Decontamination',
-    tagline: 'Iron fallout, bonded contaminants. Removed.',
+    tagline: 'Iron fallout and bonded contaminants. Removed.',
+    body: 'Chemical decon spray, iron fallout remover, synthetic clay bar. The prep step that makes everything else last longer.',
     videoKey: 'showcaseDecon' as const,
     videoFile: 'showcase-decontamination.mp4',
   },
   {
     id: 'polish',
+    number: '04',
     title: 'Paint Correction',
     tagline: 'Swirls and scratches. Not concealed – corrected.',
+    body: 'Machine polishing with compound and finishing polish. Removes defects rather than filling them. Required before ceramic coating.',
     videoKey: 'showcasePolish' as const,
     videoFile: 'showcase-polish.mp4',
   },
   {
     id: 'coating',
+    number: '05',
     title: 'Ceramic Coating',
-    tagline: 'Semi-permanent protection. 2 to 5 years under Tampa Bay sun.',
+    tagline: 'Semi-permanent protection.',
+    body: '9H-hardness SiO₂ coating applied after paint correction. Hydrophobic, scratch-resistant, and slick under UV.',
     videoKey: 'showcaseCoating' as const,
     videoFile: 'showcase-coating.mp4',
   },
 ] as const;
 ---
 
-<!-- Section heading above the scroll runway (normal flow, always visible) -->
-<div class="srs-header container mx-auto max-w-5xl px-4 py-20">
-  <h2>Services</h2>
-  <p>Every service is mobile. No drop-off, no waiting rooms.</p>
-</div>
-
-<!-- 600vh scroll runway + sticky container -->
-<div class="srs-outer" aria-label="Service reveal sequence">
-  <div class="srs-sticky" aria-live="polite">
-
-    <!-- Single-service panels (one per service, only one visible at a time) -->
-    {SERVICES.map((svc, i) => (
-      <div class="srs-panel" data-index={i} aria-hidden={i !== 0 ? 'true' : 'false'}>
-        <!-- Background video at 60% opacity -->
-        {ASSET_REGISTRY[svc.videoKey] && (
-          <VideoLoop src={`/assets/video/${svc.videoFile}`} ariaLabel={svc.title} class="srs-video" />
-        )}
-        <!-- Overlay gradient -->
-        <div class="srs-panel-overlay" aria-hidden="true"></div>
-        <!-- Content -->
-        <div class="srs-panel-content">
-          <h3 class="srs-service-title">{svc.title}</h3>
-          <p class="srs-service-tagline">{svc.tagline}</p>
-        </div>
-      </div>
-    ))}
-
-    <!-- All-services row (shown during final 16.6% of scroll) -->
-    <div class="srs-row" aria-hidden="true">
-      {SERVICES.map((svc) => (
-        <div class="srs-row-card">
-          {ASSET_REGISTRY[svc.videoKey] && (
-            <VideoLoop src={`/assets/video/${svc.videoFile}`} ariaLabel={svc.title} class="srs-row-video" />
-          )}
-          <div class="srs-row-card-content">
-            <p class="srs-row-title">{svc.title}</p>
-            <p class="srs-row-tagline">{svc.tagline}</p>
-          </div>
-        </div>
-      ))}
+<section class="sss-section">
+  <!-- Normal-flow header: above the sticky scroll zone -->
+  <div class="sss-header container mx-auto max-w-5xl px-4 pt-20 pb-10">
+    <div class="reveal">
+      <h2 class="font-display font-bold text-3xl text-bay-white mb-2">Services</h2>
+      <p class="text-bay-slate text-sm">Every service is mobile. No drop-off, no waiting rooms.</p>
     </div>
-
   </div>
-</div>
+
+  <!-- Scroll runway: vertical height drives horizontal pan -->
+  <div class="sss-outer">
+    <div class="sss-sticky">
+      <div class="sss-track" id="sss-track">
+        {PANELS.map((panel) => (
+          <article class="sss-card section-bevel" id={`sss-card-${panel.id}`}>
+            {ASSET_REGISTRY[panel.videoKey] && (
+              <div class="sss-card-video img-gloss" aria-hidden="true">
+                <VideoLoop src={`/assets/video/${panel.videoFile}`} ariaLabel={panel.title} class="w-full h-full object-cover" />
+              </div>
+            )}
+            <div class="sss-card-body">
+              <span class="sss-card-number" aria-hidden="true">{panel.number}</span>
+              <h3 class="sss-card-title">{panel.title}</h3>
+              <p class="sss-card-tagline">{panel.tagline}</p>
+              <p class="sss-card-desc">{panel.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
 <style>
-  /* Heading above the scroll runway */
-  .srs-header h2 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-    color: var(--color-bay-white);
-    margin-bottom: 0.5rem;
-  }
-  .srs-header p {
-    color: var(--color-bay-slate);
-    font-size: 0.875rem;
+  .sss-section {
+    overflow: hidden;
   }
 
-  /* 600vh outer container — creates scroll runway */
-  .srs-outer {
+  /* Normal-flow header stays above the sticky zone */
+  .sss-header {
     position: relative;
-    height: 600vh;
+    z-index: 1;
   }
 
-  /* Sticky inner — stays in viewport during 600vh scroll */
-  .srs-sticky {
+  /* Scroll runway — 500vh creates the scroll budget for the pan */
+  .sss-outer {
+    height: 500vh;
+    position: relative;
+  }
+
+  /* Sticky container pins to viewport during the 500vh scroll */
+  .sss-sticky {
     position: sticky;
     top: 0;
     height: 100vh;
+    display: flex;
+    align-items: center;
     overflow: hidden;
   }
 
-  /* Individual service panels */
-  .srs-panel {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 100ms ease-out;
+  /* Horizontal card track — JS sets translateX */
+  .sss-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .srs-panel.is-active {
-    opacity: 1;
+    gap: 1.5rem;
+    padding: 0 5vw;
+    will-change: transform;
   }
 
-  /* Panel background video */
-  .srs-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6;
-  }
-  /* VideoLoop renders a <video> tag, so also target that */
-  .srs-video video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Gradient overlay darkening the video */
-  .srs-panel-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(10, 18, 32, 0.85) 0%, rgba(10, 18, 32, 0.4) 50%, rgba(10, 18, 32, 0.2) 100%);
-  }
-
-  /* Panel content — centered text */
-  .srs-panel-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 2rem;
-    max-width: 640px;
-  }
-
-  .srs-service-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    color: var(--color-bay-white);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: 1rem;
-  }
-
-  .srs-service-tagline {
-    font-size: 1rem;
-    color: var(--color-bay-gold);
-    letter-spacing: 0.04em;
-    font-weight: 500;
-  }
-
-  /* All-services row */
-  .srs-row {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 100ms ease-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-    background: var(--color-bay-deep);
-  }
-  .srs-row.is-active {
-    opacity: 1;
-  }
-
-  .srs-row-card {
-    flex: 1;
-    min-width: 0;
-    position: relative;
-    height: 60vh;
-    overflow: hidden;
+  /* Individual card */
+  .sss-card {
+    flex-shrink: 0;
+    width: min(320px, 72vw);
+    background-color: var(--color-bay-deep);
+    border: 1px solid rgba(122,130,148,0.1);
     border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
-  .srs-row-video {
-    position: absolute;
-    inset: 0;
+  /* Card video thumbnail */
+  .sss-card-video {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--color-bay-navy);
+  }
+
+  .sss-card-video video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.6;
-  }
-  .srs-row-video video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
-  .srs-row-card-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background: linear-gradient(to top, rgba(10,18,32,0.9) 0%, transparent 100%);
+  /* Card body */
+  .sss-card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
-  .srs-row-title {
+  /* Oversized outlined number */
+  .sss-card-number {
+    display: block;
     font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 1;
     font-weight: 700;
-    font-size: 0.875rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,169,97,0.2);
+    pointer-events: none;
+    user-select: none;
+    margin-bottom: 0.5rem;
+    margin-left: -0.25rem;
+  }
+
+  .sss-card-title {
+    font-family: var(--font-ui, 'Manrope', sans-serif);
+    font-weight: 700;
+    font-size: 1.125rem;
     color: var(--color-bay-white);
     margin-bottom: 0.25rem;
+    line-height: 1.3;
   }
 
-  .srs-row-tagline {
-    font-size: 0.7rem;
-    color: var(--color-bay-slate);
+  .sss-card-tagline {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--color-bay-gold);
+    margin-bottom: 0.75rem;
     line-height: 1.4;
   }
 
-  /* Mobile: all-services row becomes vertical stack */
-  @media (max-width: 768px) {
-    .srs-row {
-      flex-direction: column;
-      gap: 0.75rem;
-      overflow-y: auto;
-      align-items: stretch;
-    }
-    .srs-row-card {
-      height: 25vw;
-      min-height: 100px;
-      flex: none;
-    }
+  .sss-card-desc {
+    color: var(--color-bay-slate);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    flex: 1;
   }
 
-  /* Reduced motion: collapse to static all-services row, no scroll-lock behavior */
+  /* Reduced motion: static horizontal row, no sticky scroll lock */
   @media (prefers-reduced-motion: reduce) {
-    .srs-outer {
+    .sss-outer {
       height: auto;
     }
-    .srs-sticky {
+    .sss-sticky {
       position: static;
       height: auto;
+      overflow: visible;
     }
-    .srs-panel {
-      display: none;
-    }
-    .srs-row {
-      position: static;
-      opacity: 1;
-      height: auto;
+    .sss-track {
       flex-wrap: wrap;
+      transform: none !important;
     }
-    .srs-row-card {
-      height: 200px;
-      flex: 0 0 calc(50% - 0.5rem);
+    .sss-card {
+      flex: 1 1 280px;
     }
   }
 </style>
 
 <script>
-  function initServiceReveal() {
-    const outer = document.querySelector<HTMLElement>('.srs-outer');
-    const sticky = document.querySelector<HTMLElement>('.srs-sticky');
-    if (!outer || !sticky) return;
+  function initShowcaseScroll() {
+    const outer = document.querySelector<HTMLElement>('.sss-outer');
+    const track = document.getElementById('sss-track') as HTMLElement | null;
+    if (!outer || !track) return;
 
-    const panels = Array.from(sticky.querySelectorAll<HTMLElement>('.srs-panel'));
-    const row = sticky.querySelector<HTMLElement>('.srs-row');
-    const SERVICES_COUNT = panels.length; // 5
-    const STEP = 1 / (SERVICES_COUNT + 1); // 1/6 ≈ 0.1666...
-    const ROW_THRESHOLD = SERVICES_COUNT * STEP; // 5/6 ≈ 0.8333...
+    // Calculate pan range: track width minus viewport width plus padding buffer
+    function getRange(): number {
+      const trackW = track!.scrollWidth;
+      const viewW = window.innerWidth;
+      return Math.max(0, trackW - viewW + 160);
+    }
+
+    // Per-card easing: cubic in-out within each step, creating a brief center-hold per card
+    function panEase(t: number, n: number): number {
+      const step = 1 / n;
+      const stepIndex = Math.min(n - 1, Math.floor(t / step));
+      const local = (t - stepIndex * step) / step;
+      const eased = local < 0.5
+        ? 4 * local * local * local
+        : 1 - Math.pow(-2 * local + 2, 3) / 2;
+      return (stepIndex + eased) * step;
+    }
 
     let rafId = 0;
-    let lastActive = -1;
-    let lastShowRow = false;
+    let lastX = Infinity;
 
     function update() {
       const outerRect = outer!.getBoundingClientRect();
       const totalScrollable = outerRect.height - window.innerHeight;
       if (totalScrollable <= 0) return;
       const scrolledInto = Math.max(0, -outerRect.top);
-      const progress = Math.min(1, scrolledInto / totalScrollable);
+      const rawProgress = Math.min(1, scrolledInto / totalScrollable);
 
-      const showRow = progress >= ROW_THRESHOLD;
-      const activeIndex = showRow ? -1 : Math.min(SERVICES_COUNT - 1, Math.floor(progress / STEP));
+      const PANELS_COUNT = track!.querySelectorAll('.sss-card').length;
+      const eased = panEase(rawProgress, PANELS_COUNT);
 
-      if (activeIndex !== lastActive || showRow !== lastShowRow) {
-        panels.forEach((p, i) => {
-          const active = i === activeIndex;
-          p.classList.toggle('is-active', active);
-          p.setAttribute('aria-hidden', String(!active));
-        });
-        if (row) {
-          row.classList.toggle('is-active', showRow);
-          row.setAttribute('aria-hidden', String(!showRow));
-        }
-        lastActive = activeIndex;
-        lastShowRow = showRow;
+      const range = getRange();
+      const cardEl = track!.querySelector('.sss-card') as HTMLElement | null;
+      const cardW = cardEl?.offsetWidth ?? 320;
+      const startOffset = (window.innerWidth - cardW) / 2 - 80;
+      const translateX = startOffset - eased * (range + startOffset);
+
+      if (Math.abs(translateX - lastX) > 0.5) {
+        track!.style.transform = `translateX(${translateX}px)`;
+        lastX = translateX;
       }
       rafId = 0;
     }
@@ -340,8 +279,8 @@ const SERVICES = [
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initServiceReveal);
+    document.addEventListener('DOMContentLoaded', initShowcaseScroll);
   } else {
-    initServiceReveal();
+    initShowcaseScroll();
   }
 </script>
