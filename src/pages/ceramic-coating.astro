@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 import VideoLoop from '@/components/ui/VideoLoop.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
 import { ASSET_REGISTRY } from '@/lib/assetRegistry';
 ---
 <BaseLayout
@@ -99,6 +100,8 @@ import { ASSET_REGISTRY } from '@/lib/assetRegistry';
   </section>
 
   <Divider />
+
+  <RelatedBlogBox topic="ceramic-coating" />
 
   <section class="py-16 px-4">
     <div class="container mx-auto max-w-xl text-center">
