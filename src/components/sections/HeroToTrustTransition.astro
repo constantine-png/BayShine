@@ -3,12 +3,23 @@
 // The ambient video plays fixed behind everything. A navy overlay "drains" upward as
 // the user scrolls through this section, exposing the video beneath. A gold meniscus
 // line rides the drain edge. Droplet SVG and label provide a tactile surface-tension detail.
+import VideoLoop from '@/components/ui/VideoLoop.astro';
 ---
 
 <section class="hero-to-trust-transition" aria-hidden="true">
 
+  <!-- Layer 0: Dedicated ambient video — scoped to this section so the drain effect is always visible -->
+  <VideoLoop
+    src="/assets/video/ambient-home.mp4"
+    ariaLabel=""
+    class="shoreline-bg-video"
+  />
+
   <!-- Layer A: Navy overlay mask — drains upward on scroll -->
   <div class="shoreline-mask-overlay" aria-hidden="true"></div>
+
+  <!-- Layer A+: Radial gold glow to amplify the video around the drain edge -->
+  <div class="shoreline-video-boost" aria-hidden="true"></div>
 
   <!-- Layer B: Gold meniscus line — rides the drain edge -->
   <div class="shoreline-meniscus" aria-hidden="true"></div>
@@ -20,6 +31,7 @@
             fill="var(--color-bay-gold)" opacity="0.9"/>
       <ellipse cx="5" cy="11" rx="1.5" ry="2.5" fill="rgba(255,255,255,0.4)"/>
     </svg>
+    <div class="shoreline-droplet-reflection" aria-hidden="true"></div>
   </div>
 
   <!-- Layer D: Label -->
@@ -35,7 +47,25 @@
     height: 70vh;
     min-height: 480px;
     overflow: hidden;
-    background-color: var(--color-bay-navy);
+    background-color: transparent;
+  }
+
+  /* ── Layer 0: Scoped background video ───────────────────────── */
+  .shoreline-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.55) saturate(0.8);
+    pointer-events: none;
+  }
+
+  .shoreline-bg-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* ── Layer A: Receding mask overlay ─────────────────────────── */
@@ -45,6 +75,7 @@
   .shoreline-mask-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background-color: var(--color-bay-navy);
     -webkit-mask-image: linear-gradient(
       to top,
@@ -62,6 +93,19 @@
     );
   }
 
+  /* ── Layer A+: Video boost glow ─────────────────────────────── */
+  .shoreline-video-boost {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40%;
+    bottom: calc(var(--shoreline-progress, 0) * 1% - 20%);
+    background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(201, 169, 97, 0.12) 0%, transparent 70%);
+    mix-blend-mode: screen;
+    z-index: 2;
+    pointer-events: none;
+  }
+
   /* ── Layer B: Gold meniscus line ────────────────────────────── */
   /* Rides the mask edge — bottom is calc'd from --shoreline-progress. */
   .shoreline-meniscus {
@@ -72,12 +116,12 @@
     pointer-events: none;
     background: linear-gradient(90deg, transparent 0%, rgba(201, 169, 97, 0.95) 50%, transparent 100%);
     box-shadow:
-      0 0 24px rgba(201, 169, 97, 0.6),
-      0 0 48px rgba(201, 169, 97, 0.3),
+      0 0 calc(16px + var(--shoreline-progress, 0) * 0.32px) rgba(201, 169, 97, 0.7),
+      0 0 calc(32px + var(--shoreline-progress, 0) * 0.64px) rgba(201, 169, 97, 0.4),
       0 0 96px rgba(201, 169, 97, 0.15);
     bottom: calc(var(--shoreline-progress, 0) * 1%);
     transform: translateY(50%);
-    z-index: 2;
+    z-index: 3;
   }
 
   /* ── Layer C: Droplet ───────────────────────────────────────── */
@@ -86,18 +130,42 @@
     left: 50%;
     bottom: 18%;
     transform: translateX(-50%);
-    z-index: 3;
+    z-index: 4;
     cursor: default;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    animation: dropletAmbientPulse 4s ease-in-out infinite;
   }
 
   .shoreline-droplet:hover {
     animation: dropletRipple 1200ms ease-out forwards;
   }
 
+  @keyframes dropletAmbientPulse {
+    0%, 100% {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 6px rgba(201,169,97,0.35));
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 18px rgba(201,169,97,0.65));
+      transform: translateX(-50%) scale(1.08);
+    }
+  }
+
   @keyframes dropletRipple {
     0%   { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 0px rgba(201,169,97,0.5)); }
     100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 40px rgba(201,169,97,0)); }
+  }
+
+  .shoreline-droplet-reflection {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 6px;
+    margin-top: 3px;
+    background: radial-gradient(ellipse at center, rgba(201, 169, 97, 0.35) 0%, transparent 70%);
+    filter: blur(2px);
+    pointer-events: none;
   }
 
   /* ── Layer D: Label ─────────────────────────────────────────── */
@@ -114,7 +182,7 @@
     color: var(--color-bay-slate);
     opacity: 0;
     transition: opacity 600ms ease-out;
-    z-index: 4;
+    z-index: 5;
     white-space: nowrap;
   }
 
@@ -150,7 +218,7 @@
       bottom: 50%;
     }
 
-    .shoreline-droplet:hover {
+    .shoreline-droplet {
       animation: none;
     }
 
