@@ -1,5 +1,6 @@
 ---
-// RelatedBlogBox: teaser card linking to Field Guide posts matching a service topic.
+// RelatedBlogBox: in-page reader. Full post content in a scrollable panel;
+// other posts in the topic listed below as switcher buttons — no navigation needed.
 import { getCollection } from 'astro:content';
 
 interface Props {
@@ -15,43 +16,59 @@ const matched = all
 
 if (matched.length === 0) return;
 
-const featured = matched[0];
-const related = matched.slice(1, 4); // max 3
+const rendered = await Promise.all(matched.map(p => p.render()));
 
-function excerpt(text: string): string {
-  return text.length <= 140 ? text : text.slice(0, 137) + '…';
-}
+// Stable UID so JS can scope to this instance without conflicts
+const uid = `sfg-${Math.random().toString(36).slice(2, 7)}`;
 ---
 
 <div class="sfg-hairline" aria-hidden="true"></div>
 
 <section class="sfg-section" aria-label="From the Field Guide">
-  <div class="sfg-card noise-overlay">
+  <div class="sfg-card noise-overlay" data-sfg-uid={uid}>
 
     <p class="sfg-eyebrow">From the Field Guide</p>
 
-    <h3 class="sfg-title">
-      <a href={`/blog/${featured.slug}`} class="sfg-title-link">
-        {featured.data.title}
-      </a>
-    </h3>
-    <p class="sfg-excerpt">{excerpt(featured.data.description)}</p>
-    <a href={`/blog/${featured.slug}`} class="sfg-readmore">
-      Read the full entry &rarr;
-    </a>
+    <!-- Active post title — updated by JS on switch -->
+    <h3 class="sfg-active-title" id={`${uid}-title`}>{matched[0].data.title}</h3>
 
-    {related.length > 0 && (
+    <!-- Scrollable content panel: full MDX rendered server-side -->
+    <div
+      class="sfg-content-panel"
+      id={`${uid}-panel`}
+      tabindex="0"
+      role="region"
+      aria-label="Post content"
+    >
+      {rendered.map(({ Content }, i) => (
+        <div
+          class={`sfg-post-body blog-prose${i === 0 ? ' is-active' : ''}`}
+          data-post-index={i}
+          aria-hidden={i > 0 ? 'true' : 'false'}
+        >
+          <Content />
+        </div>
+      ))}
+    </div>
+
+    <!-- Post switcher list — shown when there are multiple posts -->
+    {matched.length > 1 && (
       <div class="sfg-related" role="list">
         <div class="sfg-break" aria-hidden="true"></div>
-        {related.map((post, i) => (
+        {matched.map((post, i) => (
           <div role="listitem">
             {i > 0 && <div class="sfg-row-divider" aria-hidden="true"></div>}
-            <a href={`/blog/${post.slug}`} class="sfg-row">
-              <span class="sfg-num" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
+            <button
+              class={`sfg-row${i === 0 ? ' is-active' : ''}`}
+              type="button"
+              data-post-index={i}
+              data-post-title={post.data.title}
+              data-sfg-uid={uid}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+            >
+              <span class="sfg-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <span class="sfg-row-title">{post.data.title}</span>
-            </a>
+            </button>
           </div>
         ))}
       </div>
@@ -76,7 +93,7 @@ function excerpt(text: string): string {
     );
   }
 
-  /* Section: dark navy surround, same as the page */
+  /* Section: dark navy surround */
   .sfg-section {
     background-color: var(--color-bay-navy);
     padding: 2rem 1.5rem;
@@ -86,7 +103,7 @@ function excerpt(text: string): string {
   .sfg-card {
     margin: 0 auto;
     max-width: 45rem;
-    padding: 4rem 3.5rem;
+    padding: 3rem 3.5rem;
     background-color: var(--color-bay-paper);
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 4px;
@@ -101,67 +118,91 @@ function excerpt(text: string): string {
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(201, 169, 97, 0.7);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
-  /* Featured title — links to full post */
-  .sfg-title {
+  /* Active post heading */
+  .sfg-active-title {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.375rem; /* 22px */
+    font-size: 1.25rem;
     color: var(--color-bay-ink);
     line-height: 1.25;
     letter-spacing: 0.01em;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    transition: color 200ms ease;
   }
 
-  .sfg-title-link {
-    color: inherit;
-    text-decoration: none;
-  }
-  .sfg-title-link:hover {
-    color: var(--color-bay-navy);
-  }
-  .sfg-title-link:focus-visible {
-    outline: 2px solid var(--color-bay-gold);
-    outline-offset: 3px;
-    border-radius: 1px;
+  /* ── Scrollable content panel ──────────────────────────────── */
+  .sfg-content-panel {
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+
+    /* Thin gold scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 169, 97, 0.35) transparent;
   }
 
-  /* Excerpt */
-  .sfg-excerpt {
-    font-size: 0.9375rem; /* 15px */
-    color: rgba(26, 20, 16, 0.75);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
+  .sfg-content-panel::-webkit-scrollbar {
+    width: 3px;
+  }
+  .sfg-content-panel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sfg-content-panel::-webkit-scrollbar-thumb {
+    background: rgba(201, 169, 97, 0.4);
+    border-radius: 2px;
   }
 
-  /* Read more link */
-  .sfg-readmore {
-    display: inline-block;
-    font-family: var(--font-ui, 'Manrope', sans-serif);
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--color-bay-gold);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
-    margin-bottom: 3rem;
+  /* Fade hints at top/bottom to signal scrollability */
+  .sfg-content-panel::before,
+  .sfg-content-panel::after {
+    content: '';
+    display: block;
+    position: sticky;
+    left: 0;
+    right: 0;
+    height: 20px;
+    pointer-events: none;
+    z-index: 1;
   }
-  .sfg-readmore:hover {
-    text-decoration-thickness: 2px;
+  .sfg-content-panel::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(248,244,237,0.9), transparent);
+    margin-bottom: -20px;
   }
-  .sfg-readmore:focus-visible {
-    outline: 2px solid var(--color-bay-gold);
-    outline-offset: 3px;
-    border-radius: 1px;
+  .sfg-content-panel::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(248,244,237,0.9), transparent);
+    margin-top: -20px;
   }
 
-  /* Visual break between featured and related list */
+  /* ── Post bodies: only .is-active is shown ─────────────────── */
+  .sfg-post-body {
+    display: none;
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+
+  .sfg-post-body.is-active {
+    display: block;
+  }
+
+  /* Suppress drop-cap in the compact panel */
+  .sfg-post-body :global(p:first-of-type::first-letter) {
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    font-weight: inherit;
+  }
+
+  /* ── Visual break between panel and post list ──────────────── */
   .sfg-break {
     height: 1px;
     background: linear-gradient(
@@ -174,19 +215,23 @@ function excerpt(text: string): string {
     margin-bottom: 1rem;
   }
 
-  /* Related row */
+  /* ── Post switcher rows ────────────────────────────────────── */
   .sfg-row {
+    appearance: none;
+    background: none;
+    border: none;
     display: flex;
     align-items: center;
-    gap: 0;
-    min-height: 3.5rem; /* 56px */
+    width: 100%;
+    text-align: left;
+    min-height: 3.25rem;
     padding: 0 0.25rem;
-    text-decoration: none;
+    cursor: pointer;
     border-radius: 2px;
     transition: background-color 150ms ease;
   }
   .sfg-row:hover {
-    background-color: rgba(201, 169, 97, 0.04);
+    background-color: rgba(201, 169, 97, 0.06);
   }
   .sfg-row:focus-visible {
     outline: 2px solid var(--color-bay-gold);
@@ -194,13 +239,19 @@ function excerpt(text: string): string {
     border-radius: 2px;
   }
 
+  /* Active row gets gold accent */
+  .sfg-row.is-active .sfg-num,
+  .sfg-row.is-active .sfg-row-title {
+    color: var(--color-bay-gold);
+  }
+
   /* Row number */
   .sfg-num {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 13px;
-    color: rgba(201, 169, 97, 0.6);
-    width: 2.25rem; /* 36px */
+    color: rgba(201, 169, 97, 0.55);
+    width: 2.25rem;
     flex-shrink: 0;
     transition: color 150ms ease;
   }
@@ -213,7 +264,7 @@ function excerpt(text: string): string {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 14px;
-    color: rgba(26, 20, 16, 0.85);
+    color: rgba(26, 20, 16, 0.8);
     line-height: 1.4;
     transition: color 150ms ease;
   }
@@ -221,37 +272,73 @@ function excerpt(text: string): string {
     color: var(--color-bay-ink);
   }
 
-  /* Hairline between related rows */
+  /* Hairline between rows */
   .sfg-row-divider {
     height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(0, 0, 0, 0.08) 20%,
-      rgba(0, 0, 0, 0.08) 80%,
+      rgba(0, 0, 0, 0.07) 20%,
+      rgba(0, 0, 0, 0.07) 80%,
       transparent
     );
   }
 
-  /* Mobile */
+  /* ── Mobile ─────────────────────────────────────────────────── */
   @media (max-width: 640px) {
     .sfg-card {
-      padding: 2.5rem 1.75rem;
+      padding: 2rem 1.5rem;
     }
-    .sfg-title {
-      font-size: 1.125rem; /* 18px */
+    .sfg-active-title {
+      font-size: 1.0625rem;
+    }
+    .sfg-content-panel {
+      max-height: 300px;
     }
     .sfg-row {
-      min-height: 3rem; /* 48px */
-    }
-    .sfg-num {
-      width: 1.75rem; /* 28px */
+      min-height: 2.75rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .sfg-row,
     .sfg-num,
-    .sfg-row-title { transition: none; }
+    .sfg-row-title,
+    .sfg-active-title { transition: none; }
   }
 </style>
+
+<script>
+  // Post switcher: clicking a row swaps the visible content body and updates the heading.
+  document.querySelectorAll<HTMLButtonElement>('button[data-sfg-uid][data-post-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const uid = btn.dataset.sfgUid!;
+      const targetIndex = parseInt(btn.dataset.postIndex!);
+      const newTitle = btn.dataset.postTitle!;
+
+      const card = document.querySelector<HTMLElement>(`[data-sfg-uid="${uid}"].sfg-card`);
+      if (!card) return;
+
+      // Update heading
+      const titleEl = document.getElementById(`${uid}-title`);
+      if (titleEl) titleEl.textContent = newTitle;
+
+      // Switch post body visibility
+      card.querySelectorAll<HTMLElement>('.sfg-post-body').forEach((el, i) => {
+        const active = i === targetIndex;
+        el.classList.toggle('is-active', active);
+        el.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+
+      // Update button pressed states
+      card.querySelectorAll<HTMLButtonElement>('button[data-post-index]').forEach((b, i) => {
+        b.classList.toggle('is-active', i === targetIndex);
+        b.setAttribute('aria-pressed', i === targetIndex ? 'true' : 'false');
+      });
+
+      // Scroll panel to top for the newly selected post
+      const panel = document.getElementById(`${uid}-panel`);
+      if (panel) panel.scrollTop = 0;
+    });
+  });
+</script>

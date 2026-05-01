@@ -109,7 +109,7 @@ const PANELS = [
     /* Initial state: off-screen right */
     transform: translateX(100vw) translateY(-50%) scale(0.9);
     opacity: 0;
-    transition: transform 550ms ease-out, opacity 350ms ease-out, box-shadow 350ms ease-out;
+    transition: transform 950ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease-out, box-shadow 600ms ease-out;
     will-change: transform, opacity;
   }
 
@@ -252,6 +252,40 @@ const PANELS = [
     positionAll(0);
     requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
 
+    // ── Helpers ──────────────────────────────────────────────────────
+    function getCardCenterX(): number {
+      const vw = window.innerWidth;
+      const cardW = (cards[0] as HTMLElement).offsetWidth || 320;
+      return Math.round(vw / 2 - cardW / 2);
+    }
+
+    // Nudge the active card in `dir` then spring it back, then call onComplete.
+    // dir: -1 = nudge left (exit-down feel), +1 = nudge right (exit-up feel).
+    function bounceExit(dir: 1 | -1, onComplete: () => void) {
+      isTransitioning = true;
+      const card = cards[activeIndex] as HTMLElement;
+      const cx = getCardCenterX();
+      const nudge = dir * 52;
+
+      // Phase 1 — quick nudge away from center
+      card.style.transition = 'transform 170ms ease-out, opacity 170ms ease-out';
+      card.style.transform = `translateX(${cx + nudge}px) translateY(-50%) scale(1.04)`;
+
+      setTimeout(() => {
+        // Phase 2 — spring back to active position (slight overshoot)
+        card.style.transition = 'transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 250ms ease-out';
+        card.style.transform = `translateX(${cx}px) translateY(-50%) scale(1.07)`;
+        card.style.opacity = '1';
+
+        setTimeout(() => {
+          // Reset to the normal glide transition before releasing
+          card.style.transition = '';
+          isTransitioning = false;
+          onComplete();
+        }, 450);
+      }, 180);
+    }
+
     // ── Advance / retreat ────────────────────────────────────────────
     function advance() {
       if (isTransitioning) return;
@@ -259,13 +293,15 @@ const PANELS = [
         isTransitioning = true;
         activeIndex++;
         positionAll(activeIndex);
-        setTimeout(() => { isTransitioning = false; }, 600);
+        setTimeout(() => { isTransitioning = false; }, 1000);
       } else {
-        // Past last card: suppress re-lock while page scrolls away, then release
-        unlock(true);
-        requestAnimationFrame(() => {
-          document.getElementById('standing-detail')
-            ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Past last card: bounce back to center, then release downward
+        bounceExit(-1, () => {
+          unlock(true);
+          requestAnimationFrame(() => {
+            document.getElementById('standing-detail')
+              ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
         });
       }
     }
@@ -276,10 +312,12 @@ const PANELS = [
         isTransitioning = true;
         activeIndex--;
         positionAll(activeIndex);
-        setTimeout(() => { isTransitioning = false; }, 600);
+        setTimeout(() => { isTransitioning = false; }, 1000);
       } else {
-        // Before first card: release upward
-        unlock(true);
+        // Before first card: bounce back to center, then release upward
+        bounceExit(1, () => {
+          unlock(true);
+        });
       }
     }
 
