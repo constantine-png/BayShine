@@ -3,19 +3,21 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
+import VideoLoop from '@/components/ui/VideoLoop.astro';
+import { ASSET_REGISTRY } from '@/lib/assetRegistry';
 ---
 <BaseLayout
   title="Ceramic Coating"
   description="Professional ceramic coating for cars and SUVs in Pasco County and North Hillsborough. Durable paint protection that lasts years, not weeks."
 >
-  <section class="noise-overlay bg-bay-navy py-24 px-4">
+  <section class="noise-overlay py-24 px-4">
     <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div>
         <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Paint Protection</p>
-        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
           Ceramic Coating.
         </h1>
-        <p class="text-bay-slate text-lg leading-relaxed mb-8">
+        <p class="text-bay-slate text-lg leading-relaxed mb-8" style="text-shadow: 0 1px 12px rgba(15,27,45,0.8);">
           One application. Years of protection. A nano-ceramic layer bonded to the paint
           surface that repels water, UV, contamination, and minor scratches. Correct the
           paint first, coat it second. That sequence is not negotiable.
@@ -24,12 +26,21 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
           Inquire About Coating
         </Button>
       </div>
-      <div class="reveal">
-        <PhotoPlaceholder
-          description="Ceramic coating — water beading on coated panel, side profile"
-          aspectRatio="4/3"
-          class="rounded-sm"
-        />
+      <div class="reveal rounded-sm overflow-hidden border border-bay-slate/20 shadow-[0_4px_32px_rgba(0,0,0,0.55)]">
+        {ASSET_REGISTRY.comparisonBayshine ? (
+          <VideoLoop
+            src="/assets/video/comparison-bayshine-detail.mp4"
+            ariaLabel="BayShine ceramic coating comparison"
+            class="w-full h-full object-cover rounded-sm"
+            style="aspect-ratio: 4/3;"
+          />
+        ) : (
+          <PhotoPlaceholder
+            description="Ceramic coating, water beading on coated panel, side profile"
+            aspectRatio="4/3"
+            class="rounded-sm"
+          />
+        )}
       </div>
     </div>
   </section>
@@ -43,14 +54,14 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
           <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What ceramic does</h2>
           <ul class="space-y-3 text-bay-slate text-sm">
             {[
-              'Hydrophobic surface — water sheets off rather than sitting',
-              'UV protection — paint color stays richer, longer',
-              'Chemical resistance — tree sap, bird acid, road fallout',
-              'Micro-scratch resistance — hard ceramic layer absorbs light abrasion',
-              'Easier maintenance washes — contamination doesn\'t bond as readily',
+              'Hydrophobic surface: water sheets off rather than sitting',
+              'UV protection: paint color stays richer, longer',
+              'Chemical resistance: tree sap, bird acid, road fallout',
+              'Micro-scratch resistance: hard ceramic layer absorbs light abrasion',
+              'Easier maintenance washes: contamination doesn\'t bond as readily',
             ].map(item => (
               <li class="flex gap-3">
-                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -63,12 +74,12 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
             {[
               'Full exterior decontamination and clay bar before application',
               'Paint correction if swirl marks or light scratches are present',
-              'Cure time: 24–48 hours minimum before water contact',
+              'Cure time: 24 to 48 hours minimum before water contact',
               'Vehicle must not get wet during cure window',
-              'Periodic maintenance detail — not immune to neglect',
+              'Periodic maintenance detail: not immune to neglect',
             ].map(item => (
               <li class="flex gap-3">
-                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
                 <span>{item}</span>
               </li>
             ))}

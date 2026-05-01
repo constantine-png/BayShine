@@ -11,7 +11,7 @@ const posts = allPosts
   .filter(p => isPreview || !p.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const categories = ['Car Care', 'Boat & Marine', 'Fleet Tips', 'Local'] as const;
+const categories = ['Car Care', 'Fleet Tips', 'Local'] as const;
 
 function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -19,13 +19,13 @@ function formatDate(d: Date): string {
 ---
 <BaseLayout
   title="Field Notes"
-  description="Practical detailing technique, product notes, and field observations from Bay Shine. Written for technicians and owners who want to understand what's actually happening to their vehicle."
+  description="Practical detailing technique, product notes, and field observations from BayShine. Written for technicians and owners who want to understand what's actually happening to their vehicle."
   bodyClass="blog-body"
 >
   <!-- Header -->
   <section class="bg-bay-paper py-20 px-4 border-b border-bay-ink/10">
     <div class="container mx-auto max-w-4xl">
-      <p class="font-display text-xs font-bold uppercase tracking-widest text-bay-gold mb-4">Bay Shine Detailing</p>
+      <p class="font-display text-xs font-bold uppercase tracking-widest text-bay-gold mb-4">BayShine Detailing</p>
       <h1 class="font-display font-bold text-5xl sm:text-6xl text-bay-navy mb-4 leading-[1.05] tracking-tight">
         Field Notes.
       </h1>
@@ -57,7 +57,7 @@ function formatDate(d: Date): string {
   {isPreview && (
     <div class="bg-bay-gold/20 border-b border-bay-gold/40 px-4 py-2">
       <p class="container mx-auto max-w-4xl text-xs text-bay-navy font-semibold">
-        Preview mode active — draft posts visible.
+        Preview mode active: draft posts visible.
         <a href="/api/preview?clear=1" class="underline ml-2">Exit preview</a>
       </p>
     </div>

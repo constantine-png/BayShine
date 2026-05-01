@@ -1,0 +1,57 @@
+---
+// Word-level staggered headline reveal. Last N words receive a delayed opacity reveal.
+// Supports two interfaces:
+//   1. headline + emphasizeFrom: word-level stagger with Intersection-driven reveal
+//   2. primary + accent: two-phrase stagger (legacy, kept for compatibility)
+interface Props {
+  headline?: string;
+  emphasizeFrom?: number; // negative: offset from end (e.g. -3 = last 3 words get delay)
+  tag?: 'h1' | 'h2' | 'h3';
+  class?: string;
+  // Legacy two-phrase interface
+  primary?: string;
+  accent?: string;
+}
+
+const {
+  headline,
+  emphasizeFrom = -2,
+  tag: Tag = 'h1',
+  class: className = '',
+  primary,
+  accent,
+} = Astro.props;
+---
+
+{headline ? (
+  <Tag class={`reveal-headline ${className}`} data-reveal>
+    {(() => {
+      const words = headline.split(' ');
+      const cutPoint = words.length + emphasizeFrom;
+      return words.map((word, i) => (
+        <span
+          class={`reveal-word ${i >= cutPoint ? 'reveal-word--emphasis' : ''}`}
+          style={i >= cutPoint ? 'transition-delay:200ms' : ''}
+        >{word}{i < words.length - 1 ? ' ' : ''}</span>
+      ));
+    })()}
+  </Tag>
+) : (
+  <span class={className}>
+    <span class="reveal-word">{primary}</span>
+    <span class="reveal-word reveal-word--accent"> {accent}</span>
+  </span>
+)}
+
+<style>
+  .reveal-headline {
+    display: block;
+  }
+  .reveal-word--emphasis {
+    opacity: 0.6;
+    transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal-headline.is-visible .reveal-word--emphasis {
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+// Vertical scroll progress indicator — right edge, desktop only.
+---
+<div
+  id="scroll-track"
+  class="hidden md:block fixed right-0 top-0 w-0.5 h-screen z-50 bg-white/[0.04]"
+  aria-hidden="true"
+>
+  <div
+    id="scroll-fill"
+    class="w-full origin-top"
+    style="background: linear-gradient(to bottom, #C9A961, #9D7C41); height: 0%; transition: none;"
+  ></div>
+</div>
+
+<script>
+  const fill = document.getElementById('scroll-fill');
+  if (fill && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const doc = document.documentElement;
+          const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+          fill.style.height = pct + '%';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

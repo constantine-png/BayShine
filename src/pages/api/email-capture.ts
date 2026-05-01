@@ -40,9 +40,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (resendKey && contactEmail) {
     new Resend(resendKey).emails.send({
-      from: 'Bay Shine <no-reply@bayshine.net>',
+      from: 'BayShine <constantine@bayshine.net>',
       to: contactEmail,
-      subject: `EMAIL CAPTURE — ${source ?? 'unknown'}: ${email}`,
+      subject: `EMAIL CAPTURE: ${source ?? 'unknown'}: ${email}`,
       html: `<p style="font-family:sans-serif;color:#0F1B2D;">New email capture from <strong>${source ?? 'unknown'}</strong>:</p><p style="font-family:sans-serif;font-size:16px;"><strong>${email}</strong></p>`,
     }).catch(err => console.error('Notification failed:', err));
   }

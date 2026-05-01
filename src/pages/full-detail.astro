@@ -3,33 +3,44 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
+import VideoLoop from '@/components/ui/VideoLoop.astro';
+import { ASSET_REGISTRY } from '@/lib/assetRegistry';
 ---
 <BaseLayout
-  title="Full Detail — Interior & Exterior"
+  title="Full Detail: Interior and Exterior"
   description="Complete interior and exterior detailing. Decontamination, clay bar, sealant, and full interior clean. Mobile service in Pasco County and North Hillsborough."
 >
   <!-- Hero -->
-  <section class="noise-overlay bg-bay-navy py-24 px-4">
+  <section class="noise-overlay py-24 px-4">
     <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div>
         <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Private Owners</p>
-        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
           Full Detail.
         </h1>
-        <p class="text-bay-slate text-lg leading-relaxed mb-8">
+        <p class="text-bay-slate text-lg leading-relaxed mb-8" style="text-shadow: 0 1px 12px rgba(15,27,45,0.8);">
           Interior and exterior, in sequence. Not a quick wash with a wipe-down inside.
-          Every panel addressed, every surface treated — left cleaner than it came from the factory.
+          Every panel addressed, every surface treated, left cleaner than it came from the factory.
         </p>
         <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
           Book Full Detail
         </Button>
       </div>
-      <div class="reveal">
-        <PhotoPlaceholder
-          description="Full detail hero — sedan or SUV after service, wide shot showing paint and interior"
-          aspectRatio="4/3"
-          class="rounded-sm"
-        />
+      <div class="reveal rounded-sm overflow-hidden border border-bay-slate/20 shadow-[0_4px_32px_rgba(0,0,0,0.55)]">
+        {ASSET_REGISTRY.showcasePolish ? (
+          <VideoLoop
+            src="/assets/video/showcase-polish.mp4"
+            ariaLabel="Full detail showcase"
+            class="w-full h-full object-cover rounded-sm"
+            style="aspect-ratio: 4/3;"
+          />
+        ) : (
+          <PhotoPlaceholder
+            description="Full detail hero, sedan or SUV after service, wide shot showing paint and interior"
+            aspectRatio="4/3"
+            class="rounded-sm"
+          />
+        )}
       </div>
     </div>
   </section>
@@ -43,18 +54,18 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
         <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Exterior</h2>
         <ul class="space-y-3 text-bay-slate text-sm">
           {[
-            'Iron decontamination — removes embedded brake dust and ferrous deposits',
-            'Synthetic clay bar — mechanical surface decontamination',
+            'Iron decontamination: removes embedded brake dust and ferrous deposits',
+            'Synthetic clay bar: mechanical surface decontamination',
             'Two-stage hand wash',
             'Wheels, wheel wells, and brake calipers',
             'Glass clean inside and out',
             'Tar and adhesive removal where present',
-            'Polymer paint sealant — 4–6 month protection',
-            'Tire dressing — satin finish, not gloss',
+            'Polymer paint sealant (4 to 6 month protection)',
+            'Tire dressing: satin finish, not gloss',
             'Door jambs, trunk jamb, fuel door',
           ].map(item => (
             <li class="flex gap-3">
-              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
               <span>{item}</span>
             </li>
           ))}
@@ -65,18 +76,18 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
         <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Interior</h2>
         <ul class="space-y-3 text-bay-slate text-sm">
           {[
-            'Full vacuum — seats, carpet, floor mats, trunk, crevices',
+            'Full vacuum: seats, carpet, floor mats, trunk, crevices',
             'Compressed air blow-out of all vents, gaps, and seams',
             'All hard surfaces cleaned and conditioned',
             'Leather cleaning and conditioning (if applicable)',
             'Fabric seats spot-treated and steam-cleaned',
             'Dashboard, center console, door panels',
-            'Interior glass — streak-free',
-            'Headliner — hand-cleaned, no saturation',
-            'Odor neutralization — not masking spray',
+            'Interior glass: streak-free',
+            'Headliner: hand-cleaned, no saturation',
+            'Odor neutralization: not masking spray',
           ].map(item => (
             <li class="flex gap-3">
-              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+              <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
               <span>{item}</span>
             </li>
           ))}

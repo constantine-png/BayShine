@@ -12,21 +12,16 @@ import {
 type Step = 1 | 2 | 3 | 'result';
 
 const VEHICLES: { id: VehicleType; label: string; sub: string }[] = [
-  { id: 'sedan',    label: 'Sedan / Coupe',     sub: 'Standard cars and coupes' },
-  { id: 'midsuv',   label: 'Mid-size SUV / Truck', sub: 'RAV4, F-150, Explorer, etc.' },
-  { id: 'largesuv', label: '3-Row / Lifted / Van', sub: 'Suburbans, vans, lifted trucks' },
-  { id: 'boat',     label: 'Boat',               sub: 'Marine gelcoat service' },
+  { id: 'sedan',    label: 'Sedan / Coupe',        sub: 'Standard cars and coupes' },
+  { id: 'midsuv',   label: 'Mid-size SUV / Truck',  sub: 'RAV4, F-150, Explorer, etc.' },
+  { id: 'largesuv', label: '3-Row / Lifted / Van',  sub: 'Suburbans, vans, lifted trucks' },
 ];
 
-const AUTO_SERVICES: { id: ServiceType; label: string; sub: string }[] = [
+const SERVICES: { id: ServiceType; label: string; sub: string }[] = [
   { id: 'exterior', label: 'Exterior Detail',  sub: 'Decon, clay, sealant' },
   { id: 'full',     label: 'Full Detail',      sub: 'Interior + exterior' },
   { id: 'ceramic',  label: 'Ceramic Coating',  sub: 'Long-term paint protection' },
   { id: 'recon',    label: 'Heavy Recon',       sub: 'Neglected or trade-in condition' },
-];
-
-const MARINE_SERVICES: { id: ServiceType; label: string; sub: string }[] = [
-  { id: 'marine', label: 'Boat Detailing', sub: 'Gelcoat, oxidation, hull' },
 ];
 
 const CONDITIONS: { id: Condition; label: string; sub: string }[] = [
@@ -64,8 +59,10 @@ export default function QuoteEstimator() {
   const [vehicle, setVehicle] = useState<VehicleType | null>(null);
   const [service, setService] = useState<ServiceType | null>(null);
   const [condition, setCondition] = useState<Condition | null>(null);
-
-  const availableServices = vehicle === 'boat' ? MARINE_SERVICES : AUTO_SERVICES;
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [notes, setNotes] = useState('');
+  const [followUpStatus, setFollowUpStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   function handleVehicle(v: VehicleType) {
     setVehicle(v);
@@ -75,8 +72,7 @@ export default function QuoteEstimator() {
 
   function handleService(s: ServiceType) {
     setService(s);
-    // Ceramic and marine don't have condition tiers — skip to result
-    if (s === 'ceramic' || s === 'marine') {
+    if (s === 'ceramic') {
       setCondition('light');
       setStep('result');
     } else {
@@ -94,6 +90,33 @@ export default function QuoteEstimator() {
     setVehicle(null);
     setService(null);
     setCondition(null);
+    setName('');
+    setPhone('');
+    setNotes('');
+    setFollowUpStatus('idle');
+  }
+
+  async function handleFollowUp() {
+    if (!name.trim() || !phone.trim() || !result) return;
+    setFollowUpStatus('sending');
+    try {
+      const res = await fetch('/api/quote-followup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          notes: notes.trim(),
+          vehicle: vehicle!,
+          service: service!,
+          condition: condition!,
+          estimate: result.display,
+        }),
+      });
+      setFollowUpStatus(res.ok ? 'sent' : 'error');
+    } catch {
+      setFollowUpStatus('error');
+    }
   }
 
   const result =
@@ -102,14 +125,8 @@ export default function QuoteEstimator() {
       : null;
 
   const vehicleLabel = VEHICLES.find(v => v.id === vehicle)?.label ?? '';
-  const serviceLabel = [...AUTO_SERVICES, ...MARINE_SERVICES].find(s => s.id === service)?.label ?? '';
+  const serviceLabel = SERVICES.find(s => s.id === service)?.label ?? '';
   const conditionLabel = CONDITIONS.find(c => c.id === condition)?.label ?? '';
-
-  const smsBody = result
-    ? encodeURIComponent(
-        `Quote request: ${serviceLabel} for ${vehicleLabel} (${conditionLabel} condition). Estimate: ${result.display}. — via bayshine.net`
-      )
-    : '';
 
   return (
     <div className="bg-[rgba(15,27,45,0.6)] border border-[rgba(122,130,148,0.2)] rounded-sm p-6 max-w-lg mx-auto">
@@ -158,7 +175,7 @@ export default function QuoteEstimator() {
         <div>
           <h3 className="font-display font-semibold text-white text-base mb-4">Which service?</h3>
           <div className="grid grid-cols-1 gap-2">
-            {availableServices.map(s => (
+            {SERVICES.map(s => (
               <OptionButton
                 key={s.id}
                 selected={service === s.id}
@@ -207,20 +224,54 @@ export default function QuoteEstimator() {
       {step === 'result' && result && (
         <div>
           <p className="text-[#7A8294] text-sm mb-1">{vehicleLabel} · {serviceLabel}{conditionLabel && ` · ${conditionLabel}`}</p>
-          <div className="text-4xl font-display font-bold text-white my-3">{result.display}</div>
+          <p className="text-[#7A8294] text-xs uppercase tracking-wider mt-3">Starting at</p>
+          <div className="text-5xl font-display font-bold text-white my-1">${result.startingAt}</div>
           <p className="text-xs text-[#7A8294] mb-6">
             Estimate only. Final price confirmed at walkthrough.
           </p>
 
-          <a
-            href={`sms:8133245522?body=${smsBody}`}
-            className="btn-sweep gloss-cap inline-flex items-center gap-2 bg-bay-gold text-bay-navy font-display font-semibold text-sm px-5 py-3 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold w-full justify-center"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            Lock this in — text Constantine
-          </a>
+          {followUpStatus === 'sent' ? (
+            <p className="text-sm text-bay-gold py-3">Got it. We'll be in touch shortly.</p>
+          ) : (
+            <div className="space-y-2.5">
+              <p className="font-display text-xs font-semibold text-bay-white mb-3">Ready to book? Leave your info.</p>
+              <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="Your name"
+                aria-label="Your name"
+                className="w-full bg-transparent border border-[rgba(122,130,148,0.3)] text-white text-sm px-3 py-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold placeholder:text-[#7A8294]"
+              />
+              <input
+                type="tel"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                placeholder="Phone number"
+                aria-label="Phone number"
+                className="w-full bg-transparent border border-[rgba(122,130,148,0.3)] text-white text-sm px-3 py-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold placeholder:text-[#7A8294]"
+              />
+              <textarea
+                value={notes}
+                onChange={e => setNotes(e.target.value)}
+                placeholder="Anything we should know? (optional)"
+                aria-label="Additional notes"
+                rows={2}
+                className="w-full bg-transparent border border-[rgba(122,130,148,0.3)] text-white text-sm px-3 py-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold placeholder:text-[#7A8294] resize-none"
+              />
+              <button
+                type="button"
+                onClick={handleFollowUp}
+                disabled={followUpStatus === 'sending' || !name.trim() || !phone.trim()}
+                className="btn-sweep gloss-cap w-full bg-bay-gold text-bay-navy font-display font-semibold text-sm px-4 py-2.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold disabled:opacity-50"
+              >
+                {followUpStatus === 'sending' ? 'Sending…' : 'Send My Info'}
+              </button>
+            </div>
+          )}
+          {followUpStatus === 'error' && (
+            <p className="text-xs text-red-400 mt-2">Something went wrong. Try again or call us.</p>
+          )}
 
           <button
             type="button"

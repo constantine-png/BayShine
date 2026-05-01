@@ -1,0 +1,29 @@
+---
+// Fixed ambient video background. Sits at z-index -1 behind all page content.
+// 4-tier fallback: page ambient → page showcase → homepage ambient → static gradient.
+import VideoLoop from '@/components/ui/VideoLoop.astro';
+import { ASSET_REGISTRY } from '@/lib/assetRegistry';
+import { getBestAmbientVideo } from '@/lib/ambientVideo';
+
+const pathname = Astro.url.pathname;
+const videoFile = getBestAmbientVideo(pathname, ASSET_REGISTRY);
+---
+
+<div
+  aria-hidden="true"
+  style="position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none;"
+>
+  {videoFile ? (
+    <VideoLoop
+      src={`/assets/video/${videoFile}`}
+      ariaLabel="Ambient background video"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.30) saturate(0.7) contrast(0.95);"
+    />
+  ) : (
+    <div style="position: absolute; inset: 0; background: #0A1220;"></div>
+  )}
+  <!-- Navy overlay at 75% opacity -->
+  <div style="position: absolute; inset: 0; background: rgba(15, 27, 45, 0.75);"></div>
+  <!-- Warm radial glow -->
+  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 65% 40%, rgba(201,169,97,0.07) 0%, transparent 65%);"></div>
+</div>

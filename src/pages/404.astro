@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+---
+<BaseLayout
+  title="Page Not Found | BayShine"
+  description="This page doesn't exist. Head back to BayShine to book a detail or get an estimate."
+>
+  <section class="noise-overlay min-h-[70vh] flex flex-col justify-center bg-bay-navy px-4 py-20">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="flex justify-center mb-8">
+        <img src="/assets/logo/bayshine_logo_vector.png" alt="BayShine Detailing" width="160" height="53" class="h-10 w-auto opacity-60" />
+      </div>
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-6">404</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
+        Page not found.
+      </h1>
+      <p class="text-bay-slate text-lg mb-10 max-w-md mx-auto">
+        This page doesn't exist. If you followed a link, it may have moved.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <Button href="/" variant="primary">Back to Home</Button>
+        <Button href="/contact" variant="secondary">Book a Detail</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

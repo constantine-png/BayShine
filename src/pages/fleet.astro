@@ -2,19 +2,18 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
-import { FLEET_RATES } from '@/data/pricing';
 ---
 <BaseLayout
   title="Fleet & Lot Maintenance Programs"
-  description="Mobile fleet detailing in Pasco County and North Hillsborough. Lot maintenance from $1.10/vehicle. Sales prep, recon, and van wash programs. 30-unit minimum."
+  description="Mobile fleet detailing in Pasco County and North Hillsborough. Lot maintenance, sales prep, recon, and van wash programs. Standing schedule, monthly invoice."
 >
 
   <!-- ── HERO ───────────────────────────────────────────────── -->
-  <section class="noise-overlay bg-bay-navy py-24 px-4 section-bevel">
+  <section class="noise-overlay py-24 px-4 section-bevel">
     <div class="container mx-auto max-w-4xl">
       <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet &amp; B2B</p>
       <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white mb-6 leading-[1.08]">
-        80 vehicles.<br />4 hours.<br />$1.10 per unit.
+        Standing programs.<br />Per-unit pricing.<br />Volume scales the rate.
       </h1>
       <p class="text-bay-slate text-lg max-w-xl mb-8">
         Lot maintenance, sales prep, recon, and fleet van washing. Standing schedule,
@@ -39,41 +38,15 @@ import { FLEET_RATES } from '@/data/pricing';
 
   <Divider />
 
-  <!-- ── PRICING TABLE ──────────────────────────────────────── -->
-  <!-- Fleet is the one place full pricing appears on the public site. -->
+  <!-- ── FLEET RATES ────────────────────────────────────────── -->
   <section class="py-20 px-4">
     <div class="container mx-auto max-w-4xl">
-      <div class="reveal mb-10">
+      <div class="reveal mb-8">
         <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Fleet Rates</h2>
-        <p class="text-bay-slate">Per-unit pricing. Volume minimum: 30 vehicles for lot maintenance.</p>
       </div>
-
-      <div class="reveal border border-bay-slate/20 rounded-sm overflow-hidden">
-        <table class="w-full text-sm" aria-label="Fleet pricing table">
-          <thead>
-            <tr class="bg-bay-deep border-b border-bay-slate/20">
-              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Service</th>
-              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Rate</th>
-              <th class="text-left px-6 py-3 text-bay-bone font-semibold">Note</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-bay-slate/10">
-            {[
-              { label: 'Lot Maintenance Wash', rate: `$${FLEET_RATES.lotWash.min.toFixed(2)}–$${FLEET_RATES.lotWash.max.toFixed(2)}${FLEET_RATES.lotWash.unit}`, note: FLEET_RATES.lotWash.note },
-              { label: 'Sales-Prep Detail',    rate: `$${FLEET_RATES.salesPrep.min}–$${FLEET_RATES.salesPrep.max}${FLEET_RATES.salesPrep.unit}`, note: '' },
-              { label: 'Recon / Heavy Detail', rate: `$${FLEET_RATES.reconDetail.min}–$${FLEET_RATES.reconDetail.max}${FLEET_RATES.reconDetail.unit}`, note: '' },
-              { label: 'Fleet Van Wash',       rate: `$${FLEET_RATES.vanWash.min}–$${FLEET_RATES.vanWash.max}${FLEET_RATES.vanWash.unit}`, note: '' },
-              { label: 'Apartment Resident',   rate: `$${FLEET_RATES.apartmentResident.min}${FLEET_RATES.apartmentResident.unit}`, note: 'Subscription per resident' },
-            ].map(row => (
-              <tr class="hover:bg-bay-deep/30 transition-colors">
-                <td class="px-6 py-4 text-bay-bone font-medium">{row.label}</td>
-                <td class="px-6 py-4 text-bay-gold font-semibold">{row.rate}</td>
-                <td class="px-6 py-4 text-bay-slate">{row.note}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <p class="reveal text-bay-slate leading-relaxed max-w-2xl">
+        Per-unit pricing is based on vehicle count, condition, and service type. All rates are locked at sign-up and invoiced monthly. Submit the form below and we will have the right numbers ready when we follow up.
+      </p>
     </div>
   </section>
 
@@ -96,7 +69,7 @@ import { FLEET_RATES } from '@/data/pricing';
           {
             step: '02',
             title: 'Set the schedule',
-            desc: 'Standing appointment on your rotation — weekly, bi-weekly, or monthly. We show up. No coordination calls every cycle.',
+            desc: 'Standing appointment on your rotation: weekly, bi-weekly, or monthly. We show up. No coordination calls every cycle.',
           },
           {
             step: '03',
@@ -116,31 +89,12 @@ import { FLEET_RATES } from '@/data/pricing';
 
   <Divider />
 
-  <!-- ── INSURANCE ──────────────────────────────────────────── -->
-  <section class="py-12 px-4">
-    <div class="container mx-auto max-w-4xl">
-      <!-- FOLLOWUP: src/pages/fleet.astro — Replace placeholder with actual COI PDF link
-           when certificate is issued. -->
-      <div class="flex items-center gap-4 text-bay-slate text-sm border border-bay-slate/20 rounded-sm px-6 py-4">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="text-bay-gold flex-shrink-0" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        <span>
-          Fully insured. Certificate of insurance available on request.
-          <!-- <a href="/coi.pdf" class="text-bay-gold underline underline-offset-4 hover:text-[#d9bc79]">Download COI (PDF)</a> -->
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <Divider />
-
   <!-- ── FLEET INQUIRY FORM ─────────────────────────────────── -->
   <section id="inquiry" class="noise-overlay py-20 px-4">
     <div class="container mx-auto max-w-xl">
       <div class="reveal mb-10">
         <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Start a fleet account</h2>
-        <p class="text-bay-slate">Not a generic contact form. Fill this out and I'll have the right numbers ready when I call back.</p>
+        <p class="text-bay-slate">Not a generic contact form. Fill this out and we'll have the right numbers ready when we follow up.</p>
       </div>
 
       <form id="fleet-form" class="reveal space-y-5" novalidate>
@@ -165,6 +119,17 @@ import { FLEET_RATES } from '@/data/pricing';
               <option>As needed</option>
             </select>
           </div>
+        </div>
+
+        <div>
+          <label for="visit-volume" class="block text-bay-bone text-sm font-medium mb-1.5">Typical visit volume</label>
+          <select id="visit-volume" name="visitVolume" class="w-full bg-bay-navy border border-bay-slate/30 text-bay-bone px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors">
+            <option value="">Select…</option>
+            <option>Under 30 vehicles</option>
+            <option>30 to 100 vehicles</option>
+            <option>100 to 200 vehicles</option>
+            <option>200+ vehicles</option>
+          </select>
         </div>
 
         <div>

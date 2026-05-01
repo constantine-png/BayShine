@@ -32,12 +32,12 @@ const blogPostSchema = {
   datePublished: post.data.pubDate.toISOString(),
   author: {
     '@type': 'Organization',
-    name: 'Bay Shine Detailing',
+    name: 'BayShine Detailing',
     url: 'https://bayshine.net',
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Bay Shine Detailing',
+    name: 'BayShine Detailing',
     url: 'https://bayshine.net',
   },
   url: `https://bayshine.net/blog/${post.slug}`,
@@ -52,7 +52,7 @@ const blogPostSchema = {
   {post.data.draft && isPreview && (
     <div class="bg-orange-100 border-b border-orange-200 px-4 py-2">
       <p class="container mx-auto max-w-2xl text-xs text-orange-800 font-semibold font-display">
-        Draft — not publicly visible.
+        Draft: not publicly visible.
         <a href="/api/preview?clear=1" class="underline ml-2">Exit preview</a>
       </p>
     </div>
@@ -74,7 +74,7 @@ const blogPostSchema = {
           {post.data.description}
         </p>
         <div class="flex items-center gap-4 text-xs text-bay-ink/40 font-display uppercase tracking-wider">
-          <span>Bay Shine Detailing</span>
+          <span>BayShine Detailing</span>
           <span>·</span>
           <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
           <span>·</span>

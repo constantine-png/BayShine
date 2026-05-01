@@ -1,100 +1,40 @@
-// All 19 service area zip codes.
-// "premium" tier zips receive longer, recurring-program-focused copy.
-// "standard" tier zips receive shorter, one-time-service-focused copy.
+export type ZipPriority = 'high' | 'standard' | 'edge';
 
-export type ZipTier = 'premium' | 'standard';
-
-export interface ZipInfo {
+export interface ZipEntry {
   code: string;
   city: string;
-  county: 'Pasco' | 'Hillsborough';
-  tier: ZipTier;
-  copyNote: string; // used for /service-area page copy
+  neighborhoods: string[];
+  priority: ZipPriority;
 }
 
-export const SERVICE_AREA: ZipInfo[] = [
-  // Pasco County
-  {
-    code: '34637', city: 'Land O Lakes', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '34638', city: 'Land O Lakes', county: 'Pasco', tier: 'premium',
-    copyNote: 'Standing Detail program available. Multi-vehicle households prioritized.',
-  },
-  {
-    code: '34639', city: 'Land O Lakes', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '33544', city: 'Wesley Chapel', county: 'Pasco', tier: 'premium',
-    copyNote: 'Standing Detail program available. Priority slots open.',
-  },
-  {
-    code: '34610', city: 'Spring Hill', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time service available.',
-  },
-  {
-    code: '33576', city: 'San Antonio', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time service available.',
-  },
-  {
-    code: '33543', city: 'Wesley Chapel', county: 'Pasco', tier: 'premium',
-    copyNote: 'Standing Detail program available. Multi-vehicle households prioritized.',
-  },
-  {
-    code: '33545', city: 'Wesley Chapel', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '34654', city: 'New Port Richey', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time service available.',
-  },
-  {
-    code: '34669', city: 'Hudson', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time service available.',
-  },
-  {
-    code: '33574', city: 'Saint Leo', county: 'Pasco', tier: 'standard',
-    copyNote: 'One-time service available.',
-  },
-  // North Hillsborough County
-  {
-    code: '33558', city: 'Lutz', county: 'Hillsborough', tier: 'premium',
-    copyNote: 'Standing Detail program available. Priority slots open.',
-  },
-  {
-    code: '33559', city: 'Lutz', county: 'Hillsborough', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '33548', city: 'Lutz', county: 'Hillsborough', tier: 'premium',
-    copyNote: 'Standing Detail program available. Multi-vehicle households prioritized.',
-  },
-  {
-    code: '33549', city: 'Lutz', county: 'Hillsborough', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '33556', city: 'Odessa', county: 'Hillsborough', tier: 'premium',
-    copyNote: 'Standing Detail program available. Priority slots open.',
-  },
-  {
-    code: '33647', city: 'Tampa (New Tampa)', county: 'Hillsborough', tier: 'premium',
-    copyNote: 'Standing Detail program available. Multi-vehicle households prioritized.',
-  },
-  {
-    code: '34655', city: 'Trinity', county: 'Hillsborough', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
-  {
-    code: '33613', city: 'Tampa (Carrollwood)', county: 'Hillsborough', tier: 'standard',
-    copyNote: 'One-time and recurring service available.',
-  },
+export const SERVICE_AREA: ZipEntry[] = [
+  { code: '33556', city: 'Odessa', neighborhoods: ['Keystone', 'Eagles', 'Starkey Ranch'], priority: 'high' },
+  { code: '33548', city: 'Lutz', neighborhoods: ['Cheval', 'Lake Fern'], priority: 'high' },
+  { code: '33558', city: 'Lutz', neighborhoods: ['Steinbrenner', 'Van Dyke Farms'], priority: 'high' },
+  { code: '33647', city: 'New Tampa', neighborhoods: ['Tampa Palms', 'Cory Lake Isles', 'Live Oak Preserve', 'Hunters Green'], priority: 'high' },
+  { code: '33544', city: 'Wesley Chapel', neighborhoods: ['Seven Oaks', 'Wiregrass Ranch'], priority: 'high' },
+  { code: '33543', city: 'Wesley Chapel', neighborhoods: ['Meadow Pointe', 'Saddlebrook'], priority: 'high' },
+  { code: '34638', city: "Land O' Lakes", neighborhoods: ['Bexley', 'Suncoast Crossings'], priority: 'high' },
+  { code: '34639', city: "Land O' Lakes", neighborhoods: ['Lake Padgett', 'Plantation Palms'], priority: 'standard' },
+  { code: '34637', city: "Land O' Lakes", neighborhoods: ['Connerton', 'Wilderness Lake Preserve'], priority: 'standard' },
+  { code: '33549', city: 'Lutz', neighborhoods: [], priority: 'standard' },
+  { code: '33559', city: 'Lutz / Wesley Chapel', neighborhoods: [], priority: 'standard' },
+  { code: '34655', city: 'Trinity', neighborhoods: ['Trinity', 'Longleaf'], priority: 'standard' },
+  { code: '33576', city: 'San Antonio', neighborhoods: [], priority: 'standard' },
+  { code: '33545', city: 'Wesley Chapel', neighborhoods: ['Epperson', 'Mirada'], priority: 'standard' },
+  { code: '34610', city: 'Spring Hill / Shady Hills', neighborhoods: [], priority: 'standard' },
+  { code: '33613', city: 'Tampa', neighborhoods: ['University area', 'Lake Magdalene'], priority: 'standard' },
+  { code: '34654', city: 'New Port Richey', neighborhoods: [], priority: 'edge' },
+  { code: '34669', city: 'Hudson', neighborhoods: [], priority: 'edge' },
+  { code: '33574', city: 'Crystal Springs', neighborhoods: [], priority: 'edge' },
 ];
 
-export const PREMIUM_ZIPS = SERVICE_AREA
-  .filter(z => z.tier === 'premium')
-  .map(z => z.code);
+// Hillsborough zips for county classification
+const HILLSBOROUGH_ZIPS = new Set(['33556', '33548', '33558', '33559', '33549', '33647', '33613']);
 
+export function getCounty(code: string): 'Pasco' | 'Hillsborough' {
+  return HILLSBOROUGH_ZIPS.has(code) ? 'Hillsborough' : 'Pasco';
+}
+
+export const HIGH_PRIORITY_ZIPS = SERVICE_AREA.filter(z => z.priority === 'high');
 export const ALL_ZIPS = SERVICE_AREA.map(z => z.code);

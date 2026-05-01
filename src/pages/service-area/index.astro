@@ -1,0 +1,173 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Button from '@/components/ui/Button.astro';
+import { SERVICE_AREA, getCounty } from '@/data/serviceArea';
+
+const highZips = SERVICE_AREA.filter(z => z.priority === 'high');
+const pascoZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Pasco');
+const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough');
+---
+<BaseLayout
+  title="Service Area | Pasco County and North Hillsborough"
+  description="Mobile auto detailing serving Pasco County and North Hillsborough, FL. Wesley Chapel, Lutz, Odessa, Land O' Lakes, New Tampa, and more."
+>
+  <!-- Hero -->
+  <section class="noise-overlay bg-bay-navy py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight reveal">
+        Service Area.
+      </h1>
+      <p class="text-bay-slate text-lg max-w-xl mb-8 reveal">
+        Pasco County and North Hillsborough County. Fully mobile, on-site: service runs at your location, no drop-off required.
+      </p>
+      <div class="flex flex-wrap gap-3 reveal">
+        <Button href="/contact" variant="primary">Book Now</Button>
+        <Button href="/quote" variant="secondary">Get a Quote</Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Map placeholder -->
+  <!-- FOLLOWUP: src/pages/service-area/index.astro — Replace with Google Maps Embed API or
+       Leaflet map showing service radius. Show Pasco + N. Hillsborough shaded, marker per city. -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div
+        class="bg-[rgba(122,130,148,0.08)] border border-dashed border-[rgba(122,130,148,0.3)] rounded-sm flex items-center justify-center"
+        style="height: 300px;"
+        data-map-needed
+        aria-label="Interactive map placeholder, Pasco and North Hillsborough coverage area"
+      >
+        <div class="text-center text-bay-slate">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="mx-auto mb-3 opacity-50" aria-hidden="true">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/>
+            <line x1="9" y1="3" x2="9" y2="18"/>
+            <line x1="15" y1="6" x2="15" y2="21"/>
+          </svg>
+          <p class="text-sm font-medium">Interactive map</p>
+          <p class="text-xs mt-1 opacity-60">Pasco + N. Hillsborough</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Priority zip cards — link to dedicated pages -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="mb-10 reveal">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Standing Detail coverage.</h2>
+        <p class="text-bay-slate text-base max-w-xl">
+          The recurring program runs in these seven zips. Dedicated pages with local context for each one.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {highZips.map(zip => (
+          <a
+            href={`/service-area/${zip.code}`}
+            class="group block gloss-cap section-bevel bg-bay-navy/60 border border-bay-gold/20 rounded-sm p-6 hover:border-bay-gold/60 transition-colors duration-300 reveal"
+          >
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-display font-semibold text-bay-white text-lg mb-1">{zip.city}</h3>
+                <p class="text-bay-gold text-xs font-medium uppercase tracking-widest">{zip.code}</p>
+              </div>
+              <span class="text-bay-gold text-xs font-semibold uppercase tracking-wider bg-bay-gold/10 px-2 py-1 rounded shrink-0 ml-3">
+                Standing Detail
+              </span>
+            </div>
+            {zip.neighborhoods.length > 0 && (
+              <p class="text-bay-slate text-sm mb-4">
+                Serving: {zip.neighborhoods.join(', ')}
+              </p>
+            )}
+            <span class="inline-block text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">
+              See detailing in {zip.city} →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Standard + edge zips — text grid -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-3 reveal">Additional coverage.</h2>
+      <p class="text-bay-slate text-sm max-w-xl mb-10 reveal">
+        Full one-time service (exterior detail, full detail, ceramic coating, and recon) available throughout these zips.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+        <div class="reveal">
+          <p class="text-bay-bone text-xs font-semibold uppercase tracking-wider mb-4">Pasco County</p>
+          <ul class="space-y-3">
+            {pascoZips.filter(z => z.priority !== 'high').map(zip => (
+              <li class="flex items-start gap-3">
+                <span class="text-bay-slate/40 text-xs pt-0.5 shrink-0" aria-hidden="true">·</span>
+                <span class="text-bay-slate text-sm leading-snug">
+                  {zip.city}
+                  <span class="text-bay-slate/60 ml-1">({zip.code})</span>
+                  {zip.priority === 'edge' && (
+                    <span class="text-bay-slate/50 text-xs ml-2">extended service area</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <p class="text-bay-bone text-xs font-semibold uppercase tracking-wider mb-4">North Hillsborough County</p>
+          <ul class="space-y-3">
+            {hillsZips.filter(z => z.priority !== 'high').map(zip => (
+              <li class="flex items-start gap-3">
+                <span class="text-bay-slate/40 text-xs pt-0.5 shrink-0" aria-hidden="true">·</span>
+                <span class="text-bay-slate text-sm leading-snug">
+                  {zip.city}
+                  <span class="text-bay-slate/60 ml-1">({zip.code})</span>
+                  {zip.priority === 'edge' && (
+                    <span class="text-bay-slate/50 text-xs ml-2">extended service area</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Crawlable zip summary for SEO -->
+  <section class="section-bevel bg-bay-deep py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-xl text-bay-white mb-6">Full service area zip list</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-bay-slate text-sm">
+        <div>
+          <p class="font-semibold text-bay-bone text-xs uppercase tracking-wider mb-3">Pasco County</p>
+          <p class="leading-relaxed">
+            {pascoZips.map(z => `${z.city} ${z.code}`).join(' · ')}
+          </p>
+        </div>
+        <div>
+          <p class="font-semibold text-bay-bone text-xs uppercase tracking-wider mb-3">North Hillsborough County</p>
+          <p class="leading-relaxed">
+            {hillsZips.map(z => `${z.city} ${z.code}`).join(' · ')}
+          </p>
+        </div>
+      </div>
+      <p class="text-bay-slate text-xs mt-6">
+        Not sure if you're in the service area? Call or text (813) 324-5522.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

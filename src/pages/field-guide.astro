@@ -5,13 +5,14 @@ import Divider from '@/components/ui/Divider.astro';
 ---
 <BaseLayout
   title="The Detailer's Field Guide"
-  description="Eight chapters on paint chemistry, correction, protection, and the professional mindset. Written from production experience by Bay Shine Detailing."
+  description="Eight chapters on paint chemistry, correction, protection, and the professional mindset. Written from production experience by BayShine Detailing."
+  bodyClass="page-field-guide"
 >
   <!-- Header -->
-  <section class="noise-overlay py-20 px-4 bg-bay-navy">
+  <section class="noise-overlay py-20 px-4 bg-[#1a0d06] section-bevel">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal">
-        <p class="font-display text-[10px] font-bold uppercase tracking-[0.2em] text-bay-gold mb-5">Bay Shine · Reference Material</p>
+        <p class="font-display text-[10px] font-bold uppercase tracking-[0.2em] text-bay-gold mb-5">BayShine · Reference Material</p>
         <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white mb-5 leading-[1.06] tracking-tight">
           The Detailer's<br />Field Guide.
         </h1>
@@ -19,7 +20,7 @@ import Divider from '@/components/ui/Divider.astro';
           Eight chapters on paint chemistry, surface correction, protection systems, and
           the professional mindset. Written from production experience.
         </p>
-        <p class="text-bay-slate text-sm">
+        <p class="text-[#a08060] text-sm">
           Not forum aggregation. Not product marketing. Field-tested technique.
         </p>
       </div>
@@ -29,10 +30,10 @@ import Divider from '@/components/ui/Divider.astro';
   <Divider />
 
   <!-- Book island -->
-  <section class="py-16 px-4 bg-bay-navy">
+  <section class="py-16 px-4 bg-[#231610]">
     <div class="container mx-auto max-w-3xl">
       <div class="reveal mb-8">
-        <p class="font-display text-xs font-semibold uppercase tracking-widest text-bay-slate mb-2">Preview</p>
+        <p class="font-display text-xs font-semibold uppercase tracking-widest text-[#a08060] mb-2">Preview</p>
         <h2 class="font-display font-bold text-2xl text-bay-white">Eight chapters. Open the book.</h2>
       </div>
       <FieldGuideBook captureSource="field-guide-book" client:visible />
@@ -42,29 +43,43 @@ import Divider from '@/components/ui/Divider.astro';
   <Divider />
 
   <!-- What's inside -->
-  <section class="py-16 px-4 section-bevel bg-bay-deep">
+  <section class="py-16 px-4 section-bevel bg-[#1a0d06]">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal mb-10">
         <h2 class="font-display font-bold text-2xl text-bay-white mb-2">What's inside</h2>
-        <p class="text-bay-slate text-sm">Topics covered across the eight chapters.</p>
+        <p class="text-[#a08060] text-sm">Topics covered across the eight chapters.</p>
       </div>
-      <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3">
+      <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
           'Paint layer system and depth measurement',
           'Wash chemistry and contact scratch prevention',
           'Iron fallout, clay, and full decontamination',
-          'Compound → polish → finish correction sequence',
+          'Compound to polish to finish correction sequence',
           'Wax, sealant, and ceramic coating differences',
-          'Interior deep clean — steam, extraction, sequence',
+          'Interior deep clean: steam, extraction, sequence',
           'Marine gel coat and salt contamination protocol',
           'Fleet throughput and lot logistics',
-        ].map(item => (
-          <div class="flex items-start gap-3 py-2 border-t border-bay-slate/10">
-            <span class="text-bay-gold font-bold text-xs mt-0.5 shrink-0">—</span>
-            <span class="text-bay-bone text-sm leading-snug">{item}</span>
+        ].map((item, i) => (
+          <div class="relative bg-[#1a0d06]/80 border border-[rgba(160,128,96,0.15)] p-5 overflow-hidden rounded-sm">
+            <span
+              class="block font-display font-medium text-bay-gold select-none pointer-events-none absolute"
+              style="font-size:6em;line-height:1;opacity:0.6;left:-0.15em;top:-0.1em;"
+              aria-hidden="true"
+            >{String(i + 1).padStart(2, '0')}</span>
+            <p class="font-ui font-semibold text-bay-white text-sm leading-snug relative z-10 mt-8">{item}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  /* Phone: white on field guide page — gold reads poorly against leather brown */
+  .page-field-guide #site-header a[href="tel:8133245522"] {
+    color: var(--color-bay-white);
+  }
+  .page-field-guide #site-header a[href="tel:8133245522"]:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>

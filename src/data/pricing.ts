@@ -1,8 +1,8 @@
 // Single source of truth for all pricing. Update here only.
-// Public pages NEVER display these numbers — only /fleet and /quote output.
+// Public pages never display these numbers — only /quote output uses them.
 
-export type VehicleType = 'sedan' | 'midsuv' | 'largesuv' | 'boat';
-export type ServiceType = 'exterior' | 'full' | 'ceramic' | 'recon' | 'marine';
+export type VehicleType = 'sedan' | 'midsuv' | 'largesuv';
+export type ServiceType = 'exterior' | 'full' | 'ceramic' | 'recon';
 export type Condition = 'light' | 'moderate' | 'heavy';
 
 export interface PriceRange {
@@ -11,7 +11,8 @@ export interface PriceRange {
 }
 
 export interface PriceResult extends PriceRange {
-  display: string;
+  display: string;      // "Starting at $255"
+  startingAt: number;   // floor price for display
 }
 
 // Price floors that may never be undercut.
@@ -55,18 +56,14 @@ const RATES = {
     midsuv:   { min: 375, max: 475 },
     largesuv: { min: 450, max: 575 },
   },
-  marine: {
-    boat: { min: 200, max: 500 },
-  },
 } as const;
 
-// Fleet pricing — displayed on /fleet only.
+// Fleet pricing — internal reference only. Not displayed on public pages.
 export const FLEET_RATES = {
-  lotWash:           { min: 1.00, max: 1.25, unit: '/vehicle', note: '30-unit minimum' },
-  salesPrep:         { min: 75,   max: 100,  unit: '/vehicle' },
-  reconDetail:       { min: 150,  max: 250,  unit: '/vehicle' },
-  vanWash:           { min: 9,    max: 15,   unit: '/vehicle' },
-  apartmentResident: { min: 30,   max: 30,   unit: '/month per resident' },
+  lotWash:     { min: 1.00, max: 1.25, unit: '/vehicle', note: '30-unit minimum' },
+  salesPrep:   { min: 75,   max: 100,  unit: '/vehicle' },
+  reconDetail: { min: 150,  max: 250,  unit: '/vehicle' },
+  vanWash:     { min: 9,    max: 15,   unit: '/vehicle' },
 } as const;
 
 // Standing Detail recurring program.
@@ -76,10 +73,6 @@ export const STANDING_DETAIL = {
   largesuv: { recurring: 279, baseline: 345 },
 } as const;
 
-function fmt(min: number, max: number): string {
-  return min === max ? `$${min}` : `$${min}–$${max}`;
-}
-
 export function getQuotePrice(
   vehicle: VehicleType,
   service: ServiceType,
@@ -88,31 +81,28 @@ export function getQuotePrice(
   let range: PriceRange | null = null;
 
   if (service === 'exterior') {
-    if (vehicle === 'boat') return null;
     range = RATES.exterior[vehicle];
   } else if (service === 'full') {
-    if (vehicle === 'boat') return null;
     const tier = condition === 'heavy' ? 'heavy' : condition === 'moderate' ? 'moderate' : 'light';
     range = RATES.full[tier][vehicle];
   } else if (service === 'ceramic') {
-    if (vehicle === 'boat') return null;
     range = RATES.ceramic[vehicle];
   } else if (service === 'recon') {
-    if (vehicle === 'boat') return null;
     range = RATES.recon[vehicle];
-  } else if (service === 'marine') {
-    if (vehicle !== 'boat') return null;
-    range = RATES.marine.boat;
   }
 
   if (!range) return null;
 
-  // Enforce floors.
   const min = Math.max(
     range.min,
     service === 'exterior' && vehicle === 'sedan' ? PRICE_FLOORS.exteriorSedan : 0,
     service === 'full'     && vehicle === 'sedan' ? PRICE_FLOORS.fullSedan     : 0,
   );
 
-  return { min, max: range.max, display: fmt(min, range.max) };
+  return {
+    min,
+    max: range.max,
+    startingAt: min,
+    display: `Starting at $${min}`,
+  };
 }

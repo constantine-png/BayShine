@@ -2,31 +2,98 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
+
+const TIERS = [
+  {
+    id: 'rinse',
+    name: 'Rinse',
+    tagline: 'Exterior-only maintenance.',
+    desc: 'Two-bucket exterior rinse, wheel clean, and glass. Fastest cadence. Keeps lot appearance consistent across all enrolled vehicles.',
+  },
+  {
+    id: 'refresh',
+    name: 'Refresh',
+    tagline: 'Exterior wash + interior wipe.',
+    desc: 'Everything in Rinse plus door panels, dash wipe, glass interior, and vacuum. Noticeable difference inside and out.',
+  },
+  {
+    id: 'detail',
+    name: 'Detail',
+    tagline: 'Full-service detail.',
+    desc: 'Complete interior extraction, steam clean of contact surfaces, odor treatment, and full exterior protocol including clay and sealant.',
+  },
+  {
+    id: 'standing',
+    name: 'Standing Detail',
+    tagline: 'The recurring program.',
+    desc: 'First visit is a full detail reset. Every subsequent visit is a maintenance detail on the 6-week cycle. Permanently maintained vehicle at a locked rate.',
+  },
+];
 ---
 <BaseLayout
-  title="Apartment Resident Detailing Program"
-  description="Mobile detailing subscription for apartment residents in Pasco County and North Hillsborough. $30/month per resident. Property managers: add value to your amenity package."
+  title="Apartment Resident Detailing | Property Programs"
+  description="On-property mobile detailing programs for apartment communities in Pasco County and North Hillsborough. Residents enroll directly. No cost or coordination for the property."
 >
-  <section class="noise-overlay bg-bay-navy py-24 px-4">
-    <div class="container mx-auto max-w-3xl">
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="noise-overlay py-24 px-4 section-bevel">
+    <div class="container mx-auto max-w-4xl">
       <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Property Programs</p>
-      <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
-        Resident Detailing Program.
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white mb-6 leading-[1.08]" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+        Premium amenity.<br />Zero overhead.
       </h1>
-      <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-xl">
-        A $30/month subscription per enrolled resident. Mobile service runs on-property
-        on a set schedule. Residents get consistent, professional detailing — property
-        managers get a differentiated amenity without operational overhead.
+      <p class="text-bay-slate text-lg max-w-xl mb-8" style="text-shadow: 0 1px 12px rgba(15,27,45,0.8);">
+        On-property mobile detailing for apartment communities. Residents enroll and pay
+        directly. The property adds a tangible amenity: no billing, no coordination,
+        no operational load.
       </p>
-      <Button href="/fleet#inquiry" variant="primary" class="text-base px-8 py-3.5">
-        Inquire About Property Program
-      </Button>
+      <div class="flex flex-wrap gap-4">
+        <Button href="#inquiry" variant="primary" class="text-base px-8 py-3.5">
+          Inquire About Your Property
+        </Button>
+        <a
+          href="tel:8133245522"
+          class="inline-flex items-center gap-2 text-bay-gold font-semibold text-base hover:text-[#d9bc79] transition-colors"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.07 4.9 2 2 0 0 1 3.05 2.74h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/>
+          </svg>
+          (813) 324-5522
+        </a>
+      </div>
     </div>
   </section>
 
   <Divider />
 
+  <!-- ── SERVICE TIERS ──────────────────────────────────────── -->
   <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-10">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Service tiers</h2>
+        <p class="text-bay-slate text-sm">Four options. Property managers choose what to offer; residents select at enrollment.</p>
+      </div>
+
+      <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {TIERS.map((tier, i) => (
+          <div class="gloss-cap section-bevel border border-bay-slate/15 bg-bay-deep rounded-sm p-8 overflow-hidden">
+            <!-- Oversized outlined numeral — translucent gold, decorative -->
+            <span class="block font-display text-[7em] leading-none font-bold text-transparent select-none pointer-events-none mb-2 -ml-2"
+                  style="-webkit-text-stroke: 1px rgba(201,169,97,0.25);"
+                  aria-hidden="true">0{i + 1}</span>
+            <h3 class="font-ui font-bold text-xl text-bay-white mb-1">{tier.name}</h3>
+            <p class="font-display text-xs text-bay-gold mb-3">{tier.tagline}</p>
+            <p class="text-bay-slate text-sm leading-relaxed">{tier.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ── BENEFITS SPLIT ─────────────────────────────────────── -->
+  <section class="section-bevel bg-bay-deep py-20 px-4">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
@@ -34,13 +101,12 @@ import Divider from '@/components/ui/Divider.astro';
           <ul class="space-y-3 text-bay-slate text-sm">
             {[
               'Add a premium amenity at no cost to the property',
-              'Residents enroll and pay directly — no billing overhead',
+              'Residents enroll and pay directly, no billing overhead',
               'Scheduled visits run on-property without coordination',
-              'Certificate of insurance on file',
               'Builds lease retention through tangible resident value',
             ].map(item => (
               <li class="flex gap-3">
-                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -51,14 +117,14 @@ import Divider from '@/components/ui/Divider.astro';
           <h2 class="font-display font-bold text-2xl text-bay-white mb-6">For residents</h2>
           <ul class="space-y-3 text-bay-slate text-sm">
             {[
-              '$30/month — one vehicle, recurring maintenance wash',
-              'No drop-off: done in your parking spot',
+              'Done in the parking spot, no drop-off',
               'Same technician each cycle',
-              'Cancel anytime — no contract',
-              'Upgrade to full detail at resident rate when needed',
+              'Cancel anytime, no contract',
+              'Upgrade to a higher tier when needed',
+              'Professional service at a subscription rate',
             ].map(item => (
               <li class="flex gap-3">
-                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">—</span>
+                <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -67,4 +133,133 @@ import Divider from '@/components/ui/Divider.astro';
       </div>
     </div>
   </section>
+
+  <Divider />
+
+  <!-- ── PROPERTY MANAGER INQUIRY FORM ─────────────────────── -->
+  <section id="inquiry" class="noise-overlay py-20 px-4">
+    <div class="container mx-auto max-w-xl">
+      <div class="reveal mb-10">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Start a property program</h2>
+        <p class="text-bay-slate">We'll reach out within one business day to discuss your property's setup and resident volume.</p>
+      </div>
+
+      <form id="apt-form" class="reveal space-y-5" novalidate>
+        <div>
+          <label for="propertyName" class="block text-bay-bone text-sm font-medium mb-1.5">Property name</label>
+          <input id="propertyName" name="propertyName" type="text" required
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+            placeholder="The Reserve at Starkey Ranch" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label for="pmName" class="block text-bay-bone text-sm font-medium mb-1.5">Your name</label>
+            <input id="pmName" name="pmName" type="text" required autocomplete="name"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="Property manager" />
+          </div>
+          <div>
+            <label for="pmPhone" class="block text-bay-bone text-sm font-medium mb-1.5">Direct phone</label>
+            <input id="pmPhone" name="pmPhone" type="tel" required autocomplete="tel"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="(813) 000-0000" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label for="unitCount" class="block text-bay-bone text-sm font-medium mb-1.5">Total units</label>
+            <input id="unitCount" name="unitCount" type="number" min="1"
+              class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+              placeholder="200" />
+          </div>
+          <div>
+            <label for="residentInterest" class="block text-bay-bone text-sm font-medium mb-1.5">Estimated interest</label>
+            <select id="residentInterest" name="residentInterest"
+              class="w-full bg-bay-navy border border-bay-slate/30 text-bay-bone px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors">
+              <option value="">Select…</option>
+              <option>Under 20 residents</option>
+              <option>20 to 50 residents</option>
+              <option>50 to 100 residents</option>
+              <option>100+ residents</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend class="block text-bay-bone text-sm font-medium mb-2">Services of interest</legend>
+          <div class="grid grid-cols-2 gap-2">
+            {TIERS.map(tier => (
+              <label class="flex items-center gap-2 text-bay-slate text-sm cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="tiers"
+                  value={tier.id}
+                  class="w-4 h-4 rounded-sm border-bay-slate/30 bg-transparent accent-bay-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+                />
+                <span class="group-hover:text-bay-bone transition-colors">{tier.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="apt-notes" class="block text-bay-bone text-sm font-medium mb-1.5">Notes <span class="text-bay-slate text-xs">(optional)</span></label>
+          <textarea id="apt-notes" name="notes" rows="3"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors resize-none"
+            placeholder="Parking situation, HOA restrictions, preferred contact time, etc."
+          ></textarea>
+        </div>
+
+        <button type="submit" id="apt-submit-btn"
+          class="btn-sweep gloss-cap w-full bg-bay-gold text-bay-navy font-display font-semibold text-sm py-3.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy">
+          Submit Property Inquiry
+        </button>
+      </form>
+
+      <div id="apt-success" class="hidden text-center py-8">
+        <h3 class="font-display font-bold text-2xl text-bay-white mb-2">Inquiry received.</h3>
+        <p class="text-bay-slate">We'll follow up within one business day to discuss setup and scheduling.</p>
+      </div>
+      <p id="apt-error" class="hidden text-red-400 text-sm text-center mt-4" aria-live="polite">
+        Something went wrong. Call (813) 324-5522 or try again.
+      </p>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('apt-form') as HTMLFormElement;
+  const btn = document.getElementById('apt-submit-btn') as HTMLButtonElement;
+  const successEl = document.getElementById('apt-success')!;
+  const errorEl = document.getElementById('apt-error')!;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const tiers = fd.getAll('tiers') as string[];
+    const data = { ...Object.fromEntries(fd.entries()), tiers };
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorEl.classList.add('hidden');
+    try {
+      const res = await fetch('/api/apartments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+      } else {
+        throw new Error();
+      }
+    } catch {
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Submit Property Inquiry';
+    }
+  });
+</script>

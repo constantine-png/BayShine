@@ -12,11 +12,12 @@ const {
   title,
   description,
   canonical,
-  ogImage = '/og-default.jpg',
+  // FOLLOWUP: generate /public/og-default.png (1200x630) from the BayShine logo mark on bay-navy background
+  ogImage = '/og-default.png',
   schema,
 } = Astro.props;
 
-const siteTitle = `${title} | Bay Shine Detailing`;
+const siteTitle = `${title} | BayShine Detailing`;
 const canonicalURL = canonical
   ? new URL(String(canonical), Astro.site)
   : new URL(Astro.url.pathname, Astro.site);
@@ -31,7 +32,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImageURL} />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Bay Shine Detailing" />
+<meta property="og:site_name" content="BayShine Detailing" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={siteTitle} />

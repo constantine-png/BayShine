@@ -105,3 +105,10 @@ When you finish a build pass, output a summary that includes:
 - Every `// FOLLOWUP:` comment with file path and reason
 - Anything in BUILD_BRIEF you couldn't fully implement and why
 - Lighthouse scores from your build verification
+
+## Standing rules (appended after master ship pass)
+
+- **No em-dashes in prose copy.** Use an en-dash with spaces ( – ) or a comma instead. Em-dashes read as breathless; this brand is terse.
+- **All video tags use `<VideoLoop>`** (`src/components/ui/VideoLoop.astro`). Never write a raw `<video>` tag — the component handles autoplay, muted, loop, playsinline, and reduced-motion handling.
+- **Brand name is always `BayShine`** — capital B, capital S, no space, no hyphen. Not "Bayshine", not "Bay Shine", not "bayshine". Applies to all copy, page titles, schema, aria-labels, and email subjects.
+- **Team language only.** Never write "I", "my", "Constantine will", "Constantine responds". Use "we", "our team", "we'll follow up". The website speaks for the business, not the owner personally.

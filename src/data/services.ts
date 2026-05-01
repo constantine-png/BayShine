@@ -1,9 +1,9 @@
 export interface Service {
   id: string;
   title: string;
-  headline: string; // one-line outcome description
+  headline: string;
   href: string;
-  iconName: string; // maps to inline SVG in ServiceCard
+  iconName: string;
 }
 
 export const SERVICES: Service[] = [
@@ -34,13 +34,6 @@ export const SERVICES: Service[] = [
     headline: 'Neglected vehicles restored to a sellable standard.',
     href: '/recon',
     iconName: 'wrench',
-  },
-  {
-    id: 'boat-detailing',
-    title: 'Boat Detailing',
-    headline: 'Gelcoat cleaned, oxidation cut. Ready for water.',
-    href: '/boat-detailing',
-    iconName: 'anchor',
   },
   {
     id: 'fleet',

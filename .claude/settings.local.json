@@ -7,7 +7,25 @@
       "Bash(pnpm install *)",
       "Bash(pnpm approve-builds *)",
       "Bash(pnpm build *)",
-      "Bash(pnpm check *)"
+      "Bash(pnpm check *)",
+      "Bash(python3 *)",
+      "Bash(vercel logs *)",
+      "Bash(node -e \"const d=require\\(process.env.APPDATA+'/com.vercel.cli/Data/auth.json'\\); process.stdout.write\\(d.token\\)\")",
+      "Bash(curl -s 'https://api.vercel.com/v13/deployments/dpl_o9W2Dp63cNwVvJxft1u9UpSbNSeU/events?teamId=team_6KCY8jtaud0chfDgy8rwfCra&builds=1&limit=100' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(python -c \"import json,sys; events=json.load\\(sys.stdin\\).get\\('events',[]\\); [print\\(e.get\\('type',''\\), e.get\\('text',''\\)[:200]\\) for e in events if e.get\\('text'\\)]\")",
+      "Bash(curl -s 'https://api.vercel.com/v2/deployments/dpl_o9W2Dp63cNwVvJxft1u9UpSbNSeU/events?teamId=team_6KCY8jtaud0chfDgy8rwfCra&types=command,stdout,stderr,exit&limit=200' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{try{const j=JSON.parse\\(d\\);const items=Array.isArray\\(j\\)?j:\\(j.events||[]\\);items.forEach\\(e=>{if\\(e.text\\)console.log\\('['+e.type+']',e.text.slice\\(0,300\\)\\)}\\)}catch\\(e\\){console.log\\('raw:',d.slice\\(0,500\\)\\)}}\\)\")",
+      "Bash(curl -sv 'https://api.vercel.com/v2/deployments/dpl_o9W2Dp63cNwVvJxft1u9UpSbNSeU/events?teamId=team_6KCY8jtaud0chfDgy8rwfCra&limit=50' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(curl -s 'https://api.vercel.com/v13/deployments/dpl_6ivGh4KWP5tF8d4dg2C9pZ37T1kd?teamId=team_6KCY8jtaud0chfDgy8rwfCra' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\('state:',j.readyState,'error:',JSON.stringify\\(j.buildError||j.error\\),'errorStep:',j.errorStep,'meta upload:',j.meta?.gitDirty\\)}\\)\")",
+      "Bash(curl -s 'https://api.vercel.com/v13/deployments/dpl_dnzpqtqlk3V8yA1n1Bk1oi25BvFP?teamId=team_6KCY8jtaud0chfDgy8rwfCra' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\('state:',j.readyState,'error:',JSON.stringify\\(j.buildError||j.error\\),'checks:',JSON.stringify\\(j.checksState\\)\\)}\\)\")",
+      "Bash(curl -s 'https://api.vercel.com/v6/deployments?teamId=team_6KCY8jtaud0chfDgy8rwfCra&projectId=prj_cO4mNB0xN5GyyqvPS0JyP7e5kBDF&limit=8' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);\\(j.deployments||[]\\).forEach\\(dep=>console.log\\(dep.uid,dep.state,dep.meta?.gitCommitMessage?.slice\\(0,50\\)\\)\\)}\\)\")",
+      "Bash(curl -s 'https://api.vercel.com/v2/deployments/dpl_bbWfBhggDtSzUaou5vYGHdrZYBB9/events?teamId=team_6KCY8jtaud0chfDgy8rwfCra&limit=200&types=command,stdout,stderr' -H 'Authorization: Bearer __TRACKED_VAR__')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{try{const j=JSON.parse\\(d\\);const items=Array.isArray\\(j\\)?j:\\(j.events||[]\\);console.log\\('events count:',items.length\\);items.slice\\(-30\\).forEach\\(e=>{if\\(e.text\\)console.log\\('['+e.type+']',e.text.slice\\(0,200\\)\\)}\\)}catch\\(e\\){console.log\\(d.slice\\(0,300\\)\\)}}\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }

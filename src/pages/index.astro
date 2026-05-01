@@ -2,13 +2,15 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
 import TrustBar from '@/components/ui/TrustBar.astro';
-import BeforeAfterSlider from '@/components/islands/BeforeAfterSlider';
-import GalleryFilter from '@/components/islands/GalleryFilter';
+import RevealHeadline from '@/components/ui/RevealHeadline.astro';
 import FAQAccordion from '@/components/islands/FAQAccordion';
 import ServiceShowcase from '@/components/sections/ServiceShowcase.astro';
 import { FAQS } from '@/data/faq';
 import { SERVICE_AREA } from '@/data/serviceArea';
+
+const featurableId = import.meta.env.FEATURABLE_WIDGET_ID;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -16,9 +18,9 @@ const faqSchema = {
     {
       '@type': 'LocalBusiness',
       '@id': 'https://bayshine.net/#business',
-      name: 'Bay Shine Auto & Marine Detailing',
+      name: 'BayShine Detailing',
       description:
-        'Mobile auto and marine detailing. Fully insured. Serving 19 zip codes across Pasco County and North Hillsborough County, FL.',
+        'Mobile auto detailing serving Pasco County and North Hillsborough County, FL.',
       telephone: '+18133245522',
       url: 'https://bayshine.net',
       priceRange: '$$',
@@ -41,24 +43,22 @@ const faqSchema = {
 };
 ---
 <BaseLayout
-  title="Mobile Auto & Marine Detailing"
-  description="Mobile auto and marine detailing serving Pasco County and North Hillsborough, FL. Full detail, exterior, ceramic coating, boat detailing, and fleet programs."
+  title="Mobile Auto Detailing | Pasco County"
+  description="Mobile auto detailing in Pasco County and North Hillsborough, FL. Full detail, exterior, ceramic coating, and fleet programs."
   schema={faqSchema}
 >
 
   <!-- ── HERO ───────────────────────────────────────────────── -->
-  <section class="noise-overlay min-h-[92vh] flex flex-col justify-center bg-bay-navy px-4 py-20">
-    <div class="container mx-auto max-w-4xl">
-      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-5">
-        Mobile auto and marine detailing.<br />
-        <span class="text-bay-gold">Pasco County</span> and North Hillsborough.
+  <section class="noise-overlay min-h-[90vh] flex flex-col justify-center items-center px-4 pt-[10vh] pb-20">
+    <div class="container mx-auto max-w-3xl text-center relative">
+      <h1 class="hero-headline headline-breathing font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-10" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+        <RevealHeadline
+          primary="Mobile auto detailing."
+          accent="Pasco County and North Hillsborough."
+        />
       </h1>
 
-      <p class="text-bay-slate text-lg sm:text-xl max-w-xl mb-8">
-        Six-week recurring service. Priority scheduling, locked rate. Or book a single appointment.
-      </p>
-
-      <div class="flex flex-wrap gap-4 mb-12">
+      <div class="flex flex-wrap gap-8 justify-center">
         <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
           Book Now
         </Button>
@@ -66,31 +66,22 @@ const faqSchema = {
           Get a Quote
         </Button>
       </div>
-
-      <!-- Before/After hero slider -->
-      <div class="reveal max-w-3xl">
-        <BeforeAfterSlider
-          label="Before / After — real results"
-          client:load
-        />
-        <p class="text-bay-slate text-xs mt-2 text-center">
-          Real photos required before launch · See <a href="/blog" class="text-bay-gold hover:underline underline-offset-4">gallery</a> for completed work
-        </p>
-      </div>
     </div>
   </section>
+
+  <Pause />
 
   <!-- ── TRUST BAR ──────────────────────────────────────────── -->
   <TrustBar />
 
   <Divider class="my-0" />
 
-  <!-- ── SPLIT SECTION: Private / Fleet ────────────────────── -->
+  <!-- ── SPLIT SECTION: Private / Fleet / Apartments ──────── -->
   <section class="section-bevel py-20 px-4">
     <div class="container mx-auto max-w-5xl">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-px bg-bay-slate/20 rounded-sm overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-px bg-bay-slate/20 rounded-sm overflow-hidden">
 
-        <!-- Private owner side -->
+        <!-- Private owner panel -->
         <div class="reveal bg-bay-navy p-10 md:p-12">
           <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Private Owners</p>
           <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
@@ -98,28 +89,44 @@ const faqSchema = {
           </h2>
           <p class="text-bay-slate leading-relaxed mb-6">
             Panel-by-panel, in correct sequence, on your schedule. The Standing Detail
-            program keeps your vehicle in maintained condition year-round — not just clean
-            enough, but genuinely detailed on every visit.
+            program keeps your vehicle in maintained condition year-round.
           </p>
           <Button href="/full-detail" variant="secondary">
-            Full Detail Program →
+            Full Detail →
           </Button>
         </div>
 
-        <!-- Fleet/B2B side -->
+        <!-- Fleet / B2B panel -->
         <div class="reveal bg-bay-deep p-10 md:p-12">
           <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet &amp; B2B</p>
+          <p class="font-display text-[10px] font-medium text-bay-slate/60 uppercase tracking-widest mb-1">Starting as low as</p>
           <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
             $1.10 per unit.<br />Standing schedule.
           </h2>
           <p class="text-bay-slate leading-relaxed mb-6">
             Lot maintenance for 30 to 300+ vehicles. Walk the lot, set the schedule,
-            receive a monthly invoice. Throughput is the metric. Downtime is not acceptable.
+            receive a monthly invoice. Throughput is the metric.
           </p>
           <Button href="/fleet" variant="secondary">
             Fleet Programs →
           </Button>
         </div>
+
+        <!-- Apartments panel -->
+        <div class="reveal bg-bay-deep/60 p-10 md:p-12">
+          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Property Programs</p>
+          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
+            On-property.<br />No overhead.
+          </h2>
+          <p class="text-bay-slate leading-relaxed mb-6">
+            Resident detailing program for apartment communities. Residents enroll directly:
+            the property adds a premium amenity at zero cost.
+          </p>
+          <Button href="/apartments" variant="secondary">
+            Apartment Programs →
+          </Button>
+        </div>
+
       </div>
     </div>
   </section>
@@ -137,11 +144,11 @@ const faqSchema = {
       <div class="reveal">
         <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">The Headline Service</p>
         <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
-          The Bay Shine Standing Detail.
+          The BayShine Standing Detail.
         </h2>
 
         <p class="text-bay-bone text-lg leading-relaxed mb-8 max-w-2xl">
-          A 6-week recurring program. The first visit establishes the baseline — full detail
+          A <span class="font-mono text-bay-gold">6-week</span> recurring program. The first visit establishes the baseline: full detail
           at the standard rate. Every visit after that is a maintenance detail: shorter
           because the vehicle stays clean between appointments.
         </p>
@@ -175,39 +182,23 @@ const faqSchema = {
     </div>
   </section>
 
-  <Divider />
+  <Pause />
 
-  <!-- ── BEFORE / AFTER GALLERY ─────────────────────────────── -->
-  <section class="py-20 px-4">
-    <div class="container mx-auto max-w-5xl">
-      <div class="reveal mb-8">
-        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Results</h2>
-        <p class="text-bay-slate">Photography required before this section launches. Minimum 12 before/after pairs.</p>
-      </div>
-
-      <GalleryFilter client:visible />
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ── REVIEWS ─────────────────────────────────────────────── -->
-  <!-- FOLLOWUP: src/pages/index.astro — Integrate Featurable API (featurable.com) for
-       real Google reviews carousel. Requires Google Business Profile with live reviews.
-       Replace this placeholder section entirely. Do not display invented or static star ratings. -->
-  <section class="section-bevel py-20 px-4">
-    <div class="container mx-auto max-w-5xl">
-      <div class="reveal mb-8">
-        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Reviews</h2>
-        <p class="text-bay-slate text-sm">Google reviews appear here when live. Featurable embed — no screenshots, no invented ratings.</p>
-      </div>
-      <div class="border border-dashed border-bay-slate/30 rounded-sm p-12 text-center text-bay-slate text-sm">
-        Google reviews carousel placeholder · Requires Featurable integration
-      </div>
-    </div>
-  </section>
-
-  <Divider />
+  <!-- ── REVIEWS — conditional Featurable embed ────────────── -->
+  {featurableId && (
+    <>
+      <section class="section-bevel py-20 px-4">
+        <div class="container mx-auto max-w-5xl">
+          <div class="reveal mb-8">
+            <h2 class="font-display font-bold text-3xl text-bay-white mb-3">What clients say</h2>
+          </div>
+          <div class="featurable-widget" data-widget-id={featurableId}></div>
+          <script src="https://cdn.featurable.com/assets/widget/v1/featurable-widget.min.js" async is:inline></script>
+        </div>
+      </section>
+      <Divider />
+    </>
+  )}
 
   <!-- ── FAQ ───────────────────────────────────────────────── -->
   <section class="py-20 px-4">
@@ -219,7 +210,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <Divider />
+  <Pause />
 
   <!-- ── FINAL CTA ──────────────────────────────────────────── -->
   <section class="noise-overlay bg-bay-deep py-20 px-4">
@@ -229,7 +220,7 @@ const faqSchema = {
           Ready to schedule?
         </h2>
         <p class="text-bay-slate mb-8">
-          Text or book online. Constantine responds within 2 hours.
+          Book online or call. We respond within 2 hours.
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
           <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">

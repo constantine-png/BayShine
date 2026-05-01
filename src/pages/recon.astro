@@ -5,7 +5,7 @@ import Divider from '@/components/ui/Divider.astro';
 import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 ---
 <BaseLayout
-  title="Heavy Recon — Deep Detail for Neglected Vehicles"
+  title="Heavy Recon: Deep Detail for Neglected Vehicles"
   description="Heavy-condition vehicle reconditioning in Pasco County and North Hillsborough. Trade-ins, long-term neglect, severe staining. Restored to a sellable standard."
 >
   <section class="noise-overlay bg-bay-navy py-24 px-4">
@@ -18,7 +18,7 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
         <p class="text-bay-slate text-lg leading-relaxed mb-8">
           For vehicles that have been neglected, heavily soiled, or come in as trade-ins.
           Odor treatment, deep extraction, paint decontamination, and full restoration to
-          a sellable — or livable — standard.
+          a sellable or livable standard.
         </p>
         <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
           Book Heavy Recon
@@ -26,7 +26,7 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
       </div>
       <div class="reveal">
         <PhotoPlaceholder
-          description="Heavy recon — before/after split showing heavily soiled interior restored"
+          description="Heavy recon, before/after split showing heavily soiled interior restored"
           aspectRatio="4/3"
           class="rounded-sm"
         />
@@ -49,10 +49,10 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 
       <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
-          'Heavy interior extraction — upholstery, carpet, floor mats',
-          'Enzymatic odor treatment — smoke, pet, mildew',
+          'Heavy interior extraction: upholstery, carpet, floor mats',
+          'Enzymatic odor treatment: smoke, pet, mildew',
           'Ozone treatment where applicable',
-          'Steam cleaning — seats, door panels, headliner',
+          'Steam cleaning: seats, door panels, headliner',
           'Full paint decontamination',
           'Iron contamination removal',
           'Tar, overspray, and adhesive removal',
@@ -61,7 +61,7 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
           'Polymer sealant applied post-correction',
         ].map(item => (
           <div class="flex gap-3 text-bay-slate text-sm">
-            <span class="text-bay-gold flex-shrink-0" aria-hidden="true">—</span>
+            <span class="text-bay-gold flex-shrink-0" aria-hidden="true">·</span>
             <span>{item}</span>
           </div>
         ))}

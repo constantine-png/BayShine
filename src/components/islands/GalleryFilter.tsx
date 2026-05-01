@@ -2,7 +2,7 @@
 // FOLLOWUP: Replace PhotoItem placeholder divs with real <img> pairs when photography is complete.
 import { useState } from 'react';
 
-type Category = 'all' | 'cars' | 'boats' | 'fleet' | 'recon';
+type Category = 'all' | 'cars' | 'fleet' | 'recon';
 
 interface GalleryItem {
   id: number;
@@ -13,24 +13,21 @@ interface GalleryItem {
 
 // 12 placeholder slots — minimum required for launch per the brief.
 const ITEMS: GalleryItem[] = [
-  { id: 1,  category: 'cars',  description: 'Sedan exterior — before/after clay and sealant',     aspectRatio: '4/3' },
-  { id: 2,  category: 'cars',  description: 'SUV full detail — before/after paint correction',     aspectRatio: '4/3' },
-  { id: 3,  category: 'cars',  description: 'Truck exterior — before/after decontamination',       aspectRatio: '4/3' },
-  { id: 4,  category: 'cars',  description: 'Coupe interior — before/after full detail',           aspectRatio: '4/3' },
-  { id: 5,  category: 'cars',  description: 'SUV wheels — before/after iron removal and seal',     aspectRatio: '4/3' },
-  { id: 6,  category: 'recon', description: 'Neglected sedan — before/after heavy recon',          aspectRatio: '4/3' },
-  { id: 7,  category: 'recon', description: 'Trade-in SUV — before/after recon full detail',       aspectRatio: '4/3' },
-  { id: 8,  category: 'recon', description: 'Heavily soiled truck interior — before/after recon', aspectRatio: '4/3' },
-  { id: 9,  category: 'boats', description: 'Hull oxidation — before/after gelcoat restoration',  aspectRatio: '4/3' },
-  { id: 10, category: 'boats', description: 'Boat deck — before/after marine detail',              aspectRatio: '4/3' },
-  { id: 11, category: 'fleet', description: 'Dealer lot — before/after lot wash',                  aspectRatio: '16/9' },
-  { id: 12, category: 'fleet', description: 'Fleet vans — before/after sales prep',               aspectRatio: '4/3' },
+  { id: 1,  category: 'cars',  description: 'Sedan exterior, before/after clay and sealant',     aspectRatio: '4/3' },
+  { id: 2,  category: 'cars',  description: 'SUV full detail, before/after paint correction',     aspectRatio: '4/3' },
+  { id: 3,  category: 'cars',  description: 'Truck exterior, before/after decontamination',       aspectRatio: '4/3' },
+  { id: 4,  category: 'cars',  description: 'Coupe interior, before/after full detail',           aspectRatio: '4/3' },
+  { id: 5,  category: 'cars',  description: 'SUV wheels, before/after iron removal and seal',     aspectRatio: '4/3' },
+  { id: 6,  category: 'recon', description: 'Neglected sedan, before/after heavy recon',          aspectRatio: '4/3' },
+  { id: 7,  category: 'recon', description: 'Trade-in SUV, before/after recon full detail',       aspectRatio: '4/3' },
+  { id: 8,  category: 'recon', description: 'Heavily soiled truck interior, before/after recon', aspectRatio: '4/3' },
+  { id: 11, category: 'fleet', description: 'Dealer lot, before/after lot wash',                  aspectRatio: '16/9' },
+  { id: 12, category: 'fleet', description: 'Fleet vans, before/after sales prep',               aspectRatio: '4/3' },
 ];
 
 const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'all',   label: 'All' },
   { id: 'cars',  label: 'Cars' },
-  { id: 'boats', label: 'Boats' },
   { id: 'fleet', label: 'Fleet' },
   { id: 'recon', label: 'Recon' },
 ];

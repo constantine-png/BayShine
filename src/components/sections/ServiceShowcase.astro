@@ -1,14 +1,18 @@
 ---
+import { ASSET_REGISTRY } from '@/lib/assetRegistry';
+import VideoLoop from '@/components/ui/VideoLoop.astro';
+
 const PANELS = [
   {
     id: 'exterior',
     number: '01',
     title: 'Exterior Detail',
     tagline: 'Paint and glass, correct sequence.',
-    body: 'Two-bucket wash, clay decontamination, iron fallout removal, and a finishing spray sealant. Every panel inspected under lighting. Not a rinse—a full exterior service.',
-    stat: '$185+',
-    statLabel: 'starting',
-    videoLabel: 'exterior-wash-loop',
+    body: 'Two-bucket wash, clay decontamination, iron fallout removal, and a finishing spray sealant. Every panel inspected under lighting. Not a rinse; a full exterior service.',
+    stat: null,
+    statLabel: null,
+    videoKey: 'showcaseExterior' as const,
+    videoFile: 'showcase-exterior.mp4',
   },
   {
     id: 'full',
@@ -16,39 +20,32 @@ const PANELS = [
     title: 'Full Detail',
     tagline: 'Interior and exterior in one visit.',
     body: 'Complete interior extraction, steam cleaning of contact surfaces, odor elimination, and the full exterior protocol. Single-visit baseline for the Standing Detail program.',
-    stat: '$255+',
-    statLabel: 'starting',
-    videoLabel: 'interior-extraction-loop',
+    stat: null,
+    statLabel: null,
+    videoKey: 'showcaseInterior' as const,
+    videoFile: 'showcase-interior.mp4',
   },
   {
     id: 'ceramic',
     number: '03',
     title: 'Ceramic Coating',
     tagline: 'Semi-permanent protection.',
-    body: '9H-hardness SiO₂ coating applied after paint correction. Hydrophobic, scratch-resistant, and slick under UV. Requires proper prep—no shortcuts.',
-    stat: '2–5 yr',
+    body: '9H-hardness SiO₂ coating applied after paint correction. Hydrophobic, scratch-resistant, and slick under UV. Requires proper prep; no shortcuts.',
+    stat: '2 to 5 yr',
     statLabel: 'protection',
-    videoLabel: 'ceramic-application-loop',
-  },
-  {
-    id: 'marine',
-    number: '04',
-    title: 'Boat & Marine',
-    tagline: 'Salt, oxidation, gel coat.',
-    body: 'Topsides, hull, and cockpit. Oxidation removal and polish on gel coat, teak conditioning, stainless brightening. Trailer or slip—mobile gear loads it all.',
-    stat: 'Boat-specific',
-    statLabel: 'pricing',
-    videoLabel: 'marine-hull-loop',
+    videoKey: 'comparisonBayshine' as const,
+    videoFile: 'comparison-bayshine-detail.mp4',
   },
   {
     id: 'fleet',
-    number: '05',
+    number: '04',
     title: 'Fleet Programs',
     tagline: 'Throughput is the metric.',
-    body: 'Standing schedule for 30–300+ vehicles. Walk the lot, set the cadence, receive a monthly invoice. Exterior washes start at $1.10/unit at volume.',
-    stat: '$1.10/unit',
-    statLabel: 'at volume',
-    videoLabel: 'fleet-lot-loop',
+    body: 'Standing schedule for 30 to 300+ vehicles. Walk the lot, set the cadence, receive a monthly invoice.',
+    stat: null,
+    statLabel: null,
+    videoKey: 'ambientFleet' as const,
+    videoFile: 'ambient-fleet.mp4',
   },
 ] as const;
 ---
@@ -83,34 +80,30 @@ const PANELS = [
                  flex flex-col overflow-hidden section-bevel"
           style={`transition-delay: ${i * 60}ms`}
         >
-          <!-- Video / photo placeholder -->
-          <div
-            class="photo-placeholder aspect-video w-full"
-            data-video-needed={panel.videoLabel}
-            data-aspect="16:9"
-            aria-hidden="true"
-          >
-            <div class="flex flex-col items-center gap-1 text-bay-slate/40">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <rect x="2" y="6" width="20" height="14" rx="2"/>
-                <path d="M15 12.5L9 9v7l6-3.5z"/>
-              </svg>
-              <span class="text-[10px] font-display uppercase tracking-wider">{panel.videoLabel}</span>
+          <!-- Video: show if asset registered, else no placeholder (Fix 6) -->
+          {panel.videoKey && ASSET_REGISTRY[panel.videoKey] && (
+            <div class="img-gloss aspect-video w-full overflow-hidden" aria-hidden="true">
+              <VideoLoop src={`/assets/video/${panel.videoFile}`} ariaLabel={panel.title} class="w-full h-full object-cover" />
             </div>
-          </div>
+          )}
 
           <div class="p-6 flex flex-col flex-1">
-            <div class="flex items-start justify-between mb-3">
-              <span class="font-display text-[10px] font-bold text-bay-gold/50 uppercase tracking-widest">
-                {panel.number}
-              </span>
-              <div class="text-right">
-                <div class="font-display font-bold text-bay-white text-sm">{panel.stat}</div>
-                <div class="font-display text-[9px] text-bay-slate uppercase tracking-wider">{panel.statLabel}</div>
+            <!-- Oversized outlined numeral — behind text, translucent gold -->
+            <span class="block font-display text-[7em] leading-none font-bold text-transparent select-none pointer-events-none mb-2 -ml-2 overflow-hidden"
+                  style="-webkit-text-stroke: 1px rgba(201,169,97,0.25);"
+                  aria-hidden="true">
+              {panel.number}
+            </span>
+            {panel.stat && (
+              <div class="flex justify-end mb-3">
+                <div class="text-right">
+                  <div class="font-display font-bold text-bay-white text-sm">{panel.stat}</div>
+                  {panel.statLabel && <div class="font-display text-[9px] text-bay-slate uppercase tracking-wider">{panel.statLabel}</div>}
+                </div>
               </div>
-            </div>
+            )}
 
-            <h3 class="font-display font-bold text-lg text-bay-white mb-1 leading-snug">
+            <h3 class="font-ui font-bold text-lg text-bay-white mb-1 leading-snug">
               {panel.title}
             </h3>
             <p class="font-display text-xs text-bay-gold mb-3 leading-snug">{panel.tagline}</p>

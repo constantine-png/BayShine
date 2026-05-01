@@ -4,8 +4,6 @@ import type { APIRoute } from 'astro';
 import { z } from 'zod';
 import { Resend } from 'resend';
 
-const BUSINESS_PHONE = '+18133245522';
-
 const BookingSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   phone: z.string().min(7, 'Valid phone required'),
@@ -16,28 +14,6 @@ const BookingSchema = z.object({
   notes: z.string().optional(),
   service: z.string().optional(),
 });
-
-async function sendSMS(body: string): Promise<void> {
-  const sid = import.meta.env.TWILIO_ACCOUNT_SID;
-  const token = import.meta.env.TWILIO_AUTH_TOKEN;
-  const from = import.meta.env.TWILIO_FROM_NUMBER;
-  const to = import.meta.env.TWILIO_TO_NUMBER ?? BUSINESS_PHONE;
-
-  if (!sid || !token || !from) return;
-
-  const auth = Buffer.from(`${sid}:${token}`).toString('base64');
-  await fetch(
-    `https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${auth}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({ To: to, From: from, Body: body }),
-    }
-  );
-}
 
 export const POST: APIRoute = async ({ request }) => {
   let raw: unknown;
@@ -61,20 +37,12 @@ export const POST: APIRoute = async ({ request }) => {
 
   const { name, phone, vehicle, zip, address, timing, notes, service } = result.data;
 
-  const smsLines = [
-    'BAY SHINE BOOKING',
-    `Name: ${name}`,
-    `Phone: ${phone}`,
-    `Vehicle: ${vehicle}`,
-    `Zip: ${zip}`,
-    service ? `Service: ${service}` : null,
-    address ? `Address: ${address}` : null,
-    timing ? `Timing: ${timing}` : null,
-    notes ? `Notes: ${notes}` : null,
-  ].filter(Boolean).join('\n');
-
   const emailHtml = `
-    <h2 style="font-family:sans-serif;color:#0F1B2D;margin-bottom:16px;">Bay Shine Booking Request</h2>
+    <div style="font-family:sans-serif;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #e5e0d8;">
+      <span style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0F1B2D;letter-spacing:0.06em;">BayShine</span>
+      <span style="font-family:sans-serif;font-size:11px;color:#7A8294;margin-left:8px;text-transform:uppercase;letter-spacing:0.1em;">Detailing</span>
+    </div>
+    <h2 style="font-family:sans-serif;color:#0F1B2D;margin-bottom:16px;">Booking Request</h2>
     <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:480px;">
       <tr><td style="padding:6px 0;color:#7A8294;width:120px;">Name</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${name}</td></tr>
       <tr><td style="padding:6px 0;color:#7A8294;">Phone</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${phone}</td></tr>
@@ -90,17 +58,16 @@ export const POST: APIRoute = async ({ request }) => {
   const resendKey = import.meta.env.RESEND_API_KEY;
   const contactEmail = import.meta.env.CONTACT_EMAIL;
 
-  await Promise.allSettled([
-    sendSMS(smsLines).catch(err => console.error('SMS failed:', err)),
-    resendKey && contactEmail
-      ? new Resend(resendKey).emails.send({
-          from: 'Bay Shine <bookings@bayshine.net>',
-          to: contactEmail,
-          subject: `Booking — ${name} (${zip})`,
-          html: emailHtml,
-        }).catch(err => console.error('Email failed:', err))
-      : Promise.resolve(null),
-  ]);
+  if (resendKey && contactEmail) {
+    await new Resend(resendKey).emails.send({
+      from: 'BayShine <constantine@bayshine.net>',
+      to: contactEmail,
+      subject: `BayShine Booking: ${name} (${zip})`,
+      html: emailHtml,
+    }).catch(err => console.error('Booking email failed:', err));
+  } else {
+    console.log('Booking request (no email configured):', { name, phone, vehicle, zip });
+  }
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

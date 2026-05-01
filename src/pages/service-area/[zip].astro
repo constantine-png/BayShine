@@ -1,0 +1,437 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import ServiceCard from '@/components/ui/ServiceCard.astro';
+import FAQAccordion from '@/components/islands/FAQAccordion';
+import { SERVICE_AREA, type ZipEntry } from '@/data/serviceArea';
+import type { Service } from '@/data/services';
+import type { FAQ } from '@/data/faq';
+
+export function getStaticPaths() {
+  return SERVICE_AREA
+    .filter(z => z.priority === 'high')
+    .map(z => ({ params: { zip: z.code }, props: { entry: z } }));
+}
+
+interface Props {
+  entry: ZipEntry;
+}
+
+const { entry } = Astro.props;
+const { code, city, neighborhoods } = entry;
+
+function joinNeighborhoods(ns: string[]): string {
+  if (ns.length === 0) return '';
+  if (ns.length === 1) return ns[0];
+  if (ns.length === 2) return `${ns[0]} and ${ns[1]}`;
+  return ns.slice(0, -1).join(', ') + ', and ' + ns[ns.length - 1];
+}
+
+const neighborhoodLabel = joinNeighborhoods(neighborhoods);
+
+// Per-zip content — unique copy, not templated prose
+type ZipContent = {
+  metaDescription: string;
+  standingDetailHeadline: string;
+  standingDetailCopy: string;
+  localContextParagraph: string;
+  faqs: FAQ[];
+};
+
+const ZIP_CONTENT: Record<string, ZipContent> = {
+  '33556': {
+    metaDescription:
+      'Mobile auto detailing in Odessa, FL (33556). Full detail, ceramic coating, and the Standing Detail recurring program for Keystone, Eagles, and Starkey Ranch.',
+    standingDetailHeadline: 'The recurring detail program for Odessa, Keystone, and the Eagles.',
+    standingDetailCopy:
+      'Six-week rhythm, locked rate, priority slot. Keystone and the Eagles are multi-vehicle households by design: three-car garages are standard. The program front-loads the investment with a baseline visit that resets the paint to a proper standard, then holds it through maintenance visits every six weeks. Salt-air humidity from Old Tampa Bay accelerates oxidation; the cadence interrupts that cycle before it requires cutting.',
+    localContextParagraph:
+      'Odessa sits close enough to Old Tampa Bay that salt-air humidity is a year-round factor on paint. It settles on clear coat and works on it incrementally; you don\'t see the damage until you\'re under a light at the right angle. UV exposure on Keystone\'s open lakefront lots is among the highest in the service area; west-facing driveways bake through the afternoon. The airborne particulate here is primarily organic: live oak pollen in late spring, pine sap during growth cycles, and the persistent damp that keeps algae growing in driveway cracks. Starkey Ranch residents near the trail system pick up road spray from unpaved surfaces during dry-to-wet transitions. Eagles community vehicles tend toward full-size SUVs and trucks, which accumulate iron fallout on horizontal panels (roof, hood, trunk deck) faster than smaller vehicles because the surface area is larger and sits more directly in the fallout path. A six-week service interval handles all of it before anything has time to etch into the clear coat. One-time exterior details, full details, and ceramic coating are all available for vehicles outside the recurring program.',
+    faqs: [
+      {
+        question: 'Do you serve Keystone and the Eagles in Odessa?',
+        answer:
+          'Yes. Both communities are in the 33556 service area and are priority coverage zones for the Standing Detail program. Service runs at your location: driveway or garage, your preference.',
+      },
+      {
+        question: 'How long does a full detail take in Odessa?',
+        answer:
+          'A full detail on a standard sedan or mid-size SUV typically runs 4 to 6 hours. Larger vehicles (full-size trucks, three-row SUVs) take 5 to 7 hours depending on condition. Heavy recon work on neglected vehicles is assessed on-site before a time estimate is given.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33556?',
+        answer:
+          'Yes. The Standing Detail program is available throughout 33556. The first visit is a baseline full detail at the standard rate. Every visit after that is a maintenance detail at a locked rate with priority scheduling: same window, six-week cadence, cancel anytime.',
+      },
+    ],
+  },
+  '33548': {
+    metaDescription:
+      'Mobile auto detailing in Lutz, FL (33548). Full detail, ceramic coating, and the Standing Detail recurring program for Cheval and Lake Fern.',
+    standingDetailHeadline: 'The recurring detail program for Cheval and Lake Fern.',
+    standingDetailCopy:
+      'Cheval runs on a schedule. Residents here maintain everything: the lawn, the pool, the property lines. The Standing Detail fits the same operational logic: six weeks, same slot, locked rate, cancel anytime. Vehicles in Cheval trend toward daily-driven luxury, which means deferred maintenance costs more to correct. The program front-loads that investment with a baseline detail, then holds the standard through maintenance visits. Fertilizer drift and heavy tree pollen are the primary contamination drivers in this zip; both are manageable on a consistent cadence.',
+    localContextParagraph:
+      'Cheval is a gated golf community in Hillsborough County, and the microclimates around golf courses create a specific detailing challenge. Fertilizer drift from irrigation and course maintenance lands on paint and becomes corrosive when it dries and sits through a heat cycle. Lake Fern\'s tree canopy means heavy pollen and sap loading from spring through summer: live oaks shed pollen in sheets from March into May, and vehicles parked outdoors more than a day will have a visible coating. Cheval\'s inward-facing street design reduces highway fallout but doesn\'t eliminate it; residents commuting to the I-275 corridor bring back brake dust and road tar on every round trip. The combination of organic fallout and chemical fertilizer residue makes this zip harder on paint than it looks from the outside. Ceramic coating holds well here when applied over a properly decontaminated surface; the protection layer intercepts the contamination cycle before it can etch. Left untreated, the etch cycle runs fast under Florida heat.',
+    faqs: [
+      {
+        question: 'Do you serve Cheval and Lake Fern in Lutz?',
+        answer:
+          'Yes. Both communities are in the 33548 coverage area and are priority zones for the Standing Detail program. Service is fully mobile: your driveway, gated community or not. For gated access, provide the gate code when you book.',
+      },
+      {
+        question: 'How long does a full detail take in Lutz 33548?',
+        answer:
+          'A standard full detail runs 4 to 6 hours on a sedan or mid-size SUV. Larger vehicles take longer. If the vehicle has been sitting for an extended period or has significant contamination, the baseline visit may run longer; that\'s typical for the first session before the maintenance cycle begins.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33548?',
+        answer:
+          'Yes. The Standing Detail program is active in 33548. First visit establishes the baseline at the standard full-detail rate, then maintenance visits run on a six-week cadence at a locked rate. Priority slot means the same window each cycle.',
+      },
+    ],
+  },
+  '33558': {
+    metaDescription:
+      'Mobile auto detailing in Lutz, FL (33558). Full detail, ceramic coating, and the Standing Detail program for Steinbrenner and Van Dyke Farms neighborhoods.',
+    standingDetailHeadline: 'The recurring detail program for Steinbrenner and Van Dyke Farms.',
+    standingDetailCopy:
+      'Van Dyke Farms and the Steinbrenner corridor sit in active-development territory. New construction brings concrete dust, drywall overspray, and road base that finds its way onto paint in ways that aren\'t obvious until the light catches the surface. The Standing Detail program catches that contamination before it bonds into the clear coat. Six-week cadence, locked rate, priority scheduling, and a baseline first visit that removes what\'s already there before the maintenance rhythm starts.',
+    localContextParagraph:
+      'The 33558 zip sits in a transitional stretch: established subdivisions on one end, active build sites on the other on one end, active build sites on the other. Construction fallout is a real recurring problem: fine concrete particulate, drywall dust, and road-base overspray drift from active work sites on windy days and settle on paint in ways that don\'t wash off with a standard wash. Van Dyke Road carries heavy service vehicle traffic, and vehicles near the main corridors accumulate significant brake dust on wheels and lower rockers. The open terrain between subdivisions also means higher wind-driven pollen loading than the more canopied zips to the east. Sun exposure on west-facing driveways here is aggressive; UV degradation on unprotected clear coat is measurable year over year. Ceramic coating applied over a properly decontaminated and corrected surface performs significantly better in this zip than in shadier environments, because the protection layer intercepts what would otherwise be direct UV contact on a daily basis. One-time details are also available for any vehicle in the area.',
+    faqs: [
+      {
+        question: 'Do you serve Steinbrenner and Van Dyke Farms in Lutz?',
+        answer:
+          'Yes. Both neighborhoods are in the 33558 service area and are covered under the Standing Detail program. Service runs at your location: contact or booking form to get on the schedule.',
+      },
+      {
+        question: 'How long does a full detail take in Lutz 33558?',
+        answer:
+          'Standard sedan or mid-size SUV: 4 to 6 hours. Full-size trucks and three-row SUVs: 5 to 7 hours. Vehicles with construction dust contamination may require additional decontamination time on the first visit; this is typical for new-construction areas.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33558?',
+        answer:
+          'Yes. The Standing Detail program is available in 33558. The first visit is a full baseline detail at the standard rate. Subsequent visits run at a locked maintenance rate on a six-week cadence. Priority scheduling means the same window each cycle.',
+      },
+    ],
+  },
+  '33647': {
+    metaDescription:
+      'Mobile auto detailing in New Tampa, FL (33647). Full detail, ceramic coating, and the Standing Detail program for Tampa Palms, Cory Lake Isles, Live Oak Preserve, and Hunters Green.',
+    standingDetailHeadline: 'The recurring detail program for Tampa Palms, Cory Lake, and Live Oak Preserve.',
+    standingDetailCopy:
+      'New Tampa is built around the assumption that you outsource what requires specialized equipment. Lawn service, pest control, pool maintenance; the Standing Detail fits the same operational model. Cory Lake Isles and Tampa Palms households run multiple vehicles; the six-week program covers them on a rotating schedule. Priority slot means the same window each cycle, locked rate means no invoice surprises. Dense tree canopy across all four communities means organic fallout runs year-round without a maintenance cadence to intercept it.',
+    localContextParagraph:
+      'New Tampa\'s communities were master-planned with tree canopy in mind, and that canopy creates a real detailing challenge. Live oak sap and tannins are among the more stubborn organic contaminants on paint; they polymerize in heat and require proper decontamination chemistry to remove without marring the clear coat. Hunters Green and Live Oak Preserve have dense overhead coverage on driveways and parking areas, which means vehicles accumulate leaf stain, pollen, and bird fallout faster than in open-lot neighborhoods. The I-75 corridor proximity contributes highway fallout; iron particles from brake systems bond to paint in measurable concentrations on vehicles commuting this stretch daily. Flatwoods preserve adjacency adds organic particulate carried by wind from the conservation area into surrounding neighborhoods. Vehicles in 33647 that go beyond six weeks without a wash show visible surface contamination patterns that are harder to remove the longer they sit. Ceramic coating is a strong investment here; the contamination load is consistent and the coating intercepts it before it etches.',
+    faqs: [
+      {
+        question: 'Do you serve Tampa Palms, Cory Lake Isles, and Live Oak Preserve in New Tampa?',
+        answer:
+          'Yes. All four communities in 33647 (Tampa Palms, Cory Lake Isles, Live Oak Preserve, and Hunters Green) are in the service area and are priority coverage zones for the Standing Detail program. Service is fully mobile.',
+      },
+      {
+        question: 'How long does a full detail take in New Tampa?',
+        answer:
+          'Standard full detail: 4 to 6 hours for a sedan or mid-size SUV, 5 to 7 hours for larger vehicles. Vehicles with heavy tree-sap or tannin contamination may require additional decontamination steps on the first visit, which adds time. Typical on first-time clients in canopy-heavy neighborhoods.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33647?',
+        answer:
+          'Yes. The Standing Detail program is fully active in 33647. First visit is a baseline full detail at the standard rate. Maintenance visits run every six weeks at a locked rate with a priority slot. Cancel anytime, no contract.',
+      },
+    ],
+  },
+  '33544': {
+    metaDescription:
+      'Mobile auto detailing in Wesley Chapel, FL (33544). Full detail, ceramic coating, and the Standing Detail program for Seven Oaks and Wiregrass Ranch.',
+    standingDetailHeadline: 'The recurring detail program for Seven Oaks and Wiregrass Ranch.',
+    standingDetailCopy:
+      'Seven Oaks and Wiregrass Ranch are two of the most active communities in the service area for the Standing Detail program. Both are large enough that multiple clients are served on the same day\'s route, which helps the locked rate stay consistent. The vehicle population here trends toward daily-driven SUVs that accumulate highway fallout quickly on the SR-56 and I-75 corridors. Six-week cadence catches the accumulation before it bonds; the baseline first visit resets whatever\'s already there.',
+    localContextParagraph:
+      'Wesley Chapel 33544 sits at a high-traffic nexus. SR-56, the Wiregrass Mall corridor, and I-75 all generate commercial and commuter traffic that concentrates brake dust and road particulate in this zip at levels above the surrounding area. Wheel and lower-rocker contamination from brake iron is particularly visible on lighter-colored vehicles after a few weeks of regular commuting. Seven Oaks\' mature landscaping means seasonal pollen loading is significant: March through May, oak pollen is heavy enough to coat horizontal surfaces in a visible layer within 24 hours of washing. Wiregrass Ranch\'s newer sections still have exposed soil on some lots, which becomes road dust in dry periods. The mix of full-size trucks and three-row SUVs in this zip means more surface area accumulating fallout per vehicle than a sedan-heavy neighborhood; horizontal panels see the most loading and benefit most from regular decontamination. A proper clay-bar decontamination step makes a measurable difference in paint texture here, even on vehicles that look clean on the surface.',
+    faqs: [
+      {
+        question: 'Do you serve Seven Oaks and Wiregrass Ranch in Wesley Chapel?',
+        answer:
+          'Yes. Both communities are in the 33544 service area and are priority zones for the Standing Detail program. Service runs at your location: book through the contact page or call (813) 324-5522.',
+      },
+      {
+        question: 'How long does a full detail take in Wesley Chapel 33544?',
+        answer:
+          'Standard sedan or mid-size SUV: 4 to 6 hours. Full-size trucks and three-row SUVs are common in this area and typically run 5 to 7 hours. If the vehicle has significant brake-dust or road-tar contamination on the lower panels, the decontamination step adds time.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33544?',
+        answer:
+          'Yes. The Standing Detail program is active in 33544. Baseline first visit at the standard full-detail rate, then six-week maintenance visits at a locked rate. Priority scheduling, cancel anytime.',
+      },
+    ],
+  },
+  '33543': {
+    metaDescription:
+      'Mobile auto detailing in Wesley Chapel, FL (33543). Full detail, ceramic coating, and the Standing Detail program for Meadow Pointe and Saddlebrook.',
+    standingDetailHeadline: 'The recurring detail program for Meadow Pointe and Saddlebrook.',
+    standingDetailCopy:
+      'Meadow Pointe has been one of the most consistent neighborhoods in the Standing Detail program since launch. The community is established; residents know their property services and book them on a schedule. Saddlebrook\'s resort context means vehicles are often maintained at a higher standard and used less frequently for long commutes, which makes the six-week maintenance rhythm more important, not less. A vehicle sitting in Florida humidity collects contamination even when it\'s not moving. Hard water spotting from irrigation is a recurring issue in both communities.',
+    localContextParagraph:
+      'Meadow Pointe is one of the older established communities in Wesley Chapel, which gives it a distinct detailing profile from the newer-construction zips. The tree canopy here has had decades to mature, producing significant organic fallout year-round: oak pollen in spring, hickory sap in summer, leaf stain and moisture accumulation in fall. Saddlebrook\'s resort amenity context introduces a specific problem: vehicles parked near water features, landscaped berms, and irrigated common areas pick up irrigation mineral deposits on paint. Hard water spots dry into calcium and mineral circles that etch clear coat under UV exposure, and they\'re among the harder contaminants to remove without the right chemistry and technique. The established nature of 33543 also means a higher proportion of vehicles that have been driven for years without professional decontamination; a paint correction detail can dramatically change the appearance of these vehicles, and ceramic coating applied after correction holds exceptionally well on a properly prepared surface.',
+    faqs: [
+      {
+        question: 'Do you serve Meadow Pointe and Saddlebrook in Wesley Chapel?',
+        answer:
+          'Yes. Both communities are in the 33543 service area and are priority zones for the Standing Detail program. Service is fully mobile: book online or call (813) 324-5522.',
+      },
+      {
+        question: 'How long does a full detail take in Wesley Chapel 33543?',
+        answer:
+          'Standard sedan or mid-size SUV: 4 to 6 hours. Larger vehicles run longer. Vehicles with hard water spotting from irrigation may require a dedicated acid-wash step, which adds time and is priced separately; it\'s common in irrigation-heavy communities.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 33543?',
+        answer:
+          'Yes. The Standing Detail program is active in 33543. First visit is a baseline full detail. Subsequent visits run on a six-week cadence at a locked rate with priority scheduling. Cancel anytime.',
+      },
+    ],
+  },
+  '34638': {
+    metaDescription:
+      'Mobile auto detailing in Land O\' Lakes, FL (34638). Full detail, ceramic coating, and the Standing Detail program for Bexley and Suncoast Crossings.',
+    standingDetailHeadline: "The recurring detail program for Bexley and Suncoast Crossings.",
+    standingDetailCopy:
+      'Bexley is one of the fastest-growing master-planned communities in the state, and the Standing Detail program is built for its resident profile: new-construction homes, recently purchased vehicles, and a lifestyle that already includes regular property services. Construction dust is the defining contamination issue in 34638; it\'s fine, pervasive, and bonds to clear coat faster than road dust. The Standing Detail\'s six-week baseline catches it before it requires cutting rather than washing.',
+    localContextParagraph:
+      'Bexley began filling out around 2017 and still has active construction phases as of 2026. Vehicles in 34638 are exposed year-round to fine concrete particulate, construction aggregate dust, and occasionally drywall compound overspray that drifts from active work sites on windy days. This is not a theoretical problem; it shows up as a fine gritty haze on horizontal panels even after a standard wash. Suncoast Crossings sits adjacent to the Suncoast Parkway, meaning highway-speed fallout: rubber particulate, asphalt leachate, and iron brake dust, lands on vehicles in the western sections of the zip. The Suncoast Trail adjacency and Bexley\'s recreational infrastructure mean families with active-use vehicles bring additional contamination sources: bike rack contact marks, trailer hitch accumulation, and tailgate grime from gear loading. Many 34638 vehicles are receiving their first professional detail; the baseline first visit on a newer vehicle that has never been properly decontaminated is one of the more satisfying sessions in the service area, because the difference is immediate and significant.',
+    faqs: [
+      {
+        question: 'Do you serve Bexley and Suncoast Crossings in Land O\' Lakes?',
+        answer:
+          "Yes. Both communities are in the 34638 service area and are priority coverage zones for the Standing Detail program. Service runs at your location: book online or call (813) 324-5522.",
+      },
+      {
+        question: "How long does a full detail take in Land O' Lakes 34638?",
+        answer:
+          'Standard sedan or mid-size SUV: 4 to 6 hours. Vehicles with construction dust contamination may require additional decontamination steps on the first visit, which is typical for new-construction areas. Larger vehicles run proportionally longer.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 34638?',
+        answer:
+          'Yes. The Standing Detail program is active in 34638. The first visit is a baseline full detail at the standard rate. Subsequent visits run every six weeks at a locked maintenance rate. Priority scheduling, cancel anytime, no contract.',
+      },
+    ],
+  },
+};
+
+const content = ZIP_CONTENT[code];
+
+// Services for the three-card section
+const standingDetailService: Service = {
+  id: 'standing-detail',
+  title: 'Standing Detail',
+  headline: 'Six-week recurring. Locked rate. Priority slot.',
+  href: '/contact',
+  iconName: 'sparkle',
+};
+
+const fullDetailService: Service = {
+  id: 'full-detail',
+  title: 'Full Detail',
+  headline: 'Interior + exterior. Left cleaner than factory.',
+  href: '/full-detail',
+  iconName: 'sparkle',
+};
+
+const ceramicService: Service = {
+  id: 'ceramic-coating',
+  title: 'Ceramic Coating',
+  headline: 'Single-layer protection, years of payoff.',
+  href: '/ceramic-coating',
+  iconName: 'layers',
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      '@id': `https://bayshine.net/service-area/${code}`,
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      areaServed: {
+        '@type': 'Place',
+        name: city,
+        postalCode: code,
+        addressRegion: 'FL',
+        addressCountry: 'US',
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: content.faqs.map(f => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  ],
+};
+---
+<BaseLayout
+  title={`Mobile Auto Detailing in ${city} ${code} | BayShine`}
+  description={content.metaDescription}
+  canonical={`https://bayshine.net/service-area/${code}`}
+  schema={schema}
+>
+
+  <!-- Hero -->
+  <section class="noise-overlay min-h-[50vh] flex flex-col justify-center bg-bay-navy px-4 py-20"
+    style="background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,169,97,0.07) 0%, transparent 70%), #0F1B2D;">
+    <div class="container mx-auto max-w-4xl">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4 reveal">
+        Mobile auto detailing · {code}
+      </p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-5 reveal">
+        Mobile auto detailing<br />in {city}.
+      </h1>
+      {neighborhoodLabel && (
+        <p class="text-bay-slate text-lg sm:text-xl max-w-xl mb-8 reveal">
+          Serving {neighborhoodLabel}.
+        </p>
+      )}
+      <div class="flex flex-wrap gap-3 reveal">
+        <Button href="/contact" variant="primary">Book Now</Button>
+        <Button href="/quote" variant="secondary">Get a Quote</Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Standing Detail emphasis band -->
+  <section class="section-bevel bg-bay-deep py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4 reveal">
+          Standing Detail Program
+        </p>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-bay-white mb-5 leading-tight reveal">
+          {content.standingDetailHeadline}
+        </h2>
+        <p class="text-bay-slate text-base leading-relaxed reveal">
+          {content.standingDetailCopy}
+        </p>
+        <div class="mt-8 reveal">
+          <Button href="/contact" variant="primary">Start the Standing Detail</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Local context paragraph -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="max-w-2xl">
+        <h2 class="font-display font-semibold text-xl text-bay-white mb-5 reveal">
+          Detailing in {city}.
+        </h2>
+        <p class="text-bay-slate text-base leading-relaxed reveal">
+          {content.localContextParagraph}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Services available -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-8 reveal">Available services.</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="reveal"><ServiceCard service={fullDetailService} /></div>
+        <div class="reveal"><ServiceCard service={standingDetailService} /></div>
+        <div class="reveal"><ServiceCard service={ceramicService} /></div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- FAQ -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-8 reveal">
+        Questions about detailing in {city}.
+      </h2>
+      <div class="max-w-2xl reveal">
+        <FAQAccordion faqs={content.faqs} client:load />
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Internal link band -->
+  <section class="py-12 px-4 bg-bay-deep/40">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="font-display font-semibold text-base text-bay-white mb-6 reveal">Explore more</h2>
+      <ul class="flex flex-wrap gap-x-8 gap-y-3 text-sm reveal">
+        <li>
+          <a href="/service-area" class="text-bay-slate hover:text-bay-bone transition-colors">
+            ← All service areas
+          </a>
+        </li>
+        <li>
+          <a href="/full-detail" class="text-bay-slate hover:text-bay-bone transition-colors">
+            Full Detail
+          </a>
+        </li>
+        <li>
+          <a href="/quote" class="text-bay-slate hover:text-bay-bone transition-colors">
+            Get a Quote
+          </a>
+        </li>
+        <li>
+          <a href="/contact" class="text-bay-slate hover:text-bay-bone transition-colors">
+            Book Now
+          </a>
+        </li>
+        {/* FOLLOWUP: src/pages/service-area/[zip].astro — Replace # hrefs with real blog post URLs when posts are published */}
+        <li>
+          <a href="#" data-blog-link-needed class="text-bay-slate hover:text-bay-bone transition-colors">
+            How often should you detail in Florida?
+          </a>
+        </li>
+        <li>
+          <a href="#" data-blog-link-needed class="text-bay-slate hover:text-bay-bone transition-colors">
+            What is a Standing Detail?
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Final CTA -->
+  <section class="noise-overlay bg-bay-navy py-20 px-4">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-5 reveal">
+        Ready to schedule in {city}?
+      </h2>
+      <p class="text-bay-slate text-lg mb-8 max-w-md mx-auto reveal">
+        Mobile service at your location. Text or book online.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center reveal">
+        <Button href="/contact" variant="primary">Book Now</Button>
+        <Button href="/quote" variant="secondary">Get a Quote</Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
