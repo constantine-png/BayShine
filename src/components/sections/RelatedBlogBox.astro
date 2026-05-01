@@ -1,0 +1,247 @@
+---
+// RelatedBlogBox: in-page blog reader for service pages.
+// Active post renders full in the top half (scrollable). Additional posts listed by
+// title below — clicking any title opens it in the reader. No navigation to /blog.
+import { getCollection } from 'astro:content';
+
+interface Props {
+  topic: string;
+  heading?: string;
+}
+
+const { topic, heading = 'FROM THE FIELD GUIDE' } = Astro.props;
+
+const allPosts = await getCollection('blog');
+const matched = allPosts
+  .filter(p => p.data.serviceTopic === topic && !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const posts = await Promise.all(
+  matched.map(async (post) => {
+    const { Content } = await post.render();
+    return { data: post.data, slug: post.slug, Content };
+  })
+);
+---
+
+{posts.length > 0 && (
+  <>
+    <div class="sbb-hairline" aria-hidden="true"></div>
+
+    <section class="sbb-section section-bevel" aria-label="Field guide" data-sbb>
+      <div class="sbb-inner">
+
+        <p class="sbb-label">{heading}</p>
+
+        <!-- Reader: active post renders here, scrollable -->
+        <div class="sbb-reader" role="region" aria-live="polite" aria-label="Post content">
+          {posts.map(({ data, Content }, i) => (
+            <div
+              class="sbb-pane"
+              data-pane={String(i)}
+              style={i > 0 ? 'display:none' : ''}
+            >
+              <h3 class="sbb-post-title">{data.title}</h3>
+              <div class="sbb-post-body">
+                <Content />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Post list: only rendered when there is more than one post -->
+        {posts.length > 1 && (
+          <nav class="sbb-list" aria-label="Other posts in this guide">
+            <div class="sbb-list-divider" aria-hidden="true"></div>
+            {posts.map(({ data }, i) => (
+              <button
+                class="sbb-list-item"
+                data-target={String(i)}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                type="button"
+              >
+                <span class="sbb-item-num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span class="sbb-item-title">{data.title}</span>
+              </button>
+            ))}
+          </nav>
+        )}
+
+      </div>
+    </section>
+
+    <div class="sbb-hairline" aria-hidden="true"></div>
+  </>
+)}
+
+<style>
+  .sbb-hairline {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,97,0.35) 30%, rgba(201,169,97,0.35) 70%, transparent);
+  }
+
+  .sbb-section {
+    background-color: var(--color-bay-navy);
+  }
+
+  .sbb-inner {
+    margin: 0 auto;
+    max-width: 42rem;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .sbb-label {
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-bay-gold);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Reader ─── */
+  .sbb-reader {
+    max-height: 18rem;
+    overflow-y: auto;
+    padding-right: 0.375rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201,169,97,0.3) transparent;
+  }
+  .sbb-reader::-webkit-scrollbar { width: 3px; }
+  .sbb-reader::-webkit-scrollbar-track { background: transparent; }
+  .sbb-reader::-webkit-scrollbar-thumb { background: rgba(201,169,97,0.3); border-radius: 2px; }
+
+  .sbb-post-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-bay-white);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  /* Post body: override any blog-body paper styles */
+  .sbb-post-body {
+    color: var(--color-bay-slate);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+  }
+  .sbb-post-body p { margin-bottom: 0.75rem; }
+  .sbb-post-body h2,
+  .sbb-post-body h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-bay-white);
+    font-size: 0.875rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sbb-post-body ul,
+  .sbb-post-body ol {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .sbb-post-body li { margin-bottom: 0.25rem; }
+  .sbb-post-body a {
+    color: var(--color-bay-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── Post list ─── */
+  .sbb-list {
+    max-height: 9rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(122,130,148,0.2) transparent;
+  }
+  .sbb-list::-webkit-scrollbar { width: 3px; }
+  .sbb-list::-webkit-scrollbar-track { background: transparent; }
+  .sbb-list::-webkit-scrollbar-thumb { background: rgba(122,130,148,0.2); border-radius: 2px; }
+
+  .sbb-list-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(122,130,148,0.2) 20%, rgba(122,130,148,0.2) 80%, transparent);
+    margin: 1.25rem 0 0.75rem;
+  }
+
+  .sbb-list-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(122,130,148,0.08);
+    cursor: pointer;
+    transition: background-color 150ms ease;
+    border-radius: 1px;
+  }
+  .sbb-list-item:hover { background-color: rgba(201,169,97,0.04); }
+  .sbb-list-item:focus-visible {
+    outline: 2px solid var(--color-bay-gold);
+    outline-offset: 2px;
+  }
+  .sbb-list-item[aria-pressed="true"] .sbb-item-title {
+    color: var(--color-bay-gold);
+  }
+  .sbb-list-item[aria-pressed="true"] .sbb-item-num {
+    color: rgba(201,169,97,0.6);
+  }
+
+  .sbb-item-num {
+    font-family: var(--font-display);
+    font-size: 0.5625rem;
+    color: rgba(201,169,97,0.25);
+    flex-shrink: 0;
+    transition: color 150ms ease;
+  }
+
+  .sbb-item-title {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--color-bay-slate);
+    line-height: 1.4;
+    transition: color 150ms ease;
+  }
+  .sbb-list-item:hover .sbb-item-title { color: var(--color-bay-white); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sbb-list-item,
+    .sbb-item-title,
+    .sbb-item-num { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-sbb]').forEach(box => {
+    const panes = box.querySelectorAll<HTMLElement>('[data-pane]');
+    const buttons = box.querySelectorAll<HTMLButtonElement>('[data-target]');
+    const reader = box.querySelector<HTMLElement>('.sbb-reader');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = parseInt(btn.dataset.target ?? '0', 10);
+
+        panes.forEach((pane, i) => {
+          pane.style.display = i === target ? '' : 'none';
+        });
+
+        buttons.forEach(b => {
+          const idx = parseInt(b.dataset.target ?? '0', 10);
+          b.setAttribute('aria-pressed', String(idx === target));
+        });
+
+        if (reader) reader.scrollTop = 0;
+      });
+    });
+  });
+</script>
