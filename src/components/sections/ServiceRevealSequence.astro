@@ -323,26 +323,25 @@ const PANELS = [
     // ── Two-phase lock: snap first, then capture card navigation ────
     let isSnapping = false;
 
-    // Phase 1: immediately prevent page scroll + snap arena to viewport top
-    // Phase 2 (350ms later): enable card navigation
+    // Phase 1: block scroll immediately + instant-snap arena to viewport top
+    // Phase 2 (100ms later): enable card navigation
     function lock(enteringFromBelow: boolean) {
       if (isLocked || isSnapping) return;
       isSnapping = true;
 
       const rect = arena!.getBoundingClientRect();
-      const snapDist = rect.top; // positive = arena below viewport top
+      const targetScrollY = Math.round(window.scrollY + rect.top);
 
-      // Immediately block all page scroll so user feels stopped
+      // Block all scroll immediately so momentum can't carry user past
       function blockScroll(e: Event) { e.preventDefault(); }
       window.addEventListener('wheel', blockScroll, { passive: false });
       window.addEventListener('touchmove', blockScroll, { passive: false });
 
-      // Snap the arena to viewport top
-      if (Math.abs(snapDist) > 2) {
-        window.scrollBy({ top: snapDist, behavior: 'smooth' });
-      }
+      // Instant snap — no smooth delay for momentum to overcome
+      window.scrollTo({ top: targetScrollY, behavior: 'instant' as ScrollBehavior });
+      wheelAcc = 0;
 
-      // After snap settles, swap block-scroll for card-navigation
+      // Brief settle, then hand off to card navigation
       setTimeout(() => {
         window.removeEventListener('wheel', blockScroll);
         window.removeEventListener('touchmove', blockScroll);
@@ -362,13 +361,13 @@ const PANELS = [
         window.addEventListener('wheel', onWheel, { passive: false });
         window.addEventListener('touchstart', onTouchStart, { passive: false });
         window.addEventListener('touchmove', onTouchMove, { passive: false });
-      }, 350);
+      }, 100);
     }
 
-    // ── IntersectionObserver: fire earlier (50%) so snap has room ───
+    // ── IntersectionObserver: fire at 20% so we catch users before momentum builds ───
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
           if (!isLocked && !isSnapping) {
             const enteringFromBelow = entry.boundingClientRect.top >= 0;
             lock(enteringFromBelow);
@@ -378,7 +377,7 @@ const PANELS = [
           isSnapping = false;
         }
       });
-    }, { threshold: [0, 0.5] });
+    }, { threshold: [0, 0.2, 0.5] });
 
     observer.observe(arena!);
 
