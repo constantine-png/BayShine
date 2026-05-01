@@ -5,7 +5,7 @@ import Divider from '@/components/ui/Divider.astro';
 const pascoZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Pasco');
 const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough');
 ---
-<footer class="relative noise-overlay mt-16 border-t border-bay-slate/15 pt-20 pb-24 md:pb-12">
+<footer class="relative noise-overlay bg-bay-navy mt-16 border-t border-bay-slate/15 pt-20 pb-24 md:pb-12">
   <!-- 70% navy overlay — ambient video shows through underneath -->
   <div class="absolute inset-0 bg-bay-navy/70 pointer-events-none" aria-hidden="true"></div>
 

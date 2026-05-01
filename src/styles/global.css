@@ -618,8 +618,8 @@ body {
   transition-delay: 200ms;
 }
 
-.visible .reveal-word,
-.reveal-word.visible {
+[data-reveal].is-visible .reveal-word,
+.reveal-word.is-visible {
   opacity: 1;
 }
 

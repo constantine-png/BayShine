@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import Pause from '@/components/ui/Pause.astro';
 import TrustBar from '@/components/ui/TrustBar.astro';
+import RecedingShoreline from '@/components/sections/RecedingShoreline.astro';
 import RevealHeadline from '@/components/ui/RevealHeadline.astro';
 import FAQAccordion from '@/components/islands/FAQAccordion';
 import ServiceShowcase from '@/components/sections/ServiceShowcase.astro';
@@ -51,7 +52,7 @@ const faqSchema = {
   <!-- ── HERO ───────────────────────────────────────────────── -->
   <section class="noise-overlay min-h-[90vh] flex flex-col justify-center items-center px-4 pt-[10vh] pb-20">
     <div class="container mx-auto max-w-3xl text-center relative">
-      <h1 class="hero-headline headline-breathing font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-10" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+      <h1 class="hero-headline headline-breathing font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-10" data-reveal style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
         <RevealHeadline
           primary="Mobile auto detailing."
           accent="Pasco County and North Hillsborough."
@@ -69,7 +70,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <Pause />
+  <RecedingShoreline />
 
   <!-- ── TRUST BAR ──────────────────────────────────────────── -->
   <TrustBar />

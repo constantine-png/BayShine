@@ -1,0 +1,245 @@
+---
+// RecedingShoreline — scroll-driven transition between the hero and the trust bar.
+// The navy masking layer recedes upward as the user scrolls through the section,
+// revealing the ambient video underneath and creating a water-parting illusion.
+// Gold meniscus line follows the mask edge. Droplet SVG anchors the section bottom.
+//
+// Primary path: CSS animation-timeline: scroll() (Chrome 115+, Edge 115+, Firefox 110+)
+// Fallback path: IntersectionObserver + rAF-throttled scroll listener (Safari, older browsers)
+---
+
+<section
+  id="receding-shoreline"
+  class="shoreline-section"
+  aria-hidden="true"
+>
+  <!-- Navy mask layer — recedes upward as progress increases -->
+  <div class="shoreline-mask" aria-hidden="true"></div>
+
+  <!-- Gold meniscus line — rides the mask's leading edge -->
+  <div class="shoreline-meniscus" aria-hidden="true"></div>
+
+  <!-- Gold droplet anchor — stays visible after section passes -->
+  <div class="shoreline-droplet" aria-hidden="true">
+    <svg
+      width="14"
+      height="18"
+      viewBox="0 0 14 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <!-- Main droplet body -->
+      <path
+        d="M7 0 C7 0 0.5 7.5 0.5 11.5 A6.5 6.5 0 0 0 13.5 11.5 C13.5 7.5 7 0 7 0Z"
+        fill="#C9A961"
+        opacity="0.92"
+      />
+      <!-- Highlight catch — 8% white at top-left of curve -->
+      <path
+        d="M7 2.5 C6 4 3 7.5 2.5 10.5 A4.5 4.5 0 0 0 4.5 14"
+        stroke="rgba(255,255,255,0.08)"
+        stroke-width="1"
+        stroke-linecap="round"
+        fill="none"
+      />
+    </svg>
+  </div>
+</section>
+
+<style>
+  /* ── Section shell ───────────────────────────────────────── */
+  .shoreline-section {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+    /* Transparent — ambient video at z-index:-1 shows through */
+    background: transparent;
+  }
+
+  /* ── Navy mask layer ─────────────────────────────────────── */
+  /* Covers the section. mask-image cuts a reveal from bottom
+     upward as --shoreline-progress approaches 1. */
+  .shoreline-mask {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-bay-navy);
+    will-change: mask-position;
+    --shoreline-progress: 0;
+    /* Fallback: mask fully closed (navy) until JS activates */
+    mask-image: linear-gradient(
+      to top,
+      black calc(var(--shoreline-progress) * 100%),
+      transparent calc(var(--shoreline-progress) * 100% + 5%)
+    );
+    -webkit-mask-image: linear-gradient(
+      to top,
+      black calc(var(--shoreline-progress) * 100%),
+      transparent calc(var(--shoreline-progress) * 100% + 5%)
+    );
+  }
+
+  /* ── CSS scroll-driven path (Chrome 115+, Firefox 110+) ─── */
+  @supports (animation-timeline: scroll()) {
+    .shoreline-mask {
+      animation: shoreline-reveal linear both;
+      animation-timeline: scroll(root);
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes shoreline-reveal {
+      from {
+        mask-image: linear-gradient(to top, black 0%, transparent 5%);
+        -webkit-mask-image: linear-gradient(to top, black 0%, transparent 5%);
+      }
+      to {
+        mask-image: linear-gradient(to top, black 100%, transparent 105%);
+        -webkit-mask-image: linear-gradient(to top, black 100%, transparent 105%);
+      }
+    }
+
+    /* Meniscus tracks mask edge via same animation-range */
+    .shoreline-meniscus {
+      animation: meniscus-rise linear both;
+      animation-timeline: scroll(root);
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes meniscus-rise {
+      from { transform: translate3d(0, 0%, 0); }
+      to   { transform: translate3d(0, -100%, 0); }
+    }
+  }
+
+  /* ── Gold meniscus line ──────────────────────────────────── */
+  .shoreline-meniscus {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 169, 97, 0.9) 50%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 24px rgba(201, 169, 97, 0.5),
+      0 0 48px rgba(201, 169, 97, 0.25);
+    will-change: transform;
+    /* JS fallback: positioned by --shoreline-progress */
+    transform: translate3d(0, calc((1 - var(--shoreline-progress, 0)) * -100%), 0);
+  }
+
+  /* ── Droplet anchor ──────────────────────────────────────── */
+  .shoreline-droplet {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    cursor: default;
+    /* Isolate the ripple so it doesn't overflow the section */
+    isolation: isolate;
+  }
+
+  .shoreline-droplet svg {
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(201, 169, 97, 0.4));
+  }
+
+  /* One-shot ripple on hover — three expanding gold rings */
+  .shoreline-droplet:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    margin-left: -7px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: droplet-ripple 1200ms ease-out forwards;
+  }
+
+  @keyframes droplet-ripple {
+    0% {
+      box-shadow:
+        0 0 0 0px rgba(201, 169, 97, 0.4),
+        0 0 0 0px rgba(201, 169, 97, 0.25),
+        0 0 0 0px rgba(201, 169, 97, 0.12);
+    }
+    40% {
+      box-shadow:
+        0 0 0 12px rgba(201, 169, 97, 0.2),
+        0 0 0 6px rgba(201, 169, 97, 0.12),
+        0 0 0 2px rgba(201, 169, 97, 0.08);
+    }
+    100% {
+      box-shadow:
+        0 0 0 32px rgba(201, 169, 97, 0),
+        0 0 0 20px rgba(201, 169, 97, 0),
+        0 0 0 10px rgba(201, 169, 97, 0);
+    }
+  }
+
+  /* ── Reduced motion fallback ─────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .shoreline-mask {
+      mask-image: linear-gradient(to top, black 50%, transparent 55%);
+      -webkit-mask-image: linear-gradient(to top, black 50%, transparent 55%);
+      animation: none;
+    }
+    .shoreline-meniscus {
+      transform: translate3d(0, -50%, 0);
+      animation: none;
+    }
+    .shoreline-droplet:hover::after {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // JS fallback for browsers without animation-timeline: scroll() support.
+  // Activates only when @supports check fails (primarily Safari).
+  (function () {
+    if (CSS.supports('animation-timeline', 'scroll()')) return;
+
+    const section = document.getElementById('receding-shoreline') as HTMLElement | null;
+    if (!section) return;
+
+    const mask = section.querySelector('.shoreline-mask') as HTMLElement | null;
+    const meniscus = section.querySelector('.shoreline-meniscus') as HTMLElement | null;
+    if (!mask || !meniscus) return;
+
+    let ticking = false;
+
+    function update() {
+      const rect = section!.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // progress: 0 when section top enters viewport bottom,
+      //           1 when section bottom exits viewport top
+      const sectionH = rect.height;
+      const raw = (vh - rect.top) / (sectionH + vh);
+      const progress = Math.max(0, Math.min(1, raw));
+
+      // Push CSS custom property onto mask element so mask-image calc resolves
+      mask!.style.setProperty('--shoreline-progress', String(progress));
+      meniscus!.style.transform = `translate3d(0, ${(1 - progress) * -100}%, 0)`;
+
+      ticking = false;
+    }
+
+    // Kick once on load in case section is already in view
+    update();
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+</script>
