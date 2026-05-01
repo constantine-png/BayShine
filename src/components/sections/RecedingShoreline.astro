@@ -44,6 +44,7 @@
         fill="none"
       />
     </svg>
+    <div class="shoreline-droplet-reflection" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -184,6 +185,44 @@
     }
   }
 
+  /* ── Droplet reflection ─────────────────────────────────── */
+  .shoreline-droplet-reflection {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 6px;
+    margin-top: 3px;
+    background: radial-gradient(ellipse at center, rgba(201, 169, 97, 0.35) 0%, transparent 70%);
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  /* ── Droplet ambient pulse ───────────────────────────────── */
+  /* Pulse lives on the SVG so transform: translate(-50%,-50%) on the
+     container is never touched by the animation. */
+  @keyframes dropletAmbientPulse {
+    0%, 100% {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 6px rgba(201,169,97,0.35));
+      transform: scale(1);
+    }
+    50% {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 18px rgba(201,169,97,0.65));
+      transform: scale(1.08);
+    }
+  }
+
+  .shoreline-droplet svg {
+    animation: dropletAmbientPulse 4s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  /* Hover ripple overrides the pulse on interaction */
+  .shoreline-droplet:hover svg {
+    animation: none;
+  }
+
   /* ── Reduced motion fallback ─────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     .shoreline-mask {
@@ -193,6 +232,9 @@
     }
     .shoreline-meniscus {
       transform: translate3d(0, -50%, 0);
+      animation: none;
+    }
+    .shoreline-droplet {
       animation: none;
     }
     .shoreline-droplet:hover::after {
