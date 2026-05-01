@@ -21,13 +21,16 @@ const SHOWCASE_MAP: Partial<Record<string, { key: keyof Registry; file: string }
 };
 
 export function getBestAmbientVideo(pathname: string, registry: Registry): string | null {
-  const tier1 = AMBIENT_MAP[pathname];
+  // Normalize: strip trailing slash except for root
+  const path = pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname;
+
+  const tier1 = AMBIENT_MAP[path];
   if (tier1 && registry[tier1.key]) return tier1.file;
 
-  const tier2 = SHOWCASE_MAP[pathname];
+  const tier2 = SHOWCASE_MAP[path];
   if (tier2 && registry[tier2.key]) return tier2.file;
 
-  if (pathname !== '/' && registry.ambientHome) return 'ambient-beads-on-hood.mp4';
+  if (path !== '/' && registry.ambientHome) return 'ambient-beads-on-hood.mp4';
 
   return null;
 }

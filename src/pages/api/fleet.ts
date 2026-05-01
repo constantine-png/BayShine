@@ -52,17 +52,16 @@ export const POST: APIRoute = async ({ request }) => {
   `;
 
   const resendKey = import.meta.env.RESEND_API_KEY;
-  const contactEmail = import.meta.env.CONTACT_EMAIL;
 
-  if (resendKey && contactEmail) {
+  if (resendKey) {
     await new Resend(resendKey).emails.send({
-      from: 'BayShine <constantine@bayshine.net>',
-      to: contactEmail,
+      from: 'BayShine <hello@bayshine.net>',
+      to: 'constantine@bayshine.net',
       subject: `BayShine Fleet: ${company} (${fleetSize ?? '?'} units)`,
       html: emailHtml,
     }).catch(err => console.error('Fleet email failed:', err));
   } else {
-    console.log('Fleet inquiry (no email configured):', { company, dmName, dmPhone });
+    console.log('[no RESEND_API_KEY] would have sent to constantine@bayshine.net:', { company, dmName, dmPhone });
   }
 
   return new Response(JSON.stringify({ ok: true }), {

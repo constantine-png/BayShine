@@ -36,15 +36,16 @@ export const POST: APIRoute = async ({ request }) => {
   console.log(`Email capture [${source ?? 'unknown'}]: ${email}`);
 
   const resendKey = import.meta.env.RESEND_API_KEY;
-  const contactEmail = import.meta.env.CONTACT_EMAIL;
 
-  if (resendKey && contactEmail) {
+  if (resendKey) {
     new Resend(resendKey).emails.send({
-      from: 'BayShine <constantine@bayshine.net>',
-      to: contactEmail,
+      from: 'BayShine <hello@bayshine.net>',
+      to: 'constantine@bayshine.net',
       subject: `EMAIL CAPTURE: ${source ?? 'unknown'}: ${email}`,
       html: `<p style="font-family:sans-serif;color:#0F1B2D;">New email capture from <strong>${source ?? 'unknown'}</strong>:</p><p style="font-family:sans-serif;font-size:16px;"><strong>${email}</strong></p>`,
     }).catch(err => console.error('Notification failed:', err));
+  } else {
+    console.log('[no RESEND_API_KEY] would have sent to constantine@bayshine.net:', { email, source });
   }
 
   return new Response(JSON.stringify({ ok: true }), {

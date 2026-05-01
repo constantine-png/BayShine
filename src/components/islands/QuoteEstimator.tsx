@@ -241,6 +241,7 @@ export default function QuoteEstimator() {
                 onChange={e => setName(e.target.value)}
                 placeholder="Your name"
                 aria-label="Your name"
+                autoComplete="name"
                 className="w-full bg-transparent border border-[rgba(122,130,148,0.3)] text-white text-sm px-3 py-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold placeholder:text-[#7A8294]"
               />
               <input
@@ -249,6 +250,7 @@ export default function QuoteEstimator() {
                 onChange={e => setPhone(e.target.value)}
                 placeholder="Phone number"
                 aria-label="Phone number"
+                autoComplete="tel"
                 className="w-full bg-transparent border border-[rgba(122,130,148,0.3)] text-white text-sm px-3 py-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold placeholder:text-[#7A8294]"
               />
               <textarea
