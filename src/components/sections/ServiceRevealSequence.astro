@@ -14,14 +14,18 @@ const PANELS = [
 ---
 
 <section class="srs-section" id="services" aria-label="Services">
-  <!-- Section label: normal flow, above the lock zone -->
-  <div class="container mx-auto max-w-5xl px-4 pt-20 pb-8 reveal">
-    <h2 class="font-display font-bold text-3xl text-bay-white mb-2">Services</h2>
-    <p class="text-bay-slate text-sm">Every service is mobile. No drop-off, no waiting rooms.</p>
-  </div>
-
-  <!-- Card arena: 100vh, cards positioned absolutely by JS -->
+  <!-- Card arena: 100vh, clips card overflow; header and tint live inside -->
   <div class="srs-arena" id="srs-arena">
+
+    <!-- Section label: absolute, overlaid at top of arena -->
+    <div class="srs-header" aria-hidden="false">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-1">Services</h2>
+      <p class="text-bay-slate text-xs tracking-wide">Every service is mobile. No drop-off, no waiting rooms.</p>
+    </div>
+
+    <!-- Amber glass tint overlay -->
+    <div class="srs-tint" aria-hidden="true"></div>
+
     {PANELS.map((panel) => (
       <a
         href={panel.href}
@@ -50,16 +54,41 @@ const PANELS = [
 </section>
 
 <style>
-  /* Section wrapper — NO overflow:hidden (would break sticky) */
+  /* Section = arena exactly — no extra label above it */
   .srs-section {
     position: relative;
+    /* No overflow, no height here — arena defines the height */
   }
 
-  /* Card arena: full viewport height, clips cards during animation */
+  /* Arena is the full section: 100vh, clips card overflow */
   .srs-arena {
     position: relative;
     height: 100vh;
-    overflow: hidden; /* clips overflow only on the inner arena, not the outer section */
+    overflow: hidden;
+    /* Amber glass tint is rendered by .srs-tint below */
+  }
+
+  /* Header overlaid at top-center of the arena */
+  .srs-header {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 20;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* Amber/sepia tint overlay — gives the section a warm glass feel */
+  .srs-tint {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201, 169, 97, 0.07) 0%, transparent 70%),
+      linear-gradient(160deg, rgba(180, 110, 20, 0.05) 0%, rgba(201, 169, 97, 0.04) 100%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* Cards: absolute, JS controls transform */
@@ -67,7 +96,7 @@ const PANELS = [
     position: absolute;
     top: 50%;
     left: 0;
-    width: min(320px, 78vw);
+    width: min(400px, 84vw);
     background-color: var(--color-bay-deep);
     border: 1px solid rgba(122, 130, 148, 0.1);
     border-radius: 2px;
@@ -282,15 +311,6 @@ const PANELS = [
     }
 
     // ── Lock / unlock ────────────────────────────────────────────────
-    function lock() {
-      if (isLocked) return;
-      isLocked = true;
-      wheelAcc = 0;
-      window.addEventListener('wheel', onWheel, { passive: false });
-      window.addEventListener('touchstart', onTouchStart, { passive: false });
-      window.addEventListener('touchmove', onTouchMove, { passive: false });
-    }
-
     function unlock() {
       if (!isLocked) return;
       isLocked = false;
@@ -299,33 +319,67 @@ const PANELS = [
       window.removeEventListener('touchmove', onTouchMove);
     }
 
-    // ── Entry detection via IntersectionObserver ─────────────────────
-    // Replaces the fragile rect.top <= 2 scroll-polling approach.
-    // Fires reliably at any scroll speed.
+    // ── Two-phase lock: snap first, then capture card navigation ────
+    let isSnapping = false;
+
+    // Phase 1: immediately prevent page scroll + snap arena to viewport top
+    // Phase 2 (350ms later): enable card navigation
+    function lock(enteringFromBelow: boolean) {
+      if (isLocked || isSnapping) return;
+      isSnapping = true;
+
+      const rect = arena!.getBoundingClientRect();
+      const snapDist = rect.top; // positive = arena below viewport top
+
+      // Immediately block all page scroll so user feels stopped
+      function blockScroll(e: Event) { e.preventDefault(); }
+      window.addEventListener('wheel', blockScroll, { passive: false });
+      window.addEventListener('touchmove', blockScroll, { passive: false });
+
+      // Snap the arena to viewport top
+      if (Math.abs(snapDist) > 2) {
+        window.scrollBy({ top: snapDist, behavior: 'smooth' });
+      }
+
+      // After snap settles, swap block-scroll for card-navigation
+      setTimeout(() => {
+        window.removeEventListener('wheel', blockScroll);
+        window.removeEventListener('touchmove', blockScroll);
+        isSnapping = false;
+        isLocked = true;
+        wheelAcc = 0;
+
+        // Set correct start card based on entry direction
+        const startIndex = enteringFromBelow ? 0 : N - 1;
+        if (startIndex !== activeIndex) {
+          cards.forEach(c => { c.style.transition = 'none'; });
+          activeIndex = startIndex;
+          positionAll(activeIndex);
+          requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
+        }
+
+        window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('touchstart', onTouchStart, { passive: false });
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+      }, 350);
+    }
+
+    // ── IntersectionObserver: fire earlier (50%) so snap has room ───
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.85) {
-          if (!isLocked) {
-            // Determine entry direction: arena.top > 0 means entering from below (scroll down)
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          if (!isLocked && !isSnapping) {
             const enteringFromBelow = entry.boundingClientRect.top >= 0;
-            const startIndex = enteringFromBelow ? 0 : N - 1;
-
-            // Snap to correct start card without animation
-            if (startIndex !== activeIndex) {
-              cards.forEach(c => { c.style.transition = 'none'; });
-              activeIndex = startIndex;
-              positionAll(activeIndex);
-              requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
-            }
-            lock();
+            lock(enteringFromBelow);
           }
-        } else if (!entry.isIntersecting && isLocked) {
-          unlock();
+        } else if (!entry.isIntersecting) {
+          if (isLocked) unlock();
+          isSnapping = false;
         }
       });
-    }, { threshold: [0, 0.85] });
+    }, { threshold: [0, 0.5] });
 
-    observer.observe(arena);
+    observer.observe(arena!);
 
     window.addEventListener('resize', () => {
       if (isLocked) positionAll(activeIndex);
@@ -333,6 +387,7 @@ const PANELS = [
 
     document.addEventListener('astro:before-swap', () => {
       unlock();
+      isSnapping = false;
       observer.disconnect();
     }, { once: true });
   }

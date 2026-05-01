@@ -2,35 +2,30 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
-import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 ---
 <BaseLayout
   title="Heavy Recon: Deep Detail for Neglected Vehicles"
   description="Heavy-condition vehicle reconditioning in Pasco County and North Hillsborough. Trade-ins, long-term neglect, severe staining. Restored to a sellable standard."
 >
-  <section class="noise-overlay bg-bay-navy py-24 px-4">
-    <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div>
-        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Heavy Condition</p>
-        <h1 class="font-display font-bold text-4xl sm:text-5xl text-bay-white mb-5 leading-tight">
-          Heavy Recon.
-        </h1>
-        <p class="text-bay-slate text-lg leading-relaxed mb-8">
-          For vehicles that have been neglected, heavily soiled, or come in as trade-ins.
-          Odor treatment, deep extraction, paint decontamination, and full restoration to
-          a sellable or livable standard.
-        </p>
-        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
-          Book Heavy Recon
-        </Button>
-      </div>
-      <div class="reveal">
-        <PhotoPlaceholder
-          description="Heavy recon, before/after split showing heavily soiled interior restored"
-          aspectRatio="4/3"
-          class="rounded-sm"
-        />
-      </div>
+  <section class="noise-overlay bg-bay-navy py-24 px-4 section-bevel">
+    <div class="container mx-auto max-w-3xl">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Heavy Condition</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white mb-6 leading-tight">
+        Heavy Recon.
+      </h1>
+      <p class="text-bay-slate text-lg leading-relaxed mb-4 max-w-xl">
+        For vehicles that have been neglected, heavily soiled, or come in as trade-ins.
+        Odor treatment, deep extraction, paint decontamination, and full restoration to
+        a sellable or livable standard.
+      </p>
+      <p class="text-bay-slate text-sm leading-relaxed mb-10 max-w-xl">
+        Recon is not a longer version of a standard detail. The chemistry is more aggressive,
+        the process is multi-stage, and time investment is higher. This service exists for
+        vehicles where a standard detail would not be sufficient.
+      </p>
+      <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+        Book Heavy Recon
+      </Button>
     </div>
   </section>
 
