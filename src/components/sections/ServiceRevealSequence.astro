@@ -372,44 +372,76 @@ const PANELS = [
       }
     }
 
-    // ── Two-phase lock: freeze body scroll, snap, then hand off ────
+    // ── Smooth center-scroll animation ──────────────────────────────
+    // Animates window scroll to targetY with ease-out-cubic, then calls onDone.
+    // Running this BEFORE setting overflow:hidden is the key fix — some browsers
+    // silently ignore window.scrollTo after overflow:hidden is applied to body.
+    function scrollToCenter(targetY: number, duration: number, onDone: () => void) {
+      const startY = window.scrollY;
+      const dist   = targetY - startY;
+      if (Math.abs(dist) < 2) { onDone(); return; }
+
+      const t0 = performance.now();
+      function tick(now: number) {
+        const t = Math.min((now - t0) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
+        window.scrollTo(0, Math.round(startY + dist * ease));
+        if (t < 1) requestAnimationFrame(tick);
+        else onDone();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // ── Lock: slide arena to center, then hand off to card nav ──────
     let isSnapping = false;
 
     function lock(enteringFromBelow: boolean) {
       if (isLocked || isSnapping) return;
       isSnapping = true;
+      wheelAcc = 0;
 
       // Compensate for scrollbar disappearance on Windows/Linux
       const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
       if (scrollbarW > 0) document.body.style.paddingRight = `${scrollbarW}px`;
 
-      // Freeze body scroll — works on desktop and iOS Safari (unlike window listeners)
-      document.body.style.overflow = 'hidden';
+      // Block user scroll input during the slide animation so the programmatic
+      // scroll is never interrupted. capture:true intercepts before page handlers.
+      function blockInput(e: Event) { e.preventDefault(); e.stopPropagation(); }
+      window.addEventListener('wheel',     blockInput, { passive: false, capture: true });
+      window.addEventListener('touchmove', blockInput, { passive: false, capture: true });
 
-      // Instant snap to arena top
-      const rect = arena!.getBoundingClientRect();
-      const targetScrollY = Math.round(window.scrollY + rect.top);
-      window.scrollTo({ top: targetScrollY, behavior: 'instant' as ScrollBehavior });
-      wheelAcc = 0;
+      // Target: arena top aligned with viewport top. Since arena is 100vh this
+      // fills the viewport and vertically centers the cards (top:50% translateY(-50%)).
+      const rect    = arena!.getBoundingClientRect();
+      const targetY = Math.round(window.scrollY + rect.top);
 
-      // Brief settle, then hand off to card navigation
-      setTimeout(() => {
-        isSnapping = false;
-        isLocked = true;
+      // Smooth deceleration slide into position (550ms ease-out-cubic)
+      scrollToCenter(targetY, 550, () => {
+        window.removeEventListener('wheel',     blockInput, { capture: true });
+        window.removeEventListener('touchmove', blockInput, { capture: true });
+
+        // Freeze AFTER the scroll has landed — this is why it centers correctly now
+        document.body.style.overflow = 'hidden';
         wheelAcc = 0;
 
-        const startIndex = enteringFromBelow ? 0 : N - 1;
-        if (startIndex !== activeIndex) {
-          cards.forEach(c => { c.style.transition = 'none'; });
-          activeIndex = startIndex;
-          positionAll(activeIndex);
-          requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
-        }
+        setTimeout(() => {
+          isSnapping = false;
+          isLocked   = true;
+          wheelAcc   = 0;
 
-        window.addEventListener('wheel', onWheel, { passive: false });
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchmove', onTouchMove, { passive: false });
-      }, 80);
+          const startIndex = enteringFromBelow ? 0 : N - 1;
+          if (startIndex !== activeIndex) {
+            cards.forEach(c => { c.style.transition = 'none'; });
+            activeIndex = startIndex;
+            positionAll(activeIndex);
+            requestAnimationFrame(() => { cards.forEach(c => { c.style.transition = ''; }); });
+          }
+
+          window.addEventListener('wheel',      onWheel,      { passive: false });
+          window.addEventListener('touchstart', onTouchStart, { passive: true });
+          window.addEventListener('touchmove',  onTouchMove,  { passive: false });
+        }, 50);
+      });
     }
 
     // ── IntersectionObserver: fire at 20% so we catch users before momentum builds ───
