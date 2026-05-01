@@ -5,9 +5,10 @@ import Divider from '@/components/ui/Divider.astro';
 import Pause from '@/components/ui/Pause.astro';
 import TrustBar from '@/components/ui/TrustBar.astro';
 import HeroToTrustTransition from '@/components/sections/HeroToTrustTransition.astro';
+import CustomerTypeStack from '@/components/sections/CustomerTypeStack.astro';
+import ServiceRevealSequence from '@/components/sections/ServiceRevealSequence.astro';
 import RevealHeadline from '@/components/ui/RevealHeadline.astro';
 import FAQAccordion from '@/components/islands/FAQAccordion';
-import ServiceShowcase from '@/components/sections/ServiceShowcase.astro';
 import { FAQS } from '@/data/faq';
 import { SERVICE_AREA } from '@/data/serviceArea';
 
@@ -77,65 +78,13 @@ const faqSchema = {
 
   <Divider class="my-0" />
 
-  <!-- ── SPLIT SECTION: Private / Fleet / Apartments ──────── -->
-  <section class="section-bevel py-20 px-4">
-    <div class="container mx-auto max-w-5xl">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-px bg-bay-slate/20 rounded-sm overflow-hidden">
-
-        <!-- Private owner panel -->
-        <div class="reveal bg-bay-navy p-10 md:p-12">
-          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Private Owners</p>
-          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
-            Your daily driver.<br />Done right.
-          </h2>
-          <p class="text-bay-slate leading-relaxed mb-6">
-            Panel-by-panel, in correct sequence, on your schedule. The Standing Detail
-            program keeps your vehicle in maintained condition year-round.
-          </p>
-          <Button href="/full-detail" variant="secondary">
-            Full Detail →
-          </Button>
-        </div>
-
-        <!-- Fleet / B2B panel -->
-        <div class="reveal bg-bay-deep p-10 md:p-12">
-          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Fleet &amp; B2B</p>
-          <p class="font-display text-[10px] font-medium text-bay-slate/60 uppercase tracking-widest mb-1">Starting as low as</p>
-          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
-            $1.10 per unit.<br />Standing schedule.
-          </h2>
-          <p class="text-bay-slate leading-relaxed mb-6">
-            Lot maintenance for 30 to 300+ vehicles. Walk the lot, set the schedule,
-            receive a monthly invoice. Throughput is the metric.
-          </p>
-          <Button href="/fleet" variant="secondary">
-            Fleet Programs →
-          </Button>
-        </div>
-
-        <!-- Apartments panel -->
-        <div class="reveal bg-bay-deep/60 p-10 md:p-12">
-          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Property Programs</p>
-          <h2 class="font-display font-bold text-3xl text-bay-white mb-4 leading-tight">
-            On-property.<br />No overhead.
-          </h2>
-          <p class="text-bay-slate leading-relaxed mb-6">
-            Resident detailing program for apartment communities. Residents enroll directly:
-            the property adds a premium amenity at zero cost.
-          </p>
-          <Button href="/apartments" variant="secondary">
-            Apartment Programs →
-          </Button>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <!-- ── CUSTOMER TYPE STACK: Private / Fleet / Apartments ─── -->
+  <CustomerTypeStack />
 
   <Divider />
 
-  <!-- ── SERVICES SHOWCASE ────────────────────────────────── -->
-  <ServiceShowcase />
+  <!-- ── SERVICE REVEAL SEQUENCE ───────────────────────────── -->
+  <ServiceRevealSequence />
 
   <Divider />
 

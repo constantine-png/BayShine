@@ -1,0 +1,96 @@
+---
+// CustomerTypeStack — three vertically-stacked customer-segment blocks at ~85vh each.
+// No background — the ambient video shows through from the page layer.
+import Button from '@/components/ui/Button.astro';
+---
+
+<div class="customer-type-stack">
+
+  <!-- Block 1: Private Owners -->
+  <div class="customer-block reveal">
+    <p class="customer-eyebrow">Private Owners</p>
+    <h2 class="customer-headline">
+      Your daily driver.<br />Done right.
+    </h2>
+    <p class="customer-body">
+      Panel by panel, in correct sequence, on your schedule. The Standing Detail
+      program keeps your vehicle in maintained condition year-round.
+    </p>
+    <Button href="/full-detail" variant="secondary">Full Detail &rarr;</Button>
+  </div>
+
+  <!-- Block 2: Fleet & B2B -->
+  <div class="customer-block reveal">
+    <p class="customer-eyebrow">Fleet &amp; B2B</p>
+    <h2 class="customer-headline">
+      Per-unit pricing.<br />Standing schedule.
+    </h2>
+    <p class="customer-body">
+      Lot maintenance for 30 to 300+ vehicles. Walk the lot, set the schedule,
+      receive a monthly invoice. Throughput is the metric.
+    </p>
+    <Button href="/fleet" variant="secondary">Fleet Programs &rarr;</Button>
+  </div>
+
+  <!-- Block 3: Property Programs -->
+  <div class="customer-block reveal">
+    <p class="customer-eyebrow">Property Programs</p>
+    <h2 class="customer-headline">
+      On-property.<br />No overhead.
+    </h2>
+    <p class="customer-body">
+      Resident detailing program for apartment communities. Residents enroll
+      directly: the property adds a premium amenity at zero cost.
+    </p>
+    <Button href="/apartments" variant="secondary">On-Property Programs &rarr;</Button>
+  </div>
+
+</div>
+
+<style>
+  .customer-type-stack {
+    /* No background — ambient video shows through from page layer */
+    width: 100%;
+  }
+
+  .customer-block {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 96px 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .customer-block + .customer-block {
+    border-top: 1px solid rgba(122, 130, 148, 0.15);
+  }
+
+  .customer-eyebrow {
+    color: var(--color-bay-gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .customer-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.875rem, 5vw, 2.25rem);
+    color: var(--color-bay-white);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+
+  .customer-body {
+    color: var(--color-bay-slate);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 32rem;
+  }
+</style>

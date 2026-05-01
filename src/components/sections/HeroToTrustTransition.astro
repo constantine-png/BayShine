@@ -1,8 +1,7 @@
 ---
-// HeroToTrustTransition — scroll-driven navy-drain effect bridging the hero and trust bar.
-// The ambient video plays fixed behind everything. A navy overlay "drains" upward as
-// the user scrolls through this section, exposing the video beneath. A gold meniscus
-// line rides the drain edge. Droplet SVG and label provide a tactile surface-tension detail.
+// HeroToTrustTransition — 30vh scroll-driven navy-drain effect bridging the hero and trust bar.
+// The ambient video plays behind a navy mask that drains upward as the user scrolls.
+// A gold meniscus line rides the drain edge. No label — pure visual transition.
 import VideoLoop from '@/components/ui/VideoLoop.astro';
 ---
 
@@ -10,7 +9,7 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
 
   <!-- Layer 0: Dedicated ambient video — scoped to this section so the drain effect is always visible -->
   <VideoLoop
-    src="/assets/video/ambient-home.mp4"
+    src="/assets/video/ambient-beads-on-hood.mp4"
     ariaLabel=""
     class="shoreline-bg-video"
   />
@@ -34,9 +33,6 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
     <div class="shoreline-droplet-reflection" aria-hidden="true"></div>
   </div>
 
-  <!-- Layer D: Label -->
-  <div class="shoreline-label">SURFACE TENSION</div>
-
 </section>
 
 <style>
@@ -44,8 +40,8 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
   .hero-to-trust-transition {
     position: relative;
     width: 100%;
-    height: 70vh;
-    min-height: 480px;
+    height: 30vh;
+    min-height: 240px;
     overflow: hidden;
     background-color: transparent;
   }
@@ -128,7 +124,7 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
   .shoreline-droplet {
     position: absolute;
     left: 50%;
-    bottom: 18%;
+    bottom: 45%;
     transform: translateX(-50%);
     z-index: 4;
     cursor: default;
@@ -168,45 +164,18 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
     pointer-events: none;
   }
 
-  /* ── Layer D: Label ─────────────────────────────────────────── */
-  .shoreline-label {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-family-ui, 'Manrope', sans-serif);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-bay-slate);
-    opacity: 0;
-    transition: opacity 600ms ease-out;
-    z-index: 5;
-    white-space: nowrap;
-  }
-
-  .hero-to-trust-transition.is-visible .shoreline-label {
-    opacity: 0.5;
-  }
-
   /* ── Responsive ─────────────────────────────────────────────── */
   @media (max-width: 768px) {
     .hero-to-trust-transition {
-      height: 50vh;
-      min-height: 360px;
-    }
-
-    .shoreline-label {
-      font-size: 10px;
-      letter-spacing: 0.16em;
+      height: 25vh;
+      min-height: 240px;
     }
   }
 
   /* ── Reduced motion ─────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     .hero-to-trust-transition {
-      height: 280px;
+      height: 160px;
     }
 
     .shoreline-mask-overlay {
@@ -220,10 +189,6 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
 
     .shoreline-droplet {
       animation: none;
-    }
-
-    .shoreline-label {
-      opacity: 0.5;
     }
   }
 </style>
@@ -255,8 +220,6 @@ import VideoLoop from '@/components/ui/VideoLoop.astro';
         section!.style.setProperty('--shoreline-progress', String(pct));
         lastProgress = pct;
       }
-
-      if (raw > 0.05) section!.classList.add('is-visible');
 
       rafId = 0;
     }
