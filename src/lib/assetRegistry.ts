@@ -2,7 +2,7 @@
 export const ASSET_REGISTRY = {
   ambientHome:        true,
   ambientFleet:       true,
-  ambientApts:        false, // not yet filmed
+  ambientApts:        true,
   showcaseExterior:   true,
   showcaseDecon:      true,
   showcasePolish:     true,
