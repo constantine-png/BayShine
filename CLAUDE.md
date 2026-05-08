@@ -1,6 +1,6 @@
 # Bay Shine Detailing — Engineering & Design Standards
 
-You are building the production website for Bay Shine Auto & Marine Detailing.
+You are building the production website for BayShine Detailing.
 `BUILD_BRIEF.md` is the source of truth for product decisions. This file is the
 source of truth for *how* you build.
 

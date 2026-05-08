@@ -1,6 +1,6 @@
 # BayShine
 
-> Mobile auto and marine detailing serving Pasco and North Hillsborough
+> Mobile auto detailing serving Pasco and North Hillsborough
 > counties in Florida. We come to your driveway, your apartment complex,
 > your fleet yard, or your dealership lot. No shop. No waiting room. Every
 > service performed on-site, by appointment, using professional-grade
@@ -198,7 +198,7 @@ and Pasco County:
 
 ## About BayShine
 
-BayShine is a mobile auto and marine detailing operation based in Pasco County
+BayShine is a mobile auto detailing operation based in Pasco County
 and North Hillsborough County, Florida. Constantine operates all services
 personally. The methodology follows a fixed chemical and mechanical sequence on
 every job: iron decontamination first, synthetic clay second, correction where

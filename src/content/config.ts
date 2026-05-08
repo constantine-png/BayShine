@@ -6,7 +6,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
-    category: z.enum(['Car Care', 'Boat & Marine', 'Fleet Tips', 'Local']),
+    category: z.enum(['Car Care', 'Fleet Tips', 'Local']),
     readTime: z.number().int().positive(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
