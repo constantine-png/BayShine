@@ -28,8 +28,23 @@ const G = {
   accentDim:   'var(--color-guide-accent-dim)',
 } as const;
 
-type UiState = 'idle' | 'searching' | 'empty';
+type UiState = 'idle' | 'searching' | 'results' | 'empty';
 type CaptureState = 'idle' | 'loading' | 'done' | 'error';
+
+interface ScenarioResult {
+  slug: string;
+  title: string;
+  problem: string;
+  synopsis: string;
+  category_name: string;
+  severity: 'quick-fix' | 'moderate' | 'advanced';
+}
+
+const SEVERITY_COLOR: Record<ScenarioResult['severity'], string> = {
+  'quick-fix': '#4caf50',
+  'moderate':  '#c9a961',
+  'advanced':  '#ef5350',
+};
 
 interface Props {
   captureSource?: string;
@@ -38,6 +53,7 @@ interface Props {
 export default function FieldGuideSearch({ captureSource = 'field-guide' }: Props) {
   const [query, setQuery] = useState('');
   const [uiState, setUiState] = useState<UiState>('idle');
+  const [results, setResults] = useState<ScenarioResult[]>([]);
   const [email, setEmail] = useState('');
   const [captureState, setCaptureState] = useState<CaptureState>('idle');
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
@@ -58,22 +74,31 @@ export default function FieldGuideSearch({ captureSource = 'field-guide' }: Prop
   const runSearch = useCallback(async (q: string) => {
     if (q.trim().length < 2) {
       setUiState('idle');
+      setResults([]);
       return;
     }
     lastQueryRef.current = q;
     setUiState('searching');
     try {
-      await fetch('/api/field-guide/search', {
+      const res = await fetch('/api/field-guide/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q }),
       });
+      if (lastQueryRef.current !== q) return; // stale
+      if (res.ok) {
+        const data = await res.json() as { results: ScenarioResult[]; empty: boolean };
+        setResults(data.results ?? []);
+        setUiState(data.results?.length ? 'results' : 'empty');
+      } else {
+        setResults([]);
+        setUiState('empty');
+      }
     } catch {
-      // Network error — still show empty state
-    }
-    // Only update if this is still the latest query
-    if (lastQueryRef.current === q) {
-      setUiState('empty');
+      if (lastQueryRef.current === q) {
+        setResults([]);
+        setUiState('empty');
+      }
     }
   }, []);
 
@@ -174,6 +199,84 @@ export default function FieldGuideSearch({ captureSource = 'field-guide' }: Prop
         >
           try: "{EXAMPLE_QUERIES[placeholderIdx]}"
         </p>
+      )}
+
+      {/* Results list */}
+      {uiState === 'results' && results.length > 0 && (
+        <div style={{ marginTop: '24px' }}>
+          <p style={{
+            fontFamily: 'var(--font-family-display)',
+            fontSize: '10px',
+            fontWeight: 700,
+            textTransform: 'uppercase' as const,
+            letterSpacing: '0.15em',
+            color: G.muted,
+            marginBottom: '12px',
+          }}>
+            {results.length} scenario{results.length !== 1 ? 's' : ''} found
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
+            {results.map(r => (
+              <div
+                key={r.slug}
+                style={{
+                  padding: '18px 20px',
+                  background: G.surface,
+                  border: `1px solid ${G.border}`,
+                  borderLeft: `3px solid ${SEVERITY_COLOR[r.severity]}`,
+                }}
+              >
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap' as const }}>
+                  <span style={{
+                    fontFamily: 'var(--font-family-mono)',
+                    fontSize: '10px',
+                    color: G.muted,
+                    background: G.surfaceUp,
+                    padding: '2px 7px',
+                    letterSpacing: '0.06em',
+                  }}>
+                    {r.category_name}
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-family-mono)',
+                    fontSize: '10px',
+                    color: SEVERITY_COLOR[r.severity],
+                    letterSpacing: '0.06em',
+                  }}>
+                    {r.severity}
+                  </span>
+                </div>
+                <p style={{
+                  fontFamily: 'var(--font-family-display)',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  color: G.heading,
+                  margin: '0 0 6px',
+                  lineHeight: 1.3,
+                }}>
+                  {r.title}
+                </p>
+                <p style={{
+                  fontSize: '13px',
+                  color: G.muted,
+                  margin: '0 0 10px',
+                  lineHeight: 1.55,
+                }}>
+                  {r.problem.length > 120 ? r.problem.slice(0, 120) + '…' : r.problem}
+                </p>
+                <span style={{
+                  fontFamily: 'var(--font-family-mono)',
+                  fontSize: '10px',
+                  color: G.accentDim,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase' as const,
+                }}>
+                  Full scenario coming soon
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Empty state */}

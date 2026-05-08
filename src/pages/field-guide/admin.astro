@@ -19,26 +19,8 @@ const expectedToken = Array.from(new Uint8Array(keyBuf))
   .map(b => b.toString(16).padStart(2, '0'))
   .join('');
 
-let isAuth = sessionCookie === expectedToken;
-
-if (!isAuth && Astro.request.method === 'POST') {
-  let pw: FormDataEntryValue | null = null;
-  try {
-    const form = await Astro.request.formData();
-    pw = form.get('password');
-  } catch {
-    // formData parse failed — stay unauthed
-  }
-  if (pw === adminPassword) {
-    Astro.cookies.set('fg_admin', expectedToken, {
-      httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    });
-    return Astro.redirect('/field-guide/admin');
-  }
-}
+const isAuth = sessionCookie === expectedToken;
+const loginError = Astro.url.searchParams.get('error') === '1';
 
 interface QueryRow {
   query_text: string;
@@ -103,7 +85,7 @@ function shortDate(iso: string) {
           BayShine · Field Guide Admin
         </p>
 
-        <form method="POST" style="display:flex;flex-direction:column;gap:12px;">
+        <form method="POST" action="/api/field-guide/admin-auth" style="display:flex;flex-direction:column;gap:12px;">
           <label
             for="pw"
             style="font-family:var(--font-family-ui);font-size:12px;
@@ -130,6 +112,9 @@ function shortDate(iso: string) {
             Enter
           </button>
         </form>
+        {loginError && (
+          <p style="color:#ef5350;font-size:12px;margin-top:10px;">Incorrect password.</p>
+        )}
       </div>
     ) : noDb ? (
       <div style="padding-top:40px;">
