@@ -24,13 +24,18 @@ export const SERVICE_AREA: ZipEntry[] = [
   { code: '33545', city: 'Wesley Chapel', neighborhoods: ['Epperson', 'Mirada'], priority: 'standard' },
   { code: '34610', city: 'Spring Hill / Shady Hills', neighborhoods: [], priority: 'standard' },
   { code: '33613', city: 'Tampa', neighborhoods: ['University area', 'Lake Magdalene'], priority: 'standard' },
+  { code: '33612', city: 'Tampa', neighborhoods: ['Busch Gardens area', 'North Tampa'], priority: 'standard' },
+  { code: '33618', city: 'Tampa', neighborhoods: ['Carrollwood', 'Northdale'], priority: 'standard' },
+  { code: '33625', city: 'Tampa', neighborhoods: ['Citrus Park', 'Linebaugh'], priority: 'standard' },
+  { code: '33606', city: 'Tampa', neighborhoods: ['Hyde Park', 'Davis Islands'], priority: 'standard' },
+  { code: '33607', city: 'Tampa', neighborhoods: ['Westshore', 'Palma Ceia West'], priority: 'standard' },
   { code: '34654', city: 'New Port Richey', neighborhoods: [], priority: 'edge' },
   { code: '34669', city: 'Hudson', neighborhoods: [], priority: 'edge' },
   { code: '33574', city: 'Crystal Springs', neighborhoods: [], priority: 'edge' },
 ];
 
 // Hillsborough zips for county classification
-const HILLSBOROUGH_ZIPS = new Set(['33556', '33548', '33558', '33559', '33549', '33647', '33613']);
+const HILLSBOROUGH_ZIPS = new Set(['33556', '33548', '33558', '33559', '33549', '33647', '33613', '33612', '33618', '33625', '33606', '33607']);
 
 export function getCounty(code: string): 'Pasco' | 'Hillsborough' {
   return HILLSBOROUGH_ZIPS.has(code) ? 'Hillsborough' : 'Pasco';
