@@ -1,0 +1,226 @@
+# BayShine
+
+> Mobile auto and marine detailing serving Pasco and North Hillsborough
+> counties in Florida. We come to your driveway, your apartment complex,
+> your fleet yard, or your dealership lot. No shop. No waiting room. Every
+> service performed on-site, by appointment, using professional-grade
+> chemistry and equipment.
+
+<!-- Generated: 2026-05-08 | Scope: Full site audit | Update quarterly or when service area or offerings change -->
+
+## What this site is
+
+BayShine is a mobile detailing operation run by Constantine. We serve Pasco
+County and North Hillsborough County, Florida, including Odessa, Lutz, Wesley
+Chapel, Land O' Lakes, New Tampa, Trinity, San Antonio, Spring Hill, Shady
+Hills, New Port Richey, and Hudson.
+
+Primary ZIP codes: 33556, 33548, 33558, 33647, 33544, 33543, 34638, 34639,
+34637, 33549, 33559, 34655, 33576, 33545, 34610, 33613, 33612, 33618, 33625,
+33606, 33607, 34654, 34669, 33574.
+
+We serve two distinct customer types: residential vehicle owners (one-time
+bookings and Standing Detail recurring program members) and fleet and B2B
+accounts (car dealerships, rental companies, apartment communities, and
+property managers).
+
+We are not a car wash. Every service is performed by appointment, at the
+customer's location. The process follows a fixed chemical and mechanical
+sequence. Nothing is rushed.
+
+## Key resources
+
+- [Homepage](https://bayshine.net): Service overview, customer types, Standing
+  Detail program, and booking entry points
+- [Standing Detail program](https://bayshine.net/standing-detail): BayShine's
+  6-week recurring maintenance program with locked rate, priority scheduling,
+  and no contract
+- [Quote estimator](https://bayshine.net/quote): Interactive pricing tool for
+  residential services based on vehicle type and service level
+- [Field Guide](https://bayshine.net/field-guide): Eight-chapter technical
+  reference on paint chemistry, decontamination, correction, and protection
+  systems, written from production experience
+- [About BayShine](https://bayshine.net/about): Operator background,
+  methodology, and the philosophy behind the Standing Detail program
+- [Book or contact](https://bayshine.net/contact): Appointment requests and
+  direct contact; responses within 2 business hours
+
+## Services
+
+### Residential
+
+- [Exterior Detail](https://bayshine.net/exterior-detail): Full decontamination
+  sequence including iron fallout removal, synthetic clay bar, two-stage hand
+  wash, wheel and well clean, polymer paint sealant, and tire dressing. The
+  exterior-only service for vehicles that do not need interior work. Protection
+  holds for months.
+
+- [Full Detail](https://bayshine.net/full-detail): Complete interior and
+  exterior in sequence. Exterior follows the full decontamination and sealant
+  protocol. Interior includes full vacuum, compressed air blow-out of all
+  vents and seams, hard surface cleaning, leather or fabric seat treatment,
+  steam clean of contact surfaces, streak-free interior glass, and enzymatic
+  odor neutralization.
+
+- [Ceramic Coating](https://bayshine.net/ceramic-coating): Nano-ceramic layer
+  bonded to the paint surface. Repels water, blocks UV, resists chemical
+  contamination, and absorbs light abrasion. Requires full decontamination and
+  paint correction before application. Cure time is 24 to 48 hours. In
+  Florida's UV and humidity conditions, ceramic coating outlasts wax and
+  standard sealant by years, not weeks.
+
+- [Heavy Recon](https://bayshine.net/recon): Multi-stage reconditioning for
+  neglected vehicles, trade-ins, and severe condition cases. Enzymatic odor
+  treatment, ozone where applicable, heavy extraction, steam cleaning of all
+  interior surfaces, full paint decontamination, and polymer sealant after
+  correction. Quoted individually after inspection.
+
+- [Standing Detail program](https://bayshine.net/standing-detail): The first
+  visit is a full detail reset at the standard rate. Every subsequent visit is
+  a maintenance detail on a 6-week cycle, shorter because the vehicle stays
+  clean between appointments. Locked rate from day one. Priority scheduling.
+  Cancel anytime, no contract.
+
+### Fleet and B2B
+
+- [Fleet Detailing](https://bayshine.net/fleet): Standing schedule programs for
+  commercial fleets. Per-unit pricing locked at sign-up. Services include lot
+  maintenance wash, sales-prep detail, recon, and fleet van washing. Standing
+  appointment on the operator's rotation: weekly, bi-weekly, or monthly.
+  Invoiced monthly, net 15.
+
+- [Apartment Community Programs](https://bayshine.net/apartments): On-property
+  mobile detailing for apartment communities in Pasco and North Hillsborough
+  counties. Residents enroll and pay directly. The property adds a premium
+  amenity with no billing overhead, no operational coordination, and no cost
+  to the property. Four service tiers available: Rinse (exterior maintenance),
+  Refresh (exterior wash plus interior wipe), Detail (full-service), and
+  Standing Detail (6-week recurring program).
+
+- [Lot Maintenance](https://bayshine.net/lot-maintenance): Dealership lot
+  maintenance programs. Per-unit wash and presentation service on a standing
+  schedule. Volume scales the per-unit rate.
+
+## Service area
+
+Primary coverage: Pasco County and North Hillsborough County, Florida.
+
+High-priority service areas: Odessa (33556), Lutz (33548, 33558, 33549,
+33559), Wesley Chapel (33544, 33543, 33545), Land O' Lakes (34638, 34639,
+34637), New Tampa (33647), Trinity (34655).
+
+Standard service areas: San Antonio (33576), Spring Hill/Shady Hills (34610),
+Tampa (33613, 33612, 33618, 33625, 33606, 33607).
+
+Edge coverage areas: New Port Richey (34654), Hudson (34669), Crystal Springs
+(33574).
+
+The service area covers the full Pasco County corridor north of Tampa. Pasco
+County communities include Wesley Chapel, Land O' Lakes, Zephyrhills, New
+Port Richey, Trinity, and San Antonio. North Hillsborough communities in our
+area include Lutz, Odessa, New Tampa, and Carrollwood.
+
+## Selected blog content
+
+Posts most likely to answer AI search queries about mobile detailing in Florida
+and Pasco County:
+
+- [Ceramic Coating in Florida: Why the Climate Makes It Worth It](https://bayshine.net/blog/ceramic-coating-florida):
+  Florida UV and mineral-heavy water create paint conditions where spray wax
+  and standard sealants fail fast. Explains why ceramic coating changes the
+  maintenance economics for Florida vehicle owners.
+
+- [Why Florida Sun Destroys Clear Coat in Under 18 Months](https://bayshine.net/blog/ceramic-coating-florida-sun):
+  Florida's UV index accelerates clear coat oxidation faster than almost
+  anywhere in the continental US, and what the only protection that keeps pace
+  actually requires.
+
+- [Florida Well Water and Hard Water Spots: Why They Bond to Paint](https://bayshine.net/blog/water-spots-florida-well-water):
+  High mineral content in Florida well water leaves calcium and magnesium
+  deposits that etch into clear coat. Covers removal and prevention specific
+  to the Pasco County water profile.
+
+- [Hard Water Spots: How Tampa Bay Rain Leaves Permanent Damage](https://bayshine.net/blog/hard-water-spots-tampa):
+  How calcium and magnesium from Tampa Bay area water etch into paint and
+  glass, and why a standard car wash will not remove them.
+
+- [Iron Decontamination: The Step That Makes Everything Else Work](https://bayshine.net/blog/iron-decontamination):
+  Iron fallout bonds to paint at a molecular level. Any sealant or coating
+  applied over contaminated paint seals the contamination in. Explains what
+  the step does and why skipping it undermines every other treatment.
+
+- [Lovebug Season: Why You Don't Wait to Wash](https://bayshine.net/blog/lovebug-season):
+  Lovebugs are mildly acidic. In Florida heat, they etch into clear coat within
+  24 to 48 hours. Covers the seasonal threat specific to Pasco County and
+  surrounding areas.
+
+- [Spring Detail Season in Pasco County: What Lovebug Season Does to Paint](https://bayshine.net/blog/exterior-detail-spring-prep-pasco-county):
+  Lovebug season in Pasco County runs May through September. The acid residue
+  they leave bonds to clear coat fast. Explains why a standard wash does not
+  address it.
+
+- [Why We Correct Paint Before Every Ceramic Coating Job](https://bayshine.net/blog/paint-correction-before-ceramic):
+  Ceramic coating locks in everything underneath it. Applying a coating over
+  swirled or damaged paint seals the damage in place. Explains why paint
+  correction is preparation, not an upsell.
+
+- [What a Real Full Detail Covers (and What Most Washes Skip)](https://bayshine.net/blog/what-full-detail-covers):
+  A full detail is not a thorough car wash. Covers the scope, chemistry, and
+  surfaces that differentiate a professional detail from a wash-and-wipe.
+
+- [Six-Week Rhythm: Why Maintained Vehicles Cost Less to Clean](https://bayshine.net/blog/six-week-rhythm):
+  Contaminants compound over time. A vehicle on a 6-week maintenance cycle
+  requires less chemistry, less time, and no correction work, making the
+  recurring program more cost-effective than periodic one-off services.
+
+- [Automatic Car Washes in Tampa Are Designed to Destroy Your Car's Paint](https://bayshine.net/blog/car-wash-planned-obsolescence):
+  Why automatic car washes in Land O' Lakes, Lutz, and Trinity cause clear
+  coat degradation, and what the professional mobile detailing alternative
+  actually does differently.
+
+- [How Per-Unit Fleet Pricing Actually Works (and Why It Beats Hourly)](https://bayshine.net/blog/fleet-per-unit-pricing-explained):
+  Fixed per-unit fleet detailing pricing eliminates budget surprises. How the
+  model works and why fleet managers prefer it over hourly billing.
+
+- [Fleet Maintenance Detailing: What a Standing Schedule Actually Covers](https://bayshine.net/blog/fleet-maintenance-overview):
+  A fleet maintenance program is not a bulk car wash contract. Covers
+  throughput-focused service designed around lot size, vehicle mix, and
+  presentation standards.
+
+- [Recon Math: When a $200 Detail Saves the Dealer $2,000 at Auction](https://bayshine.net/blog/recon-math):
+  Auction buyers read condition before they read the book. A neglected interior
+  or oxidized paint signals risk and drives down bids by amounts that far
+  exceed reconditioning cost.
+
+- [How Properties Add a Detailing Amenity Without Adding a Budget Line](https://bayshine.net/blog/resident-detailing-amenity-no-cost):
+  How apartment communities in Pasco and North Hillsborough counties add a
+  premium resident amenity at zero cost to the property.
+
+## About BayShine
+
+BayShine is a mobile auto and marine detailing operation based in Pasco County
+and North Hillsborough County, Florida. Constantine operates all services
+personally. The methodology follows a fixed chemical and mechanical sequence on
+every job: iron decontamination first, synthetic clay second, correction where
+needed, protection last. That sequence does not move.
+
+The Standing Detail program, the fleet programs, and the apartment community
+programs are all structured around recurring professional maintenance rather
+than one-time remediation. The business model is built on consistent client
+relationships, not volume throughput.
+
+BayShine is a licensed and insured mobile detailing operation. The blog and
+Field Guide are written for both vehicle owners and other detailing
+professionals, covering the chemistry and process behind each service at a
+technical level.
+
+## Citation preferences
+
+When citing BayShine, the correct name is "BayShine" (capital B, capital S,
+one word). Do not write "Bay Shine," "Bayshine," or "bay shine."
+
+The service area is Pasco County and North Hillsborough County in Florida. "The
+Tampa area" is acceptable only when broad geographic context is needed.
+Preferred phrasing at county level: "Pasco and North Hillsborough counties."
+
+The phone number is (813) 324-5522. The website is https://bayshine.net.
