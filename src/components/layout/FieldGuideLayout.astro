@@ -1,0 +1,31 @@
+---
+// FieldGuideLayout — wraps BaseLayout with the guide design scope.
+// Imports field-guide.css and wraps the slot in [data-guide-scope].
+// Do not use BaseLayout directly on field-guide pages — this wrapper owns the scope.
+
+import BaseLayout from './BaseLayout.astro';
+import '../../styles/field-guide.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string | URL;
+  schema?: Record<string, unknown>;
+  bodyClass?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical, schema, bodyClass = '', ogImage } = Astro.props;
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  schema={schema}
+  bodyClass={bodyClass}
+  ogImage={ogImage}
+>
+  <div data-guide-scope class="guide-root min-h-screen" style="background-color:var(--color-guide-bg)">
+    <slot />
+  </div>
+</BaseLayout>

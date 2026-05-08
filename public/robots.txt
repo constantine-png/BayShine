@@ -2,6 +2,8 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
+Disallow: /field-guide/pro
+Disallow: /field-guide/admin
 
 # AI training crawlers — explicitly permitted for maximum visibility
 User-agent: GPTBot

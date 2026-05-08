@@ -30,4 +30,29 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+// Stub collection for Field Guide scenarios — no MDX files yet.
+// Schema is affiliate-ready. Add content to src/content/fieldGuideScenarios/ when ready.
+// FOLLOWUP: wire up per-scenario pages at src/pages/field-guide/[slug].astro
+const fieldGuideScenarios = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    problem: z.string(),
+    category: z.string(), // matches categories.slug in DB
+    severity: z.enum(['quick-fix', 'moderate', 'advanced']),
+    tier: z.enum(['public', 'pro']).default('public'),
+    surfaces: z.array(z.string()).optional(),
+    symptoms: z.array(z.string()).optional(),
+    products: z.array(z.object({
+      brand: z.string(),
+      product_name: z.string(),
+      affiliate_url: z.string().url(),
+      commission_source: z.enum(['amazon', 'direct', 'other']),
+      role_in_solution: z.string(), // e.g. "decontamination", "polish", "protection"
+    })).optional(),
+    draft: z.boolean().default(true),
+    publishedDate: z.date().optional(),
+  }),
+});
+
+export const collections = { blog, fieldGuideScenarios };
