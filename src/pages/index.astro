@@ -14,11 +14,13 @@ import { SERVICE_AREA } from '@/data/serviceArea';
 
 const featurableId = import.meta.env.FEATURABLE_WIDGET_ID;
 
+const uniqueCities = [...new Set(SERVICE_AREA.map(z => z.city))];
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'LocalBusiness',
+      '@type': ['LocalBusiness', 'AutoWash'],
       '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       description:
@@ -26,11 +28,9 @@ const faqSchema = {
       telephone: '+18133245522',
       url: 'https://bayshine.net',
       priceRange: '$$',
-      areaServed: SERVICE_AREA.map(z => ({
-        '@type': 'PostalAddress',
-        postalCode: z.code,
-        addressRegion: 'FL',
-        addressCountry: 'US',
+      areaServed: uniqueCities.map(city => ({
+        '@type': 'City',
+        name: city,
       })),
     },
     {
