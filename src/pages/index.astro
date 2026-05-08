@@ -28,6 +28,10 @@ const faqSchema = {
       telephone: '+18133245522',
       url: 'https://bayshine.net',
       priceRange: '$$',
+      // FOLLOWUP: src/pages/index.astro — Add GBP CID URL to sameAs when profile is verified.
+      // Format: "https://maps.google.com/?cid=YOUR_CID_HERE"
+      // Also add Yelp, Facebook, Instagram business profile URLs as they are confirmed.
+      sameAs: [],
       areaServed: uniqueCities.map(city => ({
         '@type': 'City',
         name: city,
