@@ -112,3 +112,7 @@ When you finish a build pass, output a summary that includes:
 - **All video tags use `<VideoLoop>`** (`src/components/ui/VideoLoop.astro`). Never write a raw `<video>` tag — the component handles autoplay, muted, loop, playsinline, and reduced-motion handling.
 - **Brand name is always `BayShine`** — capital B, capital S, no space, no hyphen. Not "Bayshine", not "Bay Shine", not "bayshine". Applies to all copy, page titles, schema, aria-labels, and email subjects.
 - **Team language only.** Never write "I", "my", "Constantine will", "Constantine responds". Use "we", "our team", "we'll follow up". The website speaks for the business, not the owner personally.
+
+## Discoverability subagents
+
+The repo includes five specialized subagents for SEO, GEO, AI search, schema markup, site architecture, internal linking, and citation-readiness work. See `.claude/skills/discoverability-orchestration/SKILL.md` for invocation patterns and multi-specialist workflows. The five specialists are: Schema Specialist, Site Architecture Specialist, GEO/AI Search Specialist, Internal Linking Specialist, Citation-Readiness Specialist.
