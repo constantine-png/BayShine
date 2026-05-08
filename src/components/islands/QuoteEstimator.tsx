@@ -275,10 +275,18 @@ export default function QuoteEstimator() {
             <p className="text-xs text-red-400 mt-2">Something went wrong. Try again or call us.</p>
           )}
 
+          {/* Book this service — highest-intent moment on the site */}
+          <a
+            href="/contact"
+            className="btn-sweep gloss-cap mt-4 flex items-center justify-center gap-2 w-full border border-bay-gold/60 text-bay-gold font-display font-semibold text-sm px-4 py-2.5 rounded-sm hover:border-bay-gold hover:bg-bay-gold/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            Book this service
+          </a>
+
           <button
             type="button"
             onClick={reset}
-            className="mt-4 w-full text-xs text-[#7A8294] hover:text-white transition-colors"
+            className="mt-2 w-full text-xs text-[#7A8294] hover:text-white transition-colors"
           >
             Start over
           </button>

@@ -226,12 +226,12 @@ const ZIP_CONTENT: Record<string, ZipContent> = {
 
 const content = ZIP_CONTENT[code];
 
-// Services for the three-card section
+// Services for the four-card section
 const standingDetailService: Service = {
   id: 'standing-detail',
   title: 'Standing Detail',
   headline: 'Six-week recurring. Locked rate. Priority slot.',
-  href: '/contact',
+  href: '/standing-detail',
   iconName: 'sparkle',
 };
 
@@ -241,6 +241,14 @@ const fullDetailService: Service = {
   headline: 'Interior + exterior. Left cleaner than factory.',
   href: '/full-detail',
   iconName: 'sparkle',
+};
+
+const exteriorDetailService: Service = {
+  id: 'exterior-detail',
+  title: 'Exterior Detail',
+  headline: 'Decontamination, clay, sealant. Protection that lasts.',
+  href: '/exterior-detail',
+  iconName: 'shield',
 };
 
 const ceramicService: Service = {
@@ -352,9 +360,10 @@ const schema = {
   <section class="py-16 px-4">
     <div class="container mx-auto max-w-4xl">
       <h2 class="font-display font-bold text-2xl text-bay-white mb-8 reveal">Available services.</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="reveal"><ServiceCard service={fullDetailService} /></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="reveal"><ServiceCard service={standingDetailService} /></div>
+        <div class="reveal"><ServiceCard service={fullDetailService} /></div>
+        <div class="reveal"><ServiceCard service={exteriorDetailService} /></div>
         <div class="reveal"><ServiceCard service={ceramicService} /></div>
       </div>
     </div>

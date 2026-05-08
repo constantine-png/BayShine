@@ -54,7 +54,7 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
         <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Programs</h3>
         <ul class="space-y-2 text-sm text-bay-slate">
           {[
-            ['Standing Detail', '/service-area'],
+            ['Standing Detail', '/standing-detail'],
             ['Fleet Programs', '/fleet'],
             ['Apartments', '/apartments'],
             ['Lot Maintenance', '/lot-maintenance'],
@@ -70,7 +70,7 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
         <ul class="space-y-2 text-sm text-bay-slate">
           {[
             ['About', '/about'],
-            ['Blog', '/blog'],
+            ['Field Notes', '/blog'],
             ['Field Guide', '/field-guide'],
             ['Tools', '/tools'],
           ].map(([label, href]) => (

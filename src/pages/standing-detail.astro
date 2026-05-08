@@ -1,0 +1,251 @@
+---
+// Standing Detail program page. The headline recurring service — deserves its own canonical URL.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'BayShine Standing Detail',
+  description: 'Six-week recurring mobile auto detailing program. Locked rate, priority scheduling, cancel anytime. Serving Pasco County and North Hillsborough, FL.',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'BayShine Detailing',
+    telephone: '+18133245522',
+    url: 'https://bayshine.net',
+  },
+  areaServed: {
+    '@type': 'State',
+    name: 'Florida',
+  },
+  serviceType: 'Auto Detailing',
+};
+---
+<BaseLayout
+  title="Standing Detail Program | Recurring Mobile Detailing | BayShine"
+  description="The BayShine Standing Detail: a 6-week recurring mobile detailing program for Pasco County and North Hillsborough. Locked rate, priority slot, cancel anytime."
+  schema={schema}
+>
+
+  <!-- Hero -->
+  <section class="noise-overlay py-24 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">The Headline Service</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          The BayShine<br />Standing Detail.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          A recurring maintenance program, not a one-time service. The first visit
+          establishes the baseline. Every visit after runs shorter because the vehicle
+          stays clean between appointments.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Start the Standing Detail
+          </Button>
+          <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
+            Get an Estimate
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- How the program works -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-4">How it works.</h2>
+        <p class="text-bay-slate text-base leading-relaxed max-w-2xl">
+          The first visit is a full detail at the standard rate. It resets the vehicle
+          to a proper baseline: full decontamination, clay bar, polymer sealant on the
+          exterior, and a complete interior clean. After that, every six weeks, we run a
+          maintenance detail. It covers what accumulates between visits and holds the
+          standard established on the first.
+        </p>
+      </div>
+
+      <!-- Cadence breakdown -->
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="border border-bay-slate/20 rounded-sm p-8 section-bevel">
+          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Visit One</p>
+          <h3 class="font-display font-bold text-xl text-bay-white mb-5">Full baseline detail.</h3>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              'Iron fallout decontamination',
+              'Synthetic clay bar: full exterior surface',
+              'Two-stage hand wash',
+              'Wheels, wells, and calipers',
+              'Exterior glass: streak-free',
+              'Polymer paint sealant',
+              'Tire dressing: satin finish',
+              'Full interior vacuum and blow-out',
+              'All hard surfaces cleaned and conditioned',
+              'Interior glass: streak-free',
+              'Odor neutralization',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold flex-shrink-0" aria-hidden="true">·</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="border border-bay-slate/20 rounded-sm p-8 section-bevel">
+          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">Every Six Weeks After</p>
+          <h3 class="font-display font-bold text-xl text-bay-white mb-5">Maintenance detail.</h3>
+          <ul class="space-y-3 text-bay-slate text-sm">
+            {[
+              'Hand wash: full exterior',
+              'Wheel faces and tire dressing',
+              'Iron spot-treatment where needed',
+              'Exterior glass',
+              'Door jambs and fuel door',
+              'Sealant top-coat or refresh',
+              'Interior vacuum and wipe-down',
+              'Contact surfaces: steering wheel, console, door pulls',
+              'Interior glass',
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-bay-gold flex-shrink-0" aria-hidden="true">·</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-bay-slate/60 text-xs mt-6">
+            Maintenance visits run shorter because the baseline is maintained. Six weeks is the
+            cadence that keeps the vehicle ahead of contamination bonding into clear coat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Three-column program terms -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-10">
+        <h2 class="font-display font-bold text-2xl text-bay-white">Program terms.</h2>
+      </div>
+      <div class="reveal grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {[
+          {
+            label: 'Priority slot',
+            desc: 'Your recurring window is held. You are not competing for availability against one-time bookings on your service day.',
+          },
+          {
+            label: 'Locked rate',
+            desc: 'The price established at enrollment is the price you keep. It does not adjust with demand or price increases.',
+          },
+          {
+            label: 'Cancel anytime',
+            desc: 'No contract. No cancellation fee. No minimum term. If the program stops working for you, it stops.',
+          },
+        ].map(item => (
+          <div class="border-l-2 border-bay-gold pl-5">
+            <p class="font-semibold text-bay-white text-sm mb-2">{item.label}</p>
+            <p class="text-bay-slate text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Who it's for -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal max-w-2xl">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Who this is for.</h2>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          The Standing Detail is built for residential vehicle owners who want their
+          vehicle kept at a consistent standard without managing the scheduling themselves.
+          One enrollment conversation. After that, we handle the calendar.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          It fits households with one or more vehicles where the owner has no interest in
+          the coordination overhead of booking a detail every time they need one. The
+          priority slot means your window does not get pushed when the schedule fills.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed">
+          Multi-vehicle households can run both vehicles on the same cadence or on offset
+          schedules. That is handled at enrollment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Florida-specific rationale -->
+  <section class="py-20 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal max-w-2xl">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Why cadence matters in Florida.</h2>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          Florida is a harder environment for automotive paint than most of the country.
+          UV index averages 10 to 11 in summer, equivalent to equatorial climates. Clear
+          coat absorbs that load continuously. A sealant that would last six months in a
+          northern state lasts six to eight weeks here.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          Lovebugs occur twice a year, in spring and fall. Their body chemistry is
+          acidic; left on paint for more than 48 hours, the acid begins etching the clear
+          coat. A maintenance visit shortly after each swarm eliminates that window before
+          damage sets in.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          Humidity is the third factor. Florida's combination of heat and moisture
+          accelerates oxidation on surfaces that are not protected. Iron fallout from brake
+          dust bonds faster in humid conditions. The six-week cadence is calibrated to the
+          Florida environment specifically: it catches contamination before it bonds rather
+          than after.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed">
+          One-time details correct damage that has already occurred. The Standing Detail
+          prevents the damage cycle from running in the first place.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Final CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Ready to start?
+        </h2>
+        <p class="text-bay-slate mb-8 leading-relaxed">
+          Book through the contact form or call. The first visit can typically be
+          scheduled within the week. We confirm the cadence and rate at booking.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Start the Standing Detail
+          </Button>
+          <a
+            href="tel:8133245522"
+            class="inline-flex items-center gap-2 text-bay-gold font-display font-semibold text-base hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.07 4.9 2 2 0 0 1 3.05 2.74h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/>
+            </svg>
+            (813) 324-5522
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

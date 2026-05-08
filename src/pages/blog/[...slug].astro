@@ -3,6 +3,7 @@ export const prerender = false;
 
 import { getEntry } from 'astro:content';
 import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
 import EmailCapture from '@/components/ui/EmailCapture.astro';
 
 const { slug } = Astro.params;
@@ -95,6 +96,18 @@ const blogPostSchema = {
     <div class="px-4">
       <div class="container mx-auto max-w-2xl">
         <hr class="border-none h-px bg-bay-ink/10 my-0" />
+      </div>
+    </div>
+
+    <!-- Booking CTA — appears after every post; hottest conversion point on the content side -->
+    <div class="py-12 px-4 bg-bay-navy/40 border-t border-bay-ink/10">
+      <div class="container mx-auto max-w-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <p class="font-display font-semibold text-bay-white text-base">
+          Ready to book?
+        </p>
+        <Button href="/contact" variant="primary">
+          Schedule a Detail
+        </Button>
       </div>
     </div>
 
