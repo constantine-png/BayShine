@@ -1,0 +1,43 @@
+---
+// CategoryTiles — renders the 8 guide category cards from DB or seed data.
+// Server-rendered, no client JS. Informational only — no scenario links yet.
+
+import { getCategories } from '@/lib/field-guide-db';
+
+const categories = await getCategories();
+---
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px"
+  role="list"
+  aria-label="Field Guide categories"
+>
+  {categories.map((cat) => (
+    <div
+      class="guide-tile guide-section p-5 flex flex-col gap-2"
+      role="listitem"
+    >
+      <span
+        class="font-display font-bold leading-snug"
+        style="font-size:15px;color:var(--color-guide-heading)"
+      >
+        {cat.name}
+      </span>
+      <span
+        class="leading-relaxed"
+        style="font-size:12px;color:var(--color-guide-text-muted);flex:1"
+      >
+        {cat.scope_preview}
+      </span>
+      <span
+        class="font-mono uppercase tracking-wider mt-1"
+        style="font-size:11px;color:var(--color-guide-accent)"
+        aria-label={`${cat.published_count > 0 ? cat.published_count + ' of ' : ''}${cat.total_planned}+ scenarios planned`}
+      >
+        {cat.published_count > 0
+          ? `${cat.published_count} of ${cat.total_planned}+`
+          : `— ${cat.total_planned}+`
+        }
+      </span>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,88 @@
+/* Field Guide design scope — scoped to [data-guide-scope].
+   Components in this scope use guide-specific CSS variables, not the service-page palette.
+   Any field-guide component rendered outside [data-guide-scope] will display with undefined
+   variables — visually broken by design, enforcing the scope boundary. */
+
+[data-guide-scope] {
+  --color-guide-bg:             #090604;
+  --color-guide-surface:        #141009;
+  --color-guide-surface-raised: #1a150d;
+  --color-guide-border:         rgba(160, 128, 96, 0.16);
+  --color-guide-text:           #bfb09a;
+  --color-guide-text-muted:     #7d6e5a;
+  --color-guide-heading:        #ede4d6;
+  --color-guide-accent:         #c9a961;
+  --color-guide-accent-dim:     rgba(201, 169, 97, 0.55);
+
+  background-color: var(--color-guide-bg);
+  color: var(--color-guide-text);
+}
+
+/* Override body ambient glow — too warm for the guide's cooler darkness */
+[data-guide-scope] body::before {
+  background: radial-gradient(circle, rgba(201, 169, 97, 0.04) 0%, transparent 68%);
+}
+
+/* Headings inherit guide palette rather than global bay-white */
+[data-guide-scope] h1,
+[data-guide-scope] h2,
+[data-guide-scope] h3,
+[data-guide-scope] h4 {
+  color: var(--color-guide-heading);
+}
+
+/* Guide divider: narrower, dimmer gold */
+[data-guide-scope] .divider {
+  background: linear-gradient(90deg, transparent 0%, rgba(201, 169, 97, 0.22) 50%, transparent 100%);
+  margin: 40px 0;
+}
+
+/* Category tile hover */
+[data-guide-scope] .guide-tile {
+  background-color: var(--color-guide-surface);
+  border: 1px solid var(--color-guide-border);
+  transition: background-color 200ms ease-out, border-color 200ms ease-out;
+}
+[data-guide-scope] .guide-tile:hover {
+  background-color: var(--color-guide-surface-raised);
+  border-color: rgba(160, 128, 96, 0.3);
+}
+
+/* Gold cursor for the search input */
+[data-guide-scope] .guide-search-input {
+  caret-color: var(--color-guide-accent);
+}
+
+/* Pulsing indicator dot — 4px, gold, soft pulse */
+@keyframes guide-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.3); }
+}
+[data-guide-scope] .guide-pulse-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-guide-accent);
+  animation: guide-pulse 1.2s ease-in-out infinite;
+}
+
+/* Empty state slide-up */
+@keyframes guide-slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+[data-guide-scope] .guide-empty-state {
+  animation: guide-slide-up 300ms ease-out forwards;
+}
+
+/* Focus rings in guide gold */
+[data-guide-scope] :focus-visible {
+  outline-color: var(--color-guide-accent);
+}
+
+/* Section bevel — same principle, guide surface colors */
+[data-guide-scope] .guide-section {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.025),
+    0 1px 0 rgba(0, 0, 0, 0.6);
+}

@@ -31,8 +31,8 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
       </a>
     </div>
 
-    <!-- 4-column nav grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+    <!-- 5-column nav grid -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
 
       <!-- Services -->
       <div>
@@ -71,8 +71,21 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
           {[
             ['About', '/about'],
             ['Field Notes', '/blog'],
-            ['Field Guide', '/field-guide'],
             ['Tools', '/tools'],
+          ].map(([label, href]) => (
+            <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Field Guide -->
+      <div>
+        <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Field Guide</h3>
+        <ul class="space-y-2 text-sm text-bay-slate">
+          {[
+            ['Browse Scenarios', '/field-guide'],
+            ['Paint', '/field-guide'],
+            ['Interior', '/field-guide'],
           ].map(([label, href]) => (
             <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
           ))}
