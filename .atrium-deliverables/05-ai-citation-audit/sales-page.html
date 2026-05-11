@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Citation Audit for Service Businesses — Atrium</title>
+<meta name="description" content="A 5-day audit of what Perplexity, ChatGPT search, Claude, and Gemini say about your business when buyers ask for recommendations in your area. Structured remediation list. $499 flat. 7-day refund.">
+<style>
+  :root {
+    --bay-gold: #C9A961;
+    --bay-ink: #0F1110;
+    --bay-paper: #F5F3EE;
+    --bay-rule: rgba(15,17,16,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--bay-ink); background: var(--bay-paper); line-height: 1.55; }
+  main { max-width: 720px; margin: 0 auto; padding: 80px 32px 120px; }
+  header { margin-bottom: 56px; }
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; margin-bottom: 24px; }
+  h1 { font-size: 2.5rem; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 24px; font-weight: 600; }
+  .lede { font-size: 1.2rem; line-height: 1.5; opacity: 0.85; margin-bottom: 40px; }
+  .price-block { border-top: 1px solid var(--bay-rule); border-bottom: 1px solid var(--bay-rule); padding: 32px 0; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, transparent 20px); }
+  .price { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; }
+  .price-sub { font-size: 0.95rem; opacity: 0.65; margin-top: 4px; }
+  .cta { display: inline-block; padding: 18px 36px; background: var(--bay-ink); color: var(--bay-paper); text-decoration: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; border: 1px solid var(--bay-ink); position: relative; overflow: hidden; transition: background 200ms ease-out; }
+  .cta:hover { background: var(--bay-gold); border-color: var(--bay-gold); color: var(--bay-ink); }
+  .cta:focus-visible { outline: 2px solid var(--bay-gold); outline-offset: 4px; }
+  .cta::before { content: ""; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%); transition: left 600ms ease-out; }
+  .cta:hover::before { left: 130%; }
+  section { margin-bottom: 56px; }
+  h2 { font-size: 1.5rem; margin-bottom: 20px; letter-spacing: -0.01em; font-weight: 600; }
+  ol, ul { padding-left: 24px; }
+  ol li, ul li { margin-bottom: 12px; }
+  .delivery-list { list-style: none; padding: 0; }
+  .delivery-list li { padding: 16px 0; border-bottom: 1px solid var(--bay-rule); display: flex; gap: 16px; }
+  .delivery-list li:last-child { border-bottom: none; }
+  .delivery-num { color: var(--bay-gold); font-weight: 600; min-width: 24px; font-variant-numeric: tabular-nums; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+  .compare-card { padding: 24px; border: 1px solid var(--bay-rule); }
+  .compare-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+  .compare-card .price-mini { font-size: 1.4rem; font-weight: 600; margin-bottom: 16px; color: var(--bay-gold); }
+  .not-included { background: rgba(15,17,16,0.03); padding: 24px; border-left: 2px solid var(--bay-gold); }
+  .not-included p { margin-bottom: 12px; }
+  .not-included p:last-child { margin-bottom: 0; }
+  .refund { border: 1px solid var(--bay-rule); padding: 24px; }
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--bay-rule); font-size: 0.85rem; opacity: 0.55; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <p class="eyebrow">Atrium · Productized Audit</p>
+  <h1>AI Citation Audit for Service Businesses</h1>
+  <p class="lede">In 5 days, you'll know exactly what Perplexity, ChatGPT search, Claude, and Gemini say about your business when buyers in your area ask for recommendations. You'll also know what to change to get cited more, ranked by impact. Fixed price. Fixed scope. No discovery call.</p>
+</header>
+
+<div class="price-block">
+  <div>
+    <div class="price">$499</div>
+    <div class="price-sub">One-time, USD. 5 business days. 7-day refund.</div>
+  </div>
+  <a href="{{STRIPE_CHECKOUT_LINK}}" class="cta">Order the audit</a>
+</div>
+
+<section>
+  <h2>What you get on Day 5</h2>
+  <ol class="delivery-list">
+    <li><span class="delivery-num">1</span><div><strong>The 15-page audit report.</strong> Plain-language explanation of how Perplexity, ChatGPT search, Claude, and Gemini currently see your business, with screenshots of actual queries showing what they cite or miss.</div></li>
+    <li><span class="delivery-num">2</span><div><strong>The query matrix.</strong> 25-40 buyer queries we ran against all four engines for your vertical and geography, with citation results per (engine, query) pair. Delivered as CSV plus a one-page heat map.</div></li>
+    <li><span class="delivery-num">3</span><div><strong>The structured remediation list.</strong> Every gap we found, ranked by impact and effort. Each line is a specific change with the rationale and the expected citation effect. You can hand this to your existing developer or CMS contributor.</div></li>
+    <li><span class="delivery-num">4</span><div><strong>The competitor cross-reference.</strong> If your top three local competitors are getting cited where you are not, the report shows which competitors and why.</div></li>
+    <li><span class="delivery-num">5</span><div><strong>One-page executive summary.</strong> The three highest-leverage moves you should make this quarter, in language a non-technical owner can act on.</div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Audit vs. setup</h2>
+  <div class="compare">
+    <div class="compare-card">
+      <h3>AI Citation Audit</h3>
+      <div class="price-mini">$499 / 5 days</div>
+      <p>You learn what's wrong and what to do. We deliver the diagnosis, the prioritized fix list, and the executive summary. You or your developer execute.</p>
+      <p style="margin-top: 12px; font-size: 0.9rem; opacity: 0.65;">Recommended if: you have a developer or are comfortable making CMS changes yourself.</p>
+    </div>
+    <div class="compare-card">
+      <h3>GEO Setup</h3>
+      <div class="price-mini">$2,500 / 10 days</div>
+      <p>We do the work. Schema, llms.txt, internal linking, citation-readiness rewrite on your top 5 pages, plus 90-day probe tracking. You receive deployable artifacts.</p>
+      <p style="margin-top: 12px; font-size: 0.9rem; opacity: 0.65;"><a href="/geo-setup" style="color: inherit;">See GEO Setup →</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Who this is for</h2>
+  <ul>
+    <li>Service business owners who suspect they're invisible in AI search but want data before spending on a full setup.</li>
+    <li>Owners with a developer or marketing person who can execute on a written remediation list.</li>
+    <li>Agency or consultant buying on behalf of a client portfolio (multi-domain audits available, contact for pricing).</li>
+    <li>Verticals we are calibrated for: mobile detailing, pressure washing, mobile car wash, HVAC, plumbing, roofing, mobile mechanic, electrical, landscaping, pest control. Other verticals on request.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What this is not</h2>
+  <div class="not-included">
+    <p><strong>Not implementation.</strong> We deliver the audit and the remediation list. We do not edit your site. If you want us to do the work, the GEO Setup service at $2,500 / 10 days is the right fit.</p>
+    <p><strong>Not a ranking guarantee.</strong> The audit identifies what's structurally wrong. Position in AI results is a function of execution after the audit lands.</p>
+    <p><strong>Not a discovery call.</strong> The intake form is the entire brief. No live call. No proposal cycle.</p>
+    <p><strong>Not a one-time silver bullet.</strong> AI citation is a continuous practice. The audit is the starting point, not the finish line.</p>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <ol>
+    <li>Pay $499 via Stripe Checkout.</li>
+    <li>You receive an intake form within 5 minutes. Fill it in: domain, vertical, geography, and the 5-10 buyer queries you most care about.</li>
+    <li>We probe all four engines on Day 1, build the matrix on Day 2, cross-reference competitors on Day 3, write the remediation on Day 4, and deliver the report on Day 5.</li>
+    <li>30 days after delivery, we run an optional follow-up probe at no cost if you reply with "follow up" by Day 25. This tells you whether your post-audit changes moved the needle.</li>
+  </ol>
+</section>
+
+<section class="refund">
+  <h2>Refund policy</h2>
+  <p>If you request a refund inside 7 days of purchase, you get a full refund with no questions. If we miss the 5-business-day delivery date for any reason on our side, you get an automatic full refund and we finish the audit anyway. After delivery, refunds are case-by-case and require the audit to fail the documented quality bar in writing.</p>
+</section>
+
+<section>
+  <h2>Who delivers this</h2>
+  <p>The work is delivered by Atrium, a small operation built on a town of specialized agents covering schema markup, AI-search optimization, citation-readiness, and engine probing. The accountable human signing off on every audit is Constantine.</p>
+</section>
+
+<footer>
+  <p>Atrium · Pasco County, Florida · <a href="mailto:hello@{{ATRIUM_DOMAIN}}">hello@{{ATRIUM_DOMAIN}}</a></p>
+  <p style="margin-top: 8px;">Questions before purchase: reply to any email from this domain. Typical response time 24 business hours.</p>
+</footer>
+
+</main>
+</body>
+</html>

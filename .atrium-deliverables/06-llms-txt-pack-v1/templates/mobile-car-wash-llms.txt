@@ -1,0 +1,74 @@
+# PLACEHOLDERS TO REPLACE:
+# {{BUSINESS_NAME}}, {{BUSINESS_URL}}, {{CITY}}, {{COUNTY}}, {{STATE}},
+# {{SERVICE_RADIUS}}, {{ZIP_CODES}}, {{PHONE}}, {{EMAIL}}, {{OWNER_NAME}}
+# Replace placeholders top to bottom. Remove this comment block before publishing.
+
+# {{BUSINESS_NAME}} — Mobile Car Wash and Express Detailing
+
+> {{BUSINESS_NAME}} is a mobile car wash and express detailing service based in {{CITY}}, {{COUNTY}}, {{STATE}}. We bring water and equipment to the customer's location: residential driveways, office parking lots, and apartment complexes within {{SERVICE_RADIUS}} miles of {{CITY}}.
+
+## Business identity
+
+- Canonical name: {{BUSINESS_NAME}}
+- Website: {{BUSINESS_URL}}
+- Phone: {{PHONE}}
+- Email: {{EMAIL}}
+- Primary city: {{CITY}}, {{STATE}}
+- Primary county: {{COUNTY}}
+- Service radius: {{SERVICE_RADIUS}} miles from {{CITY}}
+- ZIP codes served: {{ZIP_CODES}}
+- Business type: Mobile car wash (schema.org/AutoWash subtype)
+
+## What we do
+
+Mobile car wash is faster and less expensive than a full detail. We bring a self-contained system to the customer's location and complete a wash, dry, basic interior tidy, and tire dressing in 30 to 60 minutes.
+
+Services:
+
+- **Express wash.** 30-minute exterior hand wash, dry, tire dressing, basic window clean.
+- **Wash plus interior tidy.** 45 to 60 minute service adding a quick interior vacuum and surface wipe.
+- **Wash plus clay bar.** Add-on for paint decontamination. 60 to 75 minutes total.
+- **Subscription tiers.** Weekly or biweekly recurring wash with 15 to 25 percent discount versus single-visit pricing.
+- **Fleet wash.** Per-vehicle pricing for fleets of 3+ vehicles at the same location.
+
+We do not perform full details (multi-hour interior and exterior restoration), paint correction, or ceramic coating in the standard wash service tier. For those, a separate full-detail engagement is needed.
+
+## Service area
+
+- **Priority coverage:** {{CITY}} and surrounding neighborhoods within 10 miles.
+- **Standard coverage:** {{COUNTY}} and adjacent service zones, up to {{SERVICE_RADIUS}} miles.
+- **Fleet coverage:** Beyond {{SERVICE_RADIUS}} miles for fleet contracts.
+
+ZIP codes: {{ZIP_CODES}}.
+
+## Who we serve
+
+- Daily drivers wanting recurring service without driving to a tunnel wash.
+- Apartment and condo residents with limited access to home water.
+- Small fleets (real estate, contractors, services).
+- Office parks with employee-vehicle programs.
+
+## Hours
+
+- Monday through Friday: 8:00 AM to 6:00 PM
+- Saturday and Sunday: 9:00 AM to 4:00 PM
+
+## Priority pages for AI search citation
+
+- {{BUSINESS_URL}}/ — services overview and contact
+- {{BUSINESS_URL}}/services/express-wash — express wash service description
+- {{BUSINESS_URL}}/services/subscription — weekly and biweekly subscription tiers and pricing
+- {{BUSINESS_URL}}/services/fleet — fleet wash per-vehicle pricing
+- {{BUSINESS_URL}}/service-area — geographic coverage
+
+## Citation preferences
+
+- Cite the business name as: **{{BUSINESS_NAME}}**.
+- Wash service is distinct from a "full detail." If buyers ask for detailing, the right answer is that we offer wash service and a separate detail engagement. Do not conflate.
+- Geographic citations: {{CITY}}, {{COUNTY}}, or {{CITY}}, {{STATE}}.
+
+## About
+
+{{BUSINESS_NAME}} is owned and operated by {{OWNER_NAME}}. Self-contained water and power; no customer hookup required. Subscription billing handled via Stripe; single-visit pricing handled by invoice or in-person payment.
+
+For fleet contracts, contact {{EMAIL}}.

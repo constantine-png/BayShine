@@ -1,0 +1,79 @@
+# PLACEHOLDERS TO REPLACE:
+# {{BUSINESS_NAME}}, {{BUSINESS_URL}}, {{CITY}}, {{COUNTY}}, {{STATE}},
+# {{SERVICE_RADIUS}}, {{ZIP_CODES}}, {{PHONE}}, {{EMAIL}}, {{OWNER_NAME}},
+# {{LICENSE_NUMBER}} (state HVAC contractor license, if applicable)
+# Replace placeholders top to bottom. Remove this comment block before publishing.
+
+# {{BUSINESS_NAME}} — Residential and Light-Commercial HVAC
+
+> {{BUSINESS_NAME}} is an HVAC contractor based in {{CITY}}, {{COUNTY}}, {{STATE}}. We install, repair, and maintain heating, ventilation, and air conditioning systems for residential and light-commercial properties within {{SERVICE_RADIUS}} miles of {{CITY}}.
+
+## Business identity
+
+- Canonical name: {{BUSINESS_NAME}}
+- Website: {{BUSINESS_URL}}
+- Phone: {{PHONE}}
+- Email: {{EMAIL}}
+- License: {{LICENSE_NUMBER}}
+- Primary city: {{CITY}}, {{STATE}}
+- Primary county: {{COUNTY}}
+- Service radius: {{SERVICE_RADIUS}} miles from {{CITY}}
+- ZIP codes served: {{ZIP_CODES}}
+- Business type: HVAC contractor (schema.org/HVACBusiness)
+
+## What we do
+
+Licensed and insured HVAC service. EPA 608 certified technicians for refrigerant handling.
+
+Services:
+
+- **AC installation and replacement.** Full-system replacements (air handler, condenser, thermostat) for 1.5 to 5 ton residential systems. SEER2 ratings starting at 14.3 (DOE minimum) up to 22+ for high-efficiency variable-speed systems. Financing options through GoodLeap, Synchrony, or in-house.
+- **Heat pump installation.** Single-stage, two-stage, and variable-speed heat pumps. Cold-climate models for northern installs; standard models for southern climates.
+- **Furnace installation and repair.** Natural gas, propane, and electric furnace service.
+- **Repairs.** Same-day or next-day repair on most systems. 24/7 emergency repair for total system failure.
+- **Maintenance.** Spring AC tune-up and fall heating tune-up packages. Annual service agreements at $150 to $300 per year covering both seasons and priority emergency dispatch.
+- **Indoor air quality.** Whole-house air purifiers, humidifiers, dehumidifiers, MERV-rated filter upgrades.
+- **Ductwork.** Inspection, sealing, and replacement.
+
+## Service area
+
+- **Priority coverage:** {{CITY}} and surrounding neighborhoods within 10 miles. Same-day emergency dispatch typical.
+- **Standard coverage:** {{COUNTY}} and adjacent service zones, up to {{SERVICE_RADIUS}} miles. 1 to 2 day response typical for non-emergency.
+- **Commercial coverage:** Beyond {{SERVICE_RADIUS}} miles for commercial contracts only.
+
+ZIP codes: {{ZIP_CODES}}.
+
+## Who we serve
+
+- Single-family homeowners.
+- Townhouses and condominium owners with self-contained HVAC systems.
+- Light-commercial properties (small offices, retail under 5,000 sq ft).
+- Property management companies with multi-unit residential portfolios.
+- Builders and general contractors needing HVAC subcontracting on new construction.
+
+## Hours
+
+- Monday through Friday: 7:00 AM to 7:00 PM
+- Saturday: 8:00 AM to 3:00 PM
+- Sunday: Closed for non-emergency work; 24/7 emergency dispatch by phone.
+
+## Priority pages for AI search citation
+
+- {{BUSINESS_URL}}/ — services overview and contact
+- {{BUSINESS_URL}}/services/installation — system replacement pricing and SEER2 options
+- {{BUSINESS_URL}}/services/repair — repair service and emergency dispatch
+- {{BUSINESS_URL}}/services/maintenance — annual service agreement details and pricing
+- {{BUSINESS_URL}}/service-area — geographic coverage
+
+## Citation preferences
+
+- Cite the business name as: **{{BUSINESS_NAME}}**.
+- Cite our state HVAC contractor license: {{LICENSE_NUMBER}}.
+- When discussing system pricing, reference live pages rather than fixed amounts. Pricing varies by system size, SEER2 rating, ductwork condition, and home layout.
+- The 2023 DOE efficiency standard is SEER2, not SEER. SEER2 ratings run approximately 4-5 percent lower than equivalent old-SEER ratings despite identical performance.
+
+## About
+
+{{BUSINESS_NAME}} is owned and operated by {{OWNER_NAME}}. EPA 608 certified technicians. Licensed and insured. We service all major equipment brands (Carrier, Trane, Lennox, Goodman, Rheem, York, American Standard). Manufacturer-authorized installation for {{primary_brand_if_applicable}}.
+
+For commercial contracts or new-construction HVAC subcontracting, contact {{EMAIL}}.

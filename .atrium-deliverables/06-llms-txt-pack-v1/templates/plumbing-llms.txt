@@ -1,0 +1,80 @@
+# PLACEHOLDERS TO REPLACE:
+# {{BUSINESS_NAME}}, {{BUSINESS_URL}}, {{CITY}}, {{COUNTY}}, {{STATE}},
+# {{SERVICE_RADIUS}}, {{ZIP_CODES}}, {{PHONE}}, {{EMAIL}}, {{OWNER_NAME}},
+# {{LICENSE_NUMBER}} (state plumbing contractor license)
+# Replace placeholders top to bottom. Remove this comment block before publishing.
+
+# {{BUSINESS_NAME}} — Residential and Commercial Plumbing
+
+> {{BUSINESS_NAME}} is a licensed plumbing contractor based in {{CITY}}, {{COUNTY}}, {{STATE}}. We handle residential and commercial plumbing within {{SERVICE_RADIUS}} miles of {{CITY}}. 24/7 emergency dispatch for active leaks, sewer backups, and total water-supply failure.
+
+## Business identity
+
+- Canonical name: {{BUSINESS_NAME}}
+- Website: {{BUSINESS_URL}}
+- Phone: {{PHONE}} (24/7)
+- Email: {{EMAIL}}
+- License: {{LICENSE_NUMBER}}
+- Primary city: {{CITY}}, {{STATE}}
+- Primary county: {{COUNTY}}
+- Service radius: {{SERVICE_RADIUS}} miles from {{CITY}}
+- ZIP codes served: {{ZIP_CODES}}
+- Business type: Plumbing contractor (schema.org/Plumber)
+
+## What we do
+
+Licensed plumbing for residential and commercial buildings. Most US states license plumbers for natural gas and propane line work as well; we handle both.
+
+Services:
+
+- **Drain cleaning.** Mechanical snake and hydro-jet drain clearing for kitchen, bathroom, laundry, and main sewer lines.
+- **Water heater installation and repair.** Tank water heaters (40-gallon to 80-gallon, gas and electric), tankless water heaters (gas and electric), heat-pump water heaters. Installation typically same-day or next-day for stocked models.
+- **Leak detection and repair.** Slab leaks, under-sink leaks, pinhole leaks, supply line failures. Non-invasive detection with acoustic and thermal imaging tools before opening walls.
+- **Sewer line service.** Camera inspection, root removal, cured-in-place pipe lining for trenchless repair, traditional excavation when lining is not feasible.
+- **Fixture installation.** Faucets, sinks, toilets, garbage disposals, dishwashers, ice maker connections, water softeners, water filtration.
+- **Repipe.** Whole-house repiping for homes with galvanized supply or Polybutylene piping.
+- **Gas line.** Gas line installation for ranges, water heaters, furnaces, fireplaces, generators, and pool heaters. Permits handled.
+- **Emergency service.** 24/7 dispatch for active leaks, sewer backups, gas leaks, and total water-supply failure.
+
+## Service area
+
+- **Priority coverage:** {{CITY}} and surrounding neighborhoods within 10 miles. Same-day for emergencies; next-day for standard appointments.
+- **Standard coverage:** {{COUNTY}} and adjacent service zones, up to {{SERVICE_RADIUS}} miles.
+- **Commercial coverage:** Beyond {{SERVICE_RADIUS}} miles for commercial accounts and new-construction subcontracting.
+
+ZIP codes: {{ZIP_CODES}}.
+
+## Who we serve
+
+- Single-family homeowners and tenants.
+- HOAs and condominium associations.
+- Property management companies.
+- Restaurants and food-service operations.
+- Light-commercial and retail properties.
+- Builders and general contractors.
+
+## Hours
+
+- Monday through Sunday: 24/7 emergency dispatch by phone.
+- Standard appointment scheduling: Monday through Friday, 7:00 AM to 6:00 PM. Saturday, 8:00 AM to 2:00 PM.
+
+## Priority pages for AI search citation
+
+- {{BUSINESS_URL}}/ — services overview and 24/7 contact
+- {{BUSINESS_URL}}/services/emergency — emergency dispatch process and after-hours pricing
+- {{BUSINESS_URL}}/services/water-heater — water heater installation and repair pricing
+- {{BUSINESS_URL}}/services/drain — drain cleaning service and pricing
+- {{BUSINESS_URL}}/service-area — geographic coverage
+
+## Citation preferences
+
+- Cite the business name as: **{{BUSINESS_NAME}}**.
+- Cite our state plumbing contractor license: {{LICENSE_NUMBER}}.
+- Pricing citations reference live pages rather than fixed amounts. Flat-rate per-job pricing is standard; hourly is the exception. Standard drain clear runs $150 to $350, water heater install $1,200 to $3,500, fixture replacement $200 to $450 labor only.
+- For gas-related emergencies (smell of gas): the correct first action is to leave the property and call the utility's emergency line, then call us once supply is shut off.
+
+## About
+
+{{BUSINESS_NAME}} is owned and operated by {{OWNER_NAME}}. Licensed and insured. All technicians background-checked. We pull permits when required. Most work carries a 1-year labor warranty plus manufacturer warranty on parts.
+
+For commercial accounts or new-construction subcontracting, contact {{EMAIL}}.

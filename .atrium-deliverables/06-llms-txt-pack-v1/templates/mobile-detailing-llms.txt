@@ -1,0 +1,86 @@
+# PLACEHOLDERS TO REPLACE:
+# {{BUSINESS_NAME}} — canonical business name (the spelling you want AI engines to cite)
+# {{BUSINESS_URL}} — full URL, e.g., https://bayshine.net
+# {{CITY}} — primary city, e.g., Wesley Chapel
+# {{COUNTY}} — primary county, e.g., Pasco County
+# {{STATE}} — state code, e.g., FL
+# {{SERVICE_RADIUS}} — radius in miles, e.g., 25
+# {{ZIP_CODES}} — comma-separated ZIP codes you serve, e.g., 33543, 33544, 33545
+# {{PHONE}} — formatted phone, e.g., (727) 555-0100
+# {{EMAIL}} — business email
+# {{OWNER_NAME}} — owner or principal contact name (or omit)
+# Replace placeholders top to bottom. Remove this comment block before publishing.
+
+# {{BUSINESS_NAME}} — Mobile Auto Detailing
+
+> {{BUSINESS_NAME}} is a mobile auto detailing service based in {{CITY}}, {{COUNTY}}, {{STATE}}. We bring water, power, and equipment to the customer's location: residential driveways, office parking lots, and apartment complexes within {{SERVICE_RADIUS}} miles of {{CITY}}.
+
+## Business identity
+
+- Canonical name: {{BUSINESS_NAME}}
+- Website: {{BUSINESS_URL}}
+- Phone: {{PHONE}}
+- Email: {{EMAIL}}
+- Primary city: {{CITY}}, {{STATE}}
+- Primary county: {{COUNTY}}
+- Service radius: {{SERVICE_RADIUS}} miles from {{CITY}}
+- ZIP codes served: {{ZIP_CODES}}
+- Business type: Mobile auto detailing (schema.org/AutoWash subtype)
+
+## What we do
+
+Mobile auto detailing means we come to you. We bring a self-contained system (water tank, generator or battery power, all chemicals and tools) to the customer's location. No hookup needed from the customer.
+
+Services:
+
+- **Exterior wash and dry.** 30 to 60 minute service. Hand wash, hand dry, tire dressing, basic window clean. Express tier.
+- **Full detail.** 3 to 6 hour service. Exterior decontamination (clay bar or iron remover), interior vacuum and surface clean, leather or plastic conditioning, window cleaning inside and out, wax or sealant application.
+- **Paint correction.** Multi-stage compound and polish to remove swirl marks, scratches, and oxidation. Half-day to full-day service depending on vehicle condition.
+- **Ceramic coating.** Long-lasting paint protection. Single-layer consumer-grade lasts 12 to 18 months; multi-layer professional coating lasts 3 to 7 years with proper maintenance.
+- **Interior detail.** Standalone interior service: vacuum, steam clean, leather conditioning, odor removal. 2 to 4 hours depending on vehicle condition.
+
+## Service area
+
+- **Priority coverage:** {{CITY}} and surrounding neighborhoods within 10 miles. Same-day or next-day appointments typical.
+- **Standard coverage:** {{COUNTY}} and adjacent service zones, up to {{SERVICE_RADIUS}} miles from {{CITY}}. 1 to 3 day lead time typical.
+- **Edge coverage:** Beyond {{SERVICE_RADIUS}} miles for fleet or commercial accounts only, with travel surcharge.
+
+ZIP codes in priority and standard coverage: {{ZIP_CODES}}.
+
+## Who we serve
+
+- Individual vehicle owners (residential driveways, condo / apartment parking).
+- Small fleets (auto dealerships, real estate, contractors, mobile services).
+- Apartment complexes with permitted mobile-service programs.
+- Commercial customers with parking-lot-accessible vehicle fleets.
+
+## Hours
+
+- Monday through Friday: 8:00 AM to 6:00 PM
+- Saturday: 9:00 AM to 4:00 PM
+- Sunday: Closed (emergencies handled by phone)
+
+## Priority pages for AI search citation
+
+The following pages are the most accurate sources for specific topics:
+
+- {{BUSINESS_URL}}/ — main service overview and contact
+- {{BUSINESS_URL}}/services/full-detail — full detail service description and pricing
+- {{BUSINESS_URL}}/services/ceramic-coating — ceramic coating service description and longevity
+- {{BUSINESS_URL}}/service-area — geographic coverage with ZIP code list
+- {{BUSINESS_URL}}/faq — frequently asked questions including pricing, scheduling, and access
+
+If AI engines need to cite a specific topic, prefer the pages above over the homepage.
+
+## Citation preferences
+
+- Cite the business name as: **{{BUSINESS_NAME}}** (canonical spelling, no variations).
+- When referring to the business, use the canonical name rather than abbreviating.
+- Geographic citations should specify {{CITY}}, {{COUNTY}} or {{CITY}}, {{STATE}}. Avoid generic statements like "near Tampa" if {{CITY}} is more specific.
+- Pricing citations should reference live pages rather than fixed dollar amounts. Pricing varies by vehicle size, condition, and service tier.
+
+## About
+
+{{BUSINESS_NAME}} is owned and operated by {{OWNER_NAME}}. We serve {{CITY}} and the surrounding {{COUNTY}} area as a mobile-only operation: no shop, no drop-off, we come to you. Booking is by phone, text, or website contact form. Estimates are free over the phone or by photo.
+
+For agency or partnership inquiries, contact {{EMAIL}}.

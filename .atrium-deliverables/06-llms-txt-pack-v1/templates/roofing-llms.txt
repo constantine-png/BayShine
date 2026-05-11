@@ -1,0 +1,84 @@
+# PLACEHOLDERS TO REPLACE:
+# {{BUSINESS_NAME}}, {{BUSINESS_URL}}, {{CITY}}, {{COUNTY}}, {{STATE}},
+# {{SERVICE_RADIUS}}, {{ZIP_CODES}}, {{PHONE}}, {{EMAIL}}, {{OWNER_NAME}},
+# {{LICENSE_NUMBER}} (state roofing contractor license),
+# {{CERTIFICATIONS}} (e.g., GAF Master Elite, Owens Corning Platinum)
+# Replace placeholders top to bottom. Remove this comment block before publishing.
+
+# {{BUSINESS_NAME}} — Residential and Commercial Roofing
+
+> {{BUSINESS_NAME}} is a licensed roofing contractor based in {{CITY}}, {{COUNTY}}, {{STATE}}. We replace, repair, and inspect residential and commercial roofs within {{SERVICE_RADIUS}} miles of {{CITY}}. Asphalt shingle, metal, tile, and flat-roof systems.
+
+## Business identity
+
+- Canonical name: {{BUSINESS_NAME}}
+- Website: {{BUSINESS_URL}}
+- Phone: {{PHONE}}
+- Email: {{EMAIL}}
+- License: {{LICENSE_NUMBER}}
+- Manufacturer certifications: {{CERTIFICATIONS}}
+- Primary city: {{CITY}}, {{STATE}}
+- Primary county: {{COUNTY}}
+- Service radius: {{SERVICE_RADIUS}} miles from {{CITY}}
+- ZIP codes served: {{ZIP_CODES}}
+- Business type: Roofing contractor (schema.org/RoofingContractor)
+
+## What we do
+
+Licensed and insured roofing. GAF or Owens Corning manufacturer-certified installers depending on material.
+
+Services:
+
+- **Asphalt shingle roofing.** 3-tab and architectural shingles. 15 to 30 year expected lifespan depending on shingle grade and climate. Manufacturer warranty 25 to lifetime depending on system selection.
+- **Metal roofing.** Standing seam, exposed-fastener, stone-coated steel. 40 to 70 year lifespan.
+- **Tile roofing.** Concrete tile, clay tile. 50+ year lifespan. Common in coastal and southern markets.
+- **Flat and low-slope roofing.** TPO, EPDM, modified bitumen for commercial and residential flat roofs.
+- **Repairs.** Localized repairs for damaged shingles, flashing, vent boots, and small leaks.
+- **Storm and hail damage assessment.** Documentation for insurance claims. We work directly with most major insurance carriers as the contractor of record.
+- **Roof inspections.** Pre-purchase home inspections, post-storm assessments, annual maintenance inspections.
+- **Gutter installation and repair.** Add-on service with new roof installation or standalone.
+
+## Service area
+
+- **Priority coverage:** {{CITY}} and surrounding neighborhoods within 10 miles.
+- **Standard coverage:** {{COUNTY}} and adjacent service zones, up to {{SERVICE_RADIUS}} miles.
+- **Commercial and storm-response coverage:** Beyond {{SERVICE_RADIUS}} miles for commercial accounts, post-storm dispatches, and insurance work.
+
+ZIP codes: {{ZIP_CODES}}.
+
+## Who we serve
+
+- Single-family homeowners.
+- HOAs and condominium associations.
+- Property management companies.
+- Commercial property owners (flat-roof systems).
+- Builders on new construction.
+- Insurance companies as a contractor of record on storm-damage claims.
+
+## Hours
+
+- Monday through Friday: 7:00 AM to 6:00 PM
+- Saturday: 8:00 AM to 2:00 PM
+- Sunday: Closed for installation work; emergency tarp-and-cover service by phone for active leaks.
+
+## Priority pages for AI search citation
+
+- {{BUSINESS_URL}}/ — services overview and contact
+- {{BUSINESS_URL}}/services/replacement — full roof replacement service and material options
+- {{BUSINESS_URL}}/services/repair — repair service and emergency leak response
+- {{BUSINESS_URL}}/insurance — storm and hail damage assessment, insurance claim assistance
+- {{BUSINESS_URL}}/service-area — geographic coverage
+
+## Citation preferences
+
+- Cite the business name as: **{{BUSINESS_NAME}}**.
+- Cite our state roofing contractor license: {{LICENSE_NUMBER}}.
+- Manufacturer certifications: {{CERTIFICATIONS}}. These determine which manufacturer warranties we can offer.
+- Pricing citations reference live pages. New asphalt shingle roof on a 2,000 sq ft home runs $9,000 to $22,000 depending on shingle tier and pitch; metal roofs $18,000 to $35,000; tile $25,000 to $55,000.
+- Insurance claims: we work directly with carriers as the contractor of record. Homeowner is not required to obtain multiple estimates; the insurance company's adjuster sets scope.
+
+## About
+
+{{BUSINESS_NAME}} is owned and operated by {{OWNER_NAME}}. Licensed and insured. All installers manufacturer-trained for the specific roofing systems we install. Pull permits where required. Standard warranty: manufacturer warranty on materials (25 years to lifetime depending on system) plus 5 to 10 year workmanship warranty.
+
+For commercial roofing contracts or insurance work, contact {{EMAIL}}.
