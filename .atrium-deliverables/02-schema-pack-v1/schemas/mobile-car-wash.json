@@ -1,0 +1,132 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AutoWash",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "16:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-mobile-car-wash",
+      "serviceType": "Mobile car wash and express detailing",
+      "name": "Mobile car wash",
+      "description": "Express car wash service brought to your location. Includes hand wash, hand dry, tire dressing, and window cleaning. We bring water and equipment to driveways, office parking lots, and apartment complexes. Faster than a full detail; less expensive than a tunnel wash bundle.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does a mobile car wash cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A mobile car wash typically costs $35 to $75 for a standard sedan or SUV. Trucks, vans, and larger vehicles range $55 to $95. Add-ons like clay bar treatment ($30), interior vacuum ($15), or tire shine ($10) are common. Subscription tiers for weekly or biweekly service typically discount 15 to 25 percent off single-visit pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a mobile car wash and a full detail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A mobile car wash is an express service: exterior wash, hand dry, tire dressing, basic window clean. Takes 30 to 45 minutes. A full detail includes everything in a wash plus interior vacuum, surface clean, leather or plastic conditioning, paint decontamination, and a wax or sealant. Takes 3 to 5 hours and costs 3 to 5 times more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do mobile car wash services bring their own water?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reputable mobile car wash operations carry their own water tank (40 to 100 gallons) and a 12-volt or generator-powered pressure system. We do not require water from your location. We do need 8 to 10 feet of clear space around the vehicle. Shaded surfaces are preferred to prevent water spotting during wash."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can mobile car wash service operate in apartment complexes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most apartment complexes allow mobile car wash service in resident parking spaces. Some larger complexes require a permit or proof of insurance to the property manager. We can provide certificates of insurance to property management on request. Check with your leasing office before booking if you are unsure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I have my car washed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every 2 weeks is recommended for daily drivers in humid or coastal climates where road salt, tree sap, and pollen accumulate quickly. Every 3 to 4 weeks is acceptable in temperate climates. Vehicles parked outside benefit from more frequent washing; garage-kept vehicles can stretch to 6 weeks between washes."
+          }
+        }
+      ]
+    }
+  ]
+}

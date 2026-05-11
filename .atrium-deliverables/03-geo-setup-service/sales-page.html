@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEO Setup for Local Service Businesses — Atrium</title>
+<meta name="description" content="Schema, llms.txt, internal linking, citation-readiness rewrite, and 90-day AI-citation probe report. $2,500 flat, 10-day turnaround. Stripe checkout, 7-day refund.">
+<style>
+  :root {
+    --bay-gold: #C9A961;
+    --bay-ink: #0F1110;
+    --bay-paper: #F5F3EE;
+    --bay-rule: rgba(15,17,16,0.12);
+    --bay-shadow: rgba(15,17,16,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--bay-ink);
+    background: var(--bay-paper);
+    line-height: 1.55;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 80px 32px 120px; }
+  header { margin-bottom: 64px; }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bay-ink);
+    opacity: 0.55;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .lede {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--bay-ink);
+    opacity: 0.85;
+    margin-bottom: 40px;
+  }
+  .price-block {
+    border-top: 1px solid var(--bay-rule);
+    border-bottom: 1px solid var(--bay-rule);
+    padding: 32px 0;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .price {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .price-sub {
+    font-size: 0.95rem;
+    opacity: 0.65;
+    margin-top: 4px;
+  }
+  .cta {
+    display: inline-block;
+    padding: 18px 36px;
+    background: var(--bay-ink);
+    color: var(--bay-paper);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--bay-ink);
+    position: relative;
+    overflow: hidden;
+    transition: background 200ms ease-out;
+  }
+  .cta:hover { background: var(--bay-gold); border-color: var(--bay-gold); color: var(--bay-ink); }
+  .cta:focus-visible { outline: 2px solid var(--bay-gold); outline-offset: 4px; }
+  section { margin-bottom: 56px; }
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  ol, ul { padding-left: 24px; }
+  ol li, ul li { margin-bottom: 12px; }
+  ol li strong, ul li strong { font-weight: 600; }
+  .delivery-list { list-style: none; padding: 0; }
+  .delivery-list li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--bay-rule);
+    display: flex;
+    gap: 16px;
+  }
+  .delivery-list li:last-child { border-bottom: none; }
+  .delivery-num {
+    color: var(--bay-gold);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 24px;
+  }
+  .not-included { background: rgba(15,17,16,0.03); padding: 24px; border-left: 2px solid var(--bay-gold); }
+  .not-included p { margin-bottom: 12px; }
+  .not-included p:last-child { margin-bottom: 0; }
+  .refund {
+    border: 1px solid var(--bay-rule);
+    padding: 24px;
+    border-radius: 2px;
+  }
+  .refund h2 { margin-top: 0; }
+  .case-study { font-style: italic; color: var(--bay-ink); opacity: 0.8; padding: 16px 0; }
+  .case-study cite { display: block; margin-top: 8px; font-style: normal; opacity: 0.6; font-size: 0.9rem; }
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--bay-rule);
+    font-size: 0.85rem;
+    opacity: 0.55;
+  }
+  footer a { color: inherit; }
+  /* Specular sweep on primary CTA per CLAUDE.md */
+  .cta::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+    transition: left 600ms ease-out;
+  }
+  .cta:hover::before { left: 130%; }
+  /* Top-edge gloss per CLAUDE.md */
+  .price-block { background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, transparent 20px); }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <p class="eyebrow">Atrium · Productized Service</p>
+  <h1>GEO Setup for Local Service Businesses</h1>
+  <p class="lede">A complete generative-engine-optimization pass on your service business website. Schema markup, llms.txt, site architecture audit, internal linking, citation-readiness rewrite on your top 5 pages, and a 90-day AI-citation probe report. Fixed price. Fixed scope. Fixed timeline.</p>
+</header>
+
+<div class="price-block">
+  <div>
+    <div class="price">$2,500</div>
+    <div class="price-sub">One-time, USD. 10-day turnaround. 7-day refund.</div>
+  </div>
+  <a href="{{STRIPE_CHECKOUT_LINK}}" class="cta">Start the engagement</a>
+</div>
+
+<section>
+  <h2>What you get</h2>
+  <ol class="delivery-list">
+    <li><span class="delivery-num">1</span><div><strong>Schema markup pass.</strong> Validated JSON-LD across every relevant page. LocalBusiness with the correct schema.org subclass for your vertical, Service blocks for each offering, FAQPage with vertical-specific Q&amp;As, BreadcrumbList where applicable. Pre-validated against Google Rich Results Test.</div></li>
+    <li><span class="delivery-num">2</span><div><strong>Site architecture audit.</strong> URL structure, navigation hierarchy, service-area page strategy, breadcrumb logic. We deliver a written recommendation plus a sitemap diagram showing the recommended structure.</div></li>
+    <li><span class="delivery-num">3</span><div><strong>llms.txt and AI-citation hints.</strong> Spec-compliant llms.txt at the root, with priority pages, vertical-specific entities, and AI-engine parsing hints. Refreshed quarterly via the optional retainer.</div></li>
+    <li><span class="delivery-num">4</span><div><strong>Internal linking pass.</strong> We rebuild your internal link graph for authority flow toward conversion pages. Anchor text diversity audit included.</div></li>
+    <li><span class="delivery-num">5</span><div><strong>Citation-readiness rewrite on top 5 pages.</strong> Atomic answer units, passage-level retrievability, FAQ extraction. Each rewrite is editable Markdown delivered via PR or document.</div></li>
+    <li><span class="delivery-num">6</span><div><strong>90-day AI-citation probe report.</strong> We query Perplexity, ChatGPT search, Claude, and Gemini against the queries your buyers actually use, then track citation position weekly for 90 days. Delivered as a one-page executive summary plus the underlying dataset.</div></li>
+    <li><span class="delivery-num">7</span><div><strong>One-page executive summary.</strong> What we changed, why, what to expect over 90 days, and what the next phase looks like if you want one.</div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Timeline</h2>
+  <p>10 business days from intake form completion to delivery. If we miss the date, you get an automatic full refund and we still finish the work.</p>
+</section>
+
+<section>
+  <h2>Who this is for</h2>
+  <ul>
+    <li>Local service businesses with an existing website and existing operations.</li>
+    <li>Verticals we are calibrated for: mobile detailing, pressure washing, mobile car wash, HVAC, plumbing, roofing, mobile mechanic, mobile pet grooming, electrical, landscaping, pest control. Other verticals on request.</li>
+    <li>Businesses that want to be found when buyers ask Perplexity, ChatGPT search, Claude, or Gemini for recommendations in their area.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What this is not</h2>
+  <div class="not-included">
+    <p><strong>Not a content-writing service.</strong> We rewrite your top 5 pages for citation-readiness. We do not write new pages beyond that. If you need 25 service-area pages built, that is a separate engagement.</p>
+    <p><strong>Not a Google Ads service.</strong> This package is organic discoverability only.</p>
+    <p><strong>Not a ranking guarantee.</strong> We make your site readable, citable, and structurally correct. The position you end up in is a function of your market context.</p>
+    <p><strong>Not a discovery call.</strong> The service is the service. The intake form is the brief. If you need a custom scope, the package above is not the right fit.</p>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <ol>
+    <li>Pay $2,500 via Stripe Checkout.</li>
+    <li>You receive an intake form within 5 minutes. Fill it in: domain, vertical, geography, primary conversion goal, Google Search Console access, CMS access.</li>
+    <li>Work begins same day. You get a midpoint update at day 5 and a final delivery at day 10.</li>
+    <li>30 days after delivery, we run an automatic re-check and send a one-page report on what changed. No additional cost.</li>
+  </ol>
+</section>
+
+<section class="refund">
+  <h2>Refund policy</h2>
+  <p>If you request a refund inside 7 days of purchase, you get a full refund with no questions. If we miss the 10-day delivery date for any reason on our side, you get an automatic full refund and we finish the work anyway. After delivery, refunds are case-by-case and require the deliverable to fail the documented quality bar in writing.</p>
+</section>
+
+<section>
+  <h2>Who delivers this</h2>
+  <p>The work is delivered by Atrium, a small operation built on a town of specialized agents covering schema markup, site architecture, GEO/AI-search optimization, internal linking, and citation-readiness. The accountable human signing off on every engagement is Constantine.</p>
+</section>
+
+<footer>
+  <p>Atrium · Pasco County, Florida · <a href="mailto:hello@{{ATRIUM_DOMAIN}}">hello@{{ATRIUM_DOMAIN}}</a></p>
+  <p style="margin-top: 8px;">Questions before purchase: reply to any email from this domain. Typical response time 24 business hours.</p>
+</footer>
+
+</main>
+</body>
+</html>

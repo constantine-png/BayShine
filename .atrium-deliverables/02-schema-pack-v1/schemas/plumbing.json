@@ -1,0 +1,131 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Plumber",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59", "description": "24/7 emergency service" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-plumbing",
+      "serviceType": "Residential and commercial plumbing",
+      "name": "Plumbing service",
+      "description": "Licensed plumbing for residential and commercial properties. Drain cleaning, water heater installation and repair, leak detection, sewer line repair, fixture installation, repipe, and 24/7 emergency response.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does a plumber cost per hour?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Residential plumber rates typically range $75 to $200 per hour, with most markets centering around $100 to $150. Emergency or after-hours service adds 50 to 100 percent. Many plumbers price by job rather than hourly: a standard drain clearing runs $150 to $350, a water heater install $1,200 to $3,500, a faucet replacement $200 to $450 labor only. Get a flat-rate quote before authorizing work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does a water heater last?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tank water heaters last 8 to 12 years on average. Tankless water heaters last 15 to 20 years. Hard-water areas shorten tank life unless a sediment flush is performed annually. Signs of imminent failure include rusty hot water, popping or rumbling sounds from the tank, water pooling around the base, or hot water that runs out within 10 minutes of a normal shower."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a tankless water heater worth the extra cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tankless costs $2,500 to $5,500 installed versus $1,200 to $2,500 for a comparable tank. Tankless lasts 1.5 to 2 times longer and uses 24 to 34 percent less energy on typical household demand. Payback typically hits at year 8 to 10 in households with 2 to 4 occupants. Households with one occupant or low hot-water usage rarely break even before the tank's failure point."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What causes low water pressure throughout the house?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whole-house low water pressure has four common causes: (1) failed pressure regulator at the main shutoff valve, (2) corrosion in galvanized supply lines (homes built before 1980 are at risk), (3) a closed or partially-closed main shutoff valve, or (4) municipal supply issue. A pressure gauge at the outdoor hose bib reads 40 to 80 PSI on a healthy system. Below 40 PSI indicates one of the above; above 80 PSI indicates a failed regulator and can damage fixtures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do plumbers fix gas line issues?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Licensed plumbers in most US states are also licensed for natural gas and propane line work. This includes gas water heater connections, gas stove installation, gas furnace tie-ins, and gas leak repair. If you smell gas, leave the property and call your utility's emergency line first, then a plumber once the utility has shut off supply. Gas work requires a permit in most municipalities."
+          }
+        }
+      ]
+    }
+  ]
+}
