@@ -1,0 +1,132 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RoofingContractor",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "14:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-roofing",
+      "serviceType": "Residential and commercial roofing",
+      "name": "Roofing service",
+      "description": "Licensed and insured roofing contractor. Roof replacement (asphalt shingle, metal, tile), repair, leak diagnosis, gutter installation, storm damage assessment, and insurance claim assistance. GAF or Owens Corning certified installers depending on material selection.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does a new roof cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A new asphalt shingle roof for a typical 2,000 square foot home costs $9,000 to $18,000 installed. Architectural shingles run $11,000 to $22,000. Metal roofing costs $18,000 to $35,000. Tile roofing costs $25,000 to $55,000. Pricing varies by pitch, story count, tear-off complexity, and decking condition. Get itemized quotes from 3 contractors before signing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does a roof last?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Asphalt 3-tab shingles last 15 to 20 years. Architectural shingles last 25 to 30 years. Metal roofs last 40 to 70 years. Concrete tile lasts 50+ years. Clay tile lasts 75+ years. Lifespan is shorter in high-UV climates (Florida, Arizona) and longer in temperate climates. Algae streaking starts around year 8 to 12 in humid climates regardless of material."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my homeowner insurance cover a new roof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Insurance covers roof replacement when damage is caused by a sudden covered peril (hail, wind, fallen tree), not by gradual wear or age. Most policies pay actual cash value (depreciated) unless you purchased a replacement-cost endorsement. After 2020 many insurers in coastal and storm-prone states began offering only depreciated payouts on roofs over 10 to 15 years old. Document hail and storm damage with photos and dates immediately."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to install a new roof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standard asphalt shingle replacement on a 2,000 square foot single-story home takes 1 to 2 days. Architectural shingles or two-story homes take 2 to 3 days. Metal roof installation takes 3 to 5 days. Tile roofing takes 5 to 10 days. Weather delays add 1 to 3 days in rainy seasons. Most contractors complete tear-off and dry-in (water-tight underlayment) on day 1 to prevent rain exposure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I repair or replace my roof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Repair is appropriate when damage is localized (under 100 square feet of affected area) and the roof is less than half its expected lifespan. Replace when (1) damage exceeds 25 percent of the roof area, (2) shingles are curling, cracking, or bald across multiple slopes, (3) granules accumulating in gutters indicate end-of-life, or (4) the roof is past its rated lifespan. A free roof inspection from a licensed contractor (no obligation) clarifies the right call."
+          }
+        }
+      ]
+    }
+  ]
+}

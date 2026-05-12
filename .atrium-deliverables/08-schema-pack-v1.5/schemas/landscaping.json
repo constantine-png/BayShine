@@ -1,0 +1,132 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LandscapeService",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "15:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-landscaping",
+      "serviceType": "Landscape design, installation, and maintenance",
+      "name": "Landscaping service",
+      "description": "Comprehensive landscaping including design, installation, weekly lawn maintenance, irrigation install and repair, hardscape (patios, retaining walls, paths), tree and shrub planting, seasonal cleanup, mulch and stone delivery, fertilization, and pest treatment for lawns.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does landscaping cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Weekly lawn maintenance runs $30 to $80 per visit for typical suburban lots. Landscape design fees range $500 to $5,000 depending on property size and scope. Full landscape installation (new design implemented) costs $5,000 to $50,000+. Irrigation system installation runs $2,500 to $7,500 for a residential yard. Hardscape (patio, retaining wall) costs $15 to $50 per square foot installed depending on materials."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When is the best time to plant a tree?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fall is ideal in most US climates (mid-September to mid-November) because cooler temperatures and adequate rainfall reduce transplant stress. Spring is second-best (March to May) before summer heat. Avoid planting during peak summer heat (mid-June to mid-August) and during winter freeze cycles. Trees planted in optimal seasons have 30 to 40 percent higher 5-year survival rates than trees planted in suboptimal seasons."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I water my lawn?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Established lawns need 1 inch of water per week (rain plus irrigation combined), typically delivered in two 30-minute deep waterings rather than daily light watering. New sod requires daily light watering for the first 2 weeks, then tapering to every 2 to 3 days for the next month. Adjust seasonally: more water in summer heat, less in cool weather, none during freezing temperatures. Soil moisture meters cost under $20 and remove the guesswork."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between sod and seed for new lawns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sod is instant lawn, installed at $0.40 to $1.50 per square foot installed (materials plus labor), usable in 2 to 3 weeks. Seed is $0.10 to $0.30 per square foot for materials, takes 6 to 8 weeks to establish, and is more vulnerable to weather, washout, and weed competition during establishment. Sod is preferred for high-traffic areas, slopes, or when fast results matter. Seed is preferred for large areas where budget matters more than timeline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a permit for landscaping work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most planting, mulching, and routine lawn work does not require a permit. Tree removal often requires a permit, especially for protected species or trees of specific sizes; check local rules. Hardscape requires a permit for retaining walls over 4 feet tall, driveways, or any structure with a footprint over 100 to 200 square feet (varies by municipality). Irrigation systems require a permit in most jurisdictions because they tie into the home's water supply line. Reputable landscape contractors pull permits as part of project scope."
+          }
+        }
+      ]
+    }
+  ]
+}

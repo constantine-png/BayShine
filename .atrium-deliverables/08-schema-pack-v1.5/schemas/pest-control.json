@@ -1,0 +1,133 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}",
+    "{{LICENSE_NUMBER}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PestControl",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "17:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "14:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-pest-control",
+      "serviceType": "Residential and commercial pest control",
+      "name": "Pest control service",
+      "description": "Licensed pest control for residential and commercial properties. Recurring quarterly service, one-time treatments, termite inspection and treatment, mosquito control, rodent exclusion, bed bug eradication, and wildlife removal. State license {{LICENSE_NUMBER}}.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does pest control cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Recurring quarterly residential service typically costs $40 to $90 per visit, billed quarterly or monthly. One-time targeted treatments run $150 to $400. Termite treatment ranges $500 to $2,500 depending on infestation extent and method (liquid vs bait stations). Mosquito control monthly during active season $80 to $200. Bed bug eradication $1,500 to $3,500 for heat treatment, $500 to $1,200 for chemical-only multi-visit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often does pest control need to be done?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Quarterly is standard for residential preventive service in humid climates (Florida, Gulf Coast, southern US). Annual or biannual is acceptable in drier climates. Termite inspection should run annually regardless of climate. Mosquito control runs monthly during the active season (typically April through October in most US markets). Rodent exclusion is a one-time project plus periodic monitoring."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is pest control safe for pets and children?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modern pest control treatments are typically pet-safe and child-safe when dry, which usually takes 30 to 60 minutes after application. Specific product safety varies; ask the technician for the product label and active ingredients. Indoor treatments concentrate on baseboards and cracks rather than open floor areas. Outdoor treatments are generally safer for indoor-only pets but exterior-access pets should stay inside during treatment and for 1 to 2 hours after."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if I have termites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Warning signs: mud tubes (pencil-thick) on foundation walls, hollow-sounding wood when tapped, swarmer wings near windows or doors (especially in spring), wood with rippled or patterned damage that follows the grain, frass (sawdust-like droppings) near wood structures. Subterranean termites (most common in the US) attack from below; drywood termites attack above-ground wood. Annual termite inspections catch infestations before structural damage; cost $75 to $150 typically free for current customers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to get rid of bed bugs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bed bug eradication typically requires 2 to 3 chemical treatments spaced 2 weeks apart, completing in 4 to 6 weeks total. Heat treatments (raising room temperature to 140 to 145°F for 4 to 6 hours) can eliminate in 1 treatment but cost more: $1,500 to $3,500 vs $500 to $1,200 chemical-only. Heat is preferred for severe infestations and for buyers who can't tolerate residual pesticide. Both approaches require preparation: laundering all bedding, vacuuming, removing clutter."
+          }
+        }
+      ]
+    }
+  ]
+}

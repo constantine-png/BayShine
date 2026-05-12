@@ -1,0 +1,132 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HVACBusiness",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "15:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-hvac",
+      "serviceType": "HVAC installation, repair, and maintenance",
+      "name": "HVAC service",
+      "description": "Residential and light-commercial HVAC service. Includes air conditioning repair, furnace repair, heat pump installation, ductwork repair, indoor air quality solutions, and seasonal maintenance. EPA 608 certified technicians.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost to replace an HVAC system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A full HVAC replacement (air handler plus condenser plus thermostat) for a typical 1,500 to 2,000 square foot home ranges $5,500 to $12,000 installed. Heat pump systems and higher SEER2 efficiency ratings cost more, between $9,000 and $18,000. Ductwork replacement, when required, adds $2,500 to $6,000. Most installers offer 0% financing for 12 to 60 months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should HVAC systems be serviced?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Twice per year. A spring tune-up before cooling season covers the AC condenser, refrigerant charge, coil cleaning, and condensate drain. A fall tune-up before heating season covers the furnace or heat pump, heat exchanger inspection, and gas valve checks. Annual service plans typically cost $150 to $300 and include both tune-ups plus priority emergency service."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between SEER and SEER2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SEER2 is the updated efficiency rating standard the US Department of Energy adopted in January 2023. SEER2 uses more realistic static pressure conditions, so a unit's SEER2 rating runs about 4 to 5 percent lower than its old SEER rating despite identical performance. Minimum SEER2 is 14.3 in the South and Southwest, 13.4 in the North. A 16 SEER2 unit roughly equates to an old 17 SEER unit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I repair or replace an old HVAC system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 5,000 rule is a starting point: multiply the repair cost by the system's age in years. If the result exceeds 5,000, replacement is the better economic choice. Systems older than 12 years almost always lean toward replacement; systems under 8 years almost always lean toward repair. R-22 refrigerant systems (pre-2010) lean toward replacement because R-22 is no longer manufactured and recharge costs have risen 5 to 10 times since 2020."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my AC running but not cooling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most common causes are: (1) a dirty air filter restricting airflow, (2) a frozen evaporator coil from low refrigerant or restricted airflow, (3) a failed capacitor on the condenser, (4) refrigerant leak, or (5) a thermostat or wiring problem. Turn the system off if you see ice on the indoor unit or the refrigerant line, replace the filter, and call for service. Running a system with restricted airflow can damage the compressor."
+          }
+        }
+      ]
+    }
+  ]
+}

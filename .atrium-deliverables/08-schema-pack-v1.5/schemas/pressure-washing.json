@@ -1,0 +1,132 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "15:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-pressure-washing",
+      "serviceType": "Pressure washing and soft washing",
+      "name": "Pressure washing",
+      "description": "Exterior pressure washing and soft washing for residential and commercial properties. Includes house siding, driveways, sidewalks, decks, fences, roofs (soft wash), and commercial storefronts. We bring water and equipment.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does pressure washing a house cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pressure washing a single-story house typically costs $150 to $400. A two-story house ranges $300 to $700. Driveway washing alone ranges $80 to $200. Pricing depends on square footage, height, accessibility, and how much mildew or algae buildup is present."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is pressure washing safe for roof shingles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "High-pressure washing is not safe for shingle roofs and can void roof warranties. Roofs require soft washing: low pressure (under 500 PSI) combined with a sodium hypochlorite or non-chlorine biocide solution. This kills mold, algae, and lichen without damaging shingle granules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between pressure washing and soft washing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pressure washing uses 2,000 to 4,000 PSI of water to mechanically remove dirt from durable surfaces (concrete, brick, fence). Soft washing uses under 500 PSI plus a cleaning solution to chemically remove biological growth from delicate surfaces (roof shingles, painted siding, screened enclosures). Most reputable services do both; the surface determines the method."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to be home during pressure washing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not usually for exterior work. We need access to one outdoor water spigot (if not bringing our own tank) and a clear work area. For driveway or sidewalk work, move vehicles before the appointment. For house washing, close windows. Payment can be invoiced after the work is done with photos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I have my house pressure washed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Once per year is standard in humid climates (Florida, Gulf Coast, southeastern US). Once every 2 years is acceptable in drier climates. Roofs benefit from a soft wash every 18 to 24 months in humid climates to prevent algae streaking. Driveways can be done annually or as needed."
+          }
+        }
+      ]
+    }
+  ]
+}

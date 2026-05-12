@@ -1,0 +1,133 @@
+{
+  "_placeholders_to_replace": [
+    "{{BUSINESS_NAME}}",
+    "{{BUSINESS_URL}}",
+    "{{LOGO_URL}}",
+    "{{IMAGE_URL}}",
+    "{{STREET_ADDRESS}}",
+    "{{ADDRESS_LOCALITY}}",
+    "{{ADDRESS_REGION}}",
+    "{{POSTAL_CODE}}",
+    "{{ADDRESS_COUNTRY}}",
+    "{{PHONE}}",
+    "{{LATITUDE}}",
+    "{{LONGITUDE}}",
+    "{{SERVICE_RADIUS_MILES}}",
+    "{{PRICE_LOW_USD}}",
+    "{{PRICE_HIGH_USD}}",
+    "{{LICENSE_NUMBER}}"
+  ],
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Electrician",
+      "@id": "{{BUSINESS_URL}}/#business",
+      "name": "{{BUSINESS_NAME}}",
+      "url": "{{BUSINESS_URL}}",
+      "logo": "{{LOGO_URL}}",
+      "image": "{{IMAGE_URL}}",
+      "telephone": "{{PHONE}}",
+      "priceRange": "${{PRICE_LOW_USD}}-${{PRICE_HIGH_USD}}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STREET_ADDRESS}}",
+        "addressLocality": "{{ADDRESS_LOCALITY}}",
+        "addressRegion": "{{ADDRESS_REGION}}",
+        "postalCode": "{{POSTAL_CODE}}",
+        "addressCountry": "{{ADDRESS_COUNTRY}}"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "{{LATITUDE}}",
+        "longitude": "{{LONGITUDE}}"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "14:00" }
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Service",
+      "@id": "{{BUSINESS_URL}}/#service-electrical",
+      "serviceType": "Residential and commercial electrical service",
+      "name": "Electrical service",
+      "description": "Licensed electrical service for residential and commercial properties. Panel upgrades, whole-house rewiring, outlet and switch installation, generator installation, EV charger installation, smoke and CO detector wiring, and 24/7 emergency response. State license {{LICENSE_NUMBER}}.",
+      "provider": { "@id": "{{BUSINESS_URL}}/#business" },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{LATITUDE}}",
+          "longitude": "{{LONGITUDE}}"
+        },
+        "geoRadius": "{{SERVICE_RADIUS_MILES}} mi"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": "{{PRICE_LOW_USD}}",
+          "maxPrice": "{{PRICE_HIGH_USD}}",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "{{BUSINESS_URL}}/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does an electrician cost per hour?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Residential electrician rates typically range $75 to $200 per hour, with most markets centering around $100 to $150. Emergency or after-hours service adds 50 to 100 percent. Service-call minimums run $90 to $200. Flat-rate pricing is increasingly common for predictable jobs: panel upgrade $1,500 to $4,000, EV charger install $400 to $1,500, ceiling fan install $150 to $400 labor only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to upgrade from 100-amp to 200-amp electrical service?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Upgrade if you have multiple HVAC units, an EV charger, a hot tub, large appliances, or plan to add any of these. Most homes built before 1980 have 100-amp service that limits modern electrical loads. Panel upgrades cost $1,500 to $4,000 and typically take 1 to 2 days including permit and inspection. Newer construction usually has 200-amp service standard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often do GFCI outlets need to be tested?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Monthly. Press the test button on the outlet; the reset should pop out. If it doesn't, the GFCI is failing and needs replacement. GFCIs are required by current code in kitchens, bathrooms, garages, basements, outdoor receptacles, and within 6 feet of any water source. Replacement runs $20 to $40 in parts; an electrician install adds $75 to $150."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What size generator do I need for my house?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A small portable generator (3,500 to 7,500 watts) powers refrigerator, lights, and a few outlets during outages. A whole-house standby generator (14 to 26 kW, natural-gas or propane) powers everything including HVAC. Sizing depends on what you want to run: refrigerator alone needs ~700 watts; AC unit needs 3,000 to 6,000 watts; well pump 1,500 to 3,000 watts. Standby generators cost $4,000 to $15,000 installed with transfer switch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an EV charger installation cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Level 2 EV charger installation costs $400 to $1,500 depending on panel capacity, distance from panel to install location, and whether a dedicated 40-amp or 50-amp circuit needs to be added. Most installs take 2 to 4 hours and require a permit. Many utilities offer $200 to $500 rebates that cover most of the install cost. Hardwired and plug-in (NEMA 14-50) options are both valid; hardwired costs slightly more but supports higher amperage."
+          }
+        }
+      ]
+    }
+  ]
+}
