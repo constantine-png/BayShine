@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schema Doctor Pro — Automated Schema Generation and Drift Detection</title>
+<meta name="description" content="Schema Doctor Pro auto-generates JSON-LD for new pages, integrates with WordPress, Astro, and Next.js webhooks, detects schema drift on deploy, and validates against schema.org spec continuously. $99/mo. Built by Forge.">
+<style>
+  :root { --forge-ink: #0A0A0B; --forge-orange: #FF5630; --forge-paper: #F5F4F1; --forge-grey: #2A2B2D; --forge-rule: rgba(255,255,255,0.08); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--forge-ink); color: var(--forge-paper); line-height: 1.55; }
+  main { max-width: 760px; margin: 0 auto; padding: 64px 32px 96px; }
+  .brand { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--forge-orange); margin-bottom: 20px; font-weight: 600; }
+  h1 { font-size: 2.8rem; line-height: 1.08; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 28px; }
+  .lede { font-size: 1.2rem; line-height: 1.5; opacity: 0.88; margin-bottom: 40px; max-width: 620px; }
+  .status-banner { background: linear-gradient(135deg, var(--forge-orange), #FF7350); padding: 20px 24px; margin-bottom: 56px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .status-banner strong { color: var(--forge-ink); font-size: 1.1rem; }
+  .status-banner span { color: var(--forge-ink); opacity: 0.85; }
+  .price-block { border-top: 1px solid var(--forge-rule); border-bottom: 1px solid var(--forge-rule); padding: 32px 0; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .price { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.025em; }
+  .price-sub { font-size: 0.95rem; opacity: 0.7; margin-top: 6px; }
+  .waitlist-form { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .waitlist-form input { padding: 14px 16px; background: var(--forge-grey); color: var(--forge-paper); border: 1px solid var(--forge-rule); font-size: 0.95rem; font-family: inherit; min-width: 260px; }
+  .waitlist-form input:focus { outline: 2px solid var(--forge-orange); outline-offset: -1px; border-color: var(--forge-orange); }
+  .cta { padding: 14px 28px; background: var(--forge-orange); color: var(--forge-ink); border: none; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 150ms; font-family: inherit; }
+  .cta:hover { background: #FF7350; }
+  section { margin-bottom: 56px; }
+  h2 { font-size: 1.7rem; margin-bottom: 24px; letter-spacing: -0.015em; font-weight: 700; }
+  ol, ul { padding-left: 24px; }
+  ol li, ul li { margin-bottom: 14px; line-height: 1.5; }
+  .features { list-style: none; padding: 0; }
+  .features li { padding: 20px 0; border-bottom: 1px solid var(--forge-rule); display: flex; gap: 20px; }
+  .features li:last-child { border-bottom: none; }
+  .feature-num { color: var(--forge-orange); font-weight: 700; font-size: 1.2rem; min-width: 28px; font-variant-numeric: tabular-nums; }
+  .feature-text strong { display: block; margin-bottom: 4px; font-weight: 600; }
+  .compare { background: rgba(255,86,48,0.04); padding: 24px; border: 1px solid rgba(255,86,48,0.2); }
+  .compare h3 { margin-bottom: 12px; font-size: 1.1rem; }
+  .compare p { margin-bottom: 10px; opacity: 0.85; }
+  .compare p:last-child { margin-bottom: 0; }
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--forge-rule); font-size: 0.85rem; opacity: 0.6; }
+  footer a { color: var(--forge-orange); }
+  .signup-confirmation { display: none; padding: 16px; background: rgba(94,225,123,0.1); border: 1px solid rgba(94,225,123,0.3); color: #5EE17B; font-size: 0.9rem; margin-top: 16px; }
+</style>
+</head>
+<body>
+<main>
+
+<div class="brand">Forge · Subscription SaaS</div>
+
+<h1>Schema Doctor Pro</h1>
+
+<p class="lede">Schema Doctor Pro is for the operator who's past basic schema. It auto-generates JSON-LD for every new page, integrates with WordPress / Astro / Next.js webhooks to validate schema on deploy, detects drift before AI engines re-index, and produces a continuous validation log. Built for agencies, multi-site operators, and developers who care about schema as a first-class part of their CMS pipeline.</p>
+
+<div class="status-banner">
+  <strong>Coming late Q3 2026.</strong>
+  <span>The waitlist below locks founding-member pricing — first 50 signups get $79/mo for life (vs $99/mo standard).</span>
+</div>
+
+<div class="price-block">
+  <div>
+    <div class="price">$99/mo</div>
+    <div class="price-sub">Founding 50: $79/mo locked for life. Cancel anytime. Multi-domain accounts available.</div>
+  </div>
+  <form class="waitlist-form" onsubmit="handleSignup(event)">
+    <input type="email" id="email" placeholder="you@yourdomain.com" required>
+    <button type="submit" class="cta">Join waitlist</button>
+  </form>
+</div>
+
+<div class="signup-confirmation" id="confirmation">
+  ✓ On the list. Founding-member slot reserved. We'll email when Schema Doctor Pro ships with your checkout link at $79/mo locked-for-life.
+</div>
+
+<section>
+  <h2>What Schema Doctor Pro does</h2>
+  <ol class="features">
+    <li>
+      <span class="feature-num">1</span>
+      <div class="feature-text">
+        <strong>Auto-generate schema on new pages.</strong>
+        Webhook from your CMS triggers JSON-LD generation based on the page type. New service page? You get Service schema. New blog post? Article schema. New FAQ page? FAQPage schema. Validated against schema.org spec before insertion.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">2</span>
+      <div class="feature-text">
+        <strong>Pre-deploy schema validation.</strong>
+        Integrate Schema Doctor Pro into your build pipeline (GitHub Actions, Vercel, Netlify build hooks). Builds that break schema validation fail before reaching production. No more accidentally shipping malformed JSON-LD because a developer touched the wrong template.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">3</span>
+      <div class="feature-text">
+        <strong>Continuous drift detection.</strong>
+        Daily snapshot of every page's schema markup. Diff against prior. When anything changes — accidentally or because of a CMS update — you get notified before AI engines re-index. Schema regressions caught at the diff layer, not at the citation-position layer 14 days later.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">4</span>
+      <div class="feature-text">
+        <strong>Multi-domain support.</strong>
+        Add up to 10 domains per subscription. Agencies and multi-site operators see all client domains in one dashboard. Per-domain alerts route to per-domain email recipients.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">5</span>
+      <div class="feature-text">
+        <strong>CMS integrations live at launch.</strong>
+        WordPress (plugin auto-installs), Astro (npm package), Next.js (npm package). Webflow and Squarespace integrations follow within 60 days of launch. Custom CMS support via REST webhook.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">6</span>
+      <div class="feature-text">
+        <strong>Validation log + remediation suggestions.</strong>
+        Every validation pass logged with timestamps, diffs, and suggested fixes for any failures. Your developer gets a structured remediation list instead of a vague "schema is broken" alert.
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h2>Citation Watch vs Schema Doctor Pro</h2>
+  <div class="compare">
+    <h3>Citation Watch ($19/mo)</h3>
+    <p>Monitors what AI engines say about your business. Probes Perplexity, ChatGPT search, Claude, Gemini weekly. Tracks citation position. Alerts on drops. Lightweight — one domain, the engines do the work.</p>
+    <p style="margin-top: 12px;"><strong>Choose Citation Watch if:</strong> you have one domain, you want to know what AI engines say about you, you don't need build-pipeline integration.</p>
+
+    <h3 style="margin-top: 24px;">Schema Doctor Pro ($99/mo)</h3>
+    <p>Manages schema as a first-class CMS artifact. Auto-generates JSON-LD for new pages. Validates pre-deploy. Detects drift. Multi-domain. Heavier — for operators who treat schema like code.</p>
+    <p style="margin-top: 12px;"><strong>Choose Schema Doctor Pro if:</strong> you run multiple domains, you have a build pipeline, schema regressions are real risks you want to engineer against.</p>
+
+    <h3 style="margin-top: 24px;">Both?</h3>
+    <p>Citation Watch + Schema Doctor Pro at the same time is the "complete AI search ops" stack. Bundle pricing TBD at Schema Doctor Pro launch — likely $99/mo for the bundle vs $118 unbundled (saving $19/mo by adding Citation Watch as a free tier inside Schema Doctor Pro). Founding-member rates stack: $79/mo Schema Doctor Pro + Citation Watch included.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What this is not</h2>
+  <p>Not a replacement for Citation Watch. Schema Doctor Pro keeps your schema correct; Citation Watch measures whether the AI engines are citing you. Different jobs.</p>
+  <p style="margin-top: 12px;">Not a content writer. Schema Doctor Pro generates SCHEMA for content you've written; it doesn't write the content. For citation-readiness rewrites, see <a href="https://atrium.example" style="color: var(--forge-orange);">Atrium</a>'s GEO Playbook ($79) or GEO Setup service ($2,500).</p>
+  <p style="margin-top: 12px;">Not a CMS. Schema Doctor Pro INTEGRATES with your existing CMS — it does not replace it.</p>
+  <p style="margin-top: 12px;">Not a ranking guarantee. Same as everything we build: correct, citable structure is what we ship; position is a function of your market.</p>
+</section>
+
+<section>
+  <h2>Founding-member math</h2>
+  <p>First 50 subscribers lock in $79/mo for life — that's $240/year savings vs the $99/mo standard. The cap is real; we close it at 50 and standard pricing kicks in.</p>
+  <p style="margin-top: 12px;">Founding members also get: first-priority access to new CMS integrations (Webflow, Squarespace, Shopify add-ons), direct line to Constantine for product feedback, and the right to ship custom integrations as a paid add-on.</p>
+  <p style="margin-top: 12px;">After founding-50 closes: standard $99/mo, no discounts, no urgency tactics.</p>
+</section>
+
+<section>
+  <h2>When does Schema Doctor Pro ship</h2>
+  <p>Target: late Q3 2026. Schema Doctor Pro is more complex than Citation Watch (CMS integrations, build-pipeline hooks, multi-domain dashboards), so ship is 4-8 weeks behind Citation Watch.</p>
+  <p style="margin-top: 12px;">Under timeline compression — and depending on Citation Watch's launch traction — the actual ship may land earlier in Q3 or in Q4.</p>
+</section>
+
+<section>
+  <h2>Who's building this</h2>
+  <p>Built by Forge, the aggressive sibling of <a href="https://atrium.example" style="color: var(--forge-orange);">Atrium</a> in Constantine's two-network architecture. Forge ships subscription-first products for mid-market and enterprise operators. Constantine is the named operator on Forge engagements.</p>
+  <p style="margin-top: 12px;">Schema Doctor Pro is Forge's second subscription product, following Citation Watch ($19/mo). Both ship under the same harness ladder discipline — built when revenue justifies the build, not before.</p>
+</section>
+
+<footer>
+  <p><strong>Schema Doctor Pro by Forge.</strong> Subscription SaaS for operators who treat schema as code.</p>
+  <p style="margin-top: 8px;">Free tool first if you want to see Forge's work without commitment: <a href="https://forge.example/generate">Schema Generator</a>. Continuous monitoring at $19/mo: <a href="https://forge.example/citation-watch">Citation Watch</a>. Patient sibling network: <a href="https://atrium.example">Atrium</a>.</p>
+  <p style="margin-top: 8px;">Privacy: waitlist emails stored for launch notification only. We don't share or sell. Unsubscribe by reply.</p>
+</footer>
+
+</main>
+
+<script>
+function handleSignup(event) {
+  event.preventDefault();
+  const email = document.getElementById('email').value;
+  if (!email || !email.includes('@')) return;
+  // SKELETON: at Forge Rung 2, wire to Substack API for Forge Weekly + dedicated Schema Doctor Pro waitlist
+  document.getElementById('confirmation').style.display = 'block';
+  document.getElementById('email').value = '';
+}
+</script>
+
+</body>
+</html>
