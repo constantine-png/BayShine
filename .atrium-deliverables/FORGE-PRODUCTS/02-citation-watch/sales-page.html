@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Citation Watch — Continuous AI Search Monitoring for Local Service Businesses</title>
+<meta name="description" content="Citation Watch monitors Perplexity, ChatGPT search, Claude, and Gemini against your business queries every week. Catches citation drops in real time. Built by Forge for local service operators serious about AI search visibility.">
+<style>
+  :root {
+    --forge-ink: #0A0A0B;
+    --forge-orange: #FF5630;
+    --forge-paper: #F5F4F1;
+    --forge-grey: #2A2B2D;
+    --forge-rule: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--forge-ink); color: var(--forge-paper); line-height: 1.55; }
+  main { max-width: 760px; margin: 0 auto; padding: 64px 32px 96px; }
+  .brand { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--forge-orange); margin-bottom: 20px; font-weight: 600; }
+  h1 { font-size: 2.8rem; line-height: 1.08; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 28px; }
+  .lede { font-size: 1.2rem; line-height: 1.5; opacity: 0.88; margin-bottom: 40px; max-width: 620px; }
+  .status-banner { background: linear-gradient(135deg, var(--forge-orange), #FF7350); padding: 20px 24px; margin-bottom: 56px; border-radius: 0; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .status-banner strong { color: var(--forge-ink); font-size: 1.1rem; }
+  .status-banner span { color: var(--forge-ink); opacity: 0.85; }
+  .price-block { border-top: 1px solid var(--forge-rule); border-bottom: 1px solid var(--forge-rule); padding: 32px 0; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .price { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.025em; }
+  .price-sub { font-size: 0.95rem; opacity: 0.7; margin-top: 6px; }
+  .waitlist-form { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .waitlist-form input { padding: 14px 16px; background: var(--forge-grey); color: var(--forge-paper); border: 1px solid var(--forge-rule); font-size: 0.95rem; font-family: inherit; min-width: 260px; }
+  .waitlist-form input:focus { outline: 2px solid var(--forge-orange); outline-offset: -1px; border-color: var(--forge-orange); }
+  .cta { padding: 14px 28px; background: var(--forge-orange); color: var(--forge-ink); border: none; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 150ms; font-family: inherit; }
+  .cta:hover { background: #FF7350; }
+  section { margin-bottom: 56px; }
+  h2 { font-size: 1.7rem; margin-bottom: 24px; letter-spacing: -0.015em; font-weight: 700; }
+  ol, ul { padding-left: 24px; }
+  ol li, ul li { margin-bottom: 14px; line-height: 1.5; }
+  .features { list-style: none; padding: 0; }
+  .features li { padding: 20px 0; border-bottom: 1px solid var(--forge-rule); display: flex; gap: 20px; }
+  .features li:last-child { border-bottom: none; }
+  .feature-num { color: var(--forge-orange); font-weight: 700; font-size: 1.2rem; min-width: 28px; font-variant-numeric: tabular-nums; }
+  .feature-text strong { display: block; margin-bottom: 4px; font-weight: 600; }
+  .not-yet { background: var(--forge-grey); padding: 24px; border-left: 3px solid var(--forge-orange); }
+  .not-yet p { margin-bottom: 12px; opacity: 0.85; }
+  .not-yet p:last-child { margin-bottom: 0; }
+  .compare { background: rgba(255,86,48,0.04); padding: 24px; border: 1px solid rgba(255,86,48,0.2); }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .compare-table th, .compare-table td { text-align: left; padding: 10px 8px; font-size: 0.92rem; border-bottom: 1px solid var(--forge-rule); }
+  .compare-table th { font-weight: 600; color: var(--forge-orange); }
+  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--forge-rule); font-size: 0.85rem; opacity: 0.6; }
+  footer a { color: var(--forge-orange); }
+  .signup-confirmation { display: none; padding: 16px; background: rgba(94,225,123,0.1); border: 1px solid rgba(94,225,123,0.3); color: #5EE17B; font-size: 0.9rem; margin-top: 16px; }
+</style>
+</head>
+<body>
+<main>
+
+<div class="brand">Forge · Subscription SaaS</div>
+
+<h1>Citation Watch</h1>
+
+<p class="lede">Continuous AI search monitoring for local service businesses. We probe Perplexity, ChatGPT search, Claude, and Gemini against your business queries every week — and alert you in real time when your citation position drops, when a competitor takes your spot, or when your schema breaks.</p>
+
+<div class="status-banner">
+  <strong>Coming Q3 2026.</strong>
+  <span>The waitlist below is your early-access path. First 100 signups get founding-member pricing locked at $14/mo for life.</span>
+</div>
+
+<div class="price-block">
+  <div>
+    <div class="price">$19/mo</div>
+    <div class="price-sub">Founding members: $14/mo for life (first 100 only). Cancel anytime.</div>
+  </div>
+  <form class="waitlist-form" onsubmit="handleSignup(event)">
+    <input type="email" id="email" placeholder="you@yourdomain.com" required>
+    <button type="submit" class="cta">Join waitlist</button>
+  </form>
+</div>
+
+<div class="signup-confirmation" id="confirmation">
+  ✓ You're on the list. We'll email when Citation Watch ships. No spam — just the launch notification and the founding-member checkout link.
+</div>
+
+<section>
+  <h2>What Citation Watch does</h2>
+  <ol class="features">
+    <li>
+      <span class="feature-num">1</span>
+      <div class="feature-text">
+        <strong>Weekly probe across four AI engines.</strong>
+        We run your 25-40 business queries against Perplexity, ChatGPT search, Claude, and Gemini every week. Results live in your dashboard.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">2</span>
+      <div class="feature-text">
+        <strong>Citation position tracking.</strong>
+        Position 1 vs position 5 vs not cited at all — we track it per (query, engine) pair, week over week, so you see trends, not just snapshots.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">3</span>
+      <div class="feature-text">
+        <strong>Drop alerts in real time.</strong>
+        When your citation position falls more than 2 positions on any tracked query, you get an email within an hour of the probe completing. Same alert if a competitor newly displaces you.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">4</span>
+      <div class="feature-text">
+        <strong>Schema and llms.txt drift detection.</strong>
+        We snapshot your schema markup and llms.txt weekly. When either changes — accidentally or because a developer deployed a regression — you get notified before the AI engines re-index.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">5</span>
+      <div class="feature-text">
+        <strong>Competitor tracking.</strong>
+        Add up to 5 competitors. We probe the same queries against their domains. You see what they're winning that you're not.
+      </div>
+    </li>
+    <li>
+      <span class="feature-num">6</span>
+      <div class="feature-text">
+        <strong>Monthly remediation digest.</strong>
+        First Monday of each month, we email a one-page digest: what changed last month, what the highest-impact fixes are, what the trends suggest you should focus on next.
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h2>What this is not</h2>
+  <div class="not-yet">
+    <p><strong>Not implementation.</strong> Citation Watch tells you what's happening; it doesn't change your site. For one-time implementation, the AI Citation Audit ($499) or full GEO Setup ($2,500) services from <a href="https://atrium.example" style="color: var(--forge-orange);">Atrium</a> do the work.</p>
+    <p><strong>Not a one-time audit.</strong> Continuous monitoring is the differentiation. If you want a snapshot diagnostic, the AI Citation Audit is the right product.</p>
+    <p><strong>Not Schema Doctor Pro.</strong> Schema Doctor Pro ($99/mo, coming later from Forge) adds automated JSON-LD generation for new pages and CMS webhook integrations. Citation Watch is the lighter monitoring tier.</p>
+    <p><strong>Not a ranking guarantee.</strong> We measure what AI engines actually say. Whether your business ranks higher is a function of execution after the data lands.</p>
+  </div>
+</section>
+
+<section>
+  <h2>How Citation Watch fits with the rest of the stack</h2>
+  <div class="compare">
+    <p style="margin-bottom: 16px;">Forge and its sibling network <a href="https://atrium.example" style="color: var(--forge-orange);">Atrium</a> together cover the full AI search visibility lifecycle:</p>
+    <table class="compare-table">
+      <thead>
+        <tr><th>What you need</th><th>Product</th><th>Network</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Generate schema right now</td><td>Schema Generator</td><td>Forge</td><td>Free</td></tr>
+        <tr><td>Schema for 6 verticals (templates)</td><td>Schema Pack v1</td><td>Atrium</td><td>$29</td></tr>
+        <tr><td>llms.txt templates</td><td>llms.txt Pack v1</td><td>Atrium</td><td>$9 ($35 bundled)</td></tr>
+        <tr><td>Full GEO playbook (DIY)</td><td>GEO Playbook v0.5</td><td>Atrium</td><td>$79</td></tr>
+        <tr><td>One-time audit diagnostic</td><td>AI Citation Audit</td><td>Atrium</td><td>$499</td></tr>
+        <tr><td>Full done-for-you setup</td><td>GEO Setup</td><td>Atrium</td><td>$2,500</td></tr>
+        <tr style="background: rgba(255,86,48,0.06);"><td><strong>Continuous monitoring</strong></td><td><strong>Citation Watch</strong></td><td><strong>Forge</strong></td><td><strong>$19/mo</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 16px; opacity: 0.8;">Citation Watch is the recurring layer that catches drift and surfaces opportunities after the one-time work is done.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Why founding-member pricing exists</h2>
+  <p style="margin-bottom: 12px;">The first 100 paying customers help shape what Citation Watch becomes. Founding members get:</p>
+  <ul>
+    <li>$14/mo for life (vs $19/mo standard). Saves $60/year ongoing.</li>
+    <li>First-priority access to new features (competitor tracking expansion, deeper engine coverage, custom alert rules).</li>
+    <li>Direct line to Constantine for product-development feedback. The first 100 customers literally shape the roadmap.</li>
+  </ul>
+  <p style="margin-top: 16px;">When the 100 founding-member slots are gone, pricing reverts to $19/mo standard for everyone.</p>
+</section>
+
+<section>
+  <h2>When does Citation Watch ship</h2>
+  <p>Target launch: Q3 2026 (Forge's Rung 2 trigger — see <a href="https://atrium.example" style="color: var(--forge-orange);">the Atrium coordination doc</a> for the harness ladder details).</p>
+  <p style="margin-top: 12px;">Under timeline compression — and the launch trajectory of Forge's first product, the Schema Generator — the actual launch may land earlier in Q3 or even late Q2. Waitlist signups get the launch notification ahead of the public announcement.</p>
+</section>
+
+<section>
+  <h2>Who's building this</h2>
+  <p>Citation Watch is built by Forge, an aggressive sibling of Atrium operated by Constantine (Pasco County, FL). The two networks share an operator and the discoverability infrastructure but differ in everything else: Atrium ships patient, restrained, one-time products for the SMB market; Forge ships aggressive, subscription-first, mid-market-and-up products.</p>
+  <p style="margin-top: 12px;">Citation Watch is Forge's first SaaS subscription. The Schema Generator (already live, free) is what funnels into it. Forge Weekly (Substack newsletter) is the editorial surface.</p>
+</section>
+
+<footer>
+  <p><strong>Citation Watch by Forge.</strong> A subscription product from the aggressive, named, builder-first network in Constantine's two-network architecture.</p>
+  <p style="margin-top: 8px;">Patient and faceless sibling: <a href="https://atrium.example">Atrium</a>.</p>
+  <p style="margin-top: 8px;">Try the free <a href="https://forge.example/generate">Schema Generator</a> first if you want to see Forge's work without a commitment.</p>
+  <p style="margin-top: 8px;">Privacy: waitlist emails are stored only for launch notification. We do not share or sell. Unsubscribe by reply.</p>
+</footer>
+
+</main>
+
+<script>
+function handleSignup(event) {
+  event.preventDefault();
+  const email = document.getElementById('email').value;
+  if (!email || !email.includes('@')) return;
+  // SKELETON: at Forge Rung 2, wire to Substack API for Forge Weekly + a dedicated Citation Watch list
+  // Until then, log and show confirmation
+  document.getElementById('confirmation').style.display = 'block';
+  document.getElementById('email').value = '';
+  // Track signup count to display "X of 100 founding-member slots remaining" once Substack API is wired
+}
+</script>
+
+</body>
+</html>
