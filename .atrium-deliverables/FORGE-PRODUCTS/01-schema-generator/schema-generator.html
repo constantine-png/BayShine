@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schema Generator for Local Service Businesses — Forge</title>
+<meta name="description" content="Generate validated JSON-LD schema for your local service business in 60 seconds. Free. Pick your vertical, fill the form, paste the result into your site.">
+<style>
+  :root {
+    --forge-ink: #0A0A0B;
+    --forge-orange: #FF5630;
+    --forge-paper: #F5F4F1;
+    --forge-grey: #2A2B2D;
+    --forge-rule: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--forge-ink);
+    color: var(--forge-paper);
+    line-height: 1.5;
+  }
+  header { padding: 48px 32px 32px; max-width: 1100px; margin: 0 auto; }
+  .brand { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--forge-orange); margin-bottom: 16px; font-weight: 600; }
+  h1 { font-size: 2.4rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .lede { font-size: 1.1rem; max-width: 640px; opacity: 0.85; line-height: 1.5; }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--forge-grey); padding: 24px; border: 1px solid var(--forge-rule); }
+  .panel h2 { font-size: 1.1rem; margin-bottom: 20px; letter-spacing: -0.005em; }
+  .form-row { margin-bottom: 16px; }
+  .form-row label { display: block; font-size: 0.85rem; margin-bottom: 6px; opacity: 0.75; font-weight: 500; }
+  .form-row input, .form-row select { width: 100%; padding: 10px 12px; background: var(--forge-ink); color: var(--forge-paper); border: 1px solid var(--forge-rule); font-size: 0.95rem; font-family: inherit; }
+  .form-row input:focus, .form-row select:focus { outline: 2px solid var(--forge-orange); outline-offset: -1px; border-color: var(--forge-orange); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .actions { display: flex; gap: 12px; margin-top: 20px; }
+  button { padding: 12px 20px; background: var(--forge-orange); color: var(--forge-ink); border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 150ms; font-family: inherit; }
+  button:hover { background: #FF7350; }
+  button.secondary { background: var(--forge-grey); color: var(--forge-paper); border: 1px solid var(--forge-rule); }
+  button.secondary:hover { background: var(--forge-rule); }
+  pre { background: var(--forge-ink); border: 1px solid var(--forge-rule); padding: 16px; font-size: 0.8rem; line-height: 1.5; overflow-x: auto; min-height: 400px; max-height: 600px; font-family: "SF Mono", Monaco, "Cascadia Code", Consolas, monospace; white-space: pre-wrap; word-break: break-word; }
+  .status { font-size: 0.85rem; margin-top: 12px; opacity: 0.7; }
+  .status.valid { color: #5EE17B; }
+  .status.invalid { color: #FF6B5C; }
+  .upsell { background: linear-gradient(135deg, var(--forge-orange), #FF7350); padding: 24px; margin-top: 24px; border-radius: 0; }
+  .upsell h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--forge-ink); font-weight: 700; }
+  .upsell p { color: var(--forge-ink); opacity: 0.85; margin-bottom: 12px; font-size: 0.9rem; line-height: 1.5; }
+  .upsell a { display: inline-block; padding: 10px 20px; background: var(--forge-ink); color: var(--forge-paper); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  .upsell a:hover { background: #1A1B1D; }
+  footer { padding: 32px; max-width: 1100px; margin: 0 auto; font-size: 0.8rem; opacity: 0.5; border-top: 1px solid var(--forge-rule); }
+  footer a { color: var(--forge-orange); }
+  .email-gate { margin-top: 20px; padding: 16px; background: rgba(255,86,48,0.08); border: 1px solid rgba(255,86,48,0.2); }
+  .email-gate label { font-size: 0.85rem; margin-bottom: 8px; display: block; }
+  .email-gate input[type="email"] { padding: 8px 12px; font-size: 0.9rem; width: 100%; max-width: 280px; background: var(--forge-ink); color: var(--forge-paper); border: 1px solid var(--forge-rule); margin-right: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Forge · Free Tool</div>
+  <h1>Schema Generator for Local Service Businesses</h1>
+  <p class="lede">Generate validated JSON-LD schema for your local service business in 60 seconds. Pick your vertical, fill the form, copy the result into your site's head. No signup required — but if you want the result emailed plus weekly updates, the email gate is at the bottom.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Your business</h2>
+
+    <div class="form-row">
+      <label for="vertical">Vertical</label>
+      <select id="vertical">
+        <option value="AutoWash-detailing">Mobile auto detailing</option>
+        <option value="HomeAndConstructionBusiness-pressure">Pressure washing</option>
+        <option value="AutoWash-carwash">Mobile car wash</option>
+        <option value="HVACBusiness">HVAC</option>
+        <option value="Plumber">Plumbing</option>
+        <option value="RoofingContractor">Roofing</option>
+        <option value="Electrician">Electrical</option>
+        <option value="PestControl">Pest control</option>
+        <option value="LandscapeService">Landscaping</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="name">Business name</label>
+      <input id="name" type="text" placeholder="BayShine Detailing" value="BayShine Detailing">
+    </div>
+
+    <div class="form-row">
+      <label for="url">Website URL</label>
+      <input id="url" type="url" placeholder="https://bayshine.net" value="https://bayshine.net">
+    </div>
+
+    <div class="form-row">
+      <label for="phone">Phone (international format)</label>
+      <input id="phone" type="tel" placeholder="+1 727 555 0100" value="+1 727 555 0100">
+    </div>
+
+    <div class="form-row">
+      <label for="street">Street address</label>
+      <input id="street" type="text" placeholder="1234 Main St" value="1234 Main St">
+    </div>
+
+    <div class="grid-2">
+      <div class="form-row">
+        <label for="city">City</label>
+        <input id="city" type="text" placeholder="Wesley Chapel" value="Wesley Chapel">
+      </div>
+      <div class="form-row">
+        <label for="state">State</label>
+        <input id="state" type="text" placeholder="FL" value="FL" maxlength="2">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-row">
+        <label for="zip">ZIP code</label>
+        <input id="zip" type="text" placeholder="33543" value="33543">
+      </div>
+      <div class="form-row">
+        <label for="country">Country code</label>
+        <input id="country" type="text" placeholder="US" value="US" maxlength="2">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-row">
+        <label for="lat">Latitude</label>
+        <input id="lat" type="number" step="0.0001" placeholder="28.2335" value="28.2335">
+      </div>
+      <div class="form-row">
+        <label for="lon">Longitude</label>
+        <input id="lon" type="number" step="0.0001" placeholder="-82.3265" value="-82.3265">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-row">
+        <label for="radius">Service radius (miles)</label>
+        <input id="radius" type="number" placeholder="25" value="25">
+      </div>
+      <div class="form-row">
+        <label for="pricelow">Price range — low ($)</label>
+        <input id="pricelow" type="number" placeholder="89" value="89">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label for="pricehigh">Price range — high ($)</label>
+      <input id="pricehigh" type="number" placeholder="1295" value="1295">
+    </div>
+
+    <div class="actions">
+      <button onclick="generateSchema()">Generate JSON-LD</button>
+      <button class="secondary" onclick="copyOutput()">Copy</button>
+      <button class="secondary" onclick="downloadOutput()">Download</button>
+    </div>
+
+    <div class="email-gate">
+      <label for="email">Email me the result + weekly AI search updates (optional)</label>
+      <input id="email" type="email" placeholder="you@yourdomain.com">
+      <button onclick="captureEmail()" style="margin-top: 8px;">Subscribe + email me</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>JSON-LD output</h2>
+    <pre id="output"><span style="opacity: 0.5;">Fill in the form, click Generate JSON-LD. The output appears here.</span></pre>
+    <div id="status" class="status"></div>
+
+    <div class="upsell">
+      <h3>Want this auto-deployed and continuously validated?</h3>
+      <p>Citation Watch monitors your schema across deploys, catches drift in real time, runs weekly AI-engine probes against your queries, and alerts on citation drops. $19/mo. Cancel anytime.</p>
+      <a href="https://forge.example/citation-watch">See Citation Watch →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Forge</strong> · A tool from a network of aggressive, named, builder-first projects. Built by Constantine in Pasco County, FL.</p>
+  <p style="margin-top: 8px;">Patient and faceless rival: <a href="https://atrium.example">Atrium</a>. Same operator. Different strategy.</p>
+  <p style="margin-top: 8px;">Privacy: no tracking unless you opt in via the email gate. Email captures join Forge Weekly (Substack); unsubscribe anytime from any issue.</p>
+</footer>
+
+<script>
+const verticalConfig = {
+  "AutoWash-detailing": {
+    type: "AutoWash",
+    serviceName: "Mobile auto detailing",
+    serviceDescription: "On-location auto detailing including exterior wash, interior cleaning, paint correction, and ceramic coating. We bring water and power to your driveway, office parking lot, or apartment complex.",
+    faqs: [
+      { q: "How long does ceramic coating last on a vehicle?", a: "Professional ceramic coating typically lasts 2 to 5 years depending on the product layer count, the substrate prep quality, and how the vehicle is maintained. Single-layer consumer-grade coatings last 12 to 18 months; multi-layer professional coatings reach 5 to 7 years with proper maintenance washes every 4 to 6 weeks." },
+      { q: "What is the difference between a wash and a detail?", a: "A wash removes surface dirt and contaminants in 30 to 60 minutes. A detail is a complete restoration: hand wash, decontamination, interior vacuum and clean, leather and plastic conditioning, window cleaning, tire dressing, and wax or sealant. A full detail takes 3 to 6 hours; a wash takes 30 to 60 minutes." },
+      { q: "Do mobile detailers need water and electricity at my location?", a: "Most professional mobile detailers bring their own water tank (40 to 100 gallons) and a battery or generator-powered system. We do not require water or electricity from your location. We do need open space around the vehicle, ideally on a flat shaded surface." },
+      { q: "Can mobile detailers come to apartment complexes?", a: "Yes, with one consideration: some apartment complexes require a permit or advance notice for commercial vehicle service. Check with your property manager. We can provide proof of insurance if required." },
+      { q: "How much does mobile auto detailing cost?", a: "Mobile detailing pricing ranges from $89 for a standard exterior wash and wax to $1,295 for a full multi-day paint correction and ceramic coating. The most common service tier is a full interior and exterior detail at $189 to $349. Estimates are typically free over the phone or by photo." }
+    ]
+  },
+  "HomeAndConstructionBusiness-pressure": {
+    type: "HomeAndConstructionBusiness",
+    serviceName: "Pressure washing and soft washing",
+    serviceDescription: "Exterior pressure washing and soft washing for residential and commercial properties. House siding, driveways, sidewalks, decks, fences, roofs (soft wash), and commercial storefronts.",
+    faqs: [
+      { q: "How much does pressure washing a house cost?", a: "Pressure washing a single-story house typically costs $150 to $400. A two-story house ranges $300 to $700. Driveway washing alone ranges $80 to $200. Pricing depends on square footage, height, accessibility, and mildew buildup." },
+      { q: "Is pressure washing safe for roof shingles?", a: "High-pressure washing is not safe for shingle roofs and can void roof warranties. Roofs require soft washing: low pressure (under 500 PSI) plus a sodium hypochlorite or non-chlorine biocide solution." },
+      { q: "What is the difference between pressure washing and soft washing?", a: "Pressure washing uses 2,000 to 4,000 PSI of water to mechanically remove dirt from durable surfaces. Soft washing uses under 500 PSI plus a cleaning solution to chemically remove biological growth from delicate surfaces." },
+      { q: "Do I need to be home during pressure washing?", a: "Not usually for exterior work. We need access to one outdoor water spigot if not bringing our own tank, and a clear work area. For driveways, move vehicles before the appointment. For house washing, close windows." },
+      { q: "How often should I have my house pressure washed?", a: "Once per year is standard in humid climates. Roofs benefit from soft washing every 18 to 24 months in humid climates to prevent algae streaking. Driveways can be done annually or as needed." }
+    ]
+  },
+  "AutoWash-carwash": {
+    type: "AutoWash",
+    serviceName: "Mobile car wash and express detailing",
+    serviceDescription: "Express car wash service brought to your location. Hand wash, hand dry, tire dressing, and window cleaning. Faster than a full detail; less expensive than a tunnel wash.",
+    faqs: [
+      { q: "How much does a mobile car wash cost?", a: "A mobile car wash typically costs $35 to $75 for a standard sedan or SUV. Trucks and larger vehicles range $55 to $95. Subscription tiers for weekly or biweekly service typically discount 15 to 25 percent off single-visit pricing." },
+      { q: "What is the difference between a mobile car wash and a full detail?", a: "A mobile car wash is express: exterior wash, hand dry, tire dressing, basic window clean. Takes 30 to 45 minutes. A full detail adds interior vacuum, surface clean, leather conditioning, paint decontamination, and wax. Takes 3 to 5 hours and costs 3 to 5 times more." },
+      { q: "Do mobile car wash services bring their own water?", a: "Reputable mobile car wash operations carry their own water tank (40 to 100 gallons) and 12-volt or generator-powered pressure systems. We do not require water from your location. We do need 8 to 10 feet of clear space around the vehicle." },
+      { q: "Can mobile car wash service operate in apartment complexes?", a: "Most apartment complexes allow mobile car wash service in resident parking spaces. Some larger complexes require a permit or proof of insurance. Check with your leasing office before booking." },
+      { q: "How often should I have my car washed?", a: "Every 2 weeks is recommended for daily drivers in humid or coastal climates. Every 3 to 4 weeks is acceptable in temperate climates. Garage-kept vehicles can stretch to 6 weeks." }
+    ]
+  },
+  "HVACBusiness": {
+    type: "HVACBusiness",
+    serviceName: "HVAC installation, repair, and maintenance",
+    serviceDescription: "Residential and light-commercial HVAC service. Air conditioning repair, furnace repair, heat pump installation, ductwork, indoor air quality, and seasonal maintenance. EPA 608 certified technicians.",
+    faqs: [
+      { q: "How much does it cost to replace an HVAC system?", a: "A full HVAC replacement for a typical 1,500 to 2,000 square foot home ranges $5,500 to $12,000 installed. Heat pump systems and higher SEER2 ratings cost more, between $9,000 and $18,000. Most installers offer 0% financing." },
+      { q: "How often should HVAC systems be serviced?", a: "Twice per year. Spring AC tune-up and fall heating tune-up. Annual service plans cost $150 to $300 and include both seasons plus priority emergency service." },
+      { q: "What is the difference between SEER and SEER2?", a: "SEER2 is the updated efficiency rating standard adopted January 2023. SEER2 uses more realistic conditions, so SEER2 ratings run about 4 to 5 percent lower than old SEER ratings despite identical performance." },
+      { q: "Should I repair or replace an old HVAC system?", a: "The 5,000 rule: multiply repair cost by system age in years. If over 5,000, replacement is better. Systems older than 12 years almost always lean toward replacement; systems under 8 years lean toward repair." },
+      { q: "Why is my AC running but not cooling?", a: "Common causes: dirty air filter, frozen evaporator coil, failed capacitor, refrigerant leak, or thermostat issue. Turn the system off if you see ice and call for service." }
+    ]
+  },
+  "Plumber": {
+    type: "Plumber",
+    serviceName: "Residential and commercial plumbing",
+    serviceDescription: "Licensed plumbing for residential and commercial properties. Drain cleaning, water heaters, leak detection, sewer lines, fixtures, and 24/7 emergency response.",
+    faqs: [
+      { q: "How much does a plumber cost per hour?", a: "Residential plumber rates range $75 to $200 per hour. Emergency or after-hours adds 50 to 100 percent. Standard drain clearing runs $150 to $350. Water heater install $1,200 to $3,500." },
+      { q: "How long does a water heater last?", a: "Tank water heaters last 8 to 12 years. Tankless lasts 15 to 20 years. Hard-water areas shorten life unless flushed annually." },
+      { q: "Is a tankless water heater worth the cost?", a: "Tankless costs $2,500 to $5,500 installed versus $1,200 to $2,500 for tank. Tankless lasts 1.5 to 2 times longer and uses 24 to 34 percent less energy. Payback at year 8 to 10 in households with 2 to 4 occupants." },
+      { q: "What causes low water pressure throughout the house?", a: "Common causes: failed pressure regulator, corrosion in galvanized supply lines, closed main valve, or municipal supply issue. Healthy systems read 40 to 80 PSI at the outdoor hose bib." },
+      { q: "Do plumbers fix gas line issues?", a: "Licensed plumbers in most US states are also licensed for natural gas and propane. Gas water heater connections, gas stoves, gas furnace tie-ins. If you smell gas, leave and call your utility's emergency line first." }
+    ]
+  },
+  "RoofingContractor": {
+    type: "RoofingContractor",
+    serviceName: "Residential and commercial roofing",
+    serviceDescription: "Licensed and insured roofing. Replacement, repair, inspection, gutter work, storm damage assessment. GAF or Owens Corning certified.",
+    faqs: [
+      { q: "How much does a new roof cost?", a: "New asphalt shingle roof for a 2,000 sq ft home: $9,000 to $18,000. Architectural shingles $11,000 to $22,000. Metal $18,000 to $35,000. Tile $25,000 to $55,000." },
+      { q: "How long does a roof last?", a: "Asphalt 3-tab: 15 to 20 years. Architectural shingles: 25 to 30 years. Metal: 40 to 70 years. Tile: 50+ years. Lifespan is shorter in high-UV climates." },
+      { q: "Will homeowner insurance cover a new roof?", a: "Insurance covers replacement when damage is caused by a covered peril (hail, wind, fallen tree), not wear. After 2020 many insurers in coastal states offer only depreciated payouts on roofs over 10-15 years old." },
+      { q: "How long does it take to install a new roof?", a: "Standard asphalt shingle replacement on a 2,000 sq ft single-story: 1 to 2 days. Architectural or two-story: 2 to 3 days. Metal: 3 to 5 days. Tile: 5 to 10 days." },
+      { q: "Should I repair or replace my roof?", a: "Repair when damage is localized (under 100 sq ft) and the roof is less than half its expected lifespan. Replace when damage exceeds 25 percent, shingles are curling or cracking, or granules accumulating in gutters." }
+    ]
+  },
+  "Electrician": {
+    type: "Electrician",
+    serviceName: "Residential and commercial electrical",
+    serviceDescription: "Licensed electrical service. Panel upgrades, wiring, outlet and switch installation, generator install, EV charger install, and emergency service.",
+    faqs: [
+      { q: "How much does an electrician cost?", a: "Residential electrician rates range $75 to $150 per hour. Service call minimum $90 to $200. Panel upgrade $1,500 to $4,000. EV charger install $400 to $1,500." },
+      { q: "Do I need to upgrade from 100-amp to 200-amp service?", a: "Upgrade if you have multiple HVAC units, EV charger, hot tub, or large appliances. Most modern homes need 200-amp; older 100-amp panels limit new additions and may fail inspection during renovation." },
+      { q: "How often do GFCI outlets need to be tested?", a: "Monthly. Press the test button; the reset should pop. If not, the GFCI is failing and needs replacement. GFCIs are required by code in kitchens, bathrooms, garages, and outdoor outlets." },
+      { q: "What size generator do I need for my house?", a: "A small portable generator (3,500 to 7,500 watts) powers essentials. A whole-house standby generator (14 to 26 kW) powers everything. Sizing depends on what you want to run during outages." },
+      { q: "How much does an EV charger installation cost?", a: "Level 2 EV charger installation costs $400 to $1,500 depending on panel capacity, distance from panel, and whether a dedicated circuit needs to be added. Many utilities offer rebates." }
+    ]
+  },
+  "PestControl": {
+    type: "PestControl",
+    serviceName: "Residential and commercial pest control",
+    serviceDescription: "Licensed pest control. Recurring quarterly service, one-time treatments, termite inspection and treatment, mosquito control, rodent exclusion.",
+    faqs: [
+      { q: "How much does pest control cost?", a: "Recurring quarterly service: $40 to $90 per visit. One-time treatment: $150 to $400. Termite treatment: $500 to $2,500. Mosquito control monthly: $80 to $200." },
+      { q: "How often does pest control need to be done?", a: "Quarterly is standard for residential preventive service. Termite inspection annually. Mosquito control monthly during the active season. Rodent exclusion is a one-time project plus monitoring." },
+      { q: "Is pest control safe for pets and children?", a: "Modern pest control treatments are typically pet-safe and child-safe when dry (usually 30 to 60 minutes after application). Specific products vary; ask the technician for the product label." },
+      { q: "How do I know if I have termites?", a: "Warning signs: mud tubes on foundation walls, hollow-sounding wood, swarmer wings near windows, damaged wood with rippled patterns. Annual termite inspections catch infestations early." },
+      { q: "How long does it take to get rid of bed bugs?", a: "Bed bug eradication typically requires 2 to 3 treatments over 4 to 6 weeks. Heat treatments (140-145°F) can eliminate in 1 treatment but cost more ($1,500 to $3,500)." }
+    ]
+  },
+  "LandscapeService": {
+    type: "LandscapeService",
+    serviceName: "Landscape design, installation, and maintenance",
+    serviceDescription: "Landscape design and installation, weekly lawn maintenance, irrigation install and repair, hardscape, tree and shrub planting, seasonal cleanup.",
+    faqs: [
+      { q: "How much does landscaping cost?", a: "Weekly lawn maintenance: $30 to $80 per visit. Landscape design: $500 to $5,000 depending on scope. Full landscape installation: $5,000 to $50,000+. Irrigation install: $2,500 to $7,500 for a residential yard." },
+      { q: "When is the best time to plant a tree?", a: "Fall is ideal in most US climates (mid-September to mid-November) because cooler temperatures and adequate rain reduce stress. Spring is second-best. Avoid summer heat and winter freeze." },
+      { q: "How often should I water my lawn?", a: "Established lawns: 1 inch per week (rain + irrigation combined), typically two 30-minute deep waterings. New sod: daily for the first 2 weeks, tapering. Adjust for climate and grass type." },
+      { q: "What's the difference between sod and seed?", a: "Sod is instant lawn at $0.40 to $1.50 per square foot installed; ready to use in 2 to 3 weeks. Seed is $0.10 to $0.30 per square foot; takes 6 to 8 weeks to establish and is more vulnerable to weather." },
+      { q: "Do I need a permit for landscape work?", a: "Most planting and lawn work doesn't require a permit. Tree removal, hardscape (driveway, retaining walls over 4 feet), and irrigation involving water-line tie-ins often do. Check local rules." }
+    ]
+  }
+};
+
+function generateSchema() {
+  const verticalKey = document.getElementById('vertical').value;
+  const config = verticalConfig[verticalKey];
+  const name = document.getElementById('name').value || '{{BUSINESS_NAME}}';
+  const url = document.getElementById('url').value || '{{BUSINESS_URL}}';
+  const phone = document.getElementById('phone').value || '{{PHONE}}';
+  const street = document.getElementById('street').value || '{{STREET}}';
+  const city = document.getElementById('city').value || '{{CITY}}';
+  const state = document.getElementById('state').value || '{{STATE}}';
+  const zip = document.getElementById('zip').value || '{{ZIP}}';
+  const country = document.getElementById('country').value || 'US';
+  const lat = parseFloat(document.getElementById('lat').value) || 0;
+  const lon = parseFloat(document.getElementById('lon').value) || 0;
+  const radius = document.getElementById('radius').value || '25';
+  const priceLow = document.getElementById('pricelow').value || '0';
+  const priceHigh = document.getElementById('pricehigh').value || '0';
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": config.type,
+        "@id": url + "/#business",
+        "name": name,
+        "url": url,
+        "telephone": phone,
+        "priceRange": "$" + priceLow + "-$" + priceHigh,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": street,
+          "addressLocality": city,
+          "addressRegion": state,
+          "postalCode": zip,
+          "addressCountry": country
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": lat,
+          "longitude": lon
+        },
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": lat,
+            "longitude": lon
+          },
+          "geoRadius": radius + " mi"
+        },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "16:00" }
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": url + "/#primary-service",
+        "serviceType": config.serviceName,
+        "name": config.serviceName,
+        "description": config.serviceDescription,
+        "provider": { "@id": url + "/#business" },
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": lat,
+            "longitude": lon
+          },
+          "geoRadius": radius + " mi"
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "minPrice": priceLow,
+            "maxPrice": priceHigh,
+            "priceCurrency": "USD"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": url + "/#faq",
+        "mainEntity": config.faqs.map(faq => ({
+          "@type": "Question",
+          "name": faq.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.a
+          }
+        }))
+      }
+    ]
+  };
+
+  const output = JSON.stringify(schema, null, 2);
+  const wrapped = '<script type="application/ld+json">\n' + output + '\n</' + 'script>';
+  document.getElementById('output').textContent = wrapped;
+
+  // Mark as valid (this is structural only; full validation happens at schema.org)
+  const status = document.getElementById('status');
+  status.textContent = '✓ Generated. Validate at schema.org/validator or Google Rich Results Test before deploying.';
+  status.className = 'status valid';
+}
+
+function copyOutput() {
+  const output = document.getElementById('output').textContent;
+  if (!output || output.startsWith('Fill in')) {
+    alert('Generate the schema first.');
+    return;
+  }
+  navigator.clipboard.writeText(output).then(() => {
+    const status = document.getElementById('status');
+    status.textContent = '✓ Copied to clipboard. Paste into your site\'s <head>.';
+    status.className = 'status valid';
+  }, () => {
+    alert('Copy failed. Select the text manually and copy.');
+  });
+}
+
+function downloadOutput() {
+  const output = document.getElementById('output').textContent;
+  if (!output || output.startsWith('Fill in')) {
+    alert('Generate the schema first.');
+    return;
+  }
+  const vertical = document.getElementById('vertical').value;
+  const filename = 'schema-' + vertical.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.html';
+  const blob = new Blob([output], { type: 'text/html' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
+
+function captureEmail() {
+  const email = document.getElementById('email').value;
+  if (!email || !email.includes('@')) {
+    alert('Enter a valid email.');
+    return;
+  }
+  // SKELETON: Forge production wires this to Substack API or to a Beehiiv-equivalent
+  // For now, log and show a confirmation.
+  alert('Subscribed: ' + email + '. The generated JSON-LD will also be emailed once Forge wires the API at Rung 2.');
+}
+
+// Generate on page load with default values
+window.addEventListener('DOMContentLoaded', () => {
+  generateSchema();
+});
+</script>
+
+</body>
+</html>
