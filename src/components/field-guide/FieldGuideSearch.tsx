@@ -217,13 +217,17 @@ export default function FieldGuideSearch({ captureSource = 'field-guide' }: Prop
           </p>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
             {results.map(r => (
-              <div
+              <a
                 key={r.slug}
+                href={`/field-guide/${r.slug}`}
                 style={{
+                  display: 'block',
                   padding: '18px 20px',
                   background: G.surface,
                   border: `1px solid ${G.border}`,
                   borderLeft: `3px solid ${SEVERITY_COLOR[r.severity]}`,
+                  textDecoration: 'none',
+                  transition: 'border-color 150ms ease-out',
                 }}
               >
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap' as const }}>
@@ -259,7 +263,7 @@ export default function FieldGuideSearch({ captureSource = 'field-guide' }: Prop
                 <p style={{
                   fontSize: '13px',
                   color: G.muted,
-                  margin: '0 0 10px',
+                  margin: '0 0 8px',
                   lineHeight: 1.55,
                 }}>
                   {r.problem.length > 120 ? r.problem.slice(0, 120) + '…' : r.problem}
@@ -267,13 +271,12 @@ export default function FieldGuideSearch({ captureSource = 'field-guide' }: Prop
                 <span style={{
                   fontFamily: 'var(--font-family-mono)',
                   fontSize: '10px',
-                  color: G.accentDim,
+                  color: G.accent,
                   letterSpacing: '0.08em',
-                  textTransform: 'uppercase' as const,
                 }}>
-                  Full scenario coming soon
+                  Read scenario →
                 </span>
-              </div>
+              </a>
             ))}
           </div>
         </div>

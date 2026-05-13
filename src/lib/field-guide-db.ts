@@ -41,6 +41,62 @@ export async function getCategories(): Promise<CategoryRow[]> {
   }
 }
 
+export interface ScenarioDetail {
+  slug: string;
+  title: string;
+  problem: string;
+  synopsis: string;
+  severity: 'quick-fix' | 'moderate' | 'advanced';
+  category_slug: string;
+  category_name: string;
+  published_at: string | null;
+}
+
+export async function getScenario(slug: string): Promise<ScenarioDetail | null> {
+  const sql = getDb();
+  if (!sql) return null;
+  try {
+    const rows = await sql`
+      SELECT s.slug, s.title, s.problem, s.synopsis, s.severity,
+             s.published_at::text AS published_at,
+             c.slug AS category_slug, c.name AS category_name
+      FROM scenarios s
+      JOIN categories c ON c.id = s.category_id
+      WHERE s.slug = ${slug}
+        AND s.published = true
+        AND s.tier = 'public'
+      LIMIT 1
+    ` as ScenarioDetail[];
+    return rows[0] ?? null;
+  } catch (err) {
+    console.error('[field-guide-db] getScenario failed:', err);
+    return null;
+  }
+}
+
+export async function getRelatedScenarios(currentSlug: string, categorySlug: string): Promise<ScenarioDetail[]> {
+  const sql = getDb();
+  if (!sql) return [];
+  try {
+    const rows = await sql`
+      SELECT s.slug, s.title, s.severity,
+             c.slug AS category_slug, c.name AS category_name,
+             '' AS problem, '' AS synopsis, null AS published_at
+      FROM scenarios s
+      JOIN categories c ON c.id = s.category_id
+      WHERE c.slug = ${categorySlug}
+        AND s.slug != ${currentSlug}
+        AND s.published = true
+        AND s.tier = 'public'
+      LIMIT 3
+    ` as ScenarioDetail[];
+    return rows;
+  } catch (err) {
+    console.error('[field-guide-db] getRelatedScenarios failed:', err);
+    return [];
+  }
+}
+
 export async function insertQuery(opts: {
   query_text: string;
   email?: string;
