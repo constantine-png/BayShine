@@ -21,9 +21,11 @@ read as ongoing momentum.
 | 1 | Day 10 | Schema Pack v1 launch — tertiary | r/LocalSEO | Constantine |
 | 2 | Day 14 (Tue) | Cited Weekly Issue 001 publishes | Beehiiv (free + paid tiers dark) | Constantine |
 | 2 | Day 14 (Tue evening) | Schema Pack v1 X thread | X / Twitter | Constantine |
+| 2 | Day 14 | Schema Pack v1.5 goes live on Gumroad (no launch post yet — quiet list) | Gumroad | Constantine |
 | 2 | Day 16 (Thu) | llms.txt Pack v1 launch | IndieHackers | Constantine |
-| 2 | Day 17 | llms.txt Pack v1 + bundle CTA | r/SEO, X | Constantine |
-| 3 | Day 21 (Tue) | Cited Weekly Issue 002 publishes (cross-mentions both packs + Bundle) | Beehiiv | Constantine |
+| 2 | Day 17 | llms.txt Pack v1 + bundle ($45 v1.5+llms.txt) CTA | r/SEO, X | Constantine |
+| 2 | Day 18 | Schema Pack v1.5 launch post — expansion to 9 verticals | IndieHackers, r/LocalSEO | Constantine |
+| 3 | Day 21 (Tue) | Cited Weekly Issue 002 publishes (Schema Pack v1.5 first 7 days + both packs + Bundle) | Beehiiv | Constantine |
 | 3 | Day 23 (Thu) | GEO Setup productized service launch | IndieHackers + X | Constantine |
 | 3 | Day 24 | GEO Setup r/SmallBusiness | r/SmallBusiness | Constantine |
 | 4 | Day 28 (Tue) | Cited Weekly Issue 003 publishes (mentions GEO Setup) | Beehiiv | Constantine |
@@ -37,7 +39,9 @@ read as ongoing momentum.
 
 **Schema Pack v1 first** because it's the lowest price ($29), the smallest commitment, and the most-shareable artifact. A first sale at $29 is statistically more likely than a first sale at $499 or $2,500, and the first sale validates everything.
 
-**llms.txt Pack second** because it pairs with Schema Pack (Bundle SKU at $35 cross-sells immediately to Schema Pack v1 buyers) and because it's the second-lowest entry-point.
+**Schema Pack v1.5 goes live Day 14 without a launch post** so that when Issue 002 covers "v1.5 first 7 days" on Day 21, the product has been live for exactly 7 days. The v1.5 launch post on Day 18 rides the llms.txt momentum from Day 16-17 and introduces the 9-vertical expansion to the audience already seeing both products.
+
+**llms.txt Pack second (Day 16)** because it pairs with Schema Pack (Bundle SKU cross-sells immediately to Schema Pack v1 and v1.5 buyers) and is the second-lowest entry-point. The new Bundle SKU (v1.5 + llms.txt at $45) is promoted Day 17 as the expanded-catalog value bundle.
 
 **Cited Weekly issues anchor the cadence** between product launches. Each issue cross-promotes the most-recently-launched product, building the audience that makes the next launch land.
 

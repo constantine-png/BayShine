@@ -180,7 +180,7 @@
 <footer>
   <p><strong>Forge</strong> · A tool from a network of aggressive, named, builder-first projects. Built by Constantine in Pasco County, FL.</p>
   <p style="margin-top: 8px;">Patient and faceless rival: <a href="https://atrium.example">Atrium</a>. Same operator. Different strategy.</p>
-  <p style="margin-top: 8px;">Privacy: no tracking unless you opt in via the email gate. Email captures join Forge Weekly (Substack); unsubscribe anytime from any issue.</p>
+  <p style="margin-top: 8px;">Privacy: no tracking unless you opt in via the email gate. Email captures join Forge Weekly (Substack); unsubscribe anytime from any issue. <a href="/terms" style="color: var(--forge-orange);">Terms &amp; Privacy</a>.</p>
 </footer>
 
 <script>
@@ -298,13 +298,13 @@ const verticalConfig = {
 function generateSchema() {
   const verticalKey = document.getElementById('vertical').value;
   const config = verticalConfig[verticalKey];
-  const name = document.getElementById('name').value || '{{BUSINESS_NAME}}';
-  const url = document.getElementById('url').value || '{{BUSINESS_URL}}';
-  const phone = document.getElementById('phone').value || '{{PHONE}}';
-  const street = document.getElementById('street').value || '{{STREET}}';
-  const city = document.getElementById('city').value || '{{CITY}}';
-  const state = document.getElementById('state').value || '{{STATE}}';
-  const zip = document.getElementById('zip').value || '{{ZIP}}';
+  const name = document.getElementById('name').value || 'BayShine Detailing';
+  const url = document.getElementById('url').value || 'https://bayshine.net';
+  const phone = document.getElementById('phone').value || '+1 727 555 0100';
+  const street = document.getElementById('street').value || '1234 Main St';
+  const city = document.getElementById('city').value || 'Wesley Chapel';
+  const state = document.getElementById('state').value || 'FL';
+  const zip = document.getElementById('zip').value || '33543';
   const country = document.getElementById('country').value || 'US';
   const lat = parseFloat(document.getElementById('lat').value) || 0;
   const lon = parseFloat(document.getElementById('lon').value) || 0;
