@@ -1,0 +1,29 @@
+---
+export const prerender = false;
+
+import { getDb } from '@/lib/db';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/field-guide');
+
+const sql = getDb();
+let affiliateUrl: string | null = null;
+
+if (sql) {
+  try {
+    const rows = await sql`
+      UPDATE products
+      SET click_count = click_count + 1
+      WHERE slug = ${slug} AND active = true
+      RETURNING affiliate_url
+    ` as Array<{ affiliate_url: string }>;
+    affiliateUrl = rows[0]?.affiliate_url ?? null;
+  } catch (err) {
+    console.error('[go] click tracking failed:', err);
+  }
+}
+
+if (!affiliateUrl) return Astro.redirect('/field-guide');
+
+return Astro.redirect(affiliateUrl, 302);
+---

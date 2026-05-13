@@ -3,7 +3,8 @@ export const prerender = false;
 
 import FieldGuideLayout from '@/components/layout/FieldGuideLayout.astro';
 import Divider from '@/components/ui/Divider.astro';
-import { getScenario, getRelatedScenarios } from '@/lib/field-guide-db';
+import { getScenario, getRelatedScenarios, getScenarioProducts } from '@/lib/field-guide-db';
+import ProductCard from '@/components/field-guide/ProductCard.astro';
 
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect('/field-guide');
@@ -12,6 +13,7 @@ const scenario = await getScenario(slug);
 if (!scenario) return Astro.redirect('/field-guide');
 
 const related = await getRelatedScenarios(slug, scenario.category_slug);
+const products = await getScenarioProducts(slug);
 
 const SEVERITY_LABEL = {
   'quick-fix': 'Quick Fix',
@@ -132,7 +134,7 @@ const schema = {
 
   <Divider />
 
-  <!-- Products zone — affiliate-ready, empty until partnerships land -->
+  <!-- Products for this scenario -->
   <section style="padding: 48px 24px 40px; max-width: 820px; margin: 0 auto;">
     <p
       style="font-family: var(--font-family-display); font-size: 10px; font-weight: 700;
@@ -141,18 +143,28 @@ const schema = {
     >
       Products for This Scenario
     </p>
-    <div
-      style="border: 1px solid var(--color-guide-border); border-left: 3px solid var(--color-guide-border);
-             padding: 20px 22px; background: var(--color-guide-surface);"
-    >
-      <p style="font-size: 14px; color: var(--color-guide-text-muted); margin: 0 0 10px; line-height: 1.6;">
-        Product recommendations will be added here when a matching affiliate relationship is in place.
-        We only list products we've used and evaluated on real jobs.
-      </p>
-      <p style="font-size: 11px; color: var(--color-guide-text-muted); margin: 0; opacity: 0.65; line-height: 1.5;">
-        This guide may contain affiliate links. BayShine earns a commission on qualifying purchases at no cost to you.
-      </p>
-    </div>
+
+    {products.length > 0 ? (
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        {products.map(p => <ProductCard product={p} />)}
+        <p style="font-size: 11px; color: var(--color-guide-text-muted); margin: 12px 0 0; line-height: 1.5; opacity: 0.7;">
+          BayShine earns a commission on qualifying purchases at no cost to you. We only list products we use on real jobs.
+        </p>
+      </div>
+    ) : (
+      <div
+        style="border: 1px solid var(--color-guide-border); border-left: 3px solid var(--color-guide-border);
+               padding: 20px 22px; background: var(--color-guide-surface);"
+      >
+        <p style="font-size: 14px; color: var(--color-guide-text-muted); margin: 0 0 10px; line-height: 1.6;">
+          Product recommendations will be added here when a matching affiliate relationship is in place.
+          We only list products we've used and evaluated on real jobs.
+        </p>
+        <p style="font-size: 11px; color: var(--color-guide-text-muted); margin: 0; opacity: 0.65; line-height: 1.5;">
+          This guide may contain affiliate links. BayShine earns a commission on qualifying purchases at no cost to you.
+        </p>
+      </div>
+    )}
   </section>
 
   <!-- Related scenarios in same category -->

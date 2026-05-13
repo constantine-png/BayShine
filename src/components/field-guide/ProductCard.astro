@@ -1,0 +1,192 @@
+---
+export interface ProductCardData {
+  slug: string;
+  name: string;
+  brand: string;
+  gsm: number | null;
+  size_label: string | null;
+  price_label: string | null;
+  image_url: string | null;
+  note: string | null;
+}
+
+interface Props {
+  product: ProductCardData;
+}
+
+const { product } = Astro.props;
+---
+
+<a
+  href={`/go/${product.slug}`}
+  target="_blank"
+  rel="noopener noreferrer sponsored"
+  class="product-card"
+  aria-label={`Buy ${product.name} on Luxury Microfiber`}
+>
+  <div class="product-card-image">
+    {product.image_url ? (
+      <img
+        src={product.image_url}
+        alt={product.name}
+        width="120"
+        height="120"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div class="product-card-image-placeholder" aria-hidden="true"></div>
+    )}
+  </div>
+
+  <div class="product-card-body">
+    <div class="product-card-badges">
+      {product.gsm && (
+        <span class="product-badge-gsm">{product.gsm} GSM</span>
+      )}
+      {product.size_label && (
+        <span class="product-badge-size">{product.size_label}</span>
+      )}
+    </div>
+
+    <p class="product-card-name">{product.name}</p>
+    <p class="product-card-brand">{product.brand}</p>
+
+    {product.note && (
+      <p class="product-card-note">{product.note}</p>
+    )}
+
+    <div class="product-card-footer">
+      {product.price_label && (
+        <span class="product-card-price">{product.price_label}</span>
+      )}
+      <span class="product-card-cta">Buy →</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .product-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    background: var(--color-guide-surface);
+    border: 1px solid var(--color-guide-border);
+    border-left: 3px solid var(--color-guide-accent-dim);
+    text-decoration: none;
+    transition: border-left-color 150ms ease-out;
+  }
+
+  .product-card:hover {
+    border-left-color: var(--color-guide-accent);
+  }
+
+  .product-card-image {
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+    background: var(--color-guide-surface-raised);
+  }
+
+  .product-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .product-card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-guide-surface-raised);
+  }
+
+  .product-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-card-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .product-badge-gsm {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--color-guide-accent);
+    background: transparent;
+    border: 1px solid var(--color-guide-accent-dim);
+    padding: 2px 7px;
+  }
+
+  .product-badge-size {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--color-guide-text-muted);
+    padding: 2px 0;
+  }
+
+  .product-card-name {
+    font-family: var(--font-family-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-guide-heading);
+    margin: 0 0 2px;
+    line-height: 1.25;
+  }
+
+  .product-card-brand {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--color-guide-text-muted);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+  }
+
+  .product-card-note {
+    font-size: 13px;
+    color: var(--color-guide-text);
+    margin: 0 0 12px;
+    line-height: 1.55;
+  }
+
+  .product-card-footer {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .product-card-price {
+    font-family: var(--font-family-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-guide-heading);
+  }
+
+  .product-card-cta {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--color-guide-accent);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 480px) {
+    .product-card {
+      flex-direction: column;
+      gap: 14px;
+    }
+    .product-card-image {
+      width: 72px;
+      height: 72px;
+    }
+  }
+</style>

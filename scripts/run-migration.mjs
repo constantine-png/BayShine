@@ -23,7 +23,9 @@ console.log(`Connected → ${db}`);
 try { await exec('DROP TABLE IF EXISTS _probe'); } catch {}
 try { await exec('DROP TABLE IF EXISTS _probe2'); } catch {}
 
-const raw = readFileSync('migrations/001_field_guide_init.sql', 'utf8');
+const file = process.argv[2] ?? 'migrations/001_field_guide_init.sql';
+const raw = readFileSync(file, 'utf8');
+console.log(`Running: ${file}`);
 
 // Strip line comments, split on semicolons
 const statements = raw

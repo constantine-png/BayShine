@@ -97,6 +97,37 @@ export async function getRelatedScenarios(currentSlug: string, categorySlug: str
   }
 }
 
+export interface ProductRow {
+  slug: string;
+  name: string;
+  brand: string;
+  gsm: number | null;
+  size_label: string | null;
+  price_label: string | null;
+  image_url: string | null;
+  note: string | null;
+}
+
+export async function getScenarioProducts(scenarioSlug: string): Promise<ProductRow[]> {
+  const sql = getDb();
+  if (!sql) return [];
+  try {
+    const rows = await sql`
+      SELECT p.slug, p.name, p.brand, p.gsm, p.size_label, p.price_label, p.image_url,
+             sp.note
+      FROM scenario_products sp
+      JOIN products p ON p.id = sp.product_id
+      WHERE sp.scenario_slug = ${scenarioSlug}
+        AND p.active = true
+      ORDER BY sp.display_order ASC
+    ` as ProductRow[];
+    return rows;
+  } catch (err) {
+    console.error('[field-guide-db] getScenarioProducts failed:', err);
+    return [];
+  }
+}
+
 export async function insertQuery(opts: {
   query_text: string;
   email?: string;
