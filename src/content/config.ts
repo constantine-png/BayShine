@@ -17,6 +17,7 @@ const blog = defineCollection({
       'recon',
       'fleet',
       'apartments',
+      'standing-detail',
       'general',
     ]).optional().default('general'),
     postType: z.enum([
@@ -27,31 +28,23 @@ const blog = defineCollection({
     ]).optional().default('selling-reason'),
     elements: z.array(z.string()).optional(),
     elementCategory: z.string().optional(),
+    // Override the auto-generated keywords string for specialized posts
+    keywords: z.array(z.string()).optional(),
   }),
 });
 
-// Stub collection for Field Guide scenarios — no MDX files yet.
-// Schema is affiliate-ready. Add content to src/content/fieldGuideScenarios/ when ready.
-// FOLLOWUP: wire up per-scenario pages at src/pages/field-guide/[slug].astro
 const fieldGuideScenarios = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    problem: z.string(),
-    category: z.string(), // matches categories.slug in DB
-    severity: z.enum(['quick-fix', 'moderate', 'advanced']),
-    tier: z.enum(['public', 'pro']).default('public'),
-    surfaces: z.array(z.string()).optional(),
-    symptoms: z.array(z.string()).optional(),
-    products: z.array(z.object({
-      brand: z.string(),
-      product_name: z.string(),
-      affiliate_url: z.string().url(),
-      commission_source: z.enum(['amazon', 'direct', 'other']),
-      role_in_solution: z.string(), // e.g. "decontamination", "polish", "protection"
-    })).optional(),
-    draft: z.boolean().default(true),
-    publishedDate: z.date().optional(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    category: z.enum(['paint', 'interior', 'glass', 'wheels', 'trim', 'coating', 'contamination', 'correction', 'tools', 'general']),
+    severity: z.enum(['quick-fix', 'moderate', 'advanced']).optional(),
+    affiliate: z.array(z.string()).optional(), // product slugs — e.g. ['sucker', 'glass-genie']
+    readTime: z.number(),
+    draft: z.boolean().default(false),
+    keywords: z.array(z.string()).optional(),
   }),
 });
 

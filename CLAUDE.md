@@ -113,6 +113,15 @@ When you finish a build pass, output a summary that includes:
 - **Brand name is always `BayShine`** — capital B, capital S, no space, no hyphen. Not "Bayshine", not "Bay Shine", not "bayshine". Applies to all copy, page titles, schema, aria-labels, and email subjects.
 - **Team language only.** Never write "I", "my", "Constantine will", "Constantine responds". Use "we", "our team", "we'll follow up". The website speaks for the business, not the owner personally.
 
+## Field Guide content standards (standing rule — apply in every conversation)
+
+- **Every field guide article and scenario**: 600–800 words minimum, written as a real instructional article — not a synopsis. Thin content (under 400 words) is never acceptable for field guide entries.
+- **Affiliate mentions**: product names linked inline via `/go/[product-slug]`. No pricing in articles. No product card widgets in the body of articles. A compact "What we use" list is acceptable at the end only.
+- **GEO signals in every article**: mention Florida climate conditions (UV, humidity, heat, rain seasons) and geographic identifiers (Pasco County, North Hillsborough, Tampa Bay area) where natural. These are load-bearing for local SEO and GEO retrieval.
+- **Keyword depth**: every article should target a clear primary keyword phrase and include 5–8 secondary variants naturally woven through the prose.
+- **Field Notes (blog) articles**: same standards apply. 5 per day target. Keyword-rich, GEO-aware, direct voice, no soft language.
+- **Field Guide articles** (`src/content/fieldGuideScenarios/`): same standards. 5 per day target via automation. Pull from affiliate product context subtly — never lead with the product, always lead with the problem.
+
 ## Discoverability subagents
 
 The repo includes five specialized subagents for SEO, GEO, AI search, schema markup, site architecture, internal linking, and citation-readiness work. See `.claude/skills/discoverability-orchestration/SKILL.md` for invocation patterns and multi-specialist workflows. The five specialists are: Schema Specialist, Site Architecture Specialist, GEO/AI Search Specialist, Internal Linking Specialist, Citation-Readiness Specialist.
