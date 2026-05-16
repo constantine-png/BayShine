@@ -1,0 +1,227 @@
+---
+// Neighborhood landing page for Seven Oaks, Wesley Chapel.
+// Targets sap, pollen, bird activity, and canopy debris from mature oak coverage in a gated community.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Wesley Chapel',
+        addressRegion: 'FL',
+        postalCode: '33544',
+        addressCountry: 'US',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'Wesley Chapel',
+        containsPlace: { '@type': 'Neighborhood', name: 'Seven Oaks' },
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Wesley Chapel', item: 'https://bayshine.net/wesley-chapel' },
+        { '@type': 'ListItem', position: 3, name: 'Seven Oaks', item: 'https://bayshine.net/wesley-chapel/seven-oaks' },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Auto Detailing in Seven Oaks, Wesley Chapel | BayShine"
+  description="Mobile auto detailing in Seven Oaks, Wesley Chapel. BayShine serves Seven Oaks residents with full detail, exterior detail, ceramic coating, and the Standing Detail program. We coordinate with the gate."
+  canonical="https://bayshine.net/wesley-chapel/seven-oaks"
+  schema={schema}
+  keywords="auto detailing Seven Oaks Wesley Chapel, mobile detailing Seven Oaks FL, car detailing 33544, BayShine Seven Oaks"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SEVEN OAKS, WESLEY CHAPEL, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Seven Oaks.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Seven Oaks is one of Wesley Chapel's established gated communities in the 33544 ZIP code. The mature oak canopy that makes the streets look finished also creates a specific set of paint threats that newer subdivisions don't face: tree sap dripping onto horizontal panels, pollen that accumulates continuously through spring and fall, and bird activity that concentrates under tree cover. The enclosed streets also reduce wind, so organic debris doesn't blow off — it sits and bonds. We handle all of it at your driveway. Gate access is not a problem.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Schedule a Service in Seven Oaks
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- WHY IT MATTERS -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WHAT'S HAPPENING TO YOUR PAINT</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Three conditions every Seven Oaks vehicle faces.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Oak sap and tannin staining</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Oak trees drop sap year-round in Florida's climate, and the heat accelerates how fast it bonds to paint and glass. Fresh sap is sticky but removable. Sap that has baked under Florida sun for a few days hardens into a resin that requires chemical solvent and careful mechanical removal. On a ceramic-coated vehicle the sap sits on top; on unprotected clear coat it bonds into the surface. Regular decontamination prevents the hardening stage.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Pollen load under a closed canopy</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            North Hillsborough and Pasco County pollen seasons run from late January through May, with a secondary wave in fall. In Seven Oaks, the oak canopy concentrates pollen rather than allowing it to disperse. Vehicles parked under tree cover can accumulate a visible pollen layer in 24 hours. Pollen is acidic, and on a wet surface it begins etching clear coat. The Tampa Bay area's regular afternoon rain cycles keep the paint wet often enough to make this a genuine recurring threat.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Bird contamination in tree-dense streets</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Mature trees support significant bird populations, and bird droppings are among the most chemically aggressive contaminants paint faces. The uric acid in droppings is highly caustic — it can etch through clear coat and into base coat within 48 hours in Florida heat. Droppings that dry and harden are harder to remove without scratching and require specific chemistry to soften before wiping. In Seven Oaks, this is not an occasional issue. It's a consistent maintenance factor.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- GATED ACCESS NOTE -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">GATED COMMUNITY ACCESS</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          We coordinate with the gate.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-6 max-w-2xl">
+          Seven Oaks is gated, and that's a detail many detailers don't handle cleanly. We do. When you book, you provide gate access information — either a visitor code or a call-ahead arrangement with the gate attendant. We arrive at the scheduled time, proceed directly to your driveway, complete the service, and exit. No waiting, no back-and-forth, no asking you to meet us at the entrance.
+        </p>
+        <p class="text-bay-slate text-lg leading-relaxed max-w-2xl">
+          For Standing Detail clients, access is handled once during the first visit setup and stays on file. Recurring visits run on the same protocol.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">RECURRING PROTECTION</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Standing Detail program.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          In a community with active sap drop, high pollen load, and consistent bird activity, six weeks is the outer limit before surface contamination becomes surface damage. The Standing Detail holds your slot at that interval. The first visit clears whatever has accumulated and sets the protection baseline. Every visit after that is a maintenance detail — shorter, cleaner, and targeted at what the previous six weeks produced.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <Divider />
+
+  <!-- SERVICES -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SERVICES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          What we offer in Seven Oaks.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        {[
+          {
+            name: 'Exterior Detail',
+            desc: 'Iron decontamination, synthetic clay bar, two-stage wash, polymer sealant. The baseline protection service.',
+            href: '/exterior-detail',
+          },
+          {
+            name: 'Full Detail',
+            desc: 'Complete interior and exterior. Decontamination, clay, sealant, and a thorough interior clean in a single visit.',
+            href: '/full-detail',
+          },
+          {
+            name: 'Ceramic Coating',
+            desc: 'Nano-silica coating bonded to clear coat. Years of hydrophobic protection against UV, mineral deposits, and chemical contamination.',
+            href: '/ceramic-coating',
+          },
+          {
+            name: 'Heavy Reconditioning',
+            desc: 'For vehicles in rough condition. Paint correction, deep interior extraction, odor treatment, and full decontamination.',
+            href: '/recon',
+          },
+        ].map(service => (
+          <a
+            href={service.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-6 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{service.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{service.desc}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <RelatedBlogBox topic="general" />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Schedule a service in Seven Oaks.
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

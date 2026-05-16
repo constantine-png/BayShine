@@ -1,0 +1,227 @@
+---
+// Neighborhood landing page for Meadow Pointe, Wesley Chapel.
+// Targets well water deposits, established vehicle fleet, and mixed canopy conditions across multiple sub-communities.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Wesley Chapel',
+        addressRegion: 'FL',
+        postalCode: '33543',
+        addressCountry: 'US',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'Wesley Chapel',
+        containsPlace: { '@type': 'Neighborhood', name: 'Meadow Pointe' },
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Wesley Chapel', item: 'https://bayshine.net/wesley-chapel' },
+        { '@type': 'ListItem', position: 3, name: 'Meadow Pointe', item: 'https://bayshine.net/wesley-chapel/meadow-pointe' },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Auto Detailing in Meadow Pointe, Wesley Chapel | BayShine"
+  description="Mobile auto detailing in Meadow Pointe, Wesley Chapel. BayShine serves all Meadow Pointe sub-communities across 33543 and 33544 with full detail, exterior detail, ceramic coating, and the Standing Detail program."
+  canonical="https://bayshine.net/wesley-chapel/meadow-pointe"
+  schema={schema}
+  keywords="auto detailing Meadow Pointe Wesley Chapel, mobile detailing Meadow Pointe FL, car detailing 33543 33544, BayShine Meadow Pointe"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">MEADOW POINTE, WESLEY CHAPEL, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Meadow Pointe.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Meadow Pointe is one of the original planned communities in Wesley Chapel, spanning multiple sub-developments across both the 33543 and 33544 ZIP codes. Where Wiregrass Ranch and Seven Oaks are newer or more uniform, Meadow Pointe is layered: open streets in some sections, mature tree coverage in others, and well water throughout. The vehicle fleet here reflects that established character — varied ages, many two-car households, and residents who have lived in Pasco County long enough to know what Florida sun does to paint over time. BayShine comes to your driveway across all Meadow Pointe sub-communities.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Schedule a Service in Meadow Pointe
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- WHY IT MATTERS -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WHAT'S HAPPENING TO YOUR PAINT</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Three conditions every Meadow Pointe vehicle faces.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Well water mineral deposits throughout</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Every sub-community in Meadow Pointe is on Pasco County well water, and the Floridan Aquifer's high calcium and magnesium content means mineral deposits are a constant across all sections. When well water dries on paint — from irrigation overspray, a neighbor's wash-down, or a car wash that doesn't dry thoroughly — it leaves calcium scale that bonds to clear coat. Over time the deposits etch into the surface underneath. Decontamination chemistry removes them; a hydrophobic coating keeps them from bonding in the first place.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Mixed conditions across sub-communities</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Meadow Pointe's different phases have different exposure profiles. Streets in the older, more established sections have mature tree cover that generates pollen and sap. Sections built in later phases have more open sky and direct UV exposure. Two-car households often park one vehicle in the garage and one outside, which means the exterior vehicle accumulates surface damage faster than the owners expect. We assess the actual conditions at your driveway, not a generalized version of the neighborhood.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Florida humidity and rain cycle</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Pasco County's wet season runs from late May through October with daily afternoon storms. The humidity that precedes and follows those storms keeps paint surface moisture elevated, which accelerates the bonding of any contaminant already on the paint. Pollen becomes acidic faster when wet. Mineral deposits etch more aggressively in heat and humidity. The Tampa Bay area's climate does not allow for a seasonal approach to paint care — it requires year-round attention on a consistent schedule.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- ESTABLISHED HOUSEHOLD NOTE -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">ESTABLISHED HOUSEHOLDS</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          Meadow Pointe vehicles have age and history.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-6 max-w-2xl">
+          Meadow Pointe is not a turnover community. Residents here tend to stay. That means vehicles accumulate years of Florida sun, seasonal pollen, and well water exposure without the reset of a new-vehicle purchase. A vehicle at five to eight years old in Pasco County without consistent paint protection is showing oxidation on horizontal panels, mineral deposit etching near the roofline, and micro-marring in the clear coat from improper washing technique.
+        </p>
+        <p class="text-bay-slate text-lg leading-relaxed max-w-2xl">
+          The good news is that vehicles in this condition usually respond well to paint correction before coating. The damage is real but it's not terminal. A single correction pass followed by a ceramic coating resets the surface and puts years of protection ahead of the vehicle. The Standing Detail program then holds it there. We've done this on vehicles with 80,000 miles and paint that looked ten years older than the car. The outcome is worth it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">RECURRING PROTECTION</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Standing Detail program.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          Meadow Pointe households already run recurring home services: lawn care, pest control, AC maintenance. Detailing belongs on the same schedule. A six-week cycle aligns with how long polymer sealant holds under Florida conditions and how long it takes mineral deposits to transition from removable to etched. The Standing Detail holds your slot, tracks your vehicle's baseline, and runs a maintenance detail every six weeks that keeps pace with what Pasco County weather puts on your paint.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <Divider />
+
+  <!-- SERVICES -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SERVICES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          What we offer in Meadow Pointe.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        {[
+          {
+            name: 'Exterior Detail',
+            desc: 'Iron decontamination, synthetic clay bar, two-stage wash, polymer sealant. The baseline protection service.',
+            href: '/exterior-detail',
+          },
+          {
+            name: 'Full Detail',
+            desc: 'Complete interior and exterior. Decontamination, clay, sealant, and a thorough interior clean in a single visit.',
+            href: '/full-detail',
+          },
+          {
+            name: 'Ceramic Coating',
+            desc: 'Nano-silica coating bonded to clear coat. Years of hydrophobic protection against UV, mineral deposits, and chemical contamination.',
+            href: '/ceramic-coating',
+          },
+          {
+            name: 'Heavy Reconditioning',
+            desc: 'For vehicles in rough condition. Paint correction, deep interior extraction, odor treatment, and full decontamination.',
+            href: '/recon',
+          },
+        ].map(service => (
+          <a
+            href={service.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-6 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{service.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{service.desc}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <RelatedBlogBox topic="general" />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Schedule a service in Meadow Pointe.
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

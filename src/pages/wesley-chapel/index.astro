@@ -1,0 +1,214 @@
+---
+// Hub page for Wesley Chapel detailing. Links to all 3 neighborhood pages.
+// Serves as the canonical parent for the Wesley Chapel neighborhood cluster.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '',
+        addressLocality: 'Wesley Chapel',
+        addressRegion: 'FL',
+        postalCode: '33543',
+        addressCountry: 'US',
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Wesley Chapel' },
+        { '@type': 'Neighborhood', name: 'Wiregrass Ranch' },
+        { '@type': 'Neighborhood', name: 'Seven Oaks' },
+        { '@type': 'Neighborhood', name: 'Meadow Pointe' },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Service Area', item: 'https://bayshine.net/service-area' },
+        { '@type': 'ListItem', position: 3, name: 'Wesley Chapel', item: 'https://bayshine.net/wesley-chapel' },
+      ],
+    },
+  ],
+};
+
+const neighborhoods = [
+  {
+    name: 'Wiregrass Ranch',
+    hook: 'Open-sky subdivision along SR-54. Full UV exposure, construction dust from active phases, and well water mineral deposits on newer vehicles.',
+    href: '/wesley-chapel/wiregrass-ranch',
+  },
+  {
+    name: 'Seven Oaks',
+    hook: 'Gated community with heavy oak canopy. Sap, pollen, and bird activity accumulate constantly in the protected streets.',
+    href: '/wesley-chapel/seven-oaks',
+  },
+  {
+    name: 'Meadow Pointe',
+    hook: 'One of the oldest planned communities in Wesley Chapel. Established households, varied vehicle age, well water throughout every sub-community.',
+    href: '/wesley-chapel/meadow-pointe',
+  },
+];
+---
+<BaseLayout
+  title="Mobile Auto Detailing in Wesley Chapel, FL | BayShine"
+  description="BayShine serves all of Wesley Chapel, Florida — Wiregrass Ranch, Seven Oaks, and Meadow Pointe. Mobile auto detailing at your driveway. ZIPs 33543, 33544, 33545."
+  canonical="https://bayshine.net/wesley-chapel"
+  schema={schema}
+  keywords="mobile auto detailing Wesley Chapel FL, car detailing Wesley Chapel, BayShine Wesley Chapel, auto detailing 33543 33544 33545"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WESLEY CHAPEL, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Wesley Chapel, Florida.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Wesley Chapel is one of the fastest-growing communities in Pasco County, and that growth brings specific conditions: full UV exposure in new open-sky subdivisions, construction dust from phases still in progress, and well water that leaves mineral deposits on every vehicle it touches. We serve Wiregrass Ranch, Seven Oaks, and Meadow Pointe directly from your driveway. No drop-off. No shop wait.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Book a Service
+          </Button>
+          <Button href="/standing-detail" variant="secondary" class="text-base px-8 py-3.5">
+            Standing Detail Program
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- NEIGHBORHOOD GRID -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">COMMUNITIES SERVED</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Every neighborhood in Wesley Chapel.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mt-4 max-w-2xl">
+          Each community in Wesley Chapel sits in a different environmental position — canopy coverage, proximity to SR-54 and I-75 traffic corridors, water source, and build phase all affect what happens to your paint. The pages below address each one directly. Services across all neighborhoods include full detail, exterior detail, <a href="/ceramic-coating" class="text-bay-gold hover:text-[#d9bc79] underline underline-offset-2 transition-colors">ceramic coating</a>, and the Standing Detail recurring program.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+        {neighborhoods.map(n => (
+          <a
+            href={n.href}
+            class="group block gloss-cap section-bevel bg-bay-navy/60 border border-bay-gold/20 rounded-sm p-6 hover:border-bay-gold/60 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-3 leading-snug">{n.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{n.hook}</p>
+            <span class="inline-block text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">
+              View page &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL CALLOUT -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">THE HEADLINE SERVICE</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The BayShine Standing Detail.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          A <span class="font-mono text-bay-gold">6-week</span> recurring program. One visit establishes the baseline. Every visit after runs shorter because the vehicle doesn't fall behind. The rate you start at is the rate you keep.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <!-- SERVICE AREA CONTEXT -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-10">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">ZIP CODE COVERAGE</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight mb-6">
+          Wesley Chapel ZIP codes we serve.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed max-w-2xl">
+          BayShine covers Wesley Chapel across all three primary ZIP codes. If you're unsure whether your address falls within the service area, the pages below confirm coverage or you can call and we'll confirm directly.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal">
+        {[
+          { zip: '33543', label: 'Wesley Chapel South', href: '/service-area/33543' },
+          { zip: '33544', label: 'Wesley Chapel Central', href: '/service-area/33544' },
+          { zip: '33545', label: 'Wesley Chapel North', href: '/service-area/33545' },
+        ].map(z => (
+          <a
+            href={z.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <p class="font-mono text-bay-gold text-xl font-bold mb-1">{z.zip}</p>
+            <p class="text-bay-slate text-sm mb-3">{z.label}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Coverage details &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Ready to schedule?
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Book Now
+          </Button>
+          <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
+            Get a Quote
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,227 @@
+---
+// Neighborhood landing page for Wiregrass Ranch, Wesley Chapel.
+// Targets UV exposure, construction dust, well water deposits, and leased/newer vehicle protection.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Wesley Chapel',
+        addressRegion: 'FL',
+        postalCode: '33543',
+        addressCountry: 'US',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'Wesley Chapel',
+        containsPlace: { '@type': 'Neighborhood', name: 'Wiregrass Ranch' },
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Wesley Chapel', item: 'https://bayshine.net/wesley-chapel' },
+        { '@type': 'ListItem', position: 3, name: 'Wiregrass Ranch', item: 'https://bayshine.net/wesley-chapel/wiregrass-ranch' },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Auto Detailing in Wiregrass Ranch, Wesley Chapel | BayShine"
+  description="Mobile auto detailing in Wiregrass Ranch, Wesley Chapel. BayShine serves Wiregrass Ranch residents with full detail, exterior detail, ceramic coating, and the Standing Detail program. We come to your driveway."
+  canonical="https://bayshine.net/wesley-chapel/wiregrass-ranch"
+  schema={schema}
+  keywords="auto detailing Wiregrass Ranch Wesley Chapel, mobile detailing Wiregrass Ranch FL, car detailing 33543, BayShine Wiregrass Ranch"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WIREGRASS RANCH, WESLEY CHAPEL, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Wiregrass Ranch.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Wiregrass Ranch runs along SR-54 in the 33543 ZIP code, and the open-sky layout of the subdivision means vehicles here sit under full Florida sun with no canopy buffer. UV degradation on horizontal panels is faster here than in older, tree-covered communities. Add construction dust from active build phases still in progress throughout the development, and well water mineral deposits from western Pasco County's aquifer, and you have a specific set of threats that standard washing doesn't address. BayShine comes to your driveway and handles all of it.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Schedule a Service in Wiregrass Ranch
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- WHY IT MATTERS -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WHAT'S HAPPENING TO YOUR PAINT</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Three conditions every Wiregrass Ranch vehicle faces.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Full UV exposure on open lots</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Wiregrass Ranch is a newer development. The tree canopy that older communities grow over decades doesn't exist yet. Vehicles park in direct Florida sun, and UV hits hood, roof, and trunk at full intensity. Clear coat oxidizes from the top down. The only real mitigation is a coating that absorbs UV before the clear coat does. Polymer sealant helps for 3 to 4 months. Ceramic holds for years.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Construction fallout from active phases</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Wiregrass Ranch is still growing. Construction crews, concrete trucks, and framing operations run on surrounding streets. Concrete dust and silica particulate settle on vehicles and become abrasive when paired with moisture. They don't wash off — they need chemical decontamination and a clay bar pass. Vehicles that park near active build sites accumulate this faster than residents expect.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Well water etching on newer paint</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Western Pasco County is on well water, and the Floridan Aquifer runs high in calcium and magnesium. When irrigation or car washing leaves well water to dry on paint, it leaves mineral deposits that bond to clear coat and etch into it over time. This is especially damaging on newer vehicles with thinner factory clear coat. Regular decontamination and a hydrophobic coating break the cycle.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- LEASED VEHICLE NOTE -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">LEASED VEHICLES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          Wiregrass Ranch runs a lot of leased vehicles.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-6 max-w-2xl">
+          Wiregrass Ranch households tend toward newer model-year vehicles, and a significant number are leased. That changes the maintenance math. Lease return condition directly affects what you owe at turn-in. Paint etching, mineral deposits, and UV damage on clear coat all read as excess wear. Keeping up with decontamination every six weeks keeps the vehicle in turn-in condition throughout the lease term, not just in the week before you return it.
+        </p>
+        <p class="text-bay-slate text-lg leading-relaxed max-w-2xl">
+          The Standing Detail program was designed for exactly this situation. One detail every six weeks means the vehicle never falls far enough behind to require correction before return. It also means you're not scrambling for an appointment the month the lease ends.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">RECURRING PROTECTION</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Standing Detail program.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          Under Pasco County conditions, six weeks is the interval before mineral deposits, pollen, and UV exposure compound into surface damage that requires more than maintenance to correct. The Standing Detail holds your slot on that cycle. The first visit sets the baseline. Every visit after runs faster because the vehicle hasn't had time to fall behind.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <Divider />
+
+  <!-- SERVICES -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SERVICES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          What we offer in Wiregrass Ranch.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        {[
+          {
+            name: 'Exterior Detail',
+            desc: 'Iron decontamination, synthetic clay bar, two-stage wash, polymer sealant. The baseline protection service.',
+            href: '/exterior-detail',
+          },
+          {
+            name: 'Full Detail',
+            desc: 'Complete interior and exterior. Decontamination, clay, sealant, and a thorough interior clean in a single visit.',
+            href: '/full-detail',
+          },
+          {
+            name: 'Ceramic Coating',
+            desc: 'Nano-silica coating bonded to clear coat. Years of hydrophobic protection against UV, mineral deposits, and chemical contamination.',
+            href: '/ceramic-coating',
+          },
+          {
+            name: 'Heavy Reconditioning',
+            desc: 'For vehicles in rough condition. Paint correction, deep interior extraction, odor treatment, and full decontamination.',
+            href: '/recon',
+          },
+        ].map(service => (
+          <a
+            href={service.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-6 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{service.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{service.desc}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <RelatedBlogBox topic="general" />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Schedule a service in Wiregrass Ranch.
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
