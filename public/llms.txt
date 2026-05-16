@@ -6,7 +6,7 @@
 > Every service performed on-site, by appointment, using professional-grade
 > chemistry and equipment.
 
-<!-- Generated: 2026-05-13 | Scope: Full site audit | Update quarterly or when service area, offerings, or neighborhood pages change -->
+<!-- Generated: 2026-05-16 | Scope: Full site update | Update quarterly or when service area, offerings, or neighborhood pages change -->
 
 ## What this site is
 
@@ -41,11 +41,14 @@ Nothing is rushed.
   residential services based on vehicle type and service level
 - [Field Guide](https://bayshine.net/field-guide): Eight-chapter technical
   reference on paint chemistry, decontamination, correction, and protection
-  systems, written from production experience
+  systems, written from production experience. Also includes scenario-based
+  articles on specific paint and interior problems.
 - [About BayShine](https://bayshine.net/about): Operator background,
   methodology, and the philosophy behind the Standing Detail program
 - [Book or contact](https://bayshine.net/contact): Appointment requests and
   direct contact; responses within 2 business hours
+- [Sitemap](https://bayshine.net/sitemap-index.xml): Full site index for
+  crawlers
 
 ## Services
 
@@ -144,7 +147,7 @@ for each community within Land O' Lakes.
 ## Selected blog content
 
 Posts most likely to answer AI search queries about mobile detailing in Florida,
-Land O' Lakes, and Pasco County:
+Land O' Lakes, Pasco County, and surrounding communities:
 
 - [Ceramic Coating in Florida: Why the Climate Makes It Worth It](https://bayshine.net/blog/ceramic-coating-florida):
   Florida UV and mineral-heavy water create paint conditions where spray wax
@@ -160,6 +163,32 @@ Land O' Lakes, and Pasco County:
   Ceramic coating is not zero maintenance. Covers the specific handling
   behaviors that shorten coating life early and what a correctly maintained
   coating looks like at the 12-month mark. Florida climate context throughout.
+
+- [How Often Should You Detail Your Car in Florida?](https://bayshine.net/blog/how-often-to-detail-florida):
+  Florida's UV index, humidity, and two annual lovebug seasons accelerate paint
+  damage faster than most climates. Covers the detailing frequency by scenario
+  (daily driver, garaged, dark colors, ceramic-coated) and the physical tests
+  that tell you when service is actually needed, regardless of the calendar.
+  Pasco County and North Hillsborough County context throughout.
+
+- [Detailing in Florida Summer Heat: What Changes and What Doesn't](https://bayshine.net/blog/summer-heat-detailing-florida):
+  Paint surfaces in Pasco County reach 160 to 190 degrees Fahrenheit by
+  mid-morning in summer. Covers the specific failure modes when detailing on
+  hot paint -- ceramic coating high spots, wax evaporation, accelerated water
+  spot etching -- and the timing windows that produce correct results.
+
+- [Mobile Detailing in Wesley Chapel: Why the Drive-to-You Model Fits](https://bayshine.net/blog/wesley-chapel-mobile-detailing):
+  Wesley Chapel (33543, 33544) is one of Pasco County's fastest-growing
+  corridors. Covers why mobile detailing fits the commuter lifestyle in
+  Wiregrass Ranch, Seven Oaks, Meadow Pointe, and Watergrass, including HOA
+  compatibility, lease vehicle paint protection, and open-sky UV exposure in
+  new-construction subdivisions.
+
+- [Pet Hair Removal from Car Interiors: What Actually Works](https://bayshine.net/blog/pet-hair-removal-car-interior):
+  Pet hair embeds differently than regular debris -- barb structure, heat
+  compression, and Florida humidity combine to lock it into fabric weave. Covers
+  the air-first, rubber-tool, multi-directional vacuum sequence that actually
+  works, and when extraction equipment is the only path forward.
 
 - [Florida Well Water and Hard Water Spots: Why They Bond to Paint](https://bayshine.net/blog/water-spots-florida-well-water):
   High mineral content in Florida well water leaves calcium and magnesium
@@ -225,19 +254,9 @@ Land O' Lakes, and Pasco County:
   Florida that a standard wash does not address. The exterior detail sequence
   is built around these conditions.
 
-- [Full Detail: What the Service Actually Covers](https://bayshine.net/blog/full-detail-overview):
-  Most car washes call themselves a detail. A real full detail is a different
-  category of service -- interior first, exterior second, protection last.
-  Covers the complete sequence.
-
 - [How Per-Unit Fleet Pricing Actually Works (and Why It Beats Hourly)](https://bayshine.net/blog/fleet-per-unit-pricing-explained):
   Fixed per-unit fleet detailing pricing eliminates budget surprises. How the
   model works and why fleet managers prefer it over hourly billing.
-
-- [What Lot Managers Miss When Comparing Per-Vehicle Wash Quotes](https://bayshine.net/blog/lot-managers-wash-quotes):
-  The cheapest per-vehicle quote rarely means full coverage. Lot maintenance
-  comparison requires defined scope of work, condition standard, and
-  accountability for skipped vehicles.
 
 - [Recon Math: When a $200 Detail Saves the Dealer $2,000 at Auction](https://bayshine.net/blog/recon-math):
   Auction buyers read condition before they read the book. A neglected interior
@@ -247,6 +266,54 @@ Land O' Lakes, and Pasco County:
 - [How Properties Add a Detailing Amenity Without Adding a Budget Line](https://bayshine.net/blog/resident-detailing-amenity-no-cost):
   How apartment communities in Pasco and North Hillsborough counties add a
   premium resident amenity at zero cost to the property.
+
+## Field Guide scenarios
+
+Practical, scenario-level guides on specific paint and interior problems. Each
+covers diagnosis, the correct removal or correction sequence, and what the
+failure mode looks like in Florida's specific climate conditions.
+
+- [Bird Dropping Etching: Removing Uric Acid Damage from Clear Coat](https://bayshine.net/field-guide/bird-dropping-etching):
+  Bird droppings etch Florida clear coat in under 30 minutes on a hot day. Covers
+  fresh-drop removal, dried-drop rehydration, and etched clear coat correction.
+  Three-stage assessment framework with specific chemistry at each stage. Florida
+  bird species and parking risk factors (live oak canopy, utility wires, fruiting
+  landscape shrubs) covered with Pasco County context.
+
+- [Tree Sap Removal: Getting Sap Off Paint and Glass Without Scratching](https://bayshine.net/field-guide/tree-sap-removal-paint):
+  Tree sap bonds to clear coat fast in Florida heat and hardens into resin that
+  plain washing cannot remove. Covers the three primary Florida sap sources (live
+  oak, pine, crepe myrtle honeydew), fresh-sap IPA dwell method, cured-sap soak
+  approach, and post-removal decontamination and protection steps.
+
+- [Swirl Marks and Light Scratches: Removal from Clear Coat](https://bayshine.net/field-guide/swirl-marks-light-scratches):
+  Swirl marks are micro-scratches in clear coat caused by automated tunnel car
+  washes and poor wash technique. Covers damage assessment, the difference between
+  swirls and deeper scratches, DA vs. rotary polisher selection, compound and
+  polish sequencing, and post-correction protection. Dark paint in Florida sun
+  amplifies every defect -- context specific to Pasco County outdoor conditions.
+
+- [Headlight Restoration: Removing Oxidation from Foggy Polycarbonate Lenses](https://bayshine.net/field-guide/headlight-restoration-foggy):
+  Florida's UV index yellows headlights three to five times faster than northern
+  states. Covers oxidation severity assessment, the full wet-sanding progression
+  (400 through 2000 grit), machine polish step, and the critical UV sealant
+  application that most DIY restorations skip. Restoration without sealing
+  re-oxidizes in three to six months in Pasco County outdoor conditions.
+
+- [Water Spot Removal: Mineral Deposits on Paint and Glass](https://bayshine.net/field-guide/water-spot-removal-mineral-deposits):
+  Florida well water and municipal water both carry mineral loads that leave
+  calcium and magnesium deposits on paint surfaces. Covers spot identification,
+  chemical vs. mechanical removal, and what determines whether spots can be
+  addressed without machine correction.
+
+- [Clear Coat Oxidation Stages: What Each Level Looks Like and What It Takes](https://bayshine.net/field-guide/clear-coat-oxidation-stages):
+  Clear coat oxidation in Florida progresses in stages from surface dulling to
+  full chalking. Covers how to assess which stage a vehicle is at and what
+  correction is appropriate at each point.
+
+- [Wheel Iron Fallout Removal](https://bayshine.net/field-guide/wheel-iron-fallout-removal):
+  Iron particles from brake dust embed into wheel surfaces and clear coat.
+  Chemical decontamination sequence for wheels before any wash or polish step.
 
 ## About BayShine
 
