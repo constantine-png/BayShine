@@ -49,13 +49,17 @@ function getFieldGuideSlugs() {
 const blogUrls = getBlogSlugs().map(s => `https://bayshine.net/blog/${s}/`);
 const fieldGuideUrls = getFieldGuideSlugs().map(s => `https://bayshine.net/field-guide/articles/${s}/`);
 
-const landOLakesUrls = [
+const neighborhoodUrls = [
   'https://bayshine.net/land-o-lakes/',
   'https://bayshine.net/land-o-lakes/bexley/',
   'https://bayshine.net/land-o-lakes/connerton/',
   'https://bayshine.net/land-o-lakes/lake-padgett-estates/',
   'https://bayshine.net/land-o-lakes/wilderness-lake-preserve/',
   'https://bayshine.net/land-o-lakes/lakeshore-ranch/',
+  'https://bayshine.net/wesley-chapel/',
+  'https://bayshine.net/wesley-chapel/wiregrass-ranch/',
+  'https://bayshine.net/wesley-chapel/seven-oaks/',
+  'https://bayshine.net/wesley-chapel/meadow-pointe/',
 ];
 
 export default defineConfig({
@@ -65,7 +69,7 @@ export default defineConfig({
     react(),
     mdx(),
     sitemap({
-      customPages: [...blogUrls, ...fieldGuideUrls, ...landOLakesUrls],
+      customPages: [...blogUrls, ...fieldGuideUrls, ...neighborhoodUrls],
       // Exclude SSR-only admin/pro routes and go redirects
       filter: (page) => !page.includes('/field-guide/admin') && !page.includes('/field-guide/pro') && !page.includes('/go/'),
     }),
