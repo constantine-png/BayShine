@@ -29,27 +29,33 @@ const SEVERITY_COLOR = {
 
 const sev = scenario.severity as keyof typeof SEVERITY_LABEL;
 
+const scenarioUrl = `https://bayshine.net/field-guide/${slug}`;
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'TechArticle',
-  headline: scenario.title,
-  description: scenario.problem.slice(0, 200),
-  author: {
-    '@type': 'Organization',
-    name: 'BayShine',
-    url: 'https://bayshine.net',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'BayShine',
-  },
-  isPartOf: {
-    '@type': 'WebPage',
-    name: 'BayShine Field Guide',
-    url: 'https://bayshine.net/field-guide',
-  },
-  mainEntityOfPage: `https://bayshine.net/field-guide/${slug}`,
-  datePublished: scenario.published_at?.slice(0, 10) ?? undefined,
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': `${scenarioUrl}#article`,
+      headline: scenario.title,
+      description: scenario.problem.slice(0, 200),
+      // @id-only references — avoids duplicate/competing Organization nodes in the graph
+      author: { '@id': 'https://bayshine.net/#business' },
+      publisher: { '@id': 'https://bayshine.net/#business' },
+      mainEntityOfPage: scenarioUrl,
+      url: scenarioUrl,
+      inLanguage: 'en-US',
+      // published_at may be null for DB rows without an explicit date — omit rather than emit undefined
+      ...(scenario.published_at ? { datePublished: scenario.published_at.slice(0, 10) } : {}),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home',        item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Field Guide', item: 'https://bayshine.net/field-guide' },
+        { '@type': 'ListItem', position: 3, name: scenario.title, item: scenarioUrl },
+      ],
+    },
+  ],
 };
 ---
 

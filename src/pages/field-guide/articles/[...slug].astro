@@ -74,12 +74,9 @@ const articleSchema = {
       url: articleUrl,
       articleSection: post.data.category,
       keywords: articleKeywords,
-      author: {
-        '@type': 'Organization',
-        '@id': 'https://bayshine.net/#business',
-        name: 'BayShine Detailing',
-        url: 'https://bayshine.net',
-      },
+      // @id-only reference — inline @type/name/url alongside @id causes parsers to merge
+      // unexpected properties onto the canonical entity node. Use @id reference only.
+      author: { '@id': 'https://bayshine.net/#business' },
       publisher: { '@id': 'https://bayshine.net/#business' },
       mainEntityOfPage: articleUrl,
       isPartOf: {

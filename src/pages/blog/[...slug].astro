@@ -73,7 +73,11 @@ const blogPostSchema = {
       headline: post.data.title,
       description: post.data.description,
       datePublished: post.data.pubDate.toISOString(),
+      // dateModified: fall back to pubDate when no explicit updatedDate exists in frontmatter
+      // Content collection schema does not define updatedDate — pubDate is the correct fallback
+      dateModified: post.data.pubDate.toISOString(),
       inLanguage: 'en-US',
+      mainEntityOfPage: `https://bayshine.net/blog/${post.slug}`,
       // author references canonical business entity — avoids creating a competing Organization node
       author: { '@id': 'https://bayshine.net/#business' },
       // publisher: @id-only reference to canonical entity; no redundant inline properties

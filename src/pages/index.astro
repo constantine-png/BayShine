@@ -35,10 +35,9 @@ const faqSchema = {
       },
       url: 'https://bayshine.net',
       priceRange: '$$',
-      // FOLLOWUP: src/pages/index.astro — Add GBP CID URL to sameAs when profile is verified.
-      // Format: "https://maps.google.com/?cid=YOUR_CID_HERE"
-      // Also add Yelp, Facebook, Instagram business profile URLs as they are confirmed.
-      sameAs: [],
+      // FOLLOWUP: src/pages/index.astro — Add sameAs array when social/GBP profiles are confirmed.
+      // Format: sameAs: ['https://maps.google.com/?cid=YOUR_CID', 'https://www.facebook.com/bayshinedetailing', 'https://www.instagram.com/bayshinedetailing']
+      // Omitting the property entirely is correct until real URLs are available — empty array emits useless JSON-LD.
       areaServed: uniqueCities.map(city => ({
         '@type': 'City',
         name: city,
