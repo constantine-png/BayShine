@@ -462,6 +462,13 @@ const schema = {
             ← All service areas
           </a>
         </li>
+        {(code === '34638' || code === '34639' || code === '34637') && (
+          <li>
+            <a href="/land-o-lakes" class="text-bay-slate hover:text-bay-bone transition-colors">
+              Land O' Lakes neighborhood coverage
+            </a>
+          </li>
+        )}
         <li>
           <a href="/full-detail" class="text-bay-slate hover:text-bay-bone transition-colors">
             Full Detail
@@ -477,9 +484,9 @@ const schema = {
             Book Now
           </a>
         </li>
-        {/* FOLLOWUP: src/pages/service-area/[zip].astro — Replace # hrefs with real blog post URLs when posts are published */}
+        {/* FOLLOWUP: src/pages/service-area/[zip].astro — "What is a Standing Detail?" link below still needs a real blog post URL when that post is published */}
         <li>
-          <a href="#" data-blog-link-needed class="text-bay-slate hover:text-bay-bone transition-colors">
+          <a href="/blog/how-often-to-detail-florida" class="text-bay-slate hover:text-bay-bone transition-colors">
             How often should you detail in Florida?
           </a>
         </li>
