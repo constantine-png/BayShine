@@ -16,11 +16,39 @@ const categories = ['Car Care', 'Fleet Tips', 'Local'] as const;
 function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const blogIndexSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Blog',
+      '@id': 'https://bayshine.net/blog#blog',
+      name: 'BayShine Field Notes',
+      description: 'Practical detailing technique, product notes, and field observations from BayShine. Written for technicians and owners who want to understand what is actually happening to their vehicle.',
+      url: 'https://bayshine.net/blog',
+      publisher: { '@id': 'https://bayshine.net/#business' },
+      inLanguage: 'en-US',
+      about: [
+        { '@type': 'City', name: "Land O' Lakes, FL" },
+        { '@type': 'AdministrativeArea', name: 'Pasco County, FL' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, FL' },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Field Notes', item: 'https://bayshine.net/blog' },
+      ],
+    },
+  ],
+};
 ---
 <BaseLayout
   title="Field Notes"
   description="Practical detailing technique, product notes, and field observations from BayShine. Written for technicians and owners who want to understand what's actually happening to their vehicle."
   bodyClass="blog-body"
+  schema={blogIndexSchema}
 >
   <!-- Header -->
   <section class="bg-bay-paper py-20 px-4 border-b border-bay-ink/10">

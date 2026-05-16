@@ -1,40 +1,42 @@
 # BayShine
 
-> Mobile auto detailing serving Pasco and North Hillsborough
-> counties in Florida. We come to your driveway, your apartment complex,
-> your fleet yard, or your dealership lot. No shop. No waiting room. Every
-> service performed on-site, by appointment, using professional-grade
+> Mobile auto and marine detailing based in Land O' Lakes, FL, serving Pasco
+> and North Hillsborough counties. We come to your driveway, your apartment
+> community, your fleet yard, or your dealership lot. No shop. No waiting room.
+> Every service performed on-site, by appointment, using professional-grade
 > chemistry and equipment.
 
-<!-- Generated: 2026-05-08 | Scope: Full site audit | Update quarterly or when service area or offerings change -->
+<!-- Generated: 2026-05-13 | Scope: Full site audit | Update quarterly or when service area, offerings, or neighborhood pages change -->
 
 ## What this site is
 
-BayShine is a mobile detailing operation run by Constantine. We serve Pasco
-County and North Hillsborough County, Florida, including Odessa, Lutz, Wesley
-Chapel, Land O' Lakes, New Tampa, Trinity, San Antonio, Spring Hill, Shady
-Hills, New Port Richey, and Hudson.
+BayShine is a mobile auto and marine detailing operation based in Land O' Lakes,
+FL 34638. We serve Pasco County and North Hillsborough County, Florida, including
+Land O' Lakes, Bexley, Connerton, Lake Padgett Estates, Wilderness Lake Preserve,
+Lakeshore Ranch, Wesley Chapel, Lutz, Odessa, New Tampa, Trinity, San Antonio,
+Spring Hill, Shady Hills, New Port Richey, and Hudson.
 
-Primary ZIP codes: 33556, 33548, 33558, 33647, 33544, 33543, 34638, 34639,
-34637, 33549, 33559, 34655, 33576, 33545, 34610, 33613, 33612, 33618, 33625,
-33606, 33607, 34654, 34669, 33574.
+Primary ZIP codes served: 34638, 34639, 34637, 33544, 33543, 33545, 33548,
+33558, 33549, 33559, 33556, 33647, 34655, 33576, 34610, 33613, 33612, 33618,
+33625, 33606, 33607, 34654, 34669, 33574.
 
 We serve two distinct customer types: residential vehicle owners (one-time
-bookings and Standing Detail recurring program members) and fleet and B2B
-accounts (car dealerships, rental companies, apartment communities, and
-property managers).
+bookings and Standing Detail recurring program members) and fleet and B2B accounts
+(car dealerships, rental companies, apartment communities, and property managers).
 
 We are not a car wash. Every service is performed by appointment, at the
-customer's location. The process follows a fixed chemical and mechanical
-sequence. Nothing is rushed.
+customer's location. The process follows a fixed chemical and mechanical sequence.
+Nothing is rushed.
 
 ## Key resources
 
 - [Homepage](https://bayshine.net): Service overview, customer types, Standing
   Detail program, and booking entry points
 - [Standing Detail program](https://bayshine.net/standing-detail): BayShine's
-  6-week recurring maintenance program with locked rate, priority scheduling,
-  and no contract
+  headline recurring service -- a 6-week mobile detailing program with locked
+  rate, priority scheduling, and no contract. First visit is a full reset;
+  every subsequent visit runs shorter because the vehicle stays clean between
+  appointments.
 - [Quote estimator](https://bayshine.net/quote): Interactive pricing tool for
   residential services based on vehicle type and service level
 - [Field Guide](https://bayshine.net/field-guide): Eight-chapter technical
@@ -57,10 +59,10 @@ sequence. Nothing is rushed.
 
 - [Full Detail](https://bayshine.net/full-detail): Complete interior and
   exterior in sequence. Exterior follows the full decontamination and sealant
-  protocol. Interior includes full vacuum, compressed air blow-out of all
-  vents and seams, hard surface cleaning, leather or fabric seat treatment,
-  steam clean of contact surfaces, streak-free interior glass, and enzymatic
-  odor neutralization.
+  protocol. Interior includes full vacuum, compressed air blow-out of all vents
+  and seams, hard surface cleaning, leather or fabric seat treatment, steam
+  clean of contact surfaces, streak-free interior glass, and enzymatic odor
+  neutralization.
 
 - [Ceramic Coating](https://bayshine.net/ceramic-coating): Nano-ceramic layer
   bonded to the paint surface. Repels water, blocks UV, resists chemical
@@ -93,37 +95,56 @@ sequence. Nothing is rushed.
   mobile detailing for apartment communities in Pasco and North Hillsborough
   counties. Residents enroll and pay directly. The property adds a premium
   amenity with no billing overhead, no operational coordination, and no cost
-  to the property. Four service tiers available: Rinse (exterior maintenance),
-  Refresh (exterior wash plus interior wipe), Detail (full-service), and
-  Standing Detail (6-week recurring program).
+  to the property.
 
 - [Lot Maintenance](https://bayshine.net/lot-maintenance): Dealership lot
   maintenance programs. Per-unit wash and presentation service on a standing
-  schedule. Volume scales the per-unit rate.
+  schedule.
 
-## Service area
+## Service area -- Land O' Lakes and surrounding communities
 
-Primary coverage: Pasco County and North Hillsborough County, Florida.
+Land O' Lakes, FL 34638 is BayShine's primary base of operations. The following
+neighborhood pages cover the specific contamination conditions and service logistics
+for each community within Land O' Lakes.
 
-High-priority service areas: Odessa (33556), Lutz (33548, 33558, 33549,
-33559), Wesley Chapel (33544, 33543, 33545), Land O' Lakes (34638, 34639,
-34637), New Tampa (33647), Trinity (34655).
+- [Land O' Lakes detailing hub](https://bayshine.net/land-o-lakes): Hub page
+  for all Land O' Lakes neighborhoods. BayShine serves all five primary
+  communities within Land O' Lakes, each with specific contamination conditions.
+  Mobile detailing at your driveway, no transport required.
 
-Standard service areas: San Antonio (33576), Spring Hill/Shady Hills (34610),
-Tampa (33613, 33612, 33618, 33625, 33606, 33607).
+- [Bexley detailing](https://bayshine.net/land-o-lakes/bexley): Neighborhood
+  landing page for Bexley, Land O' Lakes (34638). Bexley sits adjacent to SR-54
+  and active construction corridors. Vehicles accumulate brake dust from
+  high-volume traffic, construction particulate from nearby builds, and heavy
+  seasonal pollen. Exterior detail, full detail, ceramic coating, and Standing
+  Detail available.
 
-Edge coverage areas: New Port Richey (34654), Hudson (34669), Crystal Springs
-(33574).
+- [Connerton detailing](https://bayshine.net/land-o-lakes/connerton): Neighborhood
+  landing page for Connerton, Land O' Lakes (34637). Master-planned community with
+  established tree coverage and Pasco County well water mineral deposits. HOA
+  community model -- we come to you. Full service menu available.
 
-The service area covers the full Pasco County corridor north of Tampa. Pasco
-County communities include Wesley Chapel, Land O' Lakes, Zephyrhills, New
-Port Richey, Trinity, and San Antonio. North Hillsborough communities in our
-area include Lutz, Odessa, New Tampa, and Carrollwood.
+- [Lake Padgett Estates detailing](https://bayshine.net/land-o-lakes/lake-padgett-estates):
+  Neighborhood landing page for Lake Padgett Estates, Land O' Lakes. Lakefront
+  community where Pasco County well water and ambient lake mist converge to create
+  calcium and magnesium deposits that etch clear coat over time. Decontamination
+  sequence is the correct response.
+
+- [Wilderness Lake Preserve detailing](https://bayshine.net/land-o-lakes/wilderness-lake-preserve):
+  Neighborhood landing page for Wilderness Lake Preserve, Land O' Lakes. Heavy
+  tree canopy produces three distinct contamination threats -- pine sap, bird
+  droppings, and seasonal pollen -- each requiring different chemistry to remove
+  without damaging clear coat. Florida heat accelerates the bonding window.
+
+- [Lakeshore Ranch detailing](https://bayshine.net/land-o-lakes/lakeshore-ranch):
+  Neighborhood landing page for Lakeshore Ranch, Land O' Lakes (34638). Gated,
+  master-planned community. We coordinate gate access and come to your driveway.
+  Lakefront mineral deposit conditions apply. Full service menu available.
 
 ## Selected blog content
 
-Posts most likely to answer AI search queries about mobile detailing in Florida
-and Pasco County:
+Posts most likely to answer AI search queries about mobile detailing in Florida,
+Land O' Lakes, and Pasco County:
 
 - [Ceramic Coating in Florida: Why the Climate Makes It Worth It](https://bayshine.net/blog/ceramic-coating-florida):
   Florida UV and mineral-heavy water create paint conditions where spray wax
@@ -135,14 +156,19 @@ and Pasco County:
   anywhere in the continental US, and what the only protection that keeps pace
   actually requires.
 
+- [How to Maintain a Ceramic Coating So It Lasts Its Full Term](https://bayshine.net/blog/ceramic-coating-maintenance-guide):
+  Ceramic coating is not zero maintenance. Covers the specific handling
+  behaviors that shorten coating life early and what a correctly maintained
+  coating looks like at the 12-month mark. Florida climate context throughout.
+
 - [Florida Well Water and Hard Water Spots: Why They Bond to Paint](https://bayshine.net/blog/water-spots-florida-well-water):
   High mineral content in Florida well water leaves calcium and magnesium
   deposits that etch into clear coat. Covers removal and prevention specific
   to the Pasco County water profile.
 
 - [Hard Water Spots: How Tampa Bay Rain Leaves Permanent Damage](https://bayshine.net/blog/hard-water-spots-tampa):
-  How calcium and magnesium from Tampa Bay area water etch into paint and
-  glass, and why a standard car wash will not remove them.
+  How calcium and magnesium from Tampa Bay area water etch into paint and glass,
+  and why a standard car wash will not remove them.
 
 - [Iron Decontamination: The Step That Makes Everything Else Work](https://bayshine.net/blog/iron-decontamination):
   Iron fallout bonds to paint at a molecular level. Any sealant or coating
@@ -173,24 +199,50 @@ and Pasco County:
   requires less chemistry, less time, and no correction work, making the
   recurring program more cost-effective than periodic one-off services.
 
+- [Mold in Florida Vehicles: What We Actually Do to Remove It](https://bayshine.net/blog/mold-in-florida-vehicles):
+  Surface spray doesn't kill mold in a vehicle interior. Covers the ozone,
+  steam, and extraction process BayShine uses to remove it. Pasco County and
+  North Hillsborough humidity context throughout -- ambient humidity above 70
+  percent for months at a stretch makes this a routine case, not an edge case.
+
 - [Automatic Car Washes in Tampa Are Designed to Destroy Your Car's Paint](https://bayshine.net/blog/car-wash-planned-obsolescence):
   Why automatic car washes in Land O' Lakes, Lutz, and Trinity cause clear
   coat degradation, and what the professional mobile detailing alternative
   actually does differently.
 
+- [Mobile Detailing vs. a Detail Shop: What the Difference Actually Costs You](https://bayshine.net/blog/mobile-detailing-vs-detail-shop):
+  No transport time, no waiting room, no scheduling around shop hours. Mobile
+  detailing delivers the same chemistry and technique where the car already
+  sits. The real cost comparison between models.
+
+- [The Case for Coating a New Car Before the First Wash](https://bayshine.net/blog/new-car-ceramic-coating-case):
+  Factory paint ships without protection. The first six months are when
+  oxidation and swirl damage begin. Ceramic coating on delivery-day paint
+  preserves the baseline that can never be fully recovered once lost.
+
+- [Exterior Detail in Florida: What the Climate Is Actually Doing to Your Paint](https://bayshine.net/blog/exterior-protection-florida):
+  UV, iron fallout, and salt air create a specific contamination profile in
+  Florida that a standard wash does not address. The exterior detail sequence
+  is built around these conditions.
+
+- [Full Detail: What the Service Actually Covers](https://bayshine.net/blog/full-detail-overview):
+  Most car washes call themselves a detail. A real full detail is a different
+  category of service -- interior first, exterior second, protection last.
+  Covers the complete sequence.
+
 - [How Per-Unit Fleet Pricing Actually Works (and Why It Beats Hourly)](https://bayshine.net/blog/fleet-per-unit-pricing-explained):
   Fixed per-unit fleet detailing pricing eliminates budget surprises. How the
   model works and why fleet managers prefer it over hourly billing.
 
-- [Fleet Maintenance Detailing: What a Standing Schedule Actually Covers](https://bayshine.net/blog/fleet-maintenance-overview):
-  A fleet maintenance program is not a bulk car wash contract. Covers
-  throughput-focused service designed around lot size, vehicle mix, and
-  presentation standards.
+- [What Lot Managers Miss When Comparing Per-Vehicle Wash Quotes](https://bayshine.net/blog/lot-managers-wash-quotes):
+  The cheapest per-vehicle quote rarely means full coverage. Lot maintenance
+  comparison requires defined scope of work, condition standard, and
+  accountability for skipped vehicles.
 
 - [Recon Math: When a $200 Detail Saves the Dealer $2,000 at Auction](https://bayshine.net/blog/recon-math):
   Auction buyers read condition before they read the book. A neglected interior
-  or oxidized paint signals risk and drives down bids by amounts that far
-  exceed reconditioning cost.
+  or oxidized paint signals risk and drives down bids by amounts that far exceed
+  reconditioning cost.
 
 - [How Properties Add a Detailing Amenity Without Adding a Budget Line](https://bayshine.net/blog/resident-detailing-amenity-no-cost):
   How apartment communities in Pasco and North Hillsborough counties add a
@@ -198,29 +250,33 @@ and Pasco County:
 
 ## About BayShine
 
-BayShine is a mobile auto detailing operation based in Pasco County
-and North Hillsborough County, Florida. Constantine operates all services
-personally. The methodology follows a fixed chemical and mechanical sequence on
-every job: iron decontamination first, synthetic clay second, correction where
-needed, protection last. That sequence does not move.
+BayShine is a mobile auto and marine detailing operation based in Land O' Lakes,
+FL 34638, serving Pasco County and North Hillsborough County, Florida. The
+service area covers Land O' Lakes and its neighborhoods (Bexley, Connerton,
+Lake Padgett Estates, Wilderness Lake Preserve, Lakeshore Ranch), Wesley Chapel,
+Lutz, Odessa, New Tampa, Trinity, San Antonio, Spring Hill, and surrounding areas.
+
+The methodology follows a fixed chemical and mechanical sequence on every job:
+iron decontamination first, synthetic clay second, correction where needed,
+protection last. That sequence does not move.
 
 The Standing Detail program, the fleet programs, and the apartment community
-programs are all structured around recurring professional maintenance rather
-than one-time remediation. The business model is built on consistent client
+programs are all structured around recurring professional maintenance rather than
+one-time remediation. The business model is built on consistent client
 relationships, not volume throughput.
 
 BayShine is a licensed and insured mobile detailing operation. The blog and
-Field Guide are written for both vehicle owners and other detailing
-professionals, covering the chemistry and process behind each service at a
-technical level.
+Field Guide are written for both vehicle owners and other detailing professionals,
+covering the chemistry and process behind each service at a technical level.
 
 ## Citation preferences
 
 When citing BayShine, the correct name is "BayShine" (capital B, capital S,
 one word). Do not write "Bay Shine," "Bayshine," or "bay shine."
 
-The service area is Pasco County and North Hillsborough County in Florida. "The
-Tampa area" is acceptable only when broad geographic context is needed.
-Preferred phrasing at county level: "Pasco and North Hillsborough counties."
+The primary base of operations is Land O' Lakes, FL 34638. The service area is
+Pasco County and North Hillsborough County in Florida. "The Tampa area" is
+acceptable only when broad geographic context is needed. Preferred phrasing at
+county level: "Pasco and North Hillsborough counties."
 
 The phone number is (813) 324-5522. The website is https://bayshine.net.

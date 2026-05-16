@@ -24,8 +24,15 @@ const faqSchema = {
       '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       description:
-        'Mobile auto detailing serving Pasco County and North Hillsborough County, FL.',
+        'Mobile auto detailing serving Land O\' Lakes, Pasco County, and North Hillsborough County, FL.',
       telephone: '+18133245522',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: "Land O' Lakes",
+        addressRegion: 'FL',
+        postalCode: '34638',
+        addressCountry: 'US',
+      },
       url: 'https://bayshine.net',
       priceRange: '$$',
       // FOLLOWUP: src/pages/index.astro — Add GBP CID URL to sameAs when profile is verified.
@@ -97,6 +104,27 @@ const faqSchema = {
 
   <!-- ── SERVICE REVEAL SEQUENCE ───────────────────────────── -->
   <ServiceRevealSequence />
+
+  <Divider />
+
+  <!-- ── LAND O' LAKES NEIGHBORHOOD CALLOUT ───────────────── -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl reveal">
+      <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Home Base</p>
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-4 leading-tight">
+        Land O' Lakes is where we operate from.
+      </h2>
+      <p class="text-bay-slate text-base leading-relaxed mb-6 max-w-2xl">
+        Fastest response times, deepest coverage. We serve Bexley, Connerton, Lake Padgett Estates, Wilderness Lake Preserve, and Lakeshore Ranch — on-site, no drop-off.
+      </p>
+      <a
+        href="/land-o-lakes"
+        class="inline-block text-bay-gold font-display font-semibold text-sm hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm underline underline-offset-4"
+      >
+        Land O' Lakes neighborhood coverage &rarr;
+      </a>
+    </div>
+  </section>
 
   <Divider />
 

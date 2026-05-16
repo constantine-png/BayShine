@@ -6,10 +6,36 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 import VideoLoop from '@/components/ui/VideoLoop.astro';
 import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
 import { ASSET_REGISTRY } from '@/lib/assetRegistry';
+
+const coatingSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/ceramic-coating#service',
+      name: 'Ceramic Coating',
+      description: 'Professional nano-ceramic coating bonded to automotive clear coat. Lasts two to five years under Florida UV and humidity conditions. Applied mobile at your location in Pasco County and North Hillsborough, FL.',
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Auto Detailing – Ceramic Coating',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Ceramic Coating', item: 'https://bayshine.net/ceramic-coating' },
+      ],
+    },
+  ],
+};
 ---
 <BaseLayout
-  title="Ceramic Coating"
-  description="Professional ceramic coating for cars and SUVs in Pasco County and North Hillsborough. Durable paint protection that lasts years, not weeks."
+  title="Ceramic Coating in Pasco County, FL | BayShine Mobile Detailing"
+  description="Professional ceramic coating for cars and SUVs in Pasco County and North Hillsborough, FL. A nano-ceramic layer bonded to the paint surface. Lasts 2 to 5 years under Florida conditions."
+  schema={coatingSchema}
 >
   <section class="noise-overlay py-24 px-4">
     <div class="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -19,9 +45,12 @@ import { ASSET_REGISTRY } from '@/lib/assetRegistry';
           Ceramic Coating.
         </h1>
         <p class="text-bay-slate text-lg leading-relaxed mb-8" style="text-shadow: 0 1px 12px rgba(15,27,45,0.8);">
-          One application. Years of protection. A nano-ceramic layer bonded to the paint
-          surface that repels water, UV, contamination, and minor scratches. Correct the
-          paint first, coat it second. That sequence is not negotiable.
+          A nano-ceramic layer chemically bonded to clear coat. It repels water, UV,
+          contamination, and minor scratches. Applied correctly over a decontaminated and
+          corrected surface, ceramic coating lasts two to five years under Florida
+          conditions, compared to four to eight weeks for a standard spray sealant.
+          BayShine applies ceramic coatings mobile throughout Pasco County and North
+          Hillsborough, FL.
         </p>
         <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
           Inquire About Coating
@@ -52,7 +81,7 @@ import { ASSET_REGISTRY } from '@/lib/assetRegistry';
     <div class="container mx-auto max-w-4xl">
       <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
-          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What ceramic does</h2>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What ceramic coating does to your paint</h2>
           <ul class="space-y-3 text-bay-slate text-sm">
             {[
               'Hydrophobic surface: water sheets off rather than sitting',
@@ -70,14 +99,14 @@ import { ASSET_REGISTRY } from '@/lib/assetRegistry';
         </div>
 
         <div>
-          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What it requires</h2>
+          <h2 class="font-display font-bold text-2xl text-bay-white mb-6">What ceramic coating requires before application</h2>
           <ul class="space-y-3 text-bay-slate text-sm">
             {[
               'Full exterior decontamination and clay bar before application',
               'Paint correction if swirl marks or light scratches are present',
-              'Cure time: 24 to 48 hours minimum before water contact',
-              'Vehicle must not get wet during cure window',
-              'Periodic maintenance detail: not immune to neglect',
+              'Cure time: 24 to 48 hours minimum before any water contact',
+              'Vehicle must stay dry during the cure window — no exceptions',
+              'Periodic maintenance detail: the coating reduces contamination bonding, it does not eliminate the need to wash',
             ].map(item => (
               <li class="flex gap-3">
                 <span class="text-bay-gold mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
@@ -97,6 +126,38 @@ import { ASSET_REGISTRY } from '@/lib/assetRegistry';
         </p>
         <p class="text-bay-slate text-sm leading-relaxed mt-3">
           Vehicles in heavy condition often need <a href="/recon" class="text-bay-gold hover:text-[#d9bc79] underline underline-offset-2 transition-colors">full reconditioning</a> before coating is appropriate. Correction is already included in recon scope; the sequence works directly into coating preparation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Florida-specific ceramic coating context — citation target for "ceramic coating Florida" queries -->
+  <section class="py-20 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal max-w-2xl">
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Why ceramic coating performs differently in Pasco County and North Hillsborough.</h2>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          Florida's UV index averages 10 to 11 in summer, the same range as equatorial climates.
+          A standard polymer spray sealant degrades to reduced effectiveness in four to eight weeks
+          under direct Pasco County sun. A correctly applied 9H ceramic coating lasts two to five
+          years under the same conditions because it bonds chemically to the clear coat rather than
+          sitting on top of it as a surface layer.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed mb-6">
+          Hard water is a second Florida-specific factor. Much of Pasco County relies on well
+          water for irrigation. Sprinklers deposit calcium and magnesium-rich water directly on
+          paint; when it evaporates under Florida heat, the minerals leave deposits that etch into
+          clear coat over time. A ceramic coating's hydrophobic surface causes water to bead and
+          sheet off rather than sit and evaporate, which significantly reduces mineral deposit
+          contact time.
+        </p>
+        <p class="text-bay-slate text-base leading-relaxed">
+          Lovebug seasons in spring and fall are the third factor. Lovebug body chemistry is
+          acidic. Left on unprotected paint for 48 hours or more, the acid etches the clear coat.
+          The harder surface of a ceramic coating gives vehicles a wider window before that
+          damage sets in and reduces the adhesion of the debris to the surface.
         </p>
       </div>
     </div>

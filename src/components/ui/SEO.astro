@@ -6,6 +6,10 @@ interface Props {
   canonical?: string | URL;
   ogImage?: string;
   schema?: Record<string, unknown>;
+  ogType?: 'website' | 'article';
+  articlePublishedTime?: string;
+  articleSection?: string;
+  keywords?: string;
 }
 
 const {
@@ -15,6 +19,10 @@ const {
   // FOLLOWUP: generate /public/og-default.png (1200x630) from the BayShine logo mark on bay-navy background
   ogImage = '/og-default.png',
   schema,
+  ogType = 'website',
+  articlePublishedTime,
+  articleSection,
+  keywords,
 } = Astro.props;
 
 const siteTitle = `${title} | BayShine Detailing`;
@@ -26,13 +34,23 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <title>{siteTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
+{keywords && <meta name="keywords" content={keywords} />}
 
 <meta property="og:title" content={siteTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImageURL} />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:site_name" content="BayShine Detailing" />
+{ogType === 'article' && articlePublishedTime && (
+  <meta property="article:published_time" content={articlePublishedTime} />
+)}
+{ogType === 'article' && articleSection && (
+  <meta property="article:section" content={articleSection} />
+)}
+{ogType === 'article' && (
+  <meta property="article:author" content="BayShine Detailing" />
+)}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={siteTitle} />

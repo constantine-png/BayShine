@@ -1,0 +1,207 @@
+---
+// Neighborhood landing page for Lakeshore Ranch, Land O' Lakes.
+// Targets gate coordination, lakefront mineral deposits, and the on-site service model for gated HOA communities.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: "Land O' Lakes",
+        addressRegion: 'FL',
+        postalCode: '34638',
+        addressCountry: 'US',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: "Land O' Lakes",
+        containsPlace: { '@type': 'Neighborhood', name: 'Lakeshore Ranch' },
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: "Land O' Lakes", item: 'https://bayshine.net/land-o-lakes' },
+        { '@type': 'ListItem', position: 3, name: 'Lakeshore Ranch', item: 'https://bayshine.net/land-o-lakes/lakeshore-ranch' },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Auto Detailing in Lakeshore Ranch, Land O' Lakes | BayShine"
+  description="Mobile auto detailing in Lakeshore Ranch, Land O' Lakes. BayShine coordinates with the gate and comes to your driveway. Exterior detail, full detail, ceramic coating, and the Standing Detail program."
+  canonical="https://bayshine.net/land-o-lakes/lakeshore-ranch"
+  schema={schema}
+  keywords="auto detailing Lakeshore Ranch, mobile detailing Land O Lakes FL, car detailing gated community"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">LAKESHORE RANCH, LAND O' LAKES, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Lakeshore Ranch, Land O' Lakes.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Lakeshore Ranch is a gated, master-planned community in Land O' Lakes — 34638. The gate is not a complication; it's a step we handle. We coordinate access, arrive at your driveway, and work there. No work required from you beyond opening a gate call. The mobile service model fits exactly how Lakeshore Ranch residents already use services like lawn, pool, and pest control.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Schedule a Service in Lakeshore Ranch
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- WHY IT MATTERS -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WHAT SETS THIS COMMUNITY APART</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Three things we address specifically for Lakeshore Ranch.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Gate coordination — handled</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            We can be added to an approved vendor list, or we coordinate gate access on each visit at your direction. Either way, the gate doesn't create friction for you. We verify access before arrival, arrive on schedule, and notify you when the work is complete. The process is the same as any other home service you run through the gate.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Lakefront mineral deposits</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Like other lakefront communities in Land O' Lakes, Lakeshore Ranch vehicles deal with hard water from Pasco County's aquifer plus ambient lake mist from the community's lakes. Calcium and magnesium deposits dry onto paint after every irrigation cycle or rain event. They don't wash off — they require iron decontamination and clay bar to remove before they etch.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Maintaining the community standard</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Lakeshore Ranch is a maintained community — the landscaping, the common areas, and the homes reflect a certain standard. A vehicle that's been neglected stands out differently here than it does in a less maintained neighborhood. Regular detailing keeps the vehicle in line with what the community already looks like.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">RECURRING PROTECTION</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Standing Detail program.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          Lakeshore Ranch residents already run recurring home services that come to the gate. The Standing Detail works the same way. A fixed 6-week cycle, locked rate, priority scheduling. We handle gate access. The vehicle stays at the level you want it without you tracking the calendar. The program fits how you already manage property maintenance.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <Divider />
+
+  <!-- SERVICES -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SERVICES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          What we offer in Lakeshore Ranch.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        {[
+          {
+            name: 'Exterior Detail',
+            desc: 'Iron decontamination, synthetic clay bar, two-stage wash, polymer sealant. The correct response to mineral deposit buildup from lake proximity and well water.',
+            href: '/exterior-detail',
+          },
+          {
+            name: 'Full Detail',
+            desc: 'Complete interior and exterior. Decontamination, clay, sealant, and a thorough interior clean in a single visit.',
+            href: '/full-detail',
+          },
+          {
+            name: 'Ceramic Coating',
+            desc: 'Nano-silica coating bonded to clear coat. Years of hydrophobic protection against mineral deposits, UV, and contamination.',
+            href: '/ceramic-coating',
+          },
+          {
+            name: 'Heavy Reconditioning',
+            desc: 'For vehicles where mineral etching, oxidation, or interior condition have fallen behind. Paint correction and full restoration.',
+            href: '/recon',
+          },
+        ].map(service => (
+          <a
+            href={service.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-6 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{service.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{service.desc}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <RelatedBlogBox topic="general" />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Schedule a service in Lakeshore Ranch.
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We coordinate gate access and come to your driveway.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

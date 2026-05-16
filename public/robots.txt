@@ -42,4 +42,7 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://bayshine.net/sitemap-index.xml

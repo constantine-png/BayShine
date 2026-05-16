@@ -9,8 +9,8 @@ const pascoZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Pasco');
 const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough');
 ---
 <BaseLayout
-  title="Service Area | Pasco County and North Hillsborough"
-  description="Mobile auto detailing serving Pasco County and North Hillsborough, FL. Wesley Chapel, Lutz, Odessa, Land O' Lakes, New Tampa, and more."
+  title="Service Area | Land O' Lakes and Pasco County"
+  description="Mobile auto detailing serving Land O' Lakes, Wesley Chapel, Lutz, Odessa, New Tampa, and surrounding Pasco and North Hillsborough communities. Fully mobile, on-site."
 >
   <!-- Hero -->
   <section class="noise-overlay bg-bay-navy py-20 px-4">
@@ -60,9 +60,9 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
   <section class="py-20 px-4">
     <div class="container mx-auto max-w-5xl">
       <div class="mb-10 reveal">
-        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Standing Detail coverage.</h2>
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Priority service zones.</h2>
         <p class="text-bay-slate text-base max-w-xl">
-          The recurring program runs in these seven zips. Dedicated pages with local context for each one.
+          All services available in these {highZips.length} zones. Dedicated pages with local context, scheduling details, and area-specific notes for each one.
         </p>
       </div>
 
@@ -92,6 +92,24 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
           </a>
         ))}
       </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Land O' Lakes neighborhood cluster callout -->
+  <section class="py-16 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-5xl reveal">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-3">Land O' Lakes neighborhoods.</h2>
+      <p class="text-bay-slate text-base max-w-2xl mb-6">
+        Land O' Lakes is BayShine's home base. We run shorter response times here than anywhere else in the service area and cover every neighborhood in the community — Bexley, Connerton, Lake Padgett Estates, Wilderness Lake Preserve, and Lakeshore Ranch.
+      </p>
+      <a
+        href="/land-o-lakes"
+        class="inline-block text-bay-gold font-display font-semibold text-sm hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm underline underline-offset-4"
+      >
+        See Land O' Lakes neighborhood coverage &rarr;
+      </a>
     </div>
   </section>
 

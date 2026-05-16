@@ -1,0 +1,207 @@
+---
+// Neighborhood landing page for Lake Padgett Estates, Land O' Lakes.
+// Targets hard water mineral deposits from well water and lake proximity, iron fallout, UV acceleration.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: "Land O' Lakes",
+        addressRegion: 'FL',
+        postalCode: '34638',
+        addressCountry: 'US',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: "Land O' Lakes",
+        containsPlace: { '@type': 'Neighborhood', name: 'Lake Padgett Estates' },
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: "Land O' Lakes", item: 'https://bayshine.net/land-o-lakes' },
+        { '@type': 'ListItem', position: 3, name: 'Lake Padgett Estates', item: 'https://bayshine.net/land-o-lakes/lake-padgett-estates' },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title="Auto Detailing in Lake Padgett Estates, Land O' Lakes | BayShine"
+  description="Mobile auto detailing in Lake Padgett Estates, Land O' Lakes. BayShine removes hard water mineral deposits from well water and lake proximity. Exterior detail, ceramic coating, and the Standing Detail program."
+  canonical="https://bayshine.net/land-o-lakes/lake-padgett-estates"
+  schema={schema}
+  keywords="auto detailing Lake Padgett Estates, mobile detailing Land O Lakes FL, car detailing well water spots"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">LAKE PADGETT ESTATES, LAND O' LAKES, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Lake Padgett Estates.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Lake Padgett Estates is a lakefront community in Land O' Lakes where two water sources converge on your paint: Pasco County's high-mineral well water and ambient lake mist from direct waterfront exposure. Calcium and magnesium deposits don't wash off. They bond to clear coat and, over time, etch it. The correct response is a decontamination sequence — not another wash cycle.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Schedule a Service in Lake Padgett Estates
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- WHY IT MATTERS -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">WHAT'S HAPPENING TO YOUR PAINT</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Three conditions every Lake Padgett vehicle faces.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Hard water mineral etching</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Pasco County well water is among the harder water in the Tampa Bay area — high dissolved calcium and magnesium. Every time a sprinkler hits the car or rain mixes with well-water runoff, minerals dry on paint. Over enough cycles, they etch the clear coat beneath the deposit. Iron decontamination, clay bar, and sealant break the cycle.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">Iron fallout from brake dust</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Iron particulate from brake rotors settles on horizontal paint surfaces — hood, roof, trunk lid — and oxidizes into micro rust spots embedded in the clear coat layer. They're invisible until the paint starts looking dull. Chemical decontamination pulls them before that point.
+          </p>
+        </div>
+        <div class="border-l-2 border-bay-gold pl-5">
+          <p class="font-semibold text-bay-white text-sm mb-2">UV acceleration on lakefront</p>
+          <p class="text-bay-slate text-sm leading-relaxed">
+            Direct lakefront sun exposure — no shade, reflective water surface — puts horizontal panels under sustained UV load. Florida's UV index hits 10 to 11 in summer. Without an active sealant or ceramic layer, clear coat oxidizes faster on exposed lakefront vehicles than on vehicles parked under tree canopy a mile away.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">RECURRING PROTECTION</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The Standing Detail program.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          In a lakefront community where mineral deposits accumulate after every irrigation cycle and UV load is constant, a standing maintenance schedule isn't optional — it's the only approach that keeps the paint from falling behind. The 6-week cycle addresses what accumulates before it bonds permanently. Locked rate, priority slot, cancel anytime.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <Divider />
+
+  <!-- SERVICES -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">SERVICES</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          What we offer in Lake Padgett Estates.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal">
+        {[
+          {
+            name: 'Exterior Detail',
+            desc: 'Iron decontamination, synthetic clay bar, two-stage wash, polymer sealant. The correct answer to mineral deposit buildup.',
+            href: '/exterior-detail',
+          },
+          {
+            name: 'Full Detail',
+            desc: 'Complete interior and exterior. Decontamination, clay, sealant, and a thorough interior clean in a single visit.',
+            href: '/full-detail',
+          },
+          {
+            name: 'Ceramic Coating',
+            desc: 'Nano-silica coating bonded to clear coat. Hydrophobic barrier against mineral deposits, UV, and chemical contamination. The right long-term answer for lakefront vehicles.',
+            href: '/ceramic-coating',
+          },
+          {
+            name: 'Heavy Reconditioning',
+            desc: 'For vehicles where mineral etching and oxidation have already started. Paint correction, full decontamination, and prep for coating.',
+            href: '/recon',
+          },
+        ].map(service => (
+          <a
+            href={service.href}
+            class="group block border border-bay-slate/20 hover:border-bay-gold/50 bg-bay-deep/40 hover:bg-bay-deep/60 rounded-sm p-6 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-2">{service.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{service.desc}</p>
+            <span class="text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <RelatedBlogBox topic="general" />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Schedule a service in Lake Padgett Estates.
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+          Book Now
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

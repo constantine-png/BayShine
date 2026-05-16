@@ -15,11 +15,11 @@ const schema = {
     telephone: '+18133245522',
     url: 'https://bayshine.net',
   },
-  areaServed: {
-    '@type': 'State',
-    name: 'Florida',
-  },
-  serviceType: 'Auto Detailing',
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+    { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+  ],
+  serviceType: 'Recurring Mobile Auto Detailing',
 };
 ---
 <BaseLayout
@@ -37,9 +37,11 @@ const schema = {
           The BayShine<br />Standing Detail.
         </h1>
         <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
-          A recurring maintenance program, not a one-time service. The first visit
-          establishes the baseline. Every visit after runs shorter because the vehicle
-          stays clean between appointments.
+          A six-week recurring mobile detailing program for vehicle owners in Land O' Lakes,
+          Pasco County, and North Hillsborough who want their vehicle held at a consistent
+          standard without managing the scheduling themselves. The first visit resets the
+          vehicle to a proper baseline. Every visit after runs shorter because the surface
+          stays protected between appointments.
         </p>
         <div class="flex flex-wrap gap-4">
           <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
@@ -59,13 +61,14 @@ const schema = {
   <section class="py-20 px-4">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal mb-12">
-        <h2 class="font-display font-bold text-3xl text-bay-white mb-4">How it works.</h2>
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-4">How the Standing Detail program works.</h2>
         <p class="text-bay-slate text-base leading-relaxed max-w-2xl">
-          The first visit is a full detail at the standard rate. It resets the vehicle
-          to a proper baseline: full decontamination, clay bar, polymer sealant on the
+          The Standing Detail runs on a fixed six-week cadence. The first visit is a full
+          detail at the standard rate: full decontamination, clay bar, polymer sealant on the
           exterior, and a complete interior clean. After that, every six weeks, we run a
-          maintenance detail. It covers what accumulates between visits and holds the
-          standard established on the first.
+          maintenance detail that covers what accumulates between visits and holds the standard
+          established on the first appointment. BayShine handles the scheduling; clients
+          confirm the window at enrollment and then don't think about it again.
         </p>
       </div>
 
@@ -132,7 +135,7 @@ const schema = {
   <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal mb-10">
-        <h2 class="font-display font-bold text-2xl text-bay-white">Program terms.</h2>
+        <h2 class="font-display font-bold text-2xl text-bay-white">Standing Detail program terms.</h2>
       </div>
       <div class="reveal grid grid-cols-1 sm:grid-cols-3 gap-6">
         {[
@@ -164,16 +167,17 @@ const schema = {
   <section class="py-20 px-4">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal max-w-2xl">
-        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Who this is for.</h2>
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Who the Standing Detail is for.</h2>
         <p class="text-bay-slate text-base leading-relaxed mb-6">
-          The Standing Detail is built for residential vehicle owners who want their
-          vehicle kept at a consistent standard without managing the scheduling themselves.
-          One enrollment conversation. After that, we handle the calendar.
+          The Standing Detail is built for residential vehicle owners in Pasco County and
+          North Hillsborough who want their vehicle held at a consistent standard without
+          managing the scheduling themselves. One enrollment conversation. After that,
+          BayShine handles the calendar.
         </p>
         <p class="text-bay-slate text-base leading-relaxed mb-6">
           It fits households with one or more vehicles where the owner has no interest in
           the coordination overhead of booking a detail every time they need one. The
-          priority slot means your window does not get pushed when the schedule fills.
+          priority slot means the window does not get pushed when the schedule fills.
         </p>
         <p class="text-bay-slate text-base leading-relaxed">
           Multi-vehicle households can run both vehicles on the same cadence or on offset
@@ -189,25 +193,28 @@ const schema = {
   <section class="py-20 px-4 bg-bay-deep/30">
     <div class="container mx-auto max-w-4xl">
       <div class="reveal max-w-2xl">
-        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Why cadence matters in Florida.</h2>
+        <h2 class="font-display font-bold text-2xl text-bay-white mb-6">Why a six-week cadence is the right interval for Pasco County vehicles.</h2>
         <p class="text-bay-slate text-base leading-relaxed mb-6">
-          Florida is a harder environment for automotive paint than most of the country.
-          UV index averages 10 to 11 in summer, equivalent to equatorial climates. Clear
-          coat absorbs that load continuously. A sealant that would last six months in a
-          northern state lasts six to eight weeks here.
+          Pasco County and North Hillsborough sit in one of the harsher paint
+          environments in the country. UV index averages 10 to 11 during Florida summer,
+          equivalent to equatorial climates. Clear coat absorbs that UV load continuously.
+          A polymer sealant that would hold for six months in a northern state degrades to
+          the point of reduced effectiveness in six to eight weeks under direct Florida sun.
         </p>
         <p class="text-bay-slate text-base leading-relaxed mb-6">
-          Lovebugs occur twice a year, in spring and fall. Their body chemistry is
-          acidic; left on paint for more than 48 hours, the acid begins etching the clear
-          coat. A maintenance visit shortly after each swarm eliminates that window before
-          damage sets in.
+          Lovebugs occur twice a year in Pasco and North Hillsborough, in spring and fall.
+          Their body chemistry is acidic; left on paint for more than 48 hours, the acid
+          begins etching the clear coat. A maintenance visit shortly after each swarm closes
+          that window before damage sets in.
         </p>
         <p class="text-bay-slate text-base leading-relaxed mb-6">
           Humidity is the third factor. Florida's combination of heat and moisture
           accelerates oxidation on surfaces that are not protected. Iron fallout from brake
-          dust bonds faster in humid conditions. The six-week cadence is calibrated to the
-          Florida environment specifically: it catches contamination before it bonds rather
-          than after.
+          dust bonds faster in humid conditions. Many Pasco County communities rely on
+          well water for irrigation; the calcium and magnesium in that water leaves mineral
+          deposits on paint that etch into clear coat under UV exposure if not removed.
+          The six-week cadence is calibrated to the Florida environment specifically: it
+          catches contamination before it bonds rather than after.
         </p>
         <p class="text-bay-slate text-base leading-relaxed">
           One-time details correct damage that has already occurred. The Standing Detail
@@ -218,6 +225,20 @@ const schema = {
   </section>
 
   <Divider />
+
+  <Divider />
+
+  <!-- Further reading -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <p class="text-bay-slate text-sm leading-relaxed reveal">
+        The six-week interval is not arbitrary — it matches the degradation rate of contaminants on a painted surface in Florida's climate.
+        <a href="/blog/six-week-rhythm" class="text-bay-gold hover:underline underline-offset-4 ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm">
+          Why the six-week cadence is right for Pasco County vehicles →
+        </a>
+      </p>
+    </div>
+  </section>
 
   <!-- Final CTA -->
   <section class="noise-overlay bg-bay-deep py-20 px-4">

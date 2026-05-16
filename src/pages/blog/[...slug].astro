@@ -1,4 +1,6 @@
 ---
+// Blog post renderer — BlogPosting schema, breadcrumb, keyword auto-generation from serviceTopic.
+// Handles draft gating via preview cookie. All keyword/schema logic lives here, not in SEO.astro.
 export const prerender = false;
 
 import { getEntry } from 'astro:content';
@@ -25,23 +27,72 @@ function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+// Service-topic keyword sets — expands meta keywords beyond the generic geo/brand signals
+const serviceKeywords: Record<string, string[]> = {
+  'ceramic-coating':  ['ceramic coating', 'paint protection coating', 'SiO2 coating', 'nano ceramic coating'],
+  'exterior-detail':  ['exterior detailing', 'paint decontamination', 'clay bar treatment', 'polymer paint sealant'],
+  'full-detail':      ['full detail', 'interior exterior detailing', 'complete auto detail'],
+  'recon':            ['vehicle reconditioning', 'paint correction', 'dealer prep detailing', 'auto reconditioning'],
+  'fleet':            ['fleet detailing', 'commercial vehicle detailing', 'mobile fleet service', 'fleet maintenance'],
+  'apartments':       ['apartment detailing amenity', 'residential property detailing', 'on-site mobile detailing'],
+  'standing-detail':  ['recurring detailing', 'maintenance detail', 'standing detail program'],
+  'general':          [],
+};
+
+// Maps service topic to its canonical service page entity — used in BlogPosting `about` field
+const serviceEntityMap: Record<string, { id: string; name: string }> = {
+  'ceramic-coating': { id: 'https://bayshine.net/ceramic-coating#service', name: 'Ceramic Coating' },
+  'exterior-detail': { id: 'https://bayshine.net/exterior-detail#service', name: 'Exterior Detail' },
+  'full-detail':     { id: 'https://bayshine.net/full-detail#service', name: 'Full Detail' },
+  'recon':           { id: 'https://bayshine.net/recon#service', name: 'Vehicle Reconditioning' },
+  'fleet':           { id: 'https://bayshine.net/fleet#service', name: 'Fleet Detailing Programs' },
+  'apartments':      { id: 'https://bayshine.net/apartments#service', name: 'Residential Property Detailing' },
+  'standing-detail': { id: 'https://bayshine.net/standing-detail#service', name: 'Standing Detail' },
+};
+
+const topic = post.data.serviceTopic ?? 'general';
+const topicKeywords = serviceKeywords[topic] ?? [];
+const autoKeywords = [
+  ...topicKeywords,
+  'mobile auto detailing',
+  'Land O Lakes FL',
+  'Pasco County FL',
+  'North Hillsborough FL',
+  'BayShine Detailing',
+  post.data.category,
+].join(', ');
+const keywords = post.data.keywords ? post.data.keywords.join(', ') : autoKeywords;
+const serviceEntity = topic !== 'general' ? serviceEntityMap[topic] : undefined;
+
 const blogPostSchema = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: post.data.title,
-  description: post.data.description,
-  datePublished: post.data.pubDate.toISOString(),
-  author: {
-    '@type': 'Organization',
-    name: 'BayShine Detailing',
-    url: 'https://bayshine.net',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'BayShine Detailing',
-    url: 'https://bayshine.net',
-  },
-  url: `https://bayshine.net/blog/${post.slug}`,
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      '@id': `https://bayshine.net/blog/${post.slug}#article`,
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.pubDate.toISOString(),
+      inLanguage: 'en-US',
+      // author references canonical business entity — avoids creating a competing Organization node
+      author: { '@id': 'https://bayshine.net/#business' },
+      // publisher: @id-only reference to canonical entity; no redundant inline properties
+      publisher: { '@id': 'https://bayshine.net/#business' },
+      url: `https://bayshine.net/blog/${post.slug}`,
+      isPartOf: { '@id': 'https://bayshine.net/blog#blog' },
+      ...(serviceEntity
+        ? { about: { '@type': 'Service', '@id': serviceEntity.id, name: serviceEntity.name } }
+        : {}),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home',        item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Field Notes', item: 'https://bayshine.net/blog' },
+        { '@type': 'ListItem', position: 3, name: post.data.title, item: `https://bayshine.net/blog/${post.slug}` },
+      ],
+    },
+  ],
 };
 ---
 <BaseLayout
@@ -49,6 +100,10 @@ const blogPostSchema = {
   description={post.data.description}
   schema={blogPostSchema}
   bodyClass="blog-body"
+  keywords={keywords}
+  ogType="article"
+  articlePublishedTime={post.data.pubDate.toISOString()}
+  articleSection={post.data.category}
 >
   {post.data.draft && isPreview && (
     <div class="bg-orange-100 border-b border-orange-200 px-4 py-2">
@@ -64,7 +119,12 @@ const blogPostSchema = {
     <header class="py-16 px-4 border-b border-bay-ink/10">
       <div class="container mx-auto max-w-2xl">
         <div class="flex items-center gap-4 text-xs mb-6">
-          <a href="/blog" class="font-display text-bay-ink/50 hover:text-bay-navy transition-colors uppercase tracking-wider text-[10px] font-bold">← Field Notes</a>
+          <a
+            href="/blog"
+            class="font-display text-bay-ink/50 hover:text-bay-navy transition-colors uppercase tracking-wider text-[10px] font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm"
+          >
+            &larr; Field Notes
+          </a>
           <span class="text-bay-ink/30">·</span>
           <span class="font-display text-bay-gold text-[10px] font-bold uppercase tracking-widest">{post.data.category}</span>
         </div>
@@ -99,7 +159,7 @@ const blogPostSchema = {
       </div>
     </div>
 
-    <!-- Booking CTA — appears after every post; hottest conversion point on the content side -->
+    <!-- Booking CTA — hottest conversion point on the content side -->
     <div class="py-12 px-4 bg-bay-navy/40 border-t border-bay-ink/10">
       <div class="container mx-auto max-w-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p class="font-display font-semibold text-bay-white text-base">

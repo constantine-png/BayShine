@@ -222,6 +222,58 @@ const ZIP_CONTENT: Record<string, ZipContent> = {
       },
     ],
   },
+  '34639': {
+    metaDescription:
+      "Mobile auto detailing in Land O' Lakes, FL (34639). Full detail, ceramic coating, and the Standing Detail program for Lake Padgett Estates and Plantation Palms.",
+    standingDetailHeadline: 'The recurring detail program for Lake Padgett Estates and Plantation Palms.',
+    standingDetailCopy:
+      "Lake Padgett Estates sits on well-water infrastructure, and the mineral content in Pasco County wells leaves calcium and magnesium deposits on paint that a standard wash cannot remove. The Standing Detail program addresses this on a six-week rhythm — decontaminating the mineral buildup before it etches into the clear coat, then sealing the surface so the next six weeks of exposure are easier to clean. First visit establishes the baseline. Every visit after runs shorter because the vehicle stays protected between appointments.",
+    localContextParagraph:
+      "Lake Padgett Estates is built around lakefront living. The combination of well water for irrigation and lake-adjacent humidity creates one of the more challenging paint maintenance environments in the service area. Irrigation sprinklers deposit mineral-heavy water directly on vehicle paint in many driveways; when that water evaporates in Florida heat, it leaves calcium and magnesium spots that are bonded to the clear coat surface. Standard car wash chemistry cannot dissolve these deposits — they require an acid-wash step with specific chemistry. Left unaddressed, they etch permanently through the clear coat under UV exposure. Vehicles on lake-view lots also get organic contamination from lakeside vegetation: pollen, sap, and bird fallout concentrate near open water. Plantation Palms has a similar irrigation and vegetation profile. UV exposure for vehicles stored outdoors on uncovered driveways is among the highest in the service area given the open lake views and minimal shade coverage. Ceramic coating applied after a proper decontamination sequence performs exceptionally well here; the coating intercepts the mineral deposit cycle at the surface rather than allowing contact with the clear coat.",
+    faqs: [
+      {
+        question: "Do you serve Lake Padgett Estates and Plantation Palms in Land O' Lakes?",
+        answer:
+          "Yes. Both communities are in the 34639 service area and are priority zones for the Standing Detail program. Service is fully mobile: we come to your driveway. Book through the contact page or call (813) 324-5522.",
+      },
+      {
+        question: 'How do you remove hard water spots from well water in Land O\' Lakes?',
+        answer:
+          'Mineral deposits from well water require a pH-adjusted acid-wash step — standard car wash chemistry cannot dissolve calcium and magnesium bonds. We assess the severity on the first visit and include the decontamination step in the service sequence. After the surface is clean, polymer sealant or ceramic coating prevents the deposits from bonding as easily on future visits.',
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 34639?',
+        answer:
+          'Yes. The Standing Detail program is active in 34639. The first visit is a baseline full detail at the standard rate. Subsequent visits run on a six-week cadence at a locked maintenance rate. Priority scheduling, cancel anytime, no contract.',
+      },
+    ],
+  },
+  '34637': {
+    metaDescription:
+      "Mobile auto detailing in Land O' Lakes, FL (34637). Full detail, ceramic coating, and the Standing Detail program for Connerton and Wilderness Lake Preserve.",
+    standingDetailHeadline: 'The recurring detail program for Connerton and Wilderness Lake Preserve.',
+    standingDetailCopy:
+      "Connerton and Wilderness Lake Preserve are established master-planned communities with mature tree canopy — which means consistent pollen, sap, and organic debris on every vehicle that parks outdoors. The Standing Detail program runs a six-week rhythm that interrupts the contamination cycle before it compounds. Connerton residents already operate on a services schedule; the program fits the same model. Wilderness Lake Preserve vehicles under heavy canopy need the decontamination step on every visit, not just the first.",
+    localContextParagraph:
+      "Wilderness Lake Preserve earns its name. Heavy pine and oak canopy means pollen loading from March through May is severe — a vehicle parked under a mature pine for 48 hours will have a visible yellow coating that a rinse will not clear. Pine sap bonds to paint within days in Florida heat and becomes progressively harder to remove without a clay-bar decontamination step. Bird activity under canopy is higher than in open communities, and bird droppings are mildly acidic; in Florida heat, they begin to etch clear coat within hours. Connerton is a master-planned community with an age-restricted section, and the vehicle population includes cars driven for years without professional decontamination — first-visit baseline sessions on these vehicles often reveal improvements clients did not expect were still possible. Lakeshore Ranch borders this ZIP and shares the lakefront mineral deposit profile: well water irrigation deposits calcium and magnesium on paint that requires acid chemistry to remove. The proximity to CR-54 and US-41 means highway-grade iron fallout is a factor on wheels and lower body panels across both communities.",
+    faqs: [
+      {
+        question: "Do you serve Connerton and Wilderness Lake Preserve in Land O' Lakes?",
+        answer:
+          "Yes. Both communities are in the 34637 service area and are priority zones for the Standing Detail program. Service is fully mobile: we come to your driveway, parking area, or gated entrance. Book online or call (813) 324-5522.",
+      },
+      {
+        question: 'How do you handle tree sap on vehicles in Wilderness Lake Preserve?',
+        answer:
+          "Pine sap and tree resin require a synthetic clay bar decontamination step — standard washing does not remove bonded sap. We include clay-bar decontamination in the exterior detail and full detail sequences. On vehicles under heavy canopy with significant sap buildup, the decontamination step takes longer on the first visit. The Standing Detail program's six-week cadence catches sap before it bonds deeply, which makes subsequent visits faster.",
+      },
+      {
+        question: 'Can I schedule a recurring 6-week detail in 34637?',
+        answer:
+          'Yes. The Standing Detail program is active in 34637. First visit is a full detail baseline at the standard rate. Subsequent visits run every six weeks at a locked rate with priority scheduling. Cancel anytime, no contract.',
+      },
+    ],
+  },
 };
 
 const content = ZIP_CONTENT[code];
@@ -263,11 +315,18 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'LocalBusiness',
-      '@id': `https://bayshine.net/service-area/${code}`,
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       telephone: '+18133245522',
       url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: "Land O' Lakes",
+        addressRegion: 'FL',
+        postalCode: '34638',
+        addressCountry: 'US',
+      },
       areaServed: {
         '@type': 'Place',
         name: city,
@@ -275,6 +334,14 @@ const schema = {
         addressRegion: 'FL',
         addressCountry: 'US',
       },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Service Areas', item: 'https://bayshine.net/service-area' },
+        { '@type': 'ListItem', position: 3, name: `${city} (${code})`, item: `https://bayshine.net/service-area/${code}` },
+      ],
     },
     {
       '@type': 'FAQPage',

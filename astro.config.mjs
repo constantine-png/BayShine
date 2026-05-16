@@ -4,6 +4,59 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join, basename } from 'node:path';
+
+function getSlugsFromDir(dir) {
+  try {
+    return readdirSync(dir)
+      .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
+      .map(f => basename(f, f.endsWith('.mdx') ? '.mdx' : '.md'))
+      .filter(slug => {
+        // exclude drafts
+        const raw = readFileSync(join(dir, slug + (readdirSync(dir).find(f => f.startsWith(slug + '.')) || '').slice(slug.length)), 'utf8');
+        return !raw.includes('draft: true');
+      });
+  } catch { return []; }
+}
+
+function getBlogSlugs() {
+  const dir = join(import.meta.dirname, 'src/content/blog');
+  try {
+    return readdirSync(dir)
+      .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
+      .filter(f => {
+        const raw = readFileSync(join(dir, f), 'utf8');
+        return !raw.includes('draft: true');
+      })
+      .map(f => f.replace(/\.(mdx|md)$/, ''));
+  } catch { return []; }
+}
+
+function getFieldGuideSlugs() {
+  const dir = join(import.meta.dirname, 'src/content/fieldGuideScenarios');
+  try {
+    return readdirSync(dir)
+      .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
+      .filter(f => {
+        const raw = readFileSync(join(dir, f), 'utf8');
+        return !raw.includes('draft: true');
+      })
+      .map(f => f.replace(/\.(mdx|md)$/, ''));
+  } catch { return []; }
+}
+
+const blogUrls = getBlogSlugs().map(s => `https://bayshine.net/blog/${s}/`);
+const fieldGuideUrls = getFieldGuideSlugs().map(s => `https://bayshine.net/field-guide/${s}/`);
+
+const landOLakesUrls = [
+  'https://bayshine.net/land-o-lakes/',
+  'https://bayshine.net/land-o-lakes/bexley/',
+  'https://bayshine.net/land-o-lakes/connerton/',
+  'https://bayshine.net/land-o-lakes/lake-padgett-estates/',
+  'https://bayshine.net/land-o-lakes/wilderness-lake-preserve/',
+  'https://bayshine.net/land-o-lakes/lakeshore-ranch/',
+];
 
 export default defineConfig({
   site: 'https://bayshine.net',
@@ -11,7 +64,11 @@ export default defineConfig({
   integrations: [
     react(),
     mdx(),
-    sitemap(),
+    sitemap({
+      customPages: [...blogUrls, ...fieldGuideUrls, ...landOLakesUrls],
+      // Exclude SSR-only admin/pro routes and go redirects
+      filter: (page) => !page.includes('/field-guide/admin') && !page.includes('/field-guide/pro') && !page.includes('/go/'),
+    }),
   ],
   redirects: {
     // Blog posts moved from subdirectories to root-level /blog — 301 permanent redirects

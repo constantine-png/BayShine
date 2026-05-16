@@ -31,8 +31,8 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
       </a>
     </div>
 
-    <!-- 5-column nav grid -->
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
+    <!-- 6-column nav grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 mb-12">
 
       <!-- Services -->
       <div>
@@ -57,7 +57,23 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
             ['Standing Detail', '/standing-detail'],
             ['Fleet Programs', '/fleet'],
             ['Apartments', '/apartments'],
-            ['Lot Maintenance', '/lot-maintenance'],
+          ].map(([label, href]) => (
+            <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Neighborhoods -->
+      <div>
+        <h3 class="text-bay-bone text-xs font-semibold uppercase tracking-widest mb-4">Neighborhoods</h3>
+        <ul class="space-y-2 text-sm text-bay-slate">
+          {[
+            ["Land O' Lakes", '/land-o-lakes'],
+            ['Bexley', '/land-o-lakes/bexley'],
+            ['Connerton', '/land-o-lakes/connerton'],
+            ['Lake Padgett Estates', '/land-o-lakes/lake-padgett-estates'],
+            ['Wilderness Lake Preserve', '/land-o-lakes/wilderness-lake-preserve'],
+            ['Lakeshore Ranch', '/land-o-lakes/lakeshore-ranch'],
           ].map(([label, href]) => (
             <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
           ))}
@@ -84,8 +100,6 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
         <ul class="space-y-2 text-sm text-bay-slate">
           {[
             ['Browse Scenarios', '/field-guide'],
-            ['Paint', '/field-guide'],
-            ['Interior', '/field-guide'],
           ].map(([label, href]) => (
             <li><a href={href} class="hover:text-bay-bone transition-colors">{label}</a></li>
           ))}

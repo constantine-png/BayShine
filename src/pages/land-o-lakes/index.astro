@@ -1,0 +1,192 @@
+---
+// Hub page for Land O' Lakes detailing. Links to all 5 neighborhood pages.
+// Serves as the canonical parent for the neighborhood cluster.
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Pause from '@/components/ui/Pause.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@id': 'https://bayshine.net/#business',
+      name: 'BayShine Detailing',
+      telephone: '+18133245522',
+      url: 'https://bayshine.net',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '',
+        addressLocality: "Land O' Lakes",
+        addressRegion: 'FL',
+        postalCode: '34638',
+        addressCountry: 'US',
+      },
+      areaServed: [
+        { '@type': 'City', name: "Land O' Lakes" },
+        { '@type': 'Neighborhood', name: 'Bexley' },
+        { '@type': 'Neighborhood', name: 'Connerton' },
+        { '@type': 'Neighborhood', name: 'Lake Padgett Estates' },
+        { '@type': 'Neighborhood', name: 'Wilderness Lake Preserve' },
+        { '@type': 'Neighborhood', name: 'Lakeshore Ranch' },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: "Land O' Lakes", item: 'https://bayshine.net/land-o-lakes' },
+      ],
+    },
+  ],
+};
+
+const neighborhoods = [
+  {
+    name: 'Bexley',
+    hook: 'High-traffic community near new construction. Pollen and brake dust accumulate fast.',
+    href: '/land-o-lakes/bexley',
+  },
+  {
+    name: 'Connerton',
+    hook: 'Master-planned and growing. Most residents are on HOA-maintained lots — detailing stays on your schedule.',
+    href: '/land-o-lakes/connerton',
+  },
+  {
+    name: 'Lake Padgett Estates',
+    hook: 'Lakefront lots and well water mean mineral deposits on every vehicle. Regular maintenance pays.',
+    href: '/land-o-lakes/lake-padgett-estates',
+  },
+  {
+    name: 'Wilderness Lake Preserve',
+    hook: 'Heavy tree canopy drops pollen, sap, and organic debris year-round.',
+    href: '/land-o-lakes/wilderness-lake-preserve',
+  },
+  {
+    name: 'Lakeshore Ranch',
+    hook: 'Gated community. We coordinate with the gate and come to your driveway.',
+    href: '/land-o-lakes/lakeshore-ranch',
+  },
+];
+---
+<BaseLayout
+  title="Mobile Auto Detailing in Land O' Lakes, FL | BayShine"
+  description="BayShine serves all of Land O' Lakes, Florida — Bexley, Connerton, Lake Padgett Estates, Wilderness Lake Preserve, and Lakeshore Ranch. Mobile auto detailing at your driveway."
+  canonical="https://bayshine.net/land-o-lakes"
+  schema={schema}
+  keywords="mobile auto detailing Land O Lakes FL, car detailing Land O Lakes, BayShine Land O Lakes"
+>
+
+  <!-- HERO -->
+  <section class="noise-overlay py-24 px-4 min-h-[60vh] flex flex-col justify-center">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">LAND O' LAKES, FL</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-6 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Mobile auto detailing.<br />Land O' Lakes, Florida.
+        </h1>
+        <p class="text-bay-slate text-lg leading-relaxed mb-10 max-w-2xl">
+          Land O' Lakes is BayShine's home base. We run faster response times here than anywhere else in the service area. Mobile service means we come to your driveway, your parking spot, or your HOA community — no drop-off required.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Book a Service
+          </Button>
+          <Button href="/standing-detail" variant="secondary" class="text-base px-8 py-3.5">
+            Standing Detail Program
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- NEIGHBORHOOD GRID -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">COMMUNITIES SERVED</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          Every neighborhood in Land O' Lakes.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mt-4 max-w-2xl">
+          Each community in Land O' Lakes has its own environmental conditions — canopy coverage, water source, proximity to traffic corridors, HOA standards. The pages below address each one directly.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+        {neighborhoods.map(n => (
+          <a
+            href={n.href}
+            class="group block gloss-cap section-bevel bg-bay-navy/60 border border-bay-gold/20 rounded-sm p-6 hover:border-bay-gold/60 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold"
+          >
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-3 leading-snug">{n.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-4">{n.hook}</p>
+            <span class="inline-block text-bay-gold text-sm font-medium group-hover:underline underline-offset-4">
+              View page &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- STANDING DETAIL CALLOUT -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">THE HEADLINE SERVICE</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
+          The BayShine Standing Detail.
+        </h2>
+        <p class="text-bay-slate text-lg leading-relaxed mb-8 max-w-2xl">
+          A <span class="font-mono text-bay-gold">6-week</span> recurring program. One visit establishes the baseline. Every visit after runs shorter because the vehicle doesn't fall behind. The rate you start at is the rate you keep.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {[
+            { label: 'Priority Slot', desc: 'Your recurring time is held. No competing for availability.' },
+            { label: 'Locked Rate', desc: 'The price you start at is the price you keep.' },
+            { label: 'Cancel Anytime', desc: 'No contracts. No cancellation fee. No pressure.' },
+          ].map(item => (
+            <div class="border-l-2 border-bay-gold pl-5">
+              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
+              <p class="text-bay-slate text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">
+          How the Program Works
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <Pause />
+
+  <!-- FINAL CTA -->
+  <section class="noise-overlay bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+      <div class="reveal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
+          Ready to schedule?
+        </h2>
+        <p class="text-bay-slate mb-8">
+          Call or text (813) 324-5522, or book online. We respond within 2 hours.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
+            Book Now
+          </Button>
+          <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
+            Get a Quote
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
