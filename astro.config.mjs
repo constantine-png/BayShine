@@ -47,7 +47,7 @@ function getFieldGuideSlugs() {
 }
 
 const blogUrls = getBlogSlugs().map(s => `https://bayshine.net/blog/${s}/`);
-const fieldGuideUrls = getFieldGuideSlugs().map(s => `https://bayshine.net/field-guide/${s}/`);
+const fieldGuideUrls = getFieldGuideSlugs().map(s => `https://bayshine.net/field-guide/articles/${s}/`);
 
 const landOLakesUrls = [
   'https://bayshine.net/land-o-lakes/',
