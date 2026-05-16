@@ -10,7 +10,7 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
 ---
 <BaseLayout
   title="Service Area | Land O' Lakes and Pasco County"
-  description="Mobile auto detailing serving Land O' Lakes, Wesley Chapel, Lutz, Odessa, New Tampa, and surrounding Pasco and North Hillsborough communities. Fully mobile, on-site."
+  description="Mobile auto detailing serving Land O' Lakes, Wesley Chapel, Lutz, Odessa, New Tampa, Trinity, Zephyrhills, and surrounding Pasco and North Hillsborough communities. Fully mobile, on-site."
 >
   <!-- Hero -->
   <section class="noise-overlay bg-bay-navy py-20 px-4">
@@ -120,7 +120,7 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
     <div class="container mx-auto max-w-5xl reveal">
       <h2 class="font-display font-bold text-2xl text-bay-white mb-3">Wesley Chapel neighborhoods.</h2>
       <p class="text-bay-slate text-base max-w-2xl mb-6">
-        Wesley Chapel is one of the fastest-growing corridors in Pasco County. We serve all three primary ZIP codes — 33543, 33544, and 33545 — covering Wiregrass Ranch, Seven Oaks, and Meadow Pointe directly from your driveway.
+        Wesley Chapel is one of the fastest-growing corridors in Pasco County. We serve all three primary ZIP codes — 33543, 33544, and 33545 — covering Wiregrass Ranch, Seven Oaks, Meadow Pointe, Epperson Ranch, and Mirada directly from your driveway.
       </p>
       <a
         href="/wesley-chapel"
@@ -128,6 +128,49 @@ const hillsZips = SERVICE_AREA.filter(z => getCounty(z.code) === 'Hillsborough')
       >
         See Wesley Chapel neighborhood coverage &rarr;
       </a>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Lutz consolidated callout -->
+  <section class="py-16 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-5xl reveal">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-3">Lutz neighborhoods.</h2>
+      <p class="text-bay-slate text-base max-w-2xl mb-6">
+        Lutz spans three ZIP codes in the service area: 33548 (Cheval, Lake Fern), 33558 (Steinbrenner, Van Dyke Farms), and 33549. All three are active service zones. Cheval's gated community access is straightforward — provide the gate code when booking. Van Dyke Farms and the Steinbrenner corridor see consistent construction dust from active development along the Van Dyke Road corridor; first-visit decontamination is standard here.
+      </p>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Trinity callout -->
+  <section class="py-16 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-5xl reveal">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-3">Trinity neighborhoods.</h2>
+      <p class="text-bay-slate text-base max-w-2xl mb-6">
+        Trinity (34655) sits in western Pasco County along SR-54 and Little Road, close enough to the Gulf that salt-air humidity is a real factor on paint year-round. We serve Starkey Ranch, Thousand Oaks, Fox Wood, Heritage Springs, and Longleaf. The combination of coastal moisture and Florida UV load makes a consistent maintenance cadence more than a preference for vehicles parked outdoors here.
+      </p>
+      <a
+        href="/blog/trinity-fl-mobile-detailing"
+        class="inline-block text-bay-gold font-display font-semibold text-sm hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm underline underline-offset-4"
+      >
+        Trinity FL service coverage &rarr;
+      </a>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Zephyrhills callout -->
+  <section class="py-16 px-4 bg-bay-deep/30">
+    <div class="container mx-auto max-w-5xl reveal">
+      <h2 class="font-display font-bold text-2xl text-bay-white mb-3">Zephyrhills.</h2>
+      <p class="text-bay-slate text-base max-w-2xl mb-6">
+        Eastern Pasco County along US-301 and SR-54. We serve 33540 (Silverado, Silver Oaks) and 33541 (Chapel Creek, Whispering Oaks) as high-priority zones. Zephyrhills has a distinct detailing profile from the western Pasco communities: well water with high mineral content, agricultural adjacency on the SR-54 corridor, and open terrain that puts more UV on paint than canopy-heavy neighborhoods to the west. Most first-visit baselines here include a mineral-deposit decontamination step.
+      </p>
+      {/* FOLLOWUP: src/pages/service-area/index.astro — Add link to /blog/zephyrhills-mobile-detailing/ once that post is published. Currently no Zephyrhills blog post exists. */}
     </div>
   </section>
 
