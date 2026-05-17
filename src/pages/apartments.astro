@@ -4,6 +4,31 @@ import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
 
+const apartmentsSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/apartments#service',
+      name: 'Residential Property Detailing',
+      description: 'On-property mobile detailing programs for apartment communities in Pasco County and North Hillsborough, FL. Residents enroll and pay directly. No cost or coordination overhead for the property. Four service tiers from exterior maintenance wash to full Standing Detail recurring program.',
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Mobile Auto Detailing – Apartment Property Program',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Apartment Programs', item: 'https://bayshine.net/apartments' },
+      ],
+    },
+  ],
+};
+
 const TIERS = [
   {
     id: 'rinse',
@@ -32,8 +57,9 @@ const TIERS = [
 ];
 ---
 <BaseLayout
-  title="Apartment Resident Detailing | Property Programs"
+  title="Apartment Resident Detailing | Property Programs | BayShine"
   description="On-property mobile detailing programs for apartment communities in Pasco County and North Hillsborough. Residents enroll directly. No cost or coordination for the property."
+  schema={apartmentsSchema}
 >
 
   <!-- ── HERO ───────────────────────────────────────────────── -->

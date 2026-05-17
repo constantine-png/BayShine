@@ -6,10 +6,36 @@ import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 import VideoLoop from '@/components/ui/VideoLoop.astro';
 import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
 import { ASSET_REGISTRY } from '@/lib/assetRegistry';
+
+const fullDetailSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/full-detail#service',
+      name: 'Full Detail',
+      description: 'Complete interior and exterior detailing. Iron decontamination, synthetic clay bar, two-stage hand wash, polymer paint sealant on the exterior. Full vacuum, hard surface cleaning, leather conditioning, odor neutralization, and streak-free glass inside. Mobile service in Pasco County and North Hillsborough, FL.',
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Auto Detailing – Full Interior and Exterior Detail',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Full Detail', item: 'https://bayshine.net/full-detail' },
+      ],
+    },
+  ],
+};
 ---
 <BaseLayout
-  title="Full Detail: Interior and Exterior"
+  title="Full Detail: Interior and Exterior | BayShine Mobile Detailing"
   description="Complete interior and exterior detailing. Decontamination, clay bar, sealant, and full interior clean. Mobile service in Pasco County and North Hillsborough."
+  schema={fullDetailSchema}
 >
   <!-- Hero -->
   <section class="noise-overlay py-24 px-4">

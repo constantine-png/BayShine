@@ -3,10 +3,36 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const fleetSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/fleet#service',
+      name: 'Fleet Detailing Programs',
+      description: 'Mobile fleet detailing programs for dealerships, businesses, and property managers in Pasco County and North Hillsborough, FL. Lot maintenance wash, sales-prep detail, recon, and fleet van wash. Standing schedule with monthly invoicing and per-unit pricing locked at sign-up.',
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Commercial Fleet Detailing',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Fleet Programs', item: 'https://bayshine.net/fleet' },
+      ],
+    },
+  ],
+};
 ---
 <BaseLayout
-  title="Fleet & Lot Maintenance Programs"
+  title="Fleet & Lot Maintenance Programs | BayShine Mobile Detailing"
   description="Mobile fleet detailing in Pasco County and North Hillsborough. Lot maintenance, sales prep, recon, and van wash programs. Standing schedule, monthly invoice."
+  schema={fleetSchema}
 >
 
   <!-- ── HERO ───────────────────────────────────────────────── -->

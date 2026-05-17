@@ -419,7 +419,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@type': ['LocalBusiness', 'AutoWash'],
       '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       telephone: '+18133245522',
@@ -609,14 +609,13 @@ const schema = {
             Book Now
           </a>
         </li>
-        {/* FOLLOWUP: src/pages/service-area/[zip].astro — "What is a Standing Detail?" link below still needs a real blog post URL when that post is published */}
         <li>
           <a href="/blog/how-often-to-detail-florida" class="text-bay-slate hover:text-bay-bone transition-colors">
             How often should you detail in Florida?
           </a>
         </li>
         <li>
-          <a href="#" data-blog-link-needed class="text-bay-slate hover:text-bay-bone transition-colors">
+          <a href="/blog/what-is-a-standing-detail" class="text-bay-slate hover:text-bay-bone transition-colors">
             What is a Standing Detail?
           </a>
         </li>

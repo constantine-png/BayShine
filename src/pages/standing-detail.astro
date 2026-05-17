@@ -6,20 +6,28 @@ import Divider from '@/components/ui/Divider.astro';
 
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'BayShine Standing Detail',
-  description: 'Six-week recurring mobile auto detailing program. Locked rate, priority scheduling, cancel anytime. Serving Pasco County and North Hillsborough, FL.',
-  provider: {
-    '@type': 'LocalBusiness',
-    name: 'BayShine Detailing',
-    telephone: '+18133245522',
-    url: 'https://bayshine.net',
-  },
-  areaServed: [
-    { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
-    { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/standing-detail#service',
+      name: 'BayShine Standing Detail',
+      description: 'Six-week recurring mobile auto detailing program. Locked rate, priority scheduling, cancel anytime. Serving Pasco County and North Hillsborough, FL.',
+      // provider uses @id-only reference to the canonical LocalBusiness entity — avoids duplicating NAP data
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Recurring Mobile Auto Detailing',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Standing Detail', item: 'https://bayshine.net/standing-detail' },
+      ],
+    },
   ],
-  serviceType: 'Recurring Mobile Auto Detailing',
 };
 ---
 <BaseLayout

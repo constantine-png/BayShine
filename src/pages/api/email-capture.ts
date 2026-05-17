@@ -1,5 +1,3 @@
-// FOLLOWUP: Add a real list provider (Resend Audiences, ConvertKit, etc.)
-// Currently logs and sends notification only.
 export const prerender = false;
 
 import type { APIRoute } from 'astro';
@@ -38,7 +36,18 @@ export const POST: APIRoute = async ({ request }) => {
   const resendKey = import.meta.env.RESEND_API_KEY;
 
   if (resendKey) {
-    new Resend(resendKey).emails.send({
+    const resend = new Resend(resendKey);
+
+    const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
+    if (audienceId) {
+      resend.contacts.create({
+        email,
+        audienceId,
+        unsubscribed: false,
+      }).catch(err => console.error('Contact add failed:', err));
+    }
+
+    resend.emails.send({
       from: 'BayShine <hello@bayshine.net>',
       to: 'constantine@bayshine.net',
       subject: `EMAIL CAPTURE: ${source ?? 'unknown'}: ${email}`,

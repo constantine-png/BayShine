@@ -10,17 +10,17 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': ['LocalBusiness', 'AutoWash', 'ProfessionalService'],
+      '@type': ['LocalBusiness', 'AutoWash'],
       '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       telephone: '+18133245522',
       url: 'https://bayshine.net',
+      // address reflects the business home base (Land O' Lakes), not the service area page context
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '',
-        addressLocality: 'Wesley Chapel',
+        addressLocality: "Land O' Lakes",
         addressRegion: 'FL',
-        postalCode: '33543',
+        postalCode: '34638',
         addressCountry: 'US',
       },
       areaServed: [

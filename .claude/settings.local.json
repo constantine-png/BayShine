@@ -3,18 +3,18 @@
     "allow": [
       "Bash(*)",
       "PowerShell(*)",
-      "Write(C:\Users\Const\Atrium-Forge\**)",
-      "Write(C:\Users\Const\Bayshine Site\**)",
-      "Edit(C:\Users\Const\Atrium-Forge\**)",
-      "Edit(C:\Users\Const\Bayshine Site\**)",
+      "Write(C:\\Users\\Const\\Atrium-Forge\\**)",
+      "Write(C:\\Users\\Const\\Bayshine Site\\**)",
+      "Edit(C:\\Users\\Const\\Atrium-Forge\\**)",
+      "Edit(C:\\Users\\Const\\Bayshine Site\\**)",
       "Read(//c/Users/Const/**)",
       "Read(//c/**)",
       "WebFetch(*)",
       "WebSearch(*)"
     ],
     "additionalDirectories": [
-      "C:\Users\Const\Atrium-Forge\Atrium",
-      "C:\Users\Const\Atrium-Forge\atrium-site"
+      "C:\\Users\\Const\\Atrium-Forge\\Atrium",
+      "C:\\Users\\Const\\Atrium-Forge\\atrium-site"
     ]
   }
 }

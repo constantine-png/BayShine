@@ -3,10 +3,36 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Divider from '@/components/ui/Divider.astro';
 import RelatedBlogBox from '@/components/sections/RelatedBlogBox.astro';
+
+const reconSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://bayshine.net/recon#service',
+      name: 'Vehicle Reconditioning',
+      description: 'Heavy-condition vehicle reconditioning for neglected, heavily soiled, or trade-in vehicles. Multi-stage process including deep interior extraction, enzymatic odor treatment, steam cleaning, full paint decontamination, iron and tar removal, and polymer sealant. Mobile service in Pasco County and North Hillsborough, FL.',
+      provider: { '@id': 'https://bayshine.net/#business' },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Pasco County, Florida' },
+        { '@type': 'AdministrativeArea', name: 'North Hillsborough County, Florida' },
+      ],
+      serviceType: 'Auto Detailing – Vehicle Reconditioning',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bayshine.net' },
+        { '@type': 'ListItem', position: 2, name: 'Heavy Recon', item: 'https://bayshine.net/recon' },
+      ],
+    },
+  ],
+};
 ---
 <BaseLayout
-  title="Heavy Recon: Deep Detail for Neglected Vehicles"
+  title="Heavy Recon: Deep Detail for Neglected Vehicles | BayShine"
   description="Heavy-condition vehicle reconditioning in Pasco County and North Hillsborough. Trade-ins, long-term neglect, severe staining. Restored to a sellable standard."
+  schema={reconSchema}
 >
   <section class="noise-overlay bg-bay-navy py-24 px-4 section-bevel">
     <div class="container mx-auto max-w-3xl">
