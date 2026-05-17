@@ -6,7 +6,7 @@
 > Every service performed on-site, by appointment, using professional-grade
 > chemistry and equipment.
 
-<!-- Generated: 2026-05-16 | Scope: Full site update | Update quarterly or when service area, offerings, or neighborhood pages change -->
+<!-- Generated: 2026-05-16 | Scope: Loop-15 content update | Update quarterly or when service area, offerings, or neighborhood pages change -->
 
 ## What this site is
 
@@ -100,10 +100,6 @@ Nothing is rushed.
   amenity with no billing overhead, no operational coordination, and no cost
   to the property.
 
-- [Lot Maintenance](https://bayshine.net/lot-maintenance): Dealership lot
-  maintenance programs. Per-unit wash and presentation service on a standing
-  schedule.
-
 ## Service area -- Land O' Lakes and surrounding communities
 
 Land O' Lakes, FL 34638 is BayShine's primary base of operations. The following
@@ -143,6 +139,32 @@ for each community within Land O' Lakes.
   Neighborhood landing page for Lakeshore Ranch, Land O' Lakes (34638). Gated,
   master-planned community. We coordinate gate access and come to your driveway.
   Lakefront mineral deposit conditions apply. Full service menu available.
+
+The following neighborhood pages cover Wesley Chapel (33543, 33544), one of
+Pasco County's fastest-growing corridors, with service logistics and contamination
+context specific to each community.
+
+- [Wesley Chapel detailing hub](https://bayshine.net/wesley-chapel): Hub page
+  for Wesley Chapel neighborhoods. Covers the open-sky UV exposure typical of
+  new-construction subdivisions, HOA compatibility, and lease vehicle paint
+  protection in Pasco County's highest-growth market.
+
+- [Seven Oaks detailing](https://bayshine.net/wesley-chapel/seven-oaks):
+  Neighborhood landing page for Seven Oaks, Wesley Chapel (33544). Established
+  master-planned community with heavy tree canopy along interior roads. Pine sap,
+  bird droppings, and pollen are the primary contamination sources. Full service
+  menu available.
+
+- [Meadow Pointe detailing](https://bayshine.net/wesley-chapel/meadow-pointe):
+  Neighborhood landing page for Meadow Pointe, Wesley Chapel (33543, 33544).
+  Large community with mix of older and newer construction. Brake dust from
+  SR-54 corridor traffic and seasonal pollen accumulation are the primary
+  contamination conditions. Full service menu available.
+
+- [Wiregrass Ranch detailing](https://bayshine.net/wesley-chapel/wiregrass-ranch):
+  Neighborhood landing page for Wiregrass Ranch, Wesley Chapel (33545). New
+  construction community with open-sky exposure and active construction corridor
+  particulate. Higher UV load on unshaded driveways. Full service menu available.
 
 ## Selected blog content
 
@@ -267,6 +289,49 @@ Land O' Lakes, Pasco County, and surrounding communities:
   How apartment communities in Pasco and North Hillsborough counties add a
   premium resident amenity at zero cost to the property.
 
+- [What Is a Standing Detail? Recurring Mobile Detailing in Pasco County](https://bayshine.net/blog/what-is-a-standing-detail):
+  Explains the standing detail model: a recurring mobile detailing appointment
+  on a fixed interval that keeps a vehicle in maintained condition without
+  rebooking. Covers why Florida's UV, lovebug seasons, humidity, and well-water
+  mineral deposits make a preventive schedule more cost-effective than reactive
+  one-off services in Pasco County and North Hillsborough.
+
+- [Car Detailing Myths -- What the Internet Gets Wrong, Especially in Florida](https://bayshine.net/blog/car-detailing-myths-florida):
+  Corrects persistent detailing misconceptions that are wrong in general and
+  worse in Florida's climate: wax longevity under Florida UV, touchless car
+  wash chemistry stripping sealants, ceramic coating permanence myths, and
+  why the "once a year" detail frequency advice does not apply to Pasco County
+  and North Hillsborough drivers.
+
+- [Classic and Collector Car Detailing in Florida -- What's Different](https://bayshine.net/blog/classic-collector-car-detailing-florida):
+  Single-stage lacquer and enamel paint, vintage chrome, and original rubber
+  require a different protocol than modern clear-coated finishes. Covers the
+  specific risks of applying modern detailing chemistry to collector vehicles
+  in Florida's year-round UV and humidity conditions, and what a correct
+  classic car detail protocol looks like.
+
+- [Fleet Detailing for Real Estate Agents: First Impressions Start at the Curb](https://bayshine.net/blog/fleet-detailing-real-estate-vehicles):
+  A real estate agent's vehicle is a mobile office and client transport that
+  clients evaluate before they see the first property. Covers the specific wear
+  patterns on agent vehicles, why a six-week recurring schedule in Pasco County
+  and North Hillsborough keeps vehicles at presentation quality, and the
+  depreciation case for maintaining fleet vehicles on a regular detail interval.
+
+- [Mobile Detailing in Zephyrhills, FL: Trucks, RVs, and Inland Pasco Vehicles](https://bayshine.net/blog/zephyrhills-mobile-detailing):
+  Covers the distinct contamination profile of east Pasco County: inland heat
+  without Gulf coast moderation, agricultural dust and pollen, and Zephyrhills
+  well water mineral content that is among the highest in the county. Addresses
+  the specific vehicle mix -- working trucks, RVs, older sedans -- and why
+  mobile service is the practical choice for residents far from Wesley Chapel
+  and New Tampa detail shops.
+
+- [Mobile Detailing in Spring Hill, FL: Vehicle Care for Hernando County](https://bayshine.net/blog/spring-hill-fl-mobile-detailing):
+  Spring Hill (34606, 34609, 34610) is BayShine's northernmost service
+  territory, served on the northern route through west Pasco County. Covers
+  the salt air and well-water mineral deposit conditions common to Hernando
+  County, the vehicle profile typical of the community, and what mobile
+  detailing logistics look like for properties along the US-19 corridor.
+
 ## Field Guide scenarios
 
 Practical, scenario-level guides on specific paint and interior problems. Each
@@ -314,6 +379,28 @@ failure mode looks like in Florida's specific climate conditions.
 - [Wheel Iron Fallout Removal](https://bayshine.net/field-guide/wheel-iron-fallout-removal):
   Iron particles from brake dust embed into wheel surfaces and clear coat.
   Chemical decontamination sequence for wheels before any wash or polish step.
+
+- [Iron Decontamination -- When to Use It and What Happens If You Don't](https://bayshine.net/field-guide/iron-decontamination-guide):
+  Iron contamination from brake dust and road fallout embeds in clear coat and
+  is invisible until it has oxidized to visible rust spotting. Covers the tactile
+  test for detecting contamination, when in the detail sequence iron treatment
+  runs (before clay, before any protection), and why Florida's year-round
+  humidity keeps embedded iron chemically active on paint surfaces continuously.
+
+- [The Right Order to Detail a Car -- Why Sequence Matters as Much as Products](https://bayshine.net/field-guide/detailing-sequence-order):
+  The complete ten-step full detail sequence from wheels-first pre-rinse through
+  iron decontamination, clay bar, paint correction, protection application, glass
+  treatment, and interior work in the correct order. Each step's position is
+  explained by the failure mode that results from doing it out of order. Florida
+  climate notes throughout on heat, shade requirements, and dwell time windows.
+
+- [Glass Coating Application -- Hydrophobic Treatment for Windshields and Side Windows](https://bayshine.net/field-guide/glass-coating-application):
+  A silica-based or fluoropolymer glass coating chemically bonds to automotive
+  glass so water sheets off rather than beading and sitting. Covers the complete
+  prep sequence (clay bar, IPA wipe, optional glass polish) that determines
+  whether the coating bonds to the glass or to surface contamination, application
+  technique in sections, cure time, and maintenance in Pasco County and North
+  Hillsborough's frequent afternoon storm season.
 
 ## About BayShine
 
