@@ -16,8 +16,7 @@ const {
   title,
   description,
   canonical,
-  // FOLLOWUP: generate /public/og-default.png (1200x630) from the BayShine logo mark on bay-navy background
-  ogImage = '/og-default.png',
+  ogImage,
   schema,
   ogType = 'website',
   articlePublishedTime,
@@ -25,11 +24,16 @@ const {
   keywords,
 } = Astro.props;
 
+// Dynamic OG image: use caller-supplied URL or generate from title
+const ogImageResolved = ogImage
+  ? ogImage
+  : `/api/og.png?title=${encodeURIComponent(title)}`;
+
 const siteTitle = `${title} | BayShine Detailing`;
 const canonicalURL = canonical
   ? new URL(String(canonical), Astro.site)
   : new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(ogImage, Astro.site);
+const ogImageURL = new URL(ogImageResolved, Astro.site);
 ---
 <title>{siteTitle}</title>
 <meta name="description" content={description} />
