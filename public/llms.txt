@@ -6,7 +6,7 @@
 > Every service performed on-site, by appointment, using professional-grade
 > chemistry and equipment.
 
-<!-- Generated: 2026-05-16 | Scope: Loop-15 content update | Update quarterly or when service area, offerings, or neighborhood pages change -->
+<!-- Generated: 2026-05-16 | Scope: Loop-17 content update | Update quarterly or when service area, offerings, or neighborhood pages change -->
 
 ## What this site is
 
@@ -332,6 +332,53 @@ Land O' Lakes, Pasco County, and surrounding communities:
   County, the vehicle profile typical of the community, and what mobile
   detailing logistics look like for properties along the US-19 corridor.
 
+- [Detailing High-Mileage Vehicles in Florida: What to Expect and What to Skip](https://bayshine.net/blog/high-mileage-vehicle-detailing-florida):
+  A vehicle with 150,000 miles in Florida has paint, interior, and rubber
+  that responds differently than a low-mileage car. Covers clear coat
+  thickness assessment before paint correction, conservative polishing
+  protocol for thinned clear coat, why ceramic coating is inappropriate on
+  compromised clear coat, and what interior extraction and enzymatic
+  treatment can realistically accomplish on high-mileage Florida interiors.
+
+- [Detailing Before Listing Your Home for Sale in Florida](https://bayshine.net/blog/detailing-before-home-sale-florida):
+  A vehicle in the driveway is part of what buyers see during showings.
+  Covers why Florida's climate accelerates visible degradation (well water
+  mineral rings, UV-faded trim, oxidized tires, brake dust), the specific
+  detail services to schedule before a listing goes live, and how to
+  coordinate a mobile detail into the staging timeline. Relevant to Pasco
+  County and North Hillsborough sellers in active showing markets.
+
+- [Car Detailing as a Gift in Pasco County and North Hillsborough](https://bayshine.net/blog/gift-car-detailing-pasco-county):
+  Covers the occasions that make a professional detail a practical gift,
+  how to gift a mobile detail (contact us with vehicle info, we coordinate
+  with the recipient), what the recipient receives, and the Standing Detail
+  subscription option as a recurring gift. Includes information on new
+  vehicle detail gifts, enthusiast gifts, and milestone occasion gifting.
+
+- [Electric Vehicle Detailing in Florida: What's Different](https://bayshine.net/blog/electric-vehicle-detailing-florida):
+  EV paint systems, aluminum panels, and absence of engine bay structures
+  create specific considerations for detailing. Covers no-exhaust interior
+  odor patterns, frunk detailing, high-gloss paint panels common on EVs,
+  battery proximity and moisture considerations, and why Florida's UV load
+  matters equally for EVs. Pasco County EV ownership context.
+
+- [Fleet Detailing for Plumbing and HVAC Companies in Pasco and Hillsborough](https://bayshine.net/blog/fleet-plumbing-hvac-detailing):
+  Service trade vehicles accumulate grease, pipe dope, chemical residue,
+  and construction particulate in ways that standard fleet washing does not
+  address. Covers the specific contamination profile of plumbing and HVAC
+  fleets, the detail sequence that handles it, and why maintaining trade
+  vehicle appearance matters for customer trust and vehicle value in Pasco
+  and North Hillsborough County service territories.
+
+- [Car Detailing for Rideshare Drivers in Tampa Bay: A Business Decision](https://bayshine.net/blog/rideshare-driver-car-detailing):
+  Rideshare vehicle condition directly affects driver ratings, passenger
+  trust, and earnings. Covers the specific interior degradation patterns
+  from high-occupancy use (odor accumulation, seat wear, door panel scuff),
+  exterior condition maintenance on high-mileage driver vehicles, and why
+  a regular Standing Detail schedule makes economic sense for active Uber
+  and Lyft drivers in the Tampa Bay, Pasco County, and North Hillsborough
+  market.
+
 ## Field Guide scenarios
 
 Practical, scenario-level guides on specific paint and interior problems. Each
@@ -401,6 +448,35 @@ failure mode looks like in Florida's specific climate conditions.
   whether the coating bonds to the glass or to surface contamination, application
   technique in sections, cure time, and maintenance in Pasco County and North
   Hillsborough's frequent afternoon storm season.
+
+- [Pressure Washer Use on Car Paint: What's Safe and What Strips Coating](https://bayshine.net/field-guide/pressure-washer-car-detailing):
+  A pressure washer removes contamination faster than a garden hose but strips
+  wax and sealant at most pressure settings. Covers the correct nozzle (25-degree
+  minimum), safe operating distance (12 to 18 inches), maximum PSI range (1200 to
+  1900 PSI), and the specific scenarios -- wheel wells, panel gaps, undercarriage --
+  where pressure washing is safe vs. where hand washing protects coatings.
+
+- [Tire Dressing Application: How to Apply Without Sling](https://bayshine.net/field-guide/tire-dressing-application):
+  Tire dressing applied incorrectly slings onto paint and paint protection layers
+  during the first drive. Covers water-based vs. solvent-based dressing chemistry,
+  why applicator pad application prevents sling while spray application causes it,
+  correct dry time before the vehicle moves, and the sidewall prep step that
+  determines whether dressing bonds or pools. Florida heat accelerates sling risk.
+
+- [Polishing Compound Selection: Matching Cut Level to the Problem](https://bayshine.net/field-guide/polishing-compound-selection-guide):
+  Compound and polish are not interchangeable. Covers the abrasive spectrum from
+  cutting compound through finishing polish, how to assess defect depth before
+  selecting a product, pad hardness interaction with compound cut level, and
+  why matching the least aggressive effective combination protects Florida vehicles
+  with already-thinned clear coat from over-correction.
+
+- [Seat Belt Cleaning: Safe Method for Webbing Without Damaging the Retractor](https://bayshine.net/field-guide/seat-belt-cleaning-guide):
+  Seat belts accumulate oils, sweat, sunscreen, and mold in Florida's humidity.
+  Covers the correct agitation method for nylon webbing (soft bristle, low
+  moisture), why high-pressure spray and extraction equipment cannot be used on
+  seat belt webbing near the retractor mechanism, dwell time for enzyme cleaner
+  on mold-contaminated belts, and air-dry positioning. A step most detail
+  services skip entirely.
 
 ## About BayShine
 
