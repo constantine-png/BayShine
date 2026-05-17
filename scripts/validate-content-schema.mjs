@@ -18,7 +18,9 @@ const BLOG_SERVICE_TOPIC = new Set(['full-detail', 'exterior-detail', 'ceramic-c
 const FIELD_CATEGORY = new Set(['paint', 'interior', 'glass', 'wheels', 'trim', 'coating', 'contamination', 'correction', 'tools', 'general']);
 const FIELD_SEVERITY = new Set(['quick-fix', 'moderate', 'advanced']);
 
-function parseFrontmatter(content) {
+function parseFrontmatter(rawContent) {
+  // Normalize line endings so the regex works on both LF and CRLF files
+  const content = rawContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {};
   const fm = {};
@@ -55,6 +57,10 @@ function validateDir(dir, type) {
       if (fm.serviceTopic && !BLOG_SERVICE_TOPIC.has(fm.serviceTopic)) {
         console.error(`INVALID blog serviceTopic "${fm.serviceTopic}" in ${file}`);
         console.error(`  Valid: ${[...BLOG_SERVICE_TOPIC].join(' | ')}`);
+        errors++;
+      }
+      if (!fm.readTime) {
+        console.error(`MISSING required readTime in blog/${file}`);
         errors++;
       }
     }
