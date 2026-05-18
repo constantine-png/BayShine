@@ -1,9 +1,9 @@
 {
   "rewrites": [
     {
-      "source": "/",
+      "source": "/((?!api/|_astro/|_image|fonts/|assets/|favicon|noise|robots|sitemap|llms|pro/).*)",
       "has": [{ "type": "host", "value": "pro.bayshine.net" }],
-      "destination": "/pro/"
+      "destination": "/pro/$1"
     }
   ],
   "redirects": [
