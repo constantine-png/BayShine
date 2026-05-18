@@ -55,4 +55,59 @@ jobs:
           git diff --staged --quiet || git commit -m "feat(content): daily auto-generated content $(date +%Y-%m-%d)"
 
       - name: Push changes
-        run: git push origin main
+        id: push
+        run: |
+          PUSHED_SHA=$(git rev-parse HEAD)
+          FILES_CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E '^(src/content/blog/|src/content/fieldGuideScenarios/)' | wc -l || echo "0")
+          git push origin main
+          {
+            echo "sha=$PUSHED_SHA"
+            echo "short_sha=${PUSHED_SHA:0:7}"
+            echo "files_changed=$FILES_CHANGED"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Notify success
+        if: success()
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          from: BayShine Automation <${{ secrets.GMAIL_USER }}>
+          to: constantine@bayshine.net
+          subject: "[BayShine automation] Daily content posted - ${{ steps.push.outputs.short_sha }}"
+          body: |
+            Daily content generation completed successfully.
+
+            Commit: ${{ steps.push.outputs.sha }}
+            Content files changed: ${{ steps.push.outputs.files_changed }}
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Vercel deploy will be triggered by this push and should land within 5 minutes.
+
+      - name: Notify failure
+        if: failure()
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          from: BayShine Automation <${{ secrets.GMAIL_USER }}>
+          to: constantine@bayshine.net
+          subject: "[BayShine automation] FAILED - daily content run"
+          body: |
+            Daily content generation FAILED.
+
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Commit at start: ${{ github.sha }}
+
+            Review the workflow logs for the failed step. Common causes:
+            - Anthropic API quota/rate limit
+            - Schema validation rejected new content
+            - Git push rejected (concurrent commit)

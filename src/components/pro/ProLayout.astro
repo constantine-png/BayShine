@@ -1,0 +1,63 @@
+---
+// ProLayout — base layout for pro.bayshine.net pages.
+// Self-contained. Does not import the main site's Header/Footer/StickyMobileBar.
+// On extraction to its own app, copy this file plus ProHeader/ProFooter and
+// the relevant tokens from src/styles/global.css.
+import '@/styles/global.css';
+import ProHeader from './ProHeader.astro';
+import ProFooter from './ProFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string | URL;
+}
+
+const { title, description, canonical } = Astro.props;
+const canonicalHref = canonical ? canonical.toString() : 'https://pro.bayshine.net' + Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0F1B2D" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalHref} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalHref} />
+    <meta name="twitter:card" content="summary" />
+
+    {/* Discourage indexing of the staging path bayshine.net/pro — the canonical surface is pro.bayshine.net. */}
+    <meta name="robots" content="index, follow" />
+  </head>
+  <body>
+    <ProHeader />
+    <main id="main-content">
+      <slot />
+    </main>
+    <ProFooter />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -48px 0px' }
+      );
+      document.querySelectorAll('.reveal, [data-reveal]').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

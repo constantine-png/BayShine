@@ -1,4 +1,11 @@
 {
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "pro.bayshine.net" }],
+      "destination": "/pro/"
+    }
+  ],
   "redirects": [
     {
       "source": "/sitemap.xml",

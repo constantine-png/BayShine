@@ -1,0 +1,459 @@
+---
+// pro.bayshine.net landing page — operator recruitment.
+// Routed via vercel.json hostname rewrites: pro.bayshine.net/* → /pro/*.
+// Self-contained: imports ProLayout only. No main-site components.
+import ProLayout from '@/components/pro/ProLayout.astro';
+---
+<ProLayout
+  title="BayShine Operators | Become a certified mobile detailer"
+  description="BayShine is building a certified network of mobile detailers in Florida. Leads routed by zip. Training to a documented standard. Per-job pay. First wave opens for Pasco County and North Hillsborough."
+  canonical="https://pro.bayshine.net/"
+>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="noise-overlay min-h-[88vh] flex flex-col justify-center px-4 pt-10 pb-20">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-6">
+          BayShine Operator Program
+        </p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-8 tracking-tight" style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
+          Detail under a name<br />customers trust.
+        </h1>
+        <p class="text-bay-bone text-lg leading-relaxed mb-10 max-w-2xl">
+          BayShine is building a certified network of mobile detailers in Florida.
+          We carry the brand and the leads. You carry the craft. The first wave opens
+          for operators in Pasco County and North Hillsborough.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#apply" class="btn-sweep gloss-cap bg-bay-gold text-bay-navy font-semibold text-base px-8 py-3.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-navy">
+            Apply for the first wave
+          </a>
+          <a href="#how" class="inline-flex items-center gap-2 text-bay-gold font-display font-semibold text-base px-2 py-3.5 hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm">
+            How it works
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── TRUST STRIP (real signals only) ────────────────────── -->
+  <section class="py-10 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-left">
+        <div>
+          <p class="text-bay-gold text-[10px] font-semibold uppercase tracking-[0.18em] mb-2">Home base</p>
+          <p class="text-bay-bone text-sm">Land O' Lakes, Florida</p>
+        </div>
+        <div>
+          <p class="text-bay-gold text-[10px] font-semibold uppercase tracking-[0.18em] mb-2">Service area</p>
+          <p class="text-bay-bone text-sm">Pasco County and North Hillsborough</p>
+        </div>
+        <div>
+          <p class="text-bay-gold text-[10px] font-semibold uppercase tracking-[0.18em] mb-2">Flagship program</p>
+          <p class="text-bay-bone text-sm">Standing Detail, documented and in operation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── WHAT YOU GET ───────────────────────────────────────── -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">What we provide</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white leading-tight">
+          The brand, the leads, the standard.
+        </h2>
+      </div>
+
+      <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
+        {[
+          {
+            label: 'Leads, routed',
+            body: 'Customers come to BayShine. We route the right job to the right operator by zip code and certification tier. You are not buying ads or chasing booked-and-cancelled appointments.',
+          },
+          {
+            label: 'Training to a standard',
+            body: 'The BayShine Standing Detail is documented. Every certified operator runs the same checklist on every visit. The customer sees consistency whether the truck pulls up in Lutz or Wesley Chapel.',
+          },
+          {
+            label: 'The brand on you',
+            body: 'Branded uniform, vehicle decals, and the BayShine name on the invoice. Customers know who showed up and what to expect. That recognition is yours to operate under.',
+          },
+          {
+            label: 'Per-job pay',
+            body: 'You are paid a percentage of every job you complete. Splits move up with certification milestones and customer ratings. Exact numbers are walked through in the conversation step.',
+          },
+        ].map(item => (
+          <div class="border-l-2 border-bay-gold pl-6">
+            <p class="font-display font-semibold text-bay-white text-base mb-3 tracking-wide">{item.label}.</p>
+            <p class="text-bay-slate text-sm leading-relaxed">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── WHO IT'S FOR ───────────────────────────────────────── -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">Who this is for</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-8 leading-tight">
+          The detailer who already cares about the work.
+        </h2>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          The BayShine operator is the detailer who has been running weekend work and is
+          ready to make it a real operation. Or the independent professional who is tired
+          of finding their own customers and ready to operate under a name that brings the
+          customer in.
+        </p>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          The work is craft-first: documented standards, real customer relationships, no
+          shortcuts. The BayShine operator wears the shirt because they want the standard
+          attached to their work, not the other way around.
+        </p>
+
+        <p class="text-bay-slate text-base leading-relaxed">
+          If that fits you, the application is below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── THE STANDARD ──────────────────────────────────────── -->
+  <section id="standard" class="py-20 px-4 scroll-mt-20">
+    <div class="container mx-auto max-w-3xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">The standard</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-8 leading-tight">
+          The BayShine certification is the product.
+        </h2>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          Every BayShine-certified operator runs the same checklist on every visit. That
+          consistency is what the customer is paying for. Not the labor itself, the
+          predictability of it.
+        </p>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          The Standing Detail program is in active operation out of the Land O' Lakes home
+          base. The full certification curriculum is being documented from those operations
+          in real time: process, product selection, finish criteria, customer interaction,
+          response time, recovery from common failure modes.
+        </p>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          First-wave operators train against the published curriculum and become reference
+          operators for the next intakes. That is the trade we are offering the first
+          group: early access to the program in exchange for being part of how the standard
+          gets refined.
+        </p>
+
+        <p class="text-bay-slate text-sm">
+          Curriculum publication: in progress. First-wave training: by appointment, in market.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+  <section id="how" class="noise-overlay section-bevel bg-bay-deep py-20 px-4 scroll-mt-20">
+    <div class="container mx-auto max-w-4xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">From apply to operating</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white leading-tight">
+          Four steps. No fee at any of them.
+        </h2>
+      </div>
+
+      <ol class="reveal grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+        {[
+          {
+            n: '01',
+            label: 'Apply',
+            body: 'Tell us where you are, what your current detailing experience is, and why you want this. The form is below.',
+          },
+          {
+            n: '02',
+            label: 'Conversation',
+            body: 'First-wave applicants get a direct call with BayShine ownership. No HR funnel. The conversation establishes fit on both sides.',
+          },
+          {
+            n: '03',
+            label: 'Certification',
+            body: 'Hands-on training to the BayShine standard, in market. You learn the Standing Detail checklist and the brand interaction expectations.',
+          },
+          {
+            n: '04',
+            label: 'Operate',
+            body: 'Branded, equipped, routing live jobs from the BayShine pipeline. Pay tier locks at certification and moves up with milestones.',
+          },
+        ].map(item => (
+          <li class="flex gap-5">
+            <span class="font-mono text-bay-gold text-sm shrink-0 pt-0.5">{item.n}</span>
+            <div>
+              <p class="font-display font-semibold text-bay-white text-base mb-2 tracking-wide">{item.label}.</p>
+              <p class="text-bay-slate text-sm leading-relaxed">{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── PAY ───────────────────────────────────────────────── -->
+  <section id="pay" class="py-20 px-4 scroll-mt-20">
+    <div class="container mx-auto max-w-3xl">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">How operators are paid</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white mb-8 leading-tight">
+          Per job. Percentage. Transparent.
+        </h2>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          Operators are paid a percentage of every completed job. The starting tier opens
+          at a baseline percentage. Subsequent tiers move up with certification milestones
+          and verified customer ratings. Exact splits are walked through in the conversation
+          step so you know the math before you commit.
+        </p>
+
+        <p class="text-bay-bone text-base leading-relaxed mb-6">
+          No upfront fee. No franchise buy-in. No long-term lock-in.
+        </p>
+
+        <p class="text-bay-bone text-base leading-relaxed">
+          What BayShine is not: a 1099-spam lead-gen marketplace selling the same job to
+          three operators. What BayShine is: a brand recruiting operators who will wear
+          the shirt and run the work to a standard worth the name on it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── COMMON QUESTIONS ──────────────────────────────────── -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <div class="reveal mb-10">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">Common questions</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white leading-tight">
+          The honest answers, before you apply.
+        </h2>
+      </div>
+
+      <dl class="reveal space-y-8">
+        {[
+          {
+            q: 'When does the first wave open?',
+            a: 'Applications are being reviewed now for the Pasco County and North Hillsborough first wave. We start with a small group so the certification process can be hands-on and individual.',
+          },
+          {
+            q: 'Do I need my own equipment to start?',
+            a: 'You need a reliable vehicle and the willingness to learn the BayShine equipment kit. The specific kit and any equipment-related cost-share is walked through at the conversation step. Nothing is required to be purchased before that.',
+          },
+          {
+            q: 'Am I an employee or an independent contractor?',
+            a: 'That depends on the operating structure landed on with first-wave operators and the relevant state regulations. We are direct about it in the conversation. We are not pretending the distinction does not matter.',
+          },
+          {
+            q: 'Do I need to be in Florida to apply?',
+            a: 'The first wave is Pasco County and North Hillsborough. If you are elsewhere in Florida or beyond and the program fits you, apply anyway. We are collecting interest for future markets and the early signal informs where we open next.',
+          },
+        ].map(item => (
+          <div class="border-l-2 border-bay-gold/40 pl-5">
+            <dt class="font-display font-semibold text-bay-white text-base mb-3">{item.q}</dt>
+            <dd class="text-bay-slate text-sm leading-relaxed">{item.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── APPLY ─────────────────────────────────────────────── -->
+  <section id="apply" class="noise-overlay section-bevel bg-bay-deep py-20 px-4 scroll-mt-20">
+    <div class="container mx-auto max-w-2xl">
+      <div class="reveal mb-10">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-[0.18em] mb-4">Apply</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4 leading-tight">
+          First-wave operator application.
+        </h2>
+        <p class="text-bay-slate text-base leading-relaxed">
+          Applications go directly to BayShine ownership. First-wave intake response within
+          5 business days.
+        </p>
+      </div>
+
+      <form id="apply-form" class="reveal space-y-6" novalidate>
+        <div>
+          <label for="apply-name" class="block text-bay-bone text-xs font-semibold uppercase tracking-[0.12em] mb-2">Name</label>
+          <input
+            id="apply-name"
+            type="text"
+            name="name"
+            required
+            autocomplete="name"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone px-4 py-3 rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+          />
+        </div>
+
+        <div>
+          <label for="apply-email" class="block text-bay-bone text-xs font-semibold uppercase tracking-[0.12em] mb-2">Email</label>
+          <input
+            id="apply-email"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone px-4 py-3 rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+          />
+        </div>
+
+        <div>
+          <label for="apply-location" class="block text-bay-bone text-xs font-semibold uppercase tracking-[0.12em] mb-2">City and state</label>
+          <input
+            id="apply-location"
+            type="text"
+            name="location"
+            required
+            placeholder="e.g. Lutz, FL"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-4 py-3 rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+          />
+        </div>
+
+        <fieldset>
+          <legend class="block text-bay-bone text-xs font-semibold uppercase tracking-[0.12em] mb-3">Currently detailing?</legend>
+          <div class="space-y-3">
+            {[
+              { value: 'professional', label: 'Yes, professionally (it is my work or a meaningful side business)' },
+              { value: 'hobby', label: 'Yes, on weekends or as a hobby' },
+              { value: 'learning', label: 'Not yet, but I am ready to learn the trade' },
+            ].map(opt => (
+              <label class="flex items-start gap-3 text-bay-bone text-sm cursor-pointer">
+                <input
+                  type="radio"
+                  name="experience"
+                  value={opt.value}
+                  required
+                  class="mt-1 accent-bay-gold"
+                />
+                <span>{opt.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="apply-notes" class="block text-bay-bone text-xs font-semibold uppercase tracking-[0.12em] mb-2">
+            Tell us why you want this
+          </label>
+          <textarea
+            id="apply-notes"
+            name="notes"
+            rows="5"
+            required
+            placeholder="What draws you to operating under a brand? What does the work mean to you?"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-4 py-3 rounded-sm focus:outline-none focus:border-bay-gold transition-colors resize-vertical"
+          ></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button
+            type="submit"
+            id="apply-submit"
+            class="btn-sweep gloss-cap bg-bay-gold text-bay-navy font-semibold text-base px-8 py-3.5 rounded-sm hover:bg-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold focus-visible:ring-offset-2 focus-visible:ring-offset-bay-deep disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            Submit application
+          </button>
+        </div>
+      </form>
+
+      <div id="apply-success" class="reveal hidden mt-8 border-l-2 border-bay-gold pl-5">
+        <p class="font-display font-semibold text-bay-white text-base mb-2">Application received.</p>
+        <p class="text-bay-bone text-sm leading-relaxed">
+          BayShine ownership reviews first-wave applications directly. Expect to hear back
+          within 5 business days. If your inbox is quiet past that window, check spam, then
+          reply to the address that confirmed your application.
+        </p>
+      </div>
+
+      <p id="apply-error" class="hidden mt-6 text-red-400 text-sm" aria-live="polite">
+        Something went wrong submitting the application. Please try again, or email
+        constantine@bayshine.net directly.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('apply-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('apply-submit') as HTMLButtonElement | null;
+    const successEl = document.getElementById('apply-success') as HTMLElement | null;
+    const errorEl = document.getElementById('apply-error') as HTMLElement | null;
+
+    if (form && submitBtn && successEl && errorEl) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        errorEl.classList.add('hidden');
+
+        const formData = new FormData(form);
+        const payload = {
+          name: String(formData.get('name') ?? '').trim(),
+          email: String(formData.get('email') ?? '').trim(),
+          location: String(formData.get('location') ?? '').trim(),
+          experience: String(formData.get('experience') ?? '').trim(),
+          notes: String(formData.get('notes') ?? '').trim(),
+        };
+
+        if (!payload.name || !payload.email || !payload.location || !payload.experience || !payload.notes) {
+          errorEl.textContent = 'Please complete every field.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        const originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        try {
+          const res = await fetch('/api/pro/apply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!res.ok) throw new Error('non-OK');
+
+          form.classList.add('hidden');
+          successEl.classList.remove('hidden');
+          successEl.classList.add('is-visible');
+        } catch {
+          errorEl.textContent = 'Something went wrong submitting the application. Please try again, or email constantine@bayshine.net directly.';
+          errorEl.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        }
+      });
+    }
+  </script>
+
+</ProLayout>

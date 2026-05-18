@@ -70,8 +70,9 @@ export default defineConfig({
     mdx(),
     sitemap({
       customPages: [...blogUrls, ...fieldGuideUrls, ...neighborhoodUrls],
-      // Exclude SSR-only admin/pro routes and go redirects
-      filter: (page) => !page.includes('/field-guide/admin') && !page.includes('/field-guide/pro') && !page.includes('/go/'),
+      // Exclude SSR-only admin/pro routes, /go/ redirects, and the /pro/ operator subdomain
+      // (the operator subdomain is canonicalized to pro.bayshine.net — bayshine.net/pro/ stays out of the main sitemap)
+      filter: (page) => !page.includes('/field-guide/admin') && !page.includes('/field-guide/pro') && !page.includes('/go/') && !page.includes('/pro/') && !page.endsWith('/pro'),
     }),
   ],
   redirects: {
