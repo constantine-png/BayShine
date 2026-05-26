@@ -9,7 +9,7 @@ export const prerender = false;
 import FieldGuideLayout from '@/components/layout/FieldGuideLayout.astro';
 import { getDb } from '@/lib/db';
 
-const adminPassword = import.meta.env.ADMIN_PASSWORD;
+const adminPassword = process.env.ADMIN_PASSWORD;
 const sessionCookie = Astro.cookies.get('fg_admin')?.value;
 
 // Compute expected session token

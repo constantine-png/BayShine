@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ request }) => {
     });
   }
 
-  const expected = import.meta.env.PREVIEW_TOKEN;
+  const expected = process.env.PREVIEW_TOKEN;
   if (!expected || token !== expected) {
     return new Response('Unauthorized', { status: 401 });
   }

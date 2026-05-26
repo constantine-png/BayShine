@@ -33,9 +33,10 @@ export const POST: APIRoute = async ({ request }) => {
   const { email, source } = result.data;
   const src = source ?? 'unknown';
 
-  // Resend audience contact creation is best-effort — separate from lead pipeline
-  const resendKey = import.meta.env.RESEND_API_KEY as string | undefined;
-  const audienceId = import.meta.env.RESEND_AUDIENCE_ID as string | undefined;
+  // Resend audience contact creation is best-effort — separate from lead pipeline.
+  // process.env (not import.meta.env) so env var changes don't require a rebuild.
+  const resendKey = process.env.RESEND_API_KEY;
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
   if (resendKey && audienceId) {
     new Resend(resendKey).contacts
       .create({ email, audienceId, unsubscribed: false })

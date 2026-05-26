@@ -5,7 +5,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
-  const adminPassword = import.meta.env.ADMIN_PASSWORD;
+  const adminPassword = process.env.ADMIN_PASSWORD;
 
   let pw: string | null = null;
   try {

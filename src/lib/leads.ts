@@ -45,8 +45,17 @@ export interface DeliveryResult {
 
 const FROM = 'BayShine <hello@bayshine.net>';
 
+// Read env vars at runtime, not via `import.meta.env`. Astro/Vite inlines
+// `import.meta.env.X` literally at build time — if Vercel's build runner
+// didn't have a value set, the bundle ships with `undefined` baked in and
+// later dashboard changes have no effect. `process.env` resolves per request.
+function env(name: string): string | undefined {
+  const v = process.env[name];
+  return typeof v === 'string' && v.length > 0 ? v : undefined;
+}
+
 function contactEmail(): string {
-  return (import.meta.env.CONTACT_EMAIL as string) || 'constantine@bayshine.net';
+  return env('CONTACT_EMAIL') ?? 'constantine@bayshine.net';
 }
 
 async function recordLead(payload: LeadPayload): Promise<{ ok: true } | { ok: false; error: string }> {
@@ -85,7 +94,7 @@ async function recordLead(payload: LeadPayload): Promise<{ ok: true } | { ok: fa
 }
 
 async function sendEmail(subject: string, html: string): Promise<{ ok: true } | { ok: false; error: string }> {
-  const key = import.meta.env.RESEND_API_KEY as string | undefined;
+  const key = env('RESEND_API_KEY');
   if (!key) {
     return { ok: false, error: 'RESEND_API_KEY not configured' };
   }
