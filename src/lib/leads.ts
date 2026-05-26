@@ -178,12 +178,23 @@ function escapeHtml(s: string): string {
 }
 
 /**
- * Translate a DeliveryResult into the HTTP response sent to the form. If
- * neither channel succeeded, return 502 so the form shows an error and the
- * customer is directed to call instead of thinking we received them.
+ * Translate a DeliveryResult into the HTTP response sent to the form.
+ *
+ * Always 200. Why not 5xx on failure? Cloudflare sits in front of bayshine.net
+ * and replaces upstream 5xx responses with its own plain-text "error code: 502"
+ * page — that would prevent the form from seeing our real error JSON. So we
+ * return 200 with `ok: false` and a customer-facing `error` string; the client
+ * scripts already key off `json.ok`, not the status code. Both channels failing
+ * is logged at error level below so it still surfaces in monitoring.
  */
 export function leadResponse(result: DeliveryResult): Response {
-  if (!result.recorded && !result.emailed) {
+  const totalFailure = !result.recorded && !result.emailed;
+
+  if (totalFailure) {
+    console.error(
+      '[leads] TOTAL FAILURE — both channels rejected',
+      JSON.stringify({ dbError: result.dbError, emailError: result.emailError }),
+    );
     return new Response(
       JSON.stringify({
         ok: false,
@@ -191,12 +202,12 @@ export function leadResponse(result: DeliveryResult): Response {
         dbError: result.dbError,
         emailError: result.emailError,
       }),
-      { status: 502, headers: { 'Content-Type': 'application/json' } },
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
   }
 
-  // At least one channel landed. Return 200 — but include warnings so the
-  // operator dashboard can flag partial deliveries.
+  // At least one channel landed. Include warnings so the operator dashboard
+  // can flag partial deliveries.
   return new Response(
     JSON.stringify({
       ok: true,
