@@ -1,0 +1,148 @@
+---
+// Leads admin — recover every booking/inquiry from the leads table.
+// Auth: same fg_admin cookie used by /field-guide/admin (one operator).
+// noindex/nofollow — never link from public surfaces.
+
+export const prerender = false;
+
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import { getDb } from '@/lib/db';
+
+const adminPassword = import.meta.env.ADMIN_PASSWORD;
+const sessionCookie = Astro.cookies.get('fg_admin')?.value;
+
+const encoder = new TextEncoder();
+const keyBuf = await crypto.subtle.digest('SHA-256', encoder.encode(adminPassword ?? 'unset'));
+const expectedToken = Array.from(new Uint8Array(keyBuf))
+  .map(b => b.toString(16).padStart(2, '0'))
+  .join('');
+
+const isAuth = sessionCookie === expectedToken;
+const loginError = Astro.url.searchParams.get('error') === '1';
+
+interface LeadRow {
+  id: string;
+  source: string;
+  name: string | null;
+  phone: string | null;
+  email: string | null;
+  vehicle: string | null;
+  zip: string | null;
+  address: string | null;
+  service: string | null;
+  notes: string | null;
+  extra: Record<string, unknown>;
+  contacted: boolean;
+  created_at: string;
+}
+
+let rows: LeadRow[] = [];
+let dbError: string | null = null;
+let noDb = false;
+let tableMissing = false;
+
+if (isAuth) {
+  const sql = getDb();
+  if (!sql) {
+    noDb = true;
+  } else {
+    try {
+      const result = await sql`
+        SELECT id, source, name, phone, email, vehicle, zip, address, service, notes,
+               extra, contacted, created_at::text
+        FROM leads
+        ORDER BY created_at DESC
+        LIMIT 200
+      `;
+      rows = result as unknown as LeadRow[];
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (/relation .*leads.* does not exist/i.test(msg)) {
+        tableMissing = true;
+      } else {
+        dbError = msg;
+      }
+    }
+  }
+}
+
+function fmt(iso: string): string {
+  // 2026-05-26 13:52
+  return iso ? iso.replace('T', ' ').slice(0, 16) : '—';
+}
+
+function subjectFor(r: LeadRow): string {
+  if (r.vehicle) return r.vehicle;
+  const extra = r.extra ?? {};
+  if (typeof extra.propertyName === 'string') return extra.propertyName;
+  if (typeof extra.company === 'string') return extra.company;
+  return r.email ?? '—';
+}
+---
+<BaseLayout title="Leads Admin" description="Internal lead recovery tool.">
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+
+  <section class="py-20 px-4 min-h-screen">
+    <div class="container mx-auto max-w-5xl">
+      <p class="text-bay-gold text-xs font-bold uppercase tracking-widest mb-2">BayShine · Internal</p>
+      <h1 class="font-display font-bold text-3xl text-bay-white mb-8">Lead Inbox</h1>
+
+      {!isAuth ? (
+        <form method="POST" action="/api/field-guide/admin-auth" class="space-y-3 max-w-xs">
+          <label for="pw" class="block text-bay-slate text-xs uppercase tracking-wider">Password</label>
+          <input
+            id="pw" name="password" type="password" required autocomplete="current-password"
+            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone px-3 py-2 text-sm rounded-sm focus:outline-none focus:border-bay-gold"
+          />
+          <button type="submit" class="bg-bay-gold text-bay-navy font-display font-semibold text-sm px-5 py-2 rounded-sm">
+            Enter
+          </button>
+          {loginError && <p class="text-red-400 text-xs">Incorrect password.</p>}
+        </form>
+      ) : noDb ? (
+        <p class="text-bay-slate">No database configured. Set DATABASE_URL to enable lead recovery.</p>
+      ) : tableMissing ? (
+        <div class="text-bay-slate">
+          <p class="mb-2">The leads table doesn't exist yet.</p>
+          <p class="text-sm">Run <code class="text-bay-gold">DATABASE_URL=… node scripts/run-migration.mjs migrations/005_leads.sql</code> to enable.</p>
+        </div>
+      ) : dbError ? (
+        <p class="text-red-400">DB error: {dbError}</p>
+      ) : rows.length === 0 ? (
+        <p class="text-bay-slate">No leads captured yet.</p>
+      ) : (
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-bay-slate border-b border-bay-slate/20">
+              <tr>
+                <th class="text-left py-2 pr-4">When</th>
+                <th class="text-left py-2 pr-4">Source</th>
+                <th class="text-left py-2 pr-4">Name</th>
+                <th class="text-left py-2 pr-4">Phone</th>
+                <th class="text-left py-2 pr-4">Vehicle / Property</th>
+                <th class="text-left py-2 pr-4">Zip</th>
+                <th class="text-left py-2 pr-4">Notes</th>
+              </tr>
+            </thead>
+            <tbody class="text-bay-bone">
+              {rows.map(r => (
+                <tr class="border-b border-bay-slate/10">
+                  <td class="py-2 pr-4 font-mono text-xs text-bay-slate whitespace-nowrap">{fmt(r.created_at)}</td>
+                  <td class="py-2 pr-4 text-bay-gold text-xs uppercase">{r.source}</td>
+                  <td class="py-2 pr-4 font-medium">{r.name ?? '—'}</td>
+                  <td class="py-2 pr-4 font-mono text-xs">
+                    {r.phone ? <a href={`tel:${r.phone}`} class="text-bay-gold">{r.phone}</a> : '—'}
+                  </td>
+                  <td class="py-2 pr-4 text-xs">{subjectFor(r)}</td>
+                  <td class="py-2 pr-4 font-mono text-xs">{r.zip ?? '—'}</td>
+                  <td class="py-2 pr-4 text-xs max-w-xs truncate">{r.notes ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="mt-6 text-xs text-bay-slate">{rows.length} most recent leads. Older entries remain in the database.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

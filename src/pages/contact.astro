@@ -94,27 +94,35 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
           </div>
         </div>
 
-        <div>
-          <label for="timing" class="block text-bay-bone text-sm font-medium mb-1.5">Preferred day / time window</label>
-          <input
-            id="timing"
-            name="timing"
-            type="text"
-            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
-            placeholder="e.g. Weekday mornings, any Saturday"
-          />
-        </div>
+        <details class="group">
+          <summary class="list-none cursor-pointer text-bay-slate text-sm hover:text-bay-bone transition-colors flex items-center gap-2 select-none">
+            <span class="text-bay-gold transition-transform group-open:rotate-90">›</span>
+            Add timing or notes (optional)
+          </summary>
+          <div class="mt-4 space-y-5">
+            <div>
+              <label for="timing" class="block text-bay-bone text-sm font-medium mb-1.5">Preferred day / time window</label>
+              <input
+                id="timing"
+                name="timing"
+                type="text"
+                class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors"
+                placeholder="e.g. Weekday mornings, any Saturday"
+              />
+            </div>
 
-        <div>
-          <label for="notes" class="block text-bay-bone text-sm font-medium mb-1.5">Anything else</label>
-          <textarea
-            id="notes"
-            name="notes"
-            rows="3"
-            class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors resize-none"
-            placeholder="Specific concerns, service questions, pet hair situation, etc."
-          ></textarea>
-        </div>
+            <div>
+              <label for="notes" class="block text-bay-bone text-sm font-medium mb-1.5">Anything else</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                class="w-full bg-transparent border border-bay-slate/30 text-bay-bone placeholder:text-bay-slate/50 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-bay-gold transition-colors resize-none"
+                placeholder="Specific concerns, service questions, pet hair situation, etc."
+              ></textarea>
+            </div>
+          </div>
+        </details>
 
         <button
           type="submit"
@@ -154,6 +162,8 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
   const btn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('form-success')!;
   const errorEl = document.getElementById('form-error')!;
+  const defaultLabel = 'Send Booking Request';
+  const defaultError = "Something went wrong. Try again or call (813) 324-5522 directly.";
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -170,16 +180,27 @@ import BaseLayout from '@/components/layout/BaseLayout.astro';
         body: JSON.stringify(data),
       });
 
-      if (res.ok) {
+      const json = await res.json().catch(() => ({})) as {
+        ok?: boolean;
+        error?: string;
+      };
+
+      if (res.ok && json.ok) {
         form.classList.add('hidden');
         successEl.classList.remove('hidden');
-      } else {
-        throw new Error('Non-OK response');
+        return;
       }
-    } catch {
+
+      // Validation or server failure — surface what the server said.
+      errorEl.textContent = json.error || defaultError;
       errorEl.classList.remove('hidden');
       btn.disabled = false;
-      btn.textContent = 'Send Booking Request';
+      btn.textContent = defaultLabel;
+    } catch {
+      errorEl.textContent = defaultError;
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
     }
   });
 </script>

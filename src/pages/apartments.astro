@@ -264,6 +264,8 @@ const TIERS = [
   const btn = document.getElementById('apt-submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('apt-success')!;
   const errorEl = document.getElementById('apt-error')!;
+  const defaultLabel = 'Submit Property Inquiry';
+  const defaultError = 'Something went wrong. Call (813) 324-5522 or try again.';
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -279,16 +281,21 @@ const TIERS = [
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
+      const json = await res.json().catch(() => ({})) as { ok?: boolean; error?: string };
+      if (res.ok && json.ok) {
         form.classList.add('hidden');
         successEl.classList.remove('hidden');
-      } else {
-        throw new Error();
+        return;
       }
-    } catch {
+      errorEl.textContent = json.error || defaultError;
       errorEl.classList.remove('hidden');
       btn.disabled = false;
-      btn.textContent = 'Submit Property Inquiry';
+      btn.textContent = defaultLabel;
+    } catch {
+      errorEl.textContent = defaultError;
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
     }
   });
 </script>

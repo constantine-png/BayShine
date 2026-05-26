@@ -207,6 +207,8 @@ const fleetSchema = {
   const btn = document.getElementById('fleet-submit-btn') as HTMLButtonElement;
   const successEl = document.getElementById('fleet-success')!;
   const errorEl = document.getElementById('fleet-error')!;
+  const defaultLabel = 'Submit Fleet Inquiry';
+  const defaultError = 'Something went wrong. Call (813) 324-5522 or try again.';
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -220,16 +222,21 @@ const fleetSchema = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
+      const json = await res.json().catch(() => ({})) as { ok?: boolean; error?: string };
+      if (res.ok && json.ok) {
         form.classList.add('hidden');
         successEl.classList.remove('hidden');
-      } else {
-        throw new Error();
+        return;
       }
-    } catch {
+      errorEl.textContent = json.error || defaultError;
       errorEl.classList.remove('hidden');
       btn.disabled = false;
-      btn.textContent = 'Submit Fleet Inquiry';
+      btn.textContent = defaultLabel;
+    } catch {
+      errorEl.textContent = defaultError;
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
     }
   });
 </script>
