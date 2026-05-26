@@ -5,9 +5,10 @@ import type { APIRoute } from 'astro';
 // Diagnostic endpoint — returns which expected env vars are present in the
 // running lambda. Never returns values; only presence + length + 4-char
 // prefix so we can detect typos/quote-wrapping. Auth-gated by ADMIN_PASSWORD
-// query param so it's not openly readable.
-export const GET: APIRoute = async ({ url }) => {
-  const pw = url.searchParams.get('pw');
+// passed in the `x-debug-pw` header so it does NOT end up in URLs / access
+// logs.
+export const GET: APIRoute = async ({ request }) => {
+  const pw = request.headers.get('x-debug-pw');
   const admin = process.env.ADMIN_PASSWORD;
   if (!admin || pw !== admin) {
     return new Response(JSON.stringify({ error: 'forbidden' }), {
