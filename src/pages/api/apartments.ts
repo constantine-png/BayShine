@@ -2,7 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { z } from 'zod';
-import { Resend } from 'resend';
+import { processLead, renderLeadEmail, leadResponse } from '@/lib/leads';
 
 const ApartmentsSchema = z.object({
   propertyName: z.string().min(1, 'Property name required'),
@@ -35,40 +35,32 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const { propertyName, pmName, pmPhone, unitCount, residentInterest, tiers, notes } = result.data;
-  const tiersStr = Array.isArray(tiers) ? tiers.join(', ') : (tiers ?? 'not specified');
+  const tiersStr = Array.isArray(tiers) ? tiers.join(', ') : (tiers ?? '');
 
-  const emailHtml = `
-    <div style="font-family:sans-serif;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #e5e0d8;">
-      <span style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0F1B2D;letter-spacing:0.06em;">BayShine</span>
-      <span style="font-family:sans-serif;font-size:11px;color:#7A8294;margin-left:8px;text-transform:uppercase;letter-spacing:0.1em;">Detailing</span>
-    </div>
-    <h2 style="font-family:sans-serif;color:#0F1B2D;margin-bottom:16px;">Apartments Inquiry: ${propertyName}</h2>
-    <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:480px;">
-      <tr><td style="padding:6px 0;color:#7A8294;width:160px;">Property</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${propertyName}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Manager</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${pmName}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Phone</td><td style="padding:6px 0;color:#0F1B2D;">${pmPhone}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Units</td><td style="padding:6px 0;color:#0F1B2D;">${unitCount ?? 'not provided'}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Resident interest</td><td style="padding:6px 0;color:#0F1B2D;">${residentInterest ?? 'not provided'}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Service tiers</td><td style="padding:6px 0;color:#0F1B2D;">${tiersStr}</td></tr>
-      ${notes ? `<tr><td style="padding:6px 0;color:#7A8294;">Notes</td><td style="padding:6px 0;color:#0F1B2D;">${notes}</td></tr>` : ''}
-    </table>
-  `;
-
-  const resendKey = import.meta.env.RESEND_API_KEY;
-
-  if (resendKey) {
-    await new Resend(resendKey).emails.send({
-      from: 'BayShine <hello@bayshine.net>',
-      to: 'constantine@bayshine.net',
-      subject: `BayShine Apartments Inquiry: ${propertyName}`,
-      html: emailHtml,
-    }).catch(err => console.error('Apartments email failed:', err));
-  } else {
-    console.log('[no RESEND_API_KEY] would have sent to constantine@bayshine.net:', { propertyName, pmName, pmPhone, unitCount });
-  }
-
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
+  const html = renderLeadEmail({
+    heading: `Apartments Inquiry: ${propertyName}`,
+    rows: [
+      ['Property', propertyName],
+      ['Manager', pmName],
+      ['Phone', pmPhone],
+      ['Units', unitCount],
+      ['Resident interest', residentInterest],
+      ['Service tiers', tiersStr],
+      ['Notes', notes],
+    ],
   });
+
+  const delivery = await processLead(
+    {
+      source: 'apartments',
+      name: pmName,
+      phone: pmPhone,
+      notes,
+      extra: { propertyName, unitCount, residentInterest, tiers: tiersStr },
+    },
+    `BayShine Apartments Inquiry: ${propertyName}`,
+    html,
+  );
+
+  return leadResponse(delivery);
 };

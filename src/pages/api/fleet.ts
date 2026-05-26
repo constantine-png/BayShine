@@ -2,7 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { z } from 'zod';
-import { Resend } from 'resend';
+import { processLead, renderLeadEmail, leadResponse } from '@/lib/leads';
 
 const FleetSchema = z.object({
   company: z.string().min(1, 'Company name required'),
@@ -37,35 +37,32 @@ export const POST: APIRoute = async ({ request }) => {
 
   const { company, dmName, dmPhone, fleetSize, service, frequency, visitVolume, notes } = result.data;
 
-  const emailHtml = `
-    <h2 style="font-family:sans-serif;color:#0F1B2D;margin-bottom:16px;">BayShine Fleet Inquiry</h2>
-    <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse;width:100%;max-width:480px;">
-      <tr><td style="padding:6px 0;color:#7A8294;width:140px;">Company</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${company}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Contact</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${dmName}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Phone</td><td style="padding:6px 0;color:#0F1B2D;font-weight:600;">${dmPhone}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Fleet size</td><td style="padding:6px 0;color:#0F1B2D;">${fleetSize ?? 'not specified'}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Visit volume</td><td style="padding:6px 0;color:#0F1B2D;">${visitVolume ?? 'not specified'}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Service</td><td style="padding:6px 0;color:#0F1B2D;">${service ?? 'not specified'}</td></tr>
-      <tr><td style="padding:6px 0;color:#7A8294;">Frequency</td><td style="padding:6px 0;color:#0F1B2D;">${frequency ?? 'not specified'}</td></tr>
-      ${notes ? `<tr><td style="padding:6px 0;color:#7A8294;">Notes</td><td style="padding:6px 0;color:#0F1B2D;">${notes}</td></tr>` : ''}
-    </table>
-  `;
-
-  const resendKey = import.meta.env.RESEND_API_KEY;
-
-  if (resendKey) {
-    await new Resend(resendKey).emails.send({
-      from: 'BayShine <hello@bayshine.net>',
-      to: 'constantine@bayshine.net',
-      subject: `BayShine Fleet: ${company} (${fleetSize ?? '?'} units)`,
-      html: emailHtml,
-    }).catch(err => console.error('Fleet email failed:', err));
-  } else {
-    console.log('[no RESEND_API_KEY] would have sent to constantine@bayshine.net:', { company, dmName, dmPhone });
-  }
-
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
+  const html = renderLeadEmail({
+    heading: 'BayShine Fleet Inquiry',
+    rows: [
+      ['Company', company],
+      ['Contact', dmName],
+      ['Phone', dmPhone],
+      ['Fleet size', fleetSize],
+      ['Visit volume', visitVolume],
+      ['Service', service],
+      ['Frequency', frequency],
+      ['Notes', notes],
+    ],
   });
+
+  const delivery = await processLead(
+    {
+      source: 'fleet',
+      name: dmName,
+      phone: dmPhone,
+      service,
+      notes,
+      extra: { company, fleetSize, frequency, visitVolume },
+    },
+    `BayShine Fleet: ${company} (${fleetSize ?? '?'} units)`,
+    html,
+  );
+
+  return leadResponse(delivery);
 };

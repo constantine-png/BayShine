@@ -3,6 +3,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { z } from 'zod';
 import { Resend } from 'resend';
+import { processLead, renderLeadEmail, leadResponse } from '@/lib/leads';
 
 const EmailSchema = z.object({
   email: z.email('Valid email required'),
@@ -30,35 +31,34 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const { email, source } = result.data;
+  const src = source ?? 'unknown';
 
-  console.log(`Email capture [${source ?? 'unknown'}]: ${email}`);
-
-  const resendKey = import.meta.env.RESEND_API_KEY;
-
-  if (resendKey) {
-    const resend = new Resend(resendKey);
-
-    const audienceId = import.meta.env.RESEND_AUDIENCE_ID;
-    if (audienceId) {
-      resend.contacts.create({
-        email,
-        audienceId,
-        unsubscribed: false,
-      }).catch(err => console.error('Contact add failed:', err));
-    }
-
-    resend.emails.send({
-      from: 'BayShine <hello@bayshine.net>',
-      to: 'constantine@bayshine.net',
-      subject: `EMAIL CAPTURE: ${source ?? 'unknown'}: ${email}`,
-      html: `<p style="font-family:sans-serif;color:#0F1B2D;">New email capture from <strong>${source ?? 'unknown'}</strong>:</p><p style="font-family:sans-serif;font-size:16px;"><strong>${email}</strong></p>`,
-    }).catch(err => console.error('Notification failed:', err));
-  } else {
-    console.log('[no RESEND_API_KEY] would have sent to constantine@bayshine.net:', { email, source });
+  // Resend audience contact creation is best-effort — separate from lead pipeline
+  const resendKey = import.meta.env.RESEND_API_KEY as string | undefined;
+  const audienceId = import.meta.env.RESEND_AUDIENCE_ID as string | undefined;
+  if (resendKey && audienceId) {
+    new Resend(resendKey).contacts
+      .create({ email, audienceId, unsubscribed: false })
+      .catch(err => console.error('[email-capture] audience add failed:', err));
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
+  const html = renderLeadEmail({
+    heading: `Email capture: ${src}`,
+    rows: [
+      ['Email', email],
+      ['Source', src],
+    ],
   });
+
+  const delivery = await processLead(
+    {
+      source: 'email-capture',
+      email,
+      extra: { sourceLabel: src },
+    },
+    `EMAIL CAPTURE: ${src}: ${email}`,
+    html,
+  );
+
+  return leadResponse(delivery);
 };

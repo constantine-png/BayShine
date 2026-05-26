@@ -113,7 +113,8 @@ export default function QuoteEstimator() {
           estimate: result.display,
         }),
       });
-      setFollowUpStatus(res.ok ? 'sent' : 'error');
+      const json = await res.json().catch(() => ({})) as { ok?: boolean };
+      setFollowUpStatus(res.ok && json.ok ? 'sent' : 'error');
     } catch {
       setFollowUpStatus('error');
     }
