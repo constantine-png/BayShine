@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     </p>
   `;
 
-  const resendKey = import.meta.env.RESEND_API_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
 
   if (resendKey) {
     try {

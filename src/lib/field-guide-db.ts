@@ -142,7 +142,7 @@ export async function insertQuery(opts: {
   if (!sql) {
     // No DB: fall back to Resend notification
     console.log('[field-guide-db] No DATABASE_URL — falling back to Resend');
-    const resendKey = import.meta.env.RESEND_API_KEY;
+    const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
       try {
         const resend = new Resend(resendKey);

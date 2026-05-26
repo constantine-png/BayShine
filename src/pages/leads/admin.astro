@@ -8,7 +8,7 @@ export const prerender = false;
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import { getDb } from '@/lib/db';
 
-const adminPassword = import.meta.env.ADMIN_PASSWORD;
+const adminPassword = process.env.ADMIN_PASSWORD;
 const sessionCookie = Astro.cookies.get('fg_admin')?.value;
 
 const encoder = new TextEncoder();
