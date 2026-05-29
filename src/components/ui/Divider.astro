@@ -1,8 +1,0 @@
----
-// Gradient horizontal rule: gold center fades to transparent at edges.
-interface Props {
-  class?: string;
-}
-const { class: className = '' } = Astro.props;
----
-<hr class={`divider ${className}`} aria-hidden="true" />
