@@ -45,13 +45,17 @@ export interface DeliveryResult {
 
 const FROM = 'BayShine <hello@bayshine.net>';
 
-// Read env vars at runtime, not via `import.meta.env`. Astro/Vite inlines
-// `import.meta.env.X` literally at build time — if Vercel's build runner
-// didn't have a value set, the bundle ships with `undefined` baked in and
-// later dashboard changes have no effect. `process.env` resolves per request.
+// Read env vars at runtime via `process.env` (Vercel sets these on the
+// running lambda). Fall back to `import.meta.env` so local `pnpm dev` works
+// — Vite populates `import.meta.env` from .env files but not process.env.
+//
+// `import.meta.env` is inlined at build time, so it's never the source of
+// truth in production; the `process.env` lookup wins there.
 function env(name: string): string | undefined {
-  const v = process.env[name];
-  return typeof v === 'string' && v.length > 0 ? v : undefined;
+  const fromProc = process.env[name];
+  if (typeof fromProc === 'string' && fromProc.length > 0) return fromProc;
+  const fromMeta = (import.meta.env as Record<string, string | undefined>)[name];
+  return typeof fromMeta === 'string' && fromMeta.length > 0 ? fromMeta : undefined;
 }
 
 function contactEmail(): string {
