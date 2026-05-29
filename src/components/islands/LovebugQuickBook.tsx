@@ -114,13 +114,14 @@ export default function LovebugQuickBook() {
       noValidate
     >
       <div>
-        <p className="text-bay-gold text-xs font-bold uppercase tracking-[0.18em] mb-2">
+        <p className="inline-flex items-center gap-2 text-bay-ink text-sm font-bold uppercase tracking-[0.18em] mb-3">
+          <span className="inline-block w-4 h-0.5 bg-bay-gold"></span>
           Step 1 of 1
         </p>
         <h3 className="font-display text-2xl sm:text-3xl text-bay-ink font-bold leading-tight">
           Get your lovebug removal booked.
         </h3>
-        <p className="text-bay-ink/65 text-base mt-2">
+        <p className="text-bay-ink/75 text-base sm:text-lg mt-2">
           We respond within 2 hours during business hours.
         </p>
       </div>
@@ -201,7 +202,7 @@ export default function LovebugQuickBook() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="w-full bg-bay-gold text-bay-navy font-display font-bold text-lg sm:text-xl px-8 py-5 rounded-md min-h-[64px]
+        className="w-full bg-bay-gold text-bay-navy font-sans font-extrabold text-xl sm:text-2xl tracking-tight px-8 py-5 rounded-md min-h-[68px]
                    hover:bg-[#d9bc79] active:scale-[0.99] transition-all
                    focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bay-gold/40
                    disabled:opacity-50 disabled:cursor-not-allowed
@@ -211,12 +212,12 @@ export default function LovebugQuickBook() {
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600 text-base text-center font-medium" role="alert">
+        <p className="text-red-600 text-base text-center font-semibold" role="alert">
           {errorMsg}
         </p>
       )}
 
-      <p className="text-bay-ink/55 text-sm text-center">
+      <p className="text-bay-ink/75 text-base text-center font-medium">
         Prefer to talk?{' '}
         <a
           href="tel:+18133245522"
