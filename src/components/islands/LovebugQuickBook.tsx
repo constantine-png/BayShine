@@ -48,30 +48,39 @@ export default function LovebugQuickBook() {
     setStatus('sending');
     setErrorMsg('');
 
+    // Form delivery via formsubmit.co — works regardless of where this page is
+    // hosted (Vercel, GitHub Pages, or anywhere else). Cross-origin safe, no
+    // account required (one-time activation on first submission). Free tier
+    // covers 250 submissions/month — plenty of headroom for ad traffic.
+    const payload = {
+      _subject: `Lovebug Booking: ${name.trim()} (${zip.trim()})`,
+      _template: 'table',
+      _captcha: 'false',
+      Name: name.trim(),
+      Phone: phone.trim(),
+      Vehicle: vehicleStr,
+      Zip: zip.trim(),
+      Service: 'Lovebug Removal',
+      Notes: notes.trim() || 'Inbound from Google Ads — lovebug removal landing page',
+    };
+
     try {
-      const res = await fetch('/api/book', {
+      const res = await fetch('https://formsubmit.co/ajax/constantine@bayshine.net', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name.trim(),
-          phone: phone.trim(),
-          vehicle: vehicleStr,
-          zip: zip.trim(),
-          service: 'Lovebug Removal',
-          notes: notes.trim() || 'Inbound from Google Ads — lovebug removal landing page',
-        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
-      const json = (await res.json().catch(() => ({}))) as {
-        ok?: boolean;
-        error?: string;
-      };
-      if (res.ok && json.ok) {
+      const json = (await res.json().catch(() => ({}))) as { success?: boolean | string };
+      // formsubmit returns success as the string "true" or boolean true
+      if (res.ok && (json.success === true || json.success === 'true')) {
         setStatus('success');
       } else {
         setStatus('error');
         setErrorMsg(
-          json.error ||
-            'Something went wrong sending your request. Call us at (813) 324-5522.',
+          'Something went wrong sending your request. Call us at (813) 324-5522.',
         );
       }
     } catch {
@@ -96,11 +105,11 @@ export default function LovebugQuickBook() {
         <h3 className="font-display text-3xl text-bay-ink font-bold mb-3">
           We've got your request.
         </h3>
-        <p className="text-bay-ink/75 text-lg mb-2">
+        <p className="text-bay-ink text-lg mb-2 font-semibold">
           A real person will call you back within 2 hours with your exact quote
           and the next available slot.
         </p>
-        <p className="text-bay-ink/55 text-sm">
+        <p className="text-bay-ink text-base font-medium">
           Calls come from <span className="font-mono">(813) 324-5522</span>.
         </p>
       </div>
@@ -121,8 +130,8 @@ export default function LovebugQuickBook() {
         <h3 className="font-display text-2xl sm:text-3xl text-bay-ink font-bold leading-tight">
           Get your lovebug removal booked.
         </h3>
-        <p className="text-bay-ink/75 text-base sm:text-lg mt-2">
-          We respond within 2 hours during business hours.
+        <p className="text-bay-ink text-base sm:text-lg mt-2 font-semibold">
+          I respond within 2 hours during business hours.
         </p>
       </div>
 
@@ -180,14 +189,14 @@ export default function LovebugQuickBook() {
           placeholder="34638"
           className={`${inputStyle} font-mono sm:max-w-[200px]`}
         />
-        <p className="text-bay-ink/55 text-sm mt-2">
-          We come to you in Pasco County &amp; North Hillsborough.
+        <p className="text-bay-ink text-base mt-2 font-medium">
+          I come to you in Pasco County &amp; North Hillsborough.
         </p>
       </div>
 
       <div>
         <label htmlFor="lb-notes" className={labelStyle}>
-          Anything we should know? <span className="font-normal text-bay-ink/55">(optional)</span>
+          Anything I should know? <span className="font-medium text-bay-ink/70">(optional)</span>
         </label>
         <textarea
           id="lb-notes"
@@ -202,22 +211,22 @@ export default function LovebugQuickBook() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="w-full bg-bay-gold text-bay-navy font-sans font-extrabold text-xl sm:text-2xl tracking-tight px-8 py-5 rounded-md min-h-[68px]
-                   hover:bg-[#d9bc79] active:scale-[0.99] transition-all
-                   focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bay-gold/40
+        className="w-full bg-bay-ink text-white font-sans font-black text-xl sm:text-2xl tracking-tight px-8 py-5 rounded-md min-h-[72px] border-b-4 border-bay-gold
+                   hover:bg-[#2a221c] active:scale-[0.99] transition-all
+                   focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bay-gold/50
                    disabled:opacity-50 disabled:cursor-not-allowed
-                   shadow-[0_8px_24px_-8px_rgba(201,169,97,0.6)]"
+                   shadow-[0_8px_24px_-8px_rgba(15,27,45,0.4)]"
       >
         {status === 'sending' ? 'Sending…' : 'Book My Lovebug Removal'}
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600 text-base text-center font-semibold" role="alert">
+        <p className="text-red-600 text-base text-center font-bold" role="alert">
           {errorMsg}
         </p>
       )}
 
-      <p className="text-bay-ink/75 text-base text-center font-medium">
+      <p className="text-bay-ink text-base text-center font-semibold">
         Prefer to talk?{' '}
         <a
           href="tel:+18133245522"
