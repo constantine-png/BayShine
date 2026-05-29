@@ -211,11 +211,8 @@ export default function LovebugQuickBook() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="w-full bg-bay-ink text-white font-sans font-black text-xl sm:text-2xl tracking-tight px-8 py-5 rounded-md min-h-[72px] border-b-4 border-bay-gold
-                   hover:bg-[#2a221c] active:scale-[0.99] transition-all
-                   focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bay-gold/50
-                   disabled:opacity-50 disabled:cursor-not-allowed
-                   shadow-[0_8px_24px_-8px_rgba(15,27,45,0.4)]"
+        className="cta-primary"
+        style={{ opacity: canSubmit ? 1 : 0.5, cursor: canSubmit ? 'pointer' : 'not-allowed' }}
       >
         {status === 'sending' ? 'Sending…' : 'Book My Lovebug Removal'}
       </button>
