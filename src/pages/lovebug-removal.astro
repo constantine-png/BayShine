@@ -291,6 +291,53 @@ const schema = {
         transform: scale(0.99);
       }
 
+      /* Lifted headline bubble — gives a spotlighted headline a soft
+         white-to-cream card backdrop with stacked drop shadows and a thin
+         gold under-stripe inset. Inline-block span around the heading text
+         so it hugs the content and lifts off the page. */
+      .headline-bubble {
+        display: inline-block;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%);
+        padding: 0.4em 0.85em;
+        border-radius: 24px;
+        color: #000000;
+        position: relative;
+        box-shadow:
+          0 30px 56px -22px rgba(15, 27, 45, 0.34),
+          0 12px 22px -10px rgba(15, 27, 45, 0.2),
+          0 2px 0 rgba(255, 255, 255, 1) inset,
+          0 -6px 0 rgba(201, 169, 97, 0.6) inset,
+          0 0 0 1px rgba(15, 27, 45, 0.08);
+      }
+      .headline-bubble-sm {
+        display: inline-block;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%);
+        padding: 0.4em 1.05em;
+        border-radius: 999px;
+        color: #000000;
+        box-shadow:
+          0 18px 34px -14px rgba(15, 27, 45, 0.3),
+          0 6px 14px -6px rgba(15, 27, 45, 0.18),
+          0 1px 0 rgba(255, 255, 255, 1) inset,
+          0 -3px 0 rgba(201, 169, 97, 0.65) inset,
+          0 0 0 1px rgba(15, 27, 45, 0.08);
+      }
+      /* Dark-section variant — heavier shadow so it pops against the booking
+         section's near-black background. */
+      .headline-bubble-dark {
+        display: inline-block;
+        background: linear-gradient(180deg, #FFFFFF 0%, #F8F4ED 100%);
+        padding: 0.5em 1em;
+        border-radius: 22px;
+        color: #000000;
+        box-shadow:
+          0 32px 60px -24px rgba(0, 0, 0, 0.65),
+          0 14px 26px -10px rgba(0, 0, 0, 0.45),
+          0 2px 0 rgba(255, 255, 255, 1) inset,
+          0 -5px 0 rgba(201, 169, 97, 0.75) inset,
+          0 0 0 1px rgba(15, 27, 45, 0.1);
+      }
+
       /* Sticky mobile bar buttons — same style, more compact for thumb reach. */
       .cta-sticky-primary,
       .cta-sticky-secondary {
@@ -369,9 +416,11 @@ const schema = {
                 Same-day · Pasco &amp; N. Hillsborough
               </p>
 
-              <h1 class="font-display font-bold text-[2.6rem] sm:text-6xl lg:text-7xl text-bay-ink leading-[1.04] tracking-tight mb-6">
-                Lovebugs off your car.
-                <span class="text-bay-gold drop-shadow-[0_2px_0_rgba(15,27,45,0.12)]">Today.</span>
+              <h1 class="font-display font-bold text-[2.6rem] sm:text-6xl lg:text-7xl leading-[1.18] tracking-tight mb-6">
+                <span class="headline-bubble">
+                  Lovebugs off your car.
+                  <span class="text-bay-gold drop-shadow-[0_2px_0_rgba(15,27,45,0.18)]">Today.</span>
+                </span>
               </h1>
 
               <p class="text-bay-ink text-xl sm:text-2xl leading-relaxed max-w-2xl mb-8 font-semibold">
@@ -419,8 +468,10 @@ const schema = {
                     class="w-full h-full object-cover"
                   />
                 </div>
-                <figcaption class="relative z-10 mt-6 text-center text-bay-ink text-base font-bold tracking-wide">
-                  What's eating your paint right now.
+                <figcaption class="relative z-10 mt-6 text-center text-base font-bold tracking-wide">
+                  <span class="headline-bubble-sm">
+                    What's eating your paint right now.
+                  </span>
                 </figcaption>
               </figure>
             </div>
@@ -457,8 +508,10 @@ const schema = {
             <!-- Right: bio + commitment -->
             <div class="lg:col-span-7">
               <p class="label-strong text-sm mb-4">Meet your detailer</p>
-              <h2 class="font-display font-bold text-4xl sm:text-5xl text-bay-ink leading-tight tracking-tight mb-6">
-                I'm Constantine. The one calling you back.
+              <h2 class="font-display font-bold text-4xl sm:text-5xl leading-[1.2] tracking-tight mb-6">
+                <span class="headline-bubble">
+                  I'm Constantine. The one calling you back.
+                </span>
               </h2>
               <p class="text-bay-ink text-lg sm:text-xl leading-relaxed mb-5 font-semibold">
                 I own BayShine. I take the call, I wash the car, and I'm the one walking you around it when it's done. You're not getting a call center, a subcontractor, or a teenager with a sponge.
@@ -565,8 +618,10 @@ const schema = {
           <p class="label-strong text-sm mb-4 text-center">
             <span class="inline-block">What happens after you book</span>
           </p>
-          <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-ink text-center mb-12 tracking-tight">
-            Three steps. No surprises.
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-center mb-12 tracking-tight">
+            <span class="headline-bubble">
+              Three steps. No surprises.
+            </span>
           </h2>
 
           <ol class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
@@ -574,7 +629,9 @@ const schema = {
               <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bay-gold/25 flex items-center justify-center font-sans font-black text-bay-ink text-3xl">
                 1
               </div>
-              <h3 class="font-sans font-black text-xl sm:text-2xl text-bay-ink mb-2 tracking-tight">I call within 2 hours.</h3>
+              <h3 class="font-sans font-black text-xl sm:text-2xl mb-4 tracking-tight">
+                <span class="headline-bubble-sm">I call within 2 hours.</span>
+              </h3>
               <p class="text-bay-ink text-base sm:text-lg leading-relaxed font-semibold">
                 A real person — not a chatbot — confirms your address, locks an arrival window, and gives you the exact price for your vehicle.
               </p>
@@ -583,7 +640,9 @@ const schema = {
               <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bay-gold/25 flex items-center justify-center font-sans font-black text-bay-ink text-3xl">
                 2
               </div>
-              <h3 class="font-sans font-black text-xl sm:text-2xl text-bay-ink mb-2 tracking-tight">I show up to your spot.</h3>
+              <h3 class="font-sans font-black text-xl sm:text-2xl mb-4 tracking-tight">
+                <span class="headline-bubble-sm">I show up to your spot.</span>
+              </h3>
               <p class="text-bay-ink text-base sm:text-lg leading-relaxed font-semibold">
                 I work with what your driveway has — your hose, your power, your shade. We figure out the setup together when I arrive, and the job gets done.
               </p>
@@ -592,7 +651,9 @@ const schema = {
               <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-bay-gold/25 flex items-center justify-center font-sans font-black text-bay-ink text-3xl">
                 3
               </div>
-              <h3 class="font-sans font-black text-xl sm:text-2xl text-bay-ink mb-2 tracking-tight">Pay when it's done.</h3>
+              <h3 class="font-sans font-black text-xl sm:text-2xl mb-4 tracking-tight">
+                <span class="headline-bubble-sm">Pay when it's done.</span>
+              </h3>
               <p class="text-bay-ink text-base sm:text-lg leading-relaxed font-semibold">
                 I walk you around the car. If you're not happy, I make it right. Card, cash, or Zelle.
               </p>
@@ -613,11 +674,11 @@ const schema = {
               Book in 60 seconds
               <span class="inline-block w-4 h-0.5 bg-bay-gold"></span>
             </p>
-            <h2 class="font-display font-bold text-4xl sm:text-5xl text-white mb-4 leading-tight tracking-tight">
-              Tell us about your car.
+            <h2 class="font-display font-bold text-4xl sm:text-5xl mb-6 leading-[1.2] tracking-tight">
+              <span class="headline-bubble-dark">Tell me about your car.</span>
             </h2>
-            <p class="text-white/80 text-lg max-w-xl mx-auto">
-              We'll call you back within 2 hours with the exact price and the next available slot.
+            <p class="text-white text-lg max-w-xl mx-auto font-semibold">
+              I'll call you back within 2 hours with the exact price and the next available slot.
             </p>
           </div>
 
