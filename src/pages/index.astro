@@ -1,22 +1,48 @@
 ---
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
-import Divider from '@/components/ui/Divider.astro';
-import Pause from '@/components/ui/Pause.astro';
-import TrustBar from '@/components/ui/TrustBar.astro';
-import HeroToTrustTransition from '@/components/sections/HeroToTrustTransition.astro';
-import CustomerTypeStack from '@/components/sections/CustomerTypeStack.astro';
-import ServiceRevealSequence from '@/components/sections/ServiceRevealSequence.astro';
-import RevealHeadline from '@/components/ui/RevealHeadline.astro';
+import PhotoPlaceholder from '@/components/ui/PhotoPlaceholder.astro';
 import FAQAccordion from '@/components/islands/FAQAccordion';
-import { FAQS } from '@/data/faq';
-import { SERVICE_AREA } from '@/data/serviceArea';
+import { HOMEPAGE_PACKAGES, HERO_DISCOUNT, HOMEPAGE_FAQS } from '@/data/homepage';
 
-const featurableId = import.meta.env.FEATURABLE_WIDGET_ID;
+// Branded line icons per package (gold stroke, drawn, not stock art).
+const icons: Record<string, string> = {
+  spray: '<path d="M12 3c3 3.6 5 6.2 5 8.6a5 5 0 0 1-10 0C7 9.2 9 6.6 12 3Z"/><path d="M10 12.5a2 2 0 0 0 2 2" stroke-linecap="round"/>',
+  car: '<path d="M4 13.5 5.7 8.7A2.4 2.4 0 0 1 8 7h8a2.4 2.4 0 0 1 2.3 1.7L20 13.5"/><path d="M3.5 13.5h17v4.2h-2.2M3.5 13.5v4.2h2.2M5.7 17.7h12.6"/><circle cx="7.4" cy="17.7" r="1.6"/><circle cx="16.6" cy="17.7" r="1.6"/>',
+  repeat: '<path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 3.5V8h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20.5V16h4.5"/>',
+  sparkle: '<path d="m12 3 1.9 5.1 5.1 1.9-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/>',
+  shield: '<path d="M12 3 5 5.7V11c0 4.4 3 8.1 7 9.3 4-1.2 7-4.9 7-9.3V5.7L12 3Z"/><path d="m9 11.3 2.2 2.2L15.4 9.3" stroke-linecap="round" stroke-linejoin="round"/>',
+  truck: '<path d="M3 14V6.5A1.5 1.5 0 0 1 4.5 5H14v9M14 8h3.6l2.9 3v3M3 14h17M3 14v2.5h2M20 14v2.5h-2"/><circle cx="7" cy="16.5" r="1.8"/><circle cx="17" cy="16.5" r="1.8"/>',
+};
 
-const uniqueCities = [...new Set(SERVICE_AREA.map(z => z.city))];
+// Shared car outline for the before/after demo (dull vs glossy via CSS).
+const carArt = `<path d="M18 76c2-8 9-12 19-13l17-11c6-4 13-6 22-6h36c14 0 26 6 35 17l16 4c9 2 15 7 15 15v3H18v-3Z"/><path d="M62 51l16-9h27l12 12"/><path d="M6 82h188" stroke-linecap="round"/><circle cx="60" cy="82" r="12"/><circle cx="60" cy="82" r="5"/><circle cx="150" cy="82" r="12"/><circle cx="150" cy="82" r="5"/>`;
 
-const faqSchema = {
+const steps = [
+  { n: 1, t: 'Tell us your car', d: 'Call, text, or tap Book Now. Takes two minutes.' },
+  { n: 2, t: 'We come to you', d: 'We show up at your home or work with everything we need.' },
+  { n: 3, t: 'You relax', d: 'We do the work. You get back a car that looks brand new.' },
+];
+
+const reasons = [
+  { t: 'We come to you', d: 'No lines. No drop-off. We work right in your driveway.' },
+  { t: 'Locally owned', d: 'A real hometown small business. You deal with the owner, not a call center.' },
+  { t: 'Pro products', d: 'The good stuff that lasts, not a quick spray-and-go.' },
+  { t: 'We do it right', d: 'Every panel, every seat, checked by hand before we leave.' },
+];
+
+const gallery = [
+  'Sedan – before & after',
+  'Truck interior – deep clean',
+  'Ceramic gloss – SUV',
+  'Wheels – clean detail',
+  'Fleet – lot shine',
+  'Dashboard – wiped & dressed',
+];
+
+const money = (n: number) => '$' + n.toLocaleString('en-US');
+
+const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
@@ -24,36 +50,15 @@ const faqSchema = {
       '@id': 'https://bayshine.net/#business',
       name: 'BayShine Detailing',
       description:
-        'Mobile auto detailing serving Land O\' Lakes, Pasco County, and North Hillsborough County, FL.',
+        'Family-run mobile car detailing serving Pasco County and North Hillsborough, FL. We come to you.',
       telephone: '+18133245522',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: "Land O' Lakes",
-        addressRegion: 'FL',
-        postalCode: '34638',
-        addressCountry: 'US',
-      },
       url: 'https://bayshine.net',
       priceRange: '$$',
-      // FOLLOWUP: src/pages/index.astro — Add sameAs array when social/GBP profiles are confirmed.
-      // Format: sameAs: ['https://maps.google.com/?cid=YOUR_CID', 'https://www.facebook.com/bayshinedetailing', 'https://www.instagram.com/bayshinedetailing']
-      // Omitting the property entirely is correct until real URLs are available — empty array emits useless JSON-LD.
-      areaServed: uniqueCities.map(city => ({
-        '@type': 'City',
-        name: city,
-      })),
-      openingHoursSpecification: [
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-          opens: '08:00',
-          closes: '20:00',
-        },
-      ],
+      areaServed: { '@type': 'AdministrativeArea', name: 'Pasco County & North Hillsborough, FL' },
     },
     {
       '@type': 'FAQPage',
-      mainEntity: FAQS.map(f => ({
+      mainEntity: HOMEPAGE_FAQS.map((f) => ({
         '@type': 'Question',
         name: f.question,
         acceptedAnswer: { '@type': 'Answer', text: f.answer },
@@ -62,185 +67,366 @@ const faqSchema = {
   ],
 };
 ---
+
 <BaseLayout
-  title="Mobile Auto Detailing | Pasco County"
-  description="Mobile auto detailing in Pasco County and North Hillsborough, FL. Full detail, exterior, ceramic coating, and fleet programs."
-  schema={faqSchema}
+  title="Mobile Car Detailing That Comes To You | BayShine · Pasco & N. Hillsborough"
+  description="Family-run mobile car detailing in Pasco County and North Hillsborough, FL. We come to you. See real prices, book online, and save 10% for first responders, nurses, military, teachers, and 55+."
+  schema={schema}
 >
-
-  <!-- ── HERO ───────────────────────────────────────────────── -->
-  <section class="noise-overlay min-h-[90vh] flex flex-col justify-center items-center px-4 pt-[10vh] pb-20">
-    <div class="container mx-auto max-w-3xl text-center relative">
-      <h1 class="hero-headline headline-breathing font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.08] mb-10" data-reveal style="text-shadow: 0 2px 24px rgba(15,27,45,0.7);">
-        <RevealHeadline
-          primary="Mobile auto detailing."
-          accent="Pasco County and North Hillsborough."
-        />
-      </h1>
-
-      <div class="flex flex-wrap gap-8 justify-center">
-        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
-          Book Now
-        </Button>
-        <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
-          Get a Quote
-        </Button>
-      </div>
-    </div>
-  </section>
-
-  <HeroToTrustTransition />
-
-  <!-- ── TRUST BAR ──────────────────────────────────────────── -->
-  <TrustBar />
-
-  <Divider class="my-0" />
-
-  <!-- ── CUSTOMER TYPE STACK: Private / Fleet / Apartments ─── -->
-  <CustomerTypeStack />
-
-  <Divider />
-
-  <!-- ── SERVICE REVEAL SEQUENCE ───────────────────────────── -->
-  <ServiceRevealSequence />
-
-  <Divider />
-
-  <!-- ── NEIGHBORHOOD CALLOUTS ─────────────────────────────── -->
-  <section class="py-16 px-4">
-    <div class="container mx-auto max-w-4xl">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
-        <div class="reveal">
-          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Home Base</p>
-          <h2 class="font-display font-bold text-2xl text-bay-white mb-4 leading-tight">
-            Land O' Lakes is where we operate from.
-          </h2>
-          <p class="text-bay-slate text-base leading-relaxed mb-6 max-w-2xl">
-            Fastest response times, deepest coverage. We serve Bexley, Connerton, Lake Padgett Estates, Wilderness Lake Preserve, and Lakeshore Ranch — on-site, no drop-off.
-          </p>
-          <a
-            href="/land-o-lakes"
-            class="inline-block text-bay-gold font-display font-semibold text-sm hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm underline underline-offset-4"
-          >
-            Land O' Lakes neighborhood coverage &rarr;
-          </a>
-        </div>
-
-        <div class="reveal">
-          <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Wesley Chapel</p>
-          <h2 class="font-display font-bold text-2xl text-bay-white mb-4 leading-tight">
-            All of Wesley Chapel covered.
-          </h2>
-          <p class="text-bay-slate text-base leading-relaxed mb-6 max-w-2xl">
-            Wiregrass Ranch, Seven Oaks, and Meadow Pointe across ZIPs 33543, 33544, and 33545. Open-sky UV exposure, well water mineral deposits, and construction dust — we know what the paint faces here.
-          </p>
-          <a
-            href="/wesley-chapel"
-            class="inline-block text-bay-gold font-display font-semibold text-sm hover:text-[#d9bc79] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-gold rounded-sm underline underline-offset-4"
-          >
-            Wesley Chapel neighborhood coverage &rarr;
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ── STANDING DETAIL PROGRAM ────────────────────────────── -->
-  <section id="standing-detail" class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
-    <div class="container mx-auto max-w-4xl">
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="noise-overlay px-4 pt-[12vh] pb-16">
+    <div class="container mx-auto max-w-6xl grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
       <div class="reveal">
-        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-4">The Headline Service</p>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-6 leading-tight">
-          The BayShine Standing Detail.
-        </h2>
-
-        <p class="text-bay-bone text-lg leading-relaxed mb-8 max-w-2xl">
-          A <span class="font-mono text-bay-gold">6-week</span> recurring program. The first visit establishes the baseline: full detail
-          at the standard rate. Every visit after that is a maintenance detail: shorter
-          because the vehicle stays clean between appointments. <a href="/standing-detail" class="text-bay-gold hover:text-[#d9bc79] underline underline-offset-2 transition-colors">How the program works</a>.
+        <p class="inline-flex items-center gap-2 text-xs font-ui font-semibold text-bay-bone bg-bay-white/5 border border-bay-white/10 rounded-full px-4 py-2 mb-6">
+          <span class="w-2 h-2 rounded-full bg-bay-gold"></span>
+          Family-run · We come to you · Pasco &amp; N. Hillsborough
         </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-          {[
-            {
-              label: 'Priority Slot',
-              desc: 'Your recurring time is held. No competing for availability.',
-            },
-            {
-              label: 'Locked Rate',
-              desc: 'The price you start at is the price you keep.',
-            },
-            {
-              label: 'Cancel Anytime',
-              desc: 'No contracts. No cancellation fee. No pressure.',
-            },
-          ].map(item => (
-            <div class="border-l-2 border-bay-gold pl-5">
-              <p class="font-semibold text-bay-white text-sm mb-1">{item.label}</p>
-              <p class="text-bay-slate text-sm">{item.desc}</p>
-            </div>
-          ))}
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-bay-white leading-[1.1] mb-6">
+          Your car,<br /><span class="text-bay-gold">clean and shiny</span><br />again.
+        </h1>
+        <p class="text-bay-bone text-lg leading-relaxed max-w-md mb-8">
+          We are your hometown car detailers. We drive to your house, make your
+          car look brand new, and treat you like a neighbor, because you are one.
+        </p>
+        <div class="flex flex-wrap gap-4 mb-7">
+          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">Book Now</Button>
+          <Button href="#pricing" variant="secondary" class="text-base px-8 py-3.5">See Prices</Button>
         </div>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-bay-bone">
+          {['Fully insured', 'We come to you', 'Owner does the work'].map((t) => (
+            <li class="flex items-center gap-2">
+              <span class="text-bay-gold font-bold" aria-hidden="true">✓</span>{t}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
-          Start the Standing Detail
-        </Button>
+      <!-- Before / after drag demo -->
+      <figure class="ba reveal section-bevel" id="ba" aria-label="Before and after: drag to compare a dull car with a detailed one">
+        <div class="ba__panel ba__after">
+          <svg class="ba__car" viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true" set:html={carArt} />
+          <span class="ba__shine" aria-hidden="true"></span>
+          <span class="ba__tag ba__tag--after">After</span>
+        </div>
+        <div class="ba__panel ba__before" id="baBefore">
+          <svg class="ba__car" viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true" set:html={carArt} />
+          <span class="ba__tag ba__tag--before">Before</span>
+        </div>
+        <input class="ba__range" id="baRange" type="range" min="0" max="100" value="52" aria-label="Reveal the after photo" />
+        <span class="ba__handle" id="baHandle" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 6 4 12l5 6zm6 0 5 6-5 6z"></path></svg>
+        </span>
+        <figcaption class="ba__cap">Drag to see the difference →</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══════════════ TRUST STRIP ══════════════ -->
+  <div class="border-y border-bay-slate/20 bg-bay-deep/50">
+    <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-y-5 py-6 text-center">
+      {[
+        ['Fully Insured', 'Peace of mind, always'],
+        ['We Come To You', 'Home or work, no drop-off'],
+        ['Family-Run', 'Local small business'],
+        ['19 ZIPs Served', 'Pasco & N. Hillsborough'],
+      ].map(([h, s]) => (
+        <div class="px-3 md:border-r md:border-bay-slate/15 md:last:border-0">
+          <p class="font-display text-bay-gold text-base">{h}</p>
+          <p class="text-bay-slate text-xs mt-1">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- ══════════════ HEROES DISCOUNT ══════════════ -->
+  <section class="bg-bay-gold text-bay-navy relative overflow-hidden" aria-labelledby="heroes-h">
+    <div class="gloss-cap absolute inset-0" aria-hidden="true"></div>
+    <div class="container mx-auto max-w-6xl px-4 py-10 flex flex-col md:flex-row items-center gap-6 md:gap-9 text-center md:text-left relative">
+      <div class="shrink-0 grid place-items-center w-24 h-24 rounded-full bg-bay-navy text-bay-gold leading-none shadow-lg">
+        <span class="font-display font-bold text-3xl">{HERO_DISCOUNT.percent}%</span>
+        <span class="font-ui font-bold text-xs tracking-[0.2em]">OFF</span>
+      </div>
+      <div class="flex-1">
+        <h2 id="heroes-h" class="font-display font-bold text-2xl sm:text-3xl mb-2">Heroes save {HERO_DISCOUNT.percent}% on every visit.</h2>
+        <p class="text-sm font-medium max-w-2xl mb-3 mx-auto md:mx-0">{HERO_DISCOUNT.line}</p>
+        <ul class="flex flex-wrap gap-2 justify-center md:justify-start mb-2">
+          {HERO_DISCOUNT.groups.map((g) => (
+            <li class="font-ui font-bold text-xs bg-bay-navy/10 border border-bay-navy/25 rounded-full px-3 py-1.5">{g}</li>
+          ))}
+        </ul>
+        <p class="text-xs font-semibold opacity-80">{HERO_DISCOUNT.proof}</p>
+      </div>
+      <a href="/contact" class="shrink-0 btn-sweep gloss-cap inline-flex items-center font-ui font-bold text-sm bg-bay-navy text-bay-gold px-7 py-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bay-navy focus-visible:ring-offset-2 focus-visible:ring-offset-bay-gold">
+        <span>Claim my {HERO_DISCOUNT.percent}%</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════ HOW IT WORKS ══════════════ -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Easy as 1-2-3</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-3">How it works</h2>
+        <p class="text-bay-slate text-lg">No stress. No hassle. Three simple steps and you are done.</p>
+      </div>
+      <ol class="grid sm:grid-cols-3 gap-6">
+        {steps.map((s) => (
+          <li class="reveal gloss-cap section-bevel bg-bay-navy/60 border border-bay-slate/20 rounded-sm p-7">
+            <span class="grid place-items-center w-12 h-12 rounded-sm bg-bay-gold text-bay-navy font-display font-bold text-xl mb-4">{s.n}</span>
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-1">{s.t}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <hr class="divider max-w-5xl mx-auto" />
+
+  <!-- ══════════════ WHY US ══════════════ -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-5xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Why folks pick us</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white">Big-shop shine. Neighbor-next-door care.</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {reasons.map((r) => (
+          <article class="reveal gloss-cap section-bevel bg-bay-navy/50 border border-bay-slate/20 rounded-sm p-6">
+            <span class="grid place-items-center w-11 h-11 rounded-sm bg-bay-gold/15 text-bay-gold mb-4" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M9.6 16.6 4.8 11.8l1.4-1.4 3.4 3.4 8-8 1.4 1.4z"/></svg>
+            </span>
+            <h3 class="font-display font-semibold text-bay-white text-base mb-1">{r.t}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed">{r.d}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <Pause />
+  <!-- ══════════════ SERVICES + PRICING ══════════════ -->
+  <section id="pricing" class="noise-overlay section-bevel bg-bay-deep py-20 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Pick your shine</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-3">Services &amp; prices</h2>
+        <p class="text-bay-slate text-lg">
+          Real prices, right here. Every price is a starting point. Tap
+          <a href="/quote" class="text-bay-gold underline underline-offset-4">Get a Quote</a> for your exact number.
+        </p>
+      </div>
 
-  <!-- ── REVIEWS — conditional Featurable embed ────────────── -->
-  {featurableId && (
-    <>
-      <section class="section-bevel py-20 px-4">
-        <div class="container mx-auto max-w-5xl">
-          <div class="reveal mb-8">
-            <h2 class="font-display font-bold text-3xl text-bay-white mb-3">What clients say</h2>
-          </div>
-          <div class="featurable-widget" data-widget-id={featurableId}></div>
-          <script src="https://cdn.featurable.com/assets/widget/v1/featurable-widget.min.js" async is:inline></script>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {HOMEPAGE_PACKAGES.map((p) => (
+          <article class={`price-card reveal gloss-cap section-bevel rounded-sm p-6 flex flex-col ${p.featured ? 'is-feat border border-bay-gold/50 bg-bay-navy' : 'border border-bay-slate/20 bg-bay-navy/60'}`}>
+            {p.badge && <span class="self-start font-ui font-bold text-[11px] tracking-widest uppercase text-bay-navy bg-bay-gold rounded-full px-3 py-1.5 mb-3">{p.badge}</span>}
+            <span class="grid place-items-center w-12 h-12 rounded-sm bg-bay-gold/15 text-bay-gold mb-4" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" set:html={icons[p.iconName]} />
+            </span>
+            <h3 class="font-display font-semibold text-bay-white text-lg mb-1">{p.name}</h3>
+            <p class="text-bay-slate text-sm leading-relaxed mb-5">{p.blurb}</p>
+
+            <div class="border-t border-bay-slate/15 pt-4 mb-4">
+              {p.startingAt === null ? (
+                <span class="font-display font-bold text-2xl text-bay-gold">Custom quote</span>
+              ) : (
+                <>
+                  <span class="block text-xs font-semibold uppercase tracking-wider text-bay-slate mb-1">Starts at</span>
+                  <span class="font-display font-bold text-4xl text-bay-white leading-none">{money(p.startingAt)}</span>
+                  {p.perVisit && <span class="ml-2 text-sm font-semibold text-bay-gold">then {money(p.perVisit)}/{p.unit}</span>}
+                </>
+              )}
+            </div>
+
+            <ul class="space-y-2.5 mb-6 flex-1">
+              {p.includes.map((it) => (
+                <li class="flex items-start gap-2.5 text-sm text-bay-bone">
+                  <svg class="shrink-0 mt-0.5 text-bay-gold" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M9.6 16.6 4.8 11.8l1.4-1.4 3.4 3.4 8-8 1.4 1.4z"/></svg>
+                  {it}
+                </li>
+              ))}
+            </ul>
+
+            <div class="flex items-center justify-between gap-3 mt-auto">
+              <Button href="/contact" variant="primary" class="text-sm">Book this</Button>
+              <a href={p.href} class="font-ui font-semibold text-sm text-bay-gold hover:underline underline-offset-4 whitespace-nowrap">See details →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="reveal text-center text-bay-slate text-sm mt-8">
+        Prices shown are for a car (sedan). Trucks, SUVs, and vans cost a little more.
+        Heroes save {HERO_DISCOUNT.percent}%.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════ STANDING DETAIL FEATURE ══════════════ -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-6xl grid lg:grid-cols-[1.3fr_0.7fr] gap-10 items-center">
+      <div class="reveal">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Our favorite plan</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-5">The Standing Detail.</h2>
+        <p class="text-bay-bone text-lg leading-relaxed max-w-2xl mb-6">
+          Set it and forget it. We come back every 6 weeks and keep your car looking
+          brand new all year long. Your first visit is a full detail. After that,
+          you get a lower price that never goes up, and you jump to the front of the line.
+        </p>
+        <ul class="grid gap-3 mb-8 max-w-md">
+          {['Locked-in price, every visit', 'Priority booking, first slots are yours', 'Cancel anytime, no fees'].map((t) => (
+            <li class="flex items-center gap-3 text-bay-bone">
+              <span class="grid place-items-center w-5 h-5 rounded-full bg-bay-gold text-bay-navy text-xs font-bold shrink-0" aria-hidden="true">✓</span>{t}
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/standing-detail" variant="primary" class="text-base px-8 py-3.5">How it works</Button>
+          <Button href="/contact" variant="secondary" class="text-base px-8 py-3.5">Start my plan</Button>
         </div>
-      </section>
-      <Divider />
-    </>
-  )}
+      </div>
+      <aside class="reveal gloss-cap section-bevel bg-bay-navy border border-bay-gold/40 rounded-sm p-8 text-center grid gap-1 justify-items-center">
+        <span class="font-ui font-bold text-[11px] tracking-widest uppercase text-bay-navy bg-bay-gold rounded-full px-3.5 py-1.5 mb-2">Best value</span>
+        <span class="text-xs uppercase tracking-wider text-bay-slate">As low as</span>
+        <span class="font-display font-bold text-6xl text-bay-gold leading-none">{money(199)}</span>
+        <span class="text-sm font-semibold text-bay-bone">per visit</span>
+        <span class="text-xs text-bay-slate mt-3 max-w-[28ch]">First visit at full-detail price. Cars start here; bigger vehicles a bit more.</span>
+      </aside>
+    </div>
+  </section>
 
-  <!-- ── FAQ ───────────────────────────────────────────────── -->
+  <hr class="divider max-w-5xl mx-auto" />
+
+  <!-- ══════════════ GALLERY ══════════════ -->
+  <section class="py-20 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <div class="reveal mb-12 max-w-2xl">
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">See the shine</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-3">Real work. Real results.</h2>
+        <p class="text-bay-slate text-lg">Here is what a BayShine detail looks like.</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+        {gallery.map((label) => (
+          <PhotoPlaceholder description={label} aspectRatio="4/3" class="rounded-sm" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ GUARANTEE ══════════════ -->
+  <section class="noise-overlay section-bevel bg-bay-deep py-16 px-4">
+    <div class="container mx-auto max-w-5xl reveal flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+      <span class="grid place-items-center w-16 h-16 rounded-sm bg-bay-gold/15 text-bay-gold shrink-0" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M12 1 3 5v6c0 5 3.8 9.4 9 11 5.2-1.6 9-6 9-11V5l-9-4Zm-1 15-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6Z"/></svg>
+      </span>
+      <div class="flex-1">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-bay-white mb-2">Our neighbor promise</h2>
+        <p class="text-bay-bone leading-relaxed max-w-2xl">
+          If you are not happy, we make it right. Simple as that. You are not a number
+          to us. You are a neighbor, and we want to earn your car for life.
+        </p>
+      </div>
+      <Button href="/contact" variant="primary" class="text-base px-8 py-3.5 shrink-0">Book with confidence</Button>
+    </div>
+  </section>
+
+  <!-- ══════════════ FAQ ══════════════ -->
   <section class="py-20 px-4">
     <div class="container mx-auto max-w-2xl">
       <div class="reveal mb-8">
-        <h2 class="font-display font-bold text-3xl text-bay-white mb-3">Questions</h2>
+        <p class="text-bay-gold text-xs font-semibold uppercase tracking-widest mb-3">Good questions</p>
+        <h2 class="font-display font-bold text-3xl text-bay-white">Quick answers</h2>
       </div>
-      <FAQAccordion faqs={FAQS} client:visible />
+      <FAQAccordion faqs={HOMEPAGE_FAQS} client:visible />
     </div>
   </section>
 
-  <Pause />
-
-  <!-- ── FINAL CTA ──────────────────────────────────────────── -->
+  <!-- ══════════════ FINAL CTA ══════════════ -->
   <section class="noise-overlay bg-bay-deep py-20 px-4">
-    <div class="container mx-auto max-w-2xl text-center">
-      <div class="reveal">
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">
-          Ready to schedule?
-        </h2>
-        <p class="text-bay-slate mb-8">
-          Book online or call. We respond within 2 hours.
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center">
-          <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">
-            Book Now
-          </Button>
-          <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">
-            Get a Quote
-          </Button>
-        </div>
+    <div class="container mx-auto max-w-2xl text-center reveal">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-bay-white mb-4">Ready for a car that shines?</h2>
+      <p class="text-bay-slate mb-8">
+        Call, text, or tap the button. We come right to your door. Heroes – first
+        responders, nurses, military, teachers, and 55+ – save {HERO_DISCOUNT.percent}%.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <Button href="/contact" variant="primary" class="text-base px-8 py-3.5">Book Now</Button>
+        <Button href="/quote" variant="secondary" class="text-base px-8 py-3.5">Get a Quote</Button>
       </div>
     </div>
   </section>
-
 </BaseLayout>
+
+<style>
+  /* Before/after drag demo, self-contained. */
+  .ba {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+    user-select: none;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .ba__panel { position: absolute; inset: 0; }
+  .ba__after {
+    background: radial-gradient(120% 100% at 30% 0%, rgba(201, 169, 97, 0.28), transparent 55%),
+      linear-gradient(160deg, #1c3455, #0e2038 70%);
+  }
+  .ba__before {
+    background: linear-gradient(160deg, #2a2b2e, #17181b);
+    filter: grayscale(0.5) brightness(0.7);
+    clip-path: inset(0 48% 0 0);
+    will-change: clip-path;
+  }
+  .ba__car {
+    position: absolute; left: 50%; top: 47%; width: 78%; height: auto;
+    transform: translate(-50%, -50%);
+  }
+  .ba__after .ba__car { color: #e4c884; filter: drop-shadow(0 6px 16px rgba(201, 169, 97, 0.35)); }
+  .ba__before .ba__car { color: #6b7178; }
+  .ba__shine {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.22) 50%, transparent 60%);
+    background-size: 250% 100%;
+    animation: ba-sweep 4.5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  }
+  @keyframes ba-sweep { 0%, 100% { background-position: 130% 0; } 50% { background-position: -30% 0; } }
+  .ba__tag {
+    position: absolute; top: 12px; z-index: 3;
+    font-family: var(--font-family-ui); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px;
+  }
+  .ba__tag--before { left: 12px; background: rgba(0, 0, 0, 0.55); color: #cfd2d8; }
+  .ba__tag--after { right: 12px; background: #c9a961; color: #201704; }
+  .ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; z-index: 5; }
+  .ba__handle {
+    position: absolute; top: 50%; left: 52%; z-index: 4; width: 46px; height: 46px;
+    transform: translate(-50%, -50%); border-radius: 50%; background: #fff; color: #0f1b2d;
+    display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5); pointer-events: none;
+  }
+  .ba__handle::before {
+    content: ''; position: absolute; top: 50%; left: 50%; width: 2px; height: 200vh;
+    transform: translate(-50%, -50%); background: #fff; box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  }
+  .ba__cap {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 4;
+    font-size: 12.5px; font-weight: 600; color: #fff; background: rgba(10, 18, 32, 0.6);
+    padding: 6px 12px; border-radius: 999px; white-space: nowrap; pointer-events: none;
+  }
+  .price-card.is-feat { box-shadow: 0 0 0 1px rgba(201, 169, 97, 0.3), 0 20px 44px rgba(0, 0, 0, 0.4); }
+  @media (prefers-reduced-motion: reduce) { .ba__shine { animation: none; } }
+</style>
+
+<script>
+  const range = document.getElementById('baRange') as HTMLInputElement | null;
+  const before = document.getElementById('baBefore');
+  const handle = document.getElementById('baHandle');
+  const sync = (v: number) => {
+    if (before) before.style.clipPath = `inset(0 ${100 - v}% 0 0)`;
+    if (handle) handle.style.left = v + '%';
+  };
+  if (range) {
+    sync(Number(range.value));
+    range.addEventListener('input', () => sync(Number(range.value)));
+  }
+</script>
