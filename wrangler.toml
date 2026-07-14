@@ -1,0 +1,15 @@
+# Cloudflare Pages configuration.
+#
+# Build the site with the Cloudflare adapter first:
+#   DEPLOY_TARGET=cloudflare pnpm build
+# then deploy `dist/` (Pages auto-detects this file for build output + flags).
+#
+# nodejs_compat lets the existing `process.env.*` code (DB URL, Resend key, etc.)
+# resolve at runtime — set those as environment variables / secrets in the
+# Cloudflare Pages project settings. Without them, DB-backed features degrade
+# gracefully (see src/lib/db.ts), they do not crash the site.
+
+name = "bayshine"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"

@@ -9,3 +9,6 @@ dist/
 
 .vercel
 .claude/worktrees/
+
+# cloudflare wrangler cache
+.wrangler/
