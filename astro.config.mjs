@@ -3,9 +3,21 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, basename } from 'node:path';
+
+// Deploy target is chosen at build time. Default stays Vercel so nothing about
+// the existing setup changes. Cloudflare Pages sets CF_PAGES=1 in its build env,
+// so a plain `pnpm build` there auto-selects Cloudflare. Override anywhere with
+// DEPLOY_TARGET=cloudflare|vercel.
+const deployTarget =
+  process.env.DEPLOY_TARGET ?? (process.env.CF_PAGES ? 'cloudflare' : 'vercel');
+const activeAdapter =
+  deployTarget === 'cloudflare'
+    ? cloudflare({ platformProxy: { enabled: true } })
+    : vercel();
 
 function getSlugsFromDir(dir) {
   try {
@@ -64,7 +76,7 @@ const neighborhoodUrls = [
 
 export default defineConfig({
   site: 'https://bayshine.net',
-  adapter: vercel(),
+  adapter: activeAdapter,
   integrations: [
     react(),
     mdx(),

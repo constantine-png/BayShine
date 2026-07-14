@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects. Mirrors the sitemap redirect in vercel.json.
+# (Vercel ignores this file; Cloudflare Pages applies it.)
+# NOTE: the pro.bayshine.net host rewrite from vercel.json is NOT reproduced here
+# (Cloudflare _redirects cannot match on host). Recreate it on Cloudflare as a
+# Bulk Redirect / rule, or with Astro middleware, before pointing pro.bayshine.net here.
+
+/sitemap.xml  /sitemap-index.xml  301
